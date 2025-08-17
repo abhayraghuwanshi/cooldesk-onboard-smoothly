@@ -112,13 +112,17 @@ export default {
 				'slide-up': 'slide-up 0.6s ease-out'
 			},
 			backgroundImage: {
+				'gradient-main': 'var(--gradient-main)',
 				'gradient-hero': 'var(--gradient-hero)',
 				'gradient-card': 'var(--gradient-card)',
-				'gradient-accent': 'var(--gradient-accent)'
+				'gradient-accent': 'var(--gradient-accent)',
+				'gradient-midnight-nebula': 'var(--gradient-midnight-nebula)',
+				'gradient-quantum': 'var(--gradient-quantum)'
 			},
 			boxShadow: {
 				'glow': 'var(--shadow-glow)',
-				'card': 'var(--shadow-card)'
+				'card': 'var(--shadow-card)',
+				'tech': 'var(--shadow-tech)'
 			}
 		}
 	},

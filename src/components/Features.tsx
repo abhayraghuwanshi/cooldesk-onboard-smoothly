@@ -42,7 +42,7 @@ const features = [
 
 export const Features = () => {
   return (
-    <section className="py-24 bg-background relative">
+    <section className="py-24 bg-gradient-quantum relative">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16 animate-slide-up">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">

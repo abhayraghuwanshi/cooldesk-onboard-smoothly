@@ -8,50 +8,60 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    /* Cooldesk Extension Colors - Main surfaces */
+    --surface-0: 208 100% 6%;  /* #0b1020 */
+    --surface-1: 210 55% 8%;   /* #0e1426 */
+    --surface-2: 210 45% 13%;  /* #121a33 */
+    
+    --background: var(--surface-0);
+    --foreground: 210 11% 90%; /* #e5e7eb */
 
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
+    --card: var(--surface-1);
+    --card-foreground: 210 11% 90%;
 
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
+    --popover: var(--surface-1);
+    --popover-foreground: 210 11% 90%;
 
-    --primary: 142 76% 36%;
-    --primary-foreground: 355 7% 97%;
+    /* Cooldesk Extension Primary Colors */
+    --primary: 213 90% 69%;     /* #60a5fa */
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 213 100% 75%;
 
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
+    --secondary: 220 26% 18%;   /* #273043 */
+    --secondary-foreground: 210 11% 90%;
 
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
+    --muted: 220 26% 18%;
+    --muted-foreground: 210 13% 65%; /* #9ca3af */
 
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
+    --accent: 249 58% 65%;      /* #8b5cf6 */
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 142 76% 36%;
+    --border: 220 26% 18%;      /* #273043 */
+    --input: 220 26% 18%;
+    --ring: 213 90% 69%;
 
     --radius: 0.75rem;
 
-    /* Custom design tokens */
-    --primary-glow: 142 86% 45%;
-    --tech-blue: 217 91% 60%;
-    --tech-purple: 271 76% 53%;
+    /* Cooldesk Extension Tech Colors */
+    --tech-blue: 213 90% 69%;   /* #60a5fa */
+    --tech-purple: 249 58% 65%; /* #8b5cf6 */
     --tech-cyan: 188 86% 53%;
     
-    /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--tech-blue)));
-    --gradient-card: linear-gradient(135deg, hsl(240 10% 3.9%), hsl(240 8% 6%));
+    /* Cooldesk Extension Gradients */
+    --gradient-main: radial-gradient(800px circle at 0% 0%, #0b1220 0%, #121720 40%, #0b0f16 100%), linear-gradient(135deg, #121720 0%, #151a24 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--tech-purple)));
+    --gradient-card: linear-gradient(135deg, #11161f 0%, #131926 100%);
     --gradient-accent: linear-gradient(135deg, hsl(var(--tech-purple)), hsl(var(--tech-cyan)));
+    --gradient-midnight-nebula: radial-gradient(60% 80% at 10% 10%, rgba(96, 165, 250, 0.12) 0%, rgba(0, 0, 0, 0) 60%), radial-gradient(50% 60% at 90% 20%, rgba(139, 92, 246, 0.12) 0%, rgba(0, 0, 0, 0) 60%), linear-gradient(180deg, #0b1020 0%, #0e1426 100%);
+    --gradient-quantum: linear-gradient(135deg, #0b1020 0%, #121a33 40%, #1b2a4d 100%);
     
-    /* Shadows */
-    --shadow-glow: 0 0 40px hsl(var(--primary) / 0.3);
-    --shadow-card: 0 8px 32px hsl(240 10% 3.9% / 0.4);
+    /* Cooldesk Extension Shadows */
+    --shadow-glow: 0 0 40px rgba(96, 165, 250, 0.3);
+    --shadow-card: 0 8px 32px rgba(2, 6, 23, 0.6);
+    --shadow-tech: 0 10px 24px rgba(2, 6, 23, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.04);
     
     /* Animations */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);

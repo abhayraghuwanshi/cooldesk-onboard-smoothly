@@ -3,7 +3,7 @@ import { Chrome, Download, ArrowRight, Github } from "lucide-react";
 
 export const CTA = () => {
   return (
-    <section className="py-24 bg-gradient-hero relative overflow-hidden">
+    <section className="py-24 bg-gradient-midnight-nebula relative overflow-hidden">
       {/* Background effects */}
       <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
       <div className="absolute top-10 left-10 w-64 h-64 bg-tech-cyan/20 rounded-full blur-3xl animate-pulse" />

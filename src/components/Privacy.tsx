@@ -27,7 +27,7 @@ const privacyFeatures = [
 
 export const Privacy = () => {
   return (
-    <section className="py-24 bg-background relative">
+    <section className="py-24 bg-gradient-quantum relative">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16 animate-slide-up">
           <div className="inline-flex items-center gap-3 mb-6">
