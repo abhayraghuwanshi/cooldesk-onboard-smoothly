@@ -131,3 +131,40 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
   }
 }
+
+/* Responsive content container: 70% width, 15% margins each side.
+   Adapts by viewport width for better small-screen usability. */
+@layer components {
+  .content-70 {
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
+  }
+
+  /* Small screens */
+  @media (max-width: 640px) {
+    .content-70 {
+      width: 90%;
+      margin-left: 5%;
+      margin-right: 5%;
+    }
+  }
+
+  /* Medium screens */
+  @media (min-width: 640px) and (max-width: 1024px) {
+    .content-70 {
+      width: 80%;
+      margin-left: 10%;
+      margin-right: 10%;
+    }
+  }
+
+  /* Large screens and up (default) */
+  @media (min-width: 1024px) {
+    .content-70 {
+      width: 70%;
+      margin-left: 15%;
+      margin-right: 15%;
+    }
+  }
+}
