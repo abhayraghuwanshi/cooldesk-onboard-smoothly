@@ -8,60 +8,62 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Cooldesk Extension Colors - Main surfaces */
-    --surface-0: 208 100% 6%;  /* #0b1020 */
-    --surface-1: 210 55% 8%;   /* #0e1426 */
-    --surface-2: 210 45% 13%;  /* #121a33 */
+    /* Glassmorphic Surfaces - Vibrant Dark Theme */
+    --surface-0: 260 50% 8%;   /* Deep purple-blue base */
+    --surface-1: 265 45% 12%;  /* Slightly lighter purple */
+    --surface-2: 270 40% 18%;  /* Card surfaces */
     
-    --background: var(--surface-0);
-    --foreground: 210 11% 90%; /* #e5e7eb */
+    --background: radial-gradient(ellipse at top, hsl(260 50% 12%) 0%, hsl(260 50% 8%) 100%);
+    --foreground: 280 20% 95%; /* Warm white */
 
-    --card: var(--surface-1);
-    --card-foreground: 210 11% 90%;
+    --card: rgba(255, 255, 255, 0.05);
+    --card-foreground: 280 20% 95%;
 
-    --popover: var(--surface-1);
-    --popover-foreground: 210 11% 90%;
+    --popover: rgba(255, 255, 255, 0.08);
+    --popover-foreground: 280 20% 95%;
 
-    /* Cooldesk Extension Primary Colors */
-    --primary: 213 90% 69%;     /* #60a5fa */
+    /* Vibrant Glassmorphic Colors */
+    --primary: 280 90% 70%;     /* Bright purple */
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 213 100% 75%;
+    --primary-glow: 280 100% 80%;
 
-    --secondary: 220 26% 18%;   /* #273043 */
-    --secondary-foreground: 210 11% 90%;
+    --secondary: rgba(255, 255, 255, 0.1);
+    --secondary-foreground: 280 20% 95%;
 
-    --muted: 220 26% 18%;
-    --muted-foreground: 210 13% 65%; /* #9ca3af */
+    --muted: rgba(255, 255, 255, 0.05);
+    --muted-foreground: 280 15% 70%;
 
-    --accent: 249 58% 65%;      /* #8b5cf6 */
+    --accent: 320 80% 65%;      /* Bright pink-purple */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 220 26% 18%;      /* #273043 */
-    --input: 220 26% 18%;
-    --ring: 213 90% 69%;
+    --border: rgba(255, 255, 255, 0.1);
+    --input: rgba(255, 255, 255, 0.05);
+    --ring: 280 90% 70%;
 
     --radius: 0.75rem;
 
-    /* Cooldesk Extension Tech Colors */
-    --tech-blue: 213 90% 69%;   /* #60a5fa */
-    --tech-purple: 249 58% 65%; /* #8b5cf6 */
-    --tech-cyan: 188 86% 53%;
+    /* Glassmorphic Tech Colors */
+    --tech-blue: 200 90% 70%;   /* Bright cyan-blue */
+    --tech-purple: 280 90% 70%; /* Vibrant purple */
+    --tech-cyan: 180 100% 70%;  /* Electric cyan */
+    --tech-pink: 320 80% 65%;   /* Hot pink */
     
-    /* Cooldesk Extension Gradients */
-    --gradient-main: radial-gradient(800px circle at 0% 0%, #0b1220 0%, #121720 40%, #0b0f16 100%), linear-gradient(135deg, #121720 0%, #151a24 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--tech-purple)));
-    --gradient-card: linear-gradient(135deg, #11161f 0%, #131926 100%);
+    /* Glassmorphic Gradients */
+    --gradient-main: radial-gradient(ellipse at top, hsl(260 50% 12%) 0%, hsl(260 50% 8%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    --gradient-card: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
     --gradient-accent: linear-gradient(135deg, hsl(var(--tech-purple)), hsl(var(--tech-cyan)));
-    --gradient-midnight-nebula: radial-gradient(60% 80% at 10% 10%, rgba(96, 165, 250, 0.12) 0%, rgba(0, 0, 0, 0) 60%), radial-gradient(50% 60% at 90% 20%, rgba(139, 92, 246, 0.12) 0%, rgba(0, 0, 0, 0) 60%), linear-gradient(180deg, #0b1020 0%, #0e1426 100%);
-    --gradient-quantum: linear-gradient(135deg, #0b1020 0%, #121a33 40%, #1b2a4d 100%);
+    --gradient-midnight-nebula: radial-gradient(60% 80% at 10% 10%, rgba(160, 32, 240, 0.15) 0%, rgba(0, 0, 0, 0) 60%), radial-gradient(50% 60% at 90% 20%, rgba(255, 20, 147, 0.15) 0%, rgba(0, 0, 0, 0) 60%), var(--background);
+    --gradient-quantum: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 40%, rgba(255, 255, 255, 0.02) 100%);
     
-    /* Cooldesk Extension Shadows */
-    --shadow-glow: 0 0 40px rgba(96, 165, 250, 0.3);
-    --shadow-card: 0 8px 32px rgba(2, 6, 23, 0.6);
-    --shadow-tech: 0 10px 24px rgba(2, 6, 23, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    /* Glassmorphic Shadows & Effects */
+    --shadow-glow: 0 0 60px rgba(160, 32, 240, 0.4);
+    --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    --shadow-tech: 0 10px 24px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    --blur-glass: blur(10px);
     
     /* Animations */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -128,7 +130,37 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
+    background: var(--gradient-main);
+    min-height: 100vh;
+  }
+  
+  /* Glassmorphic utility classes */
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+  
+  .glass-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  
+  .glass-button {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+  }
+  
+  .glass-button:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
   }
 }
 
