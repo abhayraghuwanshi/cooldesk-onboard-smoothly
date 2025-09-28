@@ -1,3 +1,4 @@
+import Navbar from "@/components/new/Navbar";
 import { useState } from "react";
 
 const inquiries = [
@@ -15,6 +16,7 @@ export default function Contact() {
     return (
         <main className="min-h-screen bg-gray-950 text-white flex flex-col">
             {/* Hero */}
+            <Navbar />
             <section className="bg-gradient-to-r from-blue-900 to-purple-900 py-24 text-center">
                 <h1 className="text-5xl md:text-6xl font-bold mb-4">Let's Connect</h1>
                 <p className="text-gray-300 text-lg md:text-xl max-w-xl mx-auto">

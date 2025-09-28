@@ -19,22 +19,22 @@ function InfoToggleCard({
     collected?: boolean;
 }) {
     return (
-        <div className="flex items-center justify-between gap-4 p-5 rounded-2xl border border-white/10 bg-gray-900/50 shadow-lg hover:shadow-blue-500/30 transition">
+        <div className="flex items-center justify-between gap-4 p-5 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-xl shadow-2xl shadow-black/20 hover:bg-white/15 hover:shadow-blue-400/20 transition-all duration-300">
             <div className="flex items-start gap-4">
-                <div className="text-blue-400 text-3xl mt-1">{icon}</div>
+                <div className="text-blue-300 text-3xl mt-1">{icon}</div>
                 <div>
                     <h3 className="text-white font-semibold">{label}</h3>
-                    <p className="text-gray-400 text-sm">{description}</p>
+                    <p className="text-gray-200 text-sm">{description}</p>
                 </div>
             </div>
             <div
                 role="switch"
                 aria-checked={collected}
-                className={`relative inline-flex h-6 w-12 flex-shrink-0 rounded-full border border-white/10 transition-colors duration-200 ${collected ? "bg-blue-600" : "bg-gray-700"
+                className={`relative inline-flex h-6 w-12 flex-shrink-0 rounded-full border border-white/20 transition-colors duration-200 ${collected ? "bg-blue-500/80 backdrop-blur-sm" : "bg-white/20 backdrop-blur-sm"
                     }`}
             >
                 <span
-                    className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow transition duration-200 ${collected ? "translate-x-5" : "translate-x-1"
+                    className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg transition duration-200 ${collected ? "translate-x-5" : "translate-x-1"
                         }`}
                 />
             </div>
@@ -90,10 +90,10 @@ export default function PrivacyPermissions() {
 
     return (
         <div className="mx-auto max-w-4xl px-6 py-16 space-y-8">
-            <h2 className="text-5xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+            <h2 className="text-5xl font-bold text-center bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                 Permissions & Data Collection
             </h2>
-            <p className="text-center text-gray-300 max-w-2xl mx-auto">
+            <p className="text-center text-gray-200 max-w-2xl mx-auto">
                 CoolDesk collects the following types of data to provide the best user experience in Chrome.
                 All data is stored locally unless otherwise stated.
             </p>
@@ -109,9 +109,9 @@ export default function PrivacyPermissions() {
                 ))}
             </div>
 
-            <p className="mt-10 text-xs text-gray-400 text-center">
+            <p className="mt-10 text-xs text-gray-300 text-center">
                 Learn more in our{" "}
-                <a href="#privacy" className="underline hover:text-white">
+                <a href="#privacy" className="underline hover:text-white transition-colors duration-200">
                     Privacy Policy
                 </a>
                 .

@@ -44,43 +44,51 @@ const Chevron = ({ open }: { open: boolean }) => (
 );
 
 export default function FAQ() {
-    const [openIndex, setOpenIndex] = useState<number | null>(1);
+    const [openIndex, setOpenIndex] = useState<number | null>(0);
 
     return (
-        <div className="mx-auto max-w-3xl">
-            <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center">FAQs</h2>
+        <div className="mx-auto max-w-6xl px-6">
+            <div className="flex flex-col md:flex-row gap-12">
+                {/* Left: FAQ Title */}
+                <div className="md:w-1/3 flex items-start md:items-center">
+                    <h2 className="text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300">
+                        FAQs
+                    </h2>
+                </div>
 
-            <div className="divide-y divide-white/10 border border-white/10 rounded-xl overflow-hidden bg-gray-950/60 backdrop-blur-sm">
-                {items.map((item, idx) => {
-                    const isOpen = openIndex === idx;
-                    return (
-                        <div key={idx} className="group">
-                            <button
-                                className="w-full flex items-center justify-between gap-6 px-6 py-5 text-left text-white hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/60"
-                                aria-expanded={isOpen}
-                                aria-controls={`faq-panel-${idx}`}
-                                onClick={() => setOpenIndex(isOpen ? null : idx)}
-                            >
-                                <span className="text-base md:text-lg font-medium">{item.q}</span>
-                                <span className="text-gray-400 group-hover:text-gray-200">
-                                    <Chevron open={isOpen} />
-                                </span>
-                            </button>
+                {/* Right: FAQ List */}
+                <div className="md:w-2/3 space-y-4">
+                    <div className="divide-y divide-white/20 border border-white/20 rounded-2xl overflow-hidden bg-white/10 backdrop-blur-xl shadow-2xl shadow-black/20">
+                        {items.map((item, idx) => {
+                            const isOpen = openIndex === idx;
+                            return (
+                                <div key={idx} className="group">
+                                    <button
+                                        className="w-full flex items-center justify-between gap-6 px-6 py-5 text-left text-white hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30 transition-all duration-200 backdrop-blur-sm"
+                                        aria-expanded={isOpen}
+                                        aria-controls={`faq-panel-${idx}`}
+                                        onClick={() => setOpenIndex(isOpen ? null : idx)}
+                                    >
+                                        <span className="text-base md:text-lg font-medium">{item.q}</span>
+                                        <span className="text-gray-300 group-hover:text-white transition-colors duration-200">
+                                            <Chevron open={isOpen} />
+                                        </span>
+                                    </button>
 
-                            <div
-                                id={`faq-panel-${idx}`}
-                                role="region"
-                                aria-labelledby={`faq-header-${idx}`}
-                                className={`px-6 transition-[max-height,opacity] duration-300 ease-out ${isOpen ? "max-h-64 opacity-100 py-1" : "max-h-0 opacity-0 overflow-hidden"
-                                    }`}
-                            >
-                                <p className="text-gray-300 text-sm md:text-base pb-5">
-                                    {item.a}
-                                </p>
-                            </div>
-                        </div>
-                    );
-                })}
+                                    <div
+                                        id={`faq-panel-${idx}`}
+                                        role="region"
+                                        aria-labelledby={`faq-header-${idx}`}
+                                        className={`px-6 transition-[max-height,opacity] duration-300 ease-out bg-white/5 backdrop-blur-sm ${isOpen ? "max-h-64 opacity-100 py-1" : "max-h-0 opacity-0 overflow-hidden"
+                                            }`}
+                                    >
+                                        <p className="text-gray-200 text-sm md:text-base pb-5">{item.a}</p>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
             </div>
         </div>
     );

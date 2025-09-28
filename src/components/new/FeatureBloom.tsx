@@ -41,8 +41,12 @@ function FeatureBloom() {
 
     return (
         <div className="relative py-8 md:py-12 isolate z-10">
+            {/* Left Side: Radial Bloom Layout */}
+            <h2 className="text-4xl md:text-5xl font-bold mb-12 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                Powerful Features
+            </h2>
             <div className="flex flex-col md:flex-row gap-12 items-center justify-between">
-                {/* Left Side: Radial Bloom Layout */}
+
                 <div className="w-full md:w-1/2 relative h-96 md:h-[28rem] max-w-2xl mx-auto">
                     {/* Central Hub (Cycling Browser Icons) */}
                     <div className="absolute top-1/2 left-1/2 w-20 h-20 bg-gradient-to-br from-black to-gray-900 rounded-full flex items-center justify-center shadow-lg shadow-blue-500/30 z-20 transform -translate-x-1/2 -translate-y-1/2 transition-transform duration-500 hover:scale-110">
@@ -73,23 +77,23 @@ function FeatureBloom() {
                     })}
                 </div>
 
+
                 {/* Right Side: Feature Descriptions */}
-                <div className="w-full md:w-1/2 space-y-6">
-                    {features.map((feat, index) => (
-                        <div
-                            key={index}
-                            className={`p-4 rounded-lg transition-colors duration-300 border
-                                ${index === highlighted
-                                    ? "bg-blue-600/50 border-blue-400/30"
-                                    : "bg-gray-800/60 border-gray-700/30"}`}
-                        >
-                            <div className="flex items-center mb-2">
-                                <span className="text-2xl mr-3">{feat.icon}</span>
-                                <h3 className="text-xl font-semibold">{feat.title}</h3>
+                <div className="w-full md:w-1/2">
+                    <div className="relative p-8 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl shadow-black/20 transition-all duration-500 hover:bg-white/15 hover:border-white/30 hover:shadow-3xl hover:shadow-blue-500/10">
+                        {/* Subtle inner glow */}
+                        <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/5 to-transparent pointer-events-none"></div>
+
+                        <div className="relative z-10">
+                            <div className="flex items-center mb-6">
+                                <div className="p-3 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mr-5">
+                                    <span className="text-3xl text-blue-300">{features[highlighted].icon}</span>
+                                </div>
+                                <h3 className="text-2xl font-semibold text-white/95">{features[highlighted].title}</h3>
                             </div>
-                            <p className="text-gray-300 text-sm">{feat.desc}</p>
+                            <p className="text-white/80 text-base leading-relaxed font-light">{features[highlighted].desc}</p>
                         </div>
-                    ))}
+                    </div>
                 </div>
             </div>
         </div>

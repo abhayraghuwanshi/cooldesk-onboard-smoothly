@@ -1,6 +1,7 @@
 import FAQ from "@/components/new/FAQ";
 import FeatureBloom from "@/components/new/FeatureBloom";
 import Hero from "@/components/new/Hero";
+import Navbar from '@/components/new/Navbar';
 import PrivacySettings from "@/components/new/PrivacySettings";
 import UsersTestimonials from "@/components/new/UsersTestimonials";
 
@@ -9,75 +10,65 @@ const Index = () => {
     <main className="min-h-screen bg-black text-white scroll-smooth">
       {/* Background Glow Overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-600/10 pointer-events-none z-0" />
-
-      {/* Navigation Bar */}
-      <nav className="fixed top-0 left-0 right-0 z-30 bg-black/50 backdrop-blur-md border-b border-white/10">
-        <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-          {/* Logo */}
-          <div className="text-2xl font-bold text-blue-400">CoolDesk</div>
-
-          {/* Links */}
-          <div className="hidden md:flex space-x-8 text-sm font-medium">
-            <a href="#home" className="hover:text-blue-400 transition-colors">Home</a>
-            <a href="#features" className="hover:text-blue-400 transition-colors">Features</a>
-            <a href="#faq" className="hover:text-blue-400 transition-colors">FAQ</a>
-            <a href="#testimonials" className="hover:text-blue-400 transition-colors">Testimonials</a>
-            <a href="#permissions" className="hover:text-blue-400 transition-colors">Permissions</a>
-            <a href="#contact" className="hover:text-blue-400 transition-colors">Contact</a>
-            <a href="/contact" className="hover:text-blue-400 transition-colors">Privacy</a>
-          </div>
-
-          {/* CTA */}
-          <a
-            href="#get-started"
-            className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-medium transition-colors shadow-lg shadow-blue-500/20"
-          >
-            Get Started
-          </a>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Hero Section */}
       <section
         id="home"
         className="relative z-10 min-h-screen flex items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: "url('/src/assets/hero-background.svg')" }}
+        style={{ backgroundImage: "url('/hero-background.svg')" }}
       >
         <div className="container mx-auto px-6 text-center">
           <Hero />
         </div>
       </section>
 
-      {/* Feature Bloom Section */}
+
+      {/* FAQ Section */}
       <section
         id="features"
-        className="relative z-10 py-24 bg-gradient-to-b from-black via-[#1a1a1a] to-[#2c2c2c]"
+        className="relative z-10 py-24 bg-gradient-to-b from-black/80 via-gray-900/60 to-black/80 backdrop-blur-sm"
       >
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-12 ">
-            Powerful Features
-          </h2>
+        {/* Decorative background elements */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.1),transparent_70%)] pointer-events-none" />
+        <div className="absolute top-20 left-1/4 w-96 h-96 bg-blue-500/10 blur-3xl rounded-full pointer-events-none" />
+        <div className="absolute bottom-20 right-1/4 w-80 h-80 bg-purple-500/10 blur-3xl rounded-full pointer-events-none" />
+
+        <div className="container mx-auto px-6 text-center relative z-10">
           <FeatureBloom />
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section id="faq" className="relative z-10 py-24 bg-gradient-to-b from-black via-gray-900 to-black">
-        <div className="container mx-auto px-6">
+      <section id="f" className="relative z-10 py-24 bg-gradient-to-b from-black/80 via-gray-900/60 to-black/80 backdrop-blur-sm">
+        {/* Decorative background elements */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(59,130,246,0.1),transparent_70%)] pointer-events-none" />
+        <div className="absolute top-20 left-1/5 w-88 h-88 bg-blue-400/12 blur-3xl rounded-full pointer-events-none" />
+        <div className="absolute bottom-20 right-1/5 w-96 h-96 bg-indigo-400/12 blur-3xl rounded-full pointer-events-none" />
+
+        <div className="container mx-auto px-6 relative z-10">
           <FAQ />
         </div>
       </section>
 
       {/* Users Testimonials */}
-      <section id="testimonials" className="relative z-10 py-24 bg-gradient-to-b from-black via-gray-900 to-black
-">
-        <div className="container mx-auto px-6">
+      <section id="testimonials" className="relative z-10 py-24 bg-gradient-to-b from-black/80 via-gray-900/60 to-black/80 backdrop-blur-sm">
+        {/* Decorative background elements */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(59,130,246,0.1),transparent_70%)] pointer-events-none" />
+        <div className="absolute top-20 left-1/5 w-88 h-88 bg-blue-400/12 blur-3xl rounded-full pointer-events-none" />
+        <div className="absolute bottom-20 right-1/5 w-96 h-96 bg-indigo-400/12 blur-3xl rounded-full pointer-events-none" />
+
+        <div className="container mx-auto px-6 relative z-10">
           <UsersTestimonials />
         </div>
       </section>
 
-      <section id="permissions" className="relative z-10 py-24 bg-gradient-to-b from-black via-gray-900 to-black">
-        <div className="container mx-auto px-6">
+      <section id="permissions" className="relative z-10 py-24 bg-gradient-to-b from-black/80 via-gray-900/60 to-black/80 backdrop-blur-sm">
+        {/* Decorative background elements */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center_right,rgba(147,51,234,0.1),transparent_70%)] pointer-events-none" />
+        <div className="absolute top-24 left-1/4 w-80 h-80 bg-purple-400/15 blur-3xl rounded-full pointer-events-none" />
+        <div className="absolute bottom-24 right-1/4 w-72 h-72 bg-violet-400/15 blur-3xl rounded-full pointer-events-none" />
+
+        <div className="container mx-auto px-6 relative z-10">
           <PrivacySettings />
         </div>
       </section>

@@ -48,21 +48,21 @@ const testimonials: Testimonial[] = [
 function Card({ t, className = "" }: { t: Testimonial; className?: string }) {
     return (
         <div
-            className={`rounded-2xl bg-gray-900/80 border border-white/10 shadow-xl shadow-black/20 backdrop-blur-sm p-5 w-[320px] max-w-full ${className}`}
+            className={`rounded-2xl bg-white/10 border border-white/20 shadow-2xl shadow-black/20 backdrop-blur-xl p-5 w-[320px] max-w-full hover:bg-white/15 transition-all duration-300 ${className}`}
         >
             <div className="flex items-center gap-3 mb-3">
                 <img
                     src={t.avatar}
                     alt={t.name}
-                    className="h-10 w-10 rounded-full object-cover ring-2 ring-white/10"
+                    className="h-10 w-10 rounded-full object-cover ring-2 ring-white/20 shadow-lg"
                 />
                 <div>
                     <div className="text-white font-medium leading-tight">{t.name}</div>
-                    <div className="text-xs text-gray-400 leading-tight">{t.title}</div>
+                    <div className="text-xs text-gray-300 leading-tight">{t.title}</div>
                 </div>
             </div>
-            <p className="text-gray-300 text-sm leading-relaxed">“{t.quote}”</p>
-            <div className="mt-4 text-xs text-gray-500">CoolDesk user, {t.date}</div>
+            <p className="text-gray-200 text-sm leading-relaxed">"{t.quote}"</p>
+            <div className="mt-4 text-xs text-gray-400">CoolDesk user, {t.date}</div>
         </div>
     );
 }
@@ -72,17 +72,17 @@ export default function UsersTestimonials() {
         <div className="relative">
             {/* Heading */}
             <div className="text-center mb-12">
-                <h2 className="text-4xl md:text-5xl font-bold">What user saying about cooldesk</h2>
-                <p className="mt-3 text-gray-300">
-                    Discover early users' feedback on <span className="text-blue-400">cooldesk</span>
+                <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">What user saying about cooldesk</h2>
+                <p className="mt-3 text-gray-200">
+                    Discover early users' feedback on <span className="text-blue-300 font-medium">cooldesk</span>
                 </p>
             </div>
 
             {/* Stacked layout */}
             <div className="relative flex justify-center">
                 {/* Background decorative bubbles */}
-                <div className="absolute -z-10 top-8 left-1/3 w-72 h-72 bg-purple-600/10 blur-3xl rounded-full" />
-                <div className="absolute -z-10 bottom-0 right-1/4 w-80 h-80 bg-blue-600/10 blur-3xl rounded-full" />
+                <div className="absolute -z-10 top-8 left-1/3 w-72 h-72 bg-purple-400/20 blur-3xl rounded-full" />
+                <div className="absolute -z-10 bottom-0 right-1/4 w-80 h-80 bg-blue-400/20 blur-3xl rounded-full" />
 
                 <div className="hidden md:block relative h-[360px] w-[880px]">
                     <Card t={testimonials[2]} className="absolute left-0 bottom-8 rotate-[-2deg]" />
