@@ -49,10 +49,15 @@ export const DemoTrialCTA = () => {
 
             {/* Primary CTAs */}
             <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
-              <HeroButton className="group text-lg px-8 py-4 glass-button border-primary/30 shadow-glow hover:shadow-primary/40">
-                <Chrome className="mr-3 h-6 w-6 group-hover:rotate-12 transition-transform" />
-                Install CoolDesk Now
-                <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
+              <HeroButton
+                asChild
+                className="group text-lg px-8 py-4 glass-button border-primary/30 shadow-glow hover:shadow-primary/40"
+              >
+                <a href="https://pub-af6aeae349144e458766bcc2c2ea78d1.r2.dev/release-28-08.zip" download="cooldesk.jar">
+                  <Chrome className="mr-3 h-6 w-6 group-hover:rotate-12 transition-transform" />
+                  Install CoolDesk Now
+                  <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
+                </a>
               </HeroButton>
               <SecondaryButton className="group text-lg px-8 py-4 glass-button">
                 <Play className="mr-3 h-6 w-6 group-hover:scale-110 transition-transform" />
