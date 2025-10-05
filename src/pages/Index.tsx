@@ -4,10 +4,11 @@ import Hero from "@/components/new/Hero";
 import Navbar from '@/components/new/Navbar';
 import PrivacySettings from "@/components/new/PrivacySettings";
 import UsersTestimonials from "@/components/new/UsersTestimonials";
+import PreviewGallery from "@/components/new/PreviewGallery";
 
 const Index = () => {
   return (
-    <main className="min-h-screen bg-black text-white scroll-smooth">
+    <main className="min-h-screen text-white scroll-smooth">
       {/* Background Glow Overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-600/10 pointer-events-none z-0" />
       <Navbar />
@@ -16,18 +17,28 @@ const Index = () => {
       <section
         id="home"
         className="relative z-10 min-h-screen flex items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: "url('/hero-background.svg')" }}
+        style={{ backgroundImage: "url('/hero-background.png')" }}
       >
         <div className="container mx-auto px-6 text-center">
           <Hero />
         </div>
       </section>
 
+      {/* Preview Gallery Section */}
+      <section id="previews" className="relative z-10 py-24 backdrop-blur-sm">
+        {/* Decorative background elements */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.06),transparent_70%)] pointer-events-none" />
+        <div className="absolute top-10 left-1/5 w-96 h-96 bg-white/5 blur-3xl rounded-full pointer-events-none" />
+        <div className="absolute bottom-10 right-1/5 w-80 h-80 bg-white/5 blur-3xl rounded-full pointer-events-none" />
 
-      {/* FAQ Section */}
+        <div className="container mx-auto px-6 relative z-10">
+          <PreviewGallery />
+        </div>
+      </section>
+      {/* Features Section */}
       <section
         id="features"
-        className="relative z-10 py-24 bg-gradient-to-b from-black/80 via-gray-900/60 to-black/80 backdrop-blur-sm"
+        className="relative z-10 py-24 backdrop-blur-sm"
       >
         {/* Decorative background elements */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.1),transparent_70%)] pointer-events-none" />
@@ -38,8 +49,7 @@ const Index = () => {
           <FeatureBloom />
         </div>
       </section>
-
-      <section id="f" className="relative z-10 py-24 bg-gradient-to-b from-black/80 via-gray-900/60 to-black/80 backdrop-blur-sm">
+      <section id="f" className="relative z-10 py-24 backdrop-blur-sm">
         {/* Decorative background elements */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(59,130,246,0.1),transparent_70%)] pointer-events-none" />
         <div className="absolute top-20 left-1/5 w-88 h-88 bg-blue-400/12 blur-3xl rounded-full pointer-events-none" />
@@ -51,7 +61,7 @@ const Index = () => {
       </section>
 
       {/* Users Testimonials */}
-      <section id="testimonials" className="relative z-10 py-24 bg-gradient-to-b from-black/80 via-gray-900/60 to-black/80 backdrop-blur-sm">
+      <section id="testimonials" className="relative z-10 py-24 backdrop-blur-sm">
         {/* Decorative background elements */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(59,130,246,0.1),transparent_70%)] pointer-events-none" />
         <div className="absolute top-20 left-1/5 w-88 h-88 bg-blue-400/12 blur-3xl rounded-full pointer-events-none" />
@@ -62,7 +72,7 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="permissions" className="relative z-10 py-24 bg-gradient-to-b from-black/80 via-gray-900/60 to-black/80 backdrop-blur-sm">
+      <section id="permissions" className="relative z-10 py-24 backdrop-blur-sm">
         {/* Decorative background elements */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center_right,rgba(147,51,234,0.1),transparent_70%)] pointer-events-none" />
         <div className="absolute top-24 left-1/4 w-80 h-80 bg-purple-400/15 blur-3xl rounded-full pointer-events-none" />
@@ -74,7 +84,7 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-950 text-gray-400 py-10 mt-20 relative z-10 border-t border-white/10">
+      <footer className="bg-black/40 text-gray-400 py-10 mt-20 relative z-10 border-t border-white/10">
         <div className="container mx-auto px-6 text-center">
           <p>© {new Date().getFullYear()} CoolDesk. All rights reserved.</p>
           <div className="mt-6 flex justify-center space-x-8 text-sm">

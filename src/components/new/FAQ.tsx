@@ -8,23 +8,31 @@ interface FAQItem {
 const items: FAQItem[] = [
     {
         q: "What is CoolDesk?",
-        a: "CoolDesk is a browser enhancement that organizes your tabs, links, and workflows with automatic workspaces, powerful search, and a sleek UI.",
+        a: "CoolDesk is a lightweight browser enhancement that organizes your web life: Automatic Workspaces, Almighty Search, Pins & Cool Feed, Notes & To‑Do, Themes & UI, and even Voice Navigation.",
     },
     {
-        q: "How does CoolDesk handle my data?",
-        a: "We prioritize privacy. Your data stays on your device unless you explicitly sync or share. We do not sell your data.",
+        q: "Is it free to install?",
+        a: "Yes. It’s free to install during beta. A generous free tier will remain; optional premium features may be added later with transparent pricing.",
     },
     {
-        q: "Is CoolDesk free?",
-        a: "We offer a generous free tier during beta. Premium features may be introduced later with transparent pricing.",
+        q: "Do I need any setup or account?",
+        a: "No setup required. It works out of the box with your existing tabs. No account is needed. You can optionally sign in later to sync across devices.",
+    },
+    {
+        q: "Where is my data stored?",
+        a: "By default, your data is stored locally on your device. Nothing leaves your machine unless you choose to enable sync or share. We do not sell your data.",
     },
     {
         q: "Which browsers are supported?",
-        a: "CoolDesk currently supports Chromium-based browsers like Chrome and Edge. Firefox support is on the roadmap.",
+        a: "Chromium-based browsers like Chrome and Edge are supported today. Firefox support is on the roadmap.",
+    },
+    {
+        q: "What are the key features?",
+        a: "Almighty Search across tabs, links, notes, and tasks; Pins & Cool Feed to keep important links in sight; Automatic Workspaces that group tabs by project; Notes & To‑Do for quick capture; Themes & UI customization; and Voice Navigation to control your browser hands‑free.",
     },
     {
         q: "How can I get early access?",
-        a: "Join the waitlist or install the beta extension via the Edge/Chrome store links from our homepage.",
+        a: "Join the waitlist or install the beta via the Edge/Chrome store links on our homepage.",
     },
 ];
 
@@ -58,7 +66,7 @@ export default function FAQ() {
 
                 {/* Right: FAQ List */}
                 <div className="md:w-2/3 space-y-4">
-                    <div className="divide-y divide-white/20 border border-white/20 rounded-2xl overflow-hidden bg-white/10 backdrop-blur-xl shadow-2xl shadow-black/20">
+                    <div className="divide-y divide-white/10 rounded-2xl overflow-hidden glass-card glass-hover">
                         {items.map((item, idx) => {
                             const isOpen = openIndex === idx;
                             return (

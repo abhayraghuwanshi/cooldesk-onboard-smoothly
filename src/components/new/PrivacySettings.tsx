@@ -6,6 +6,7 @@ import {
     FaMicrophone,
     FaMousePointer,
 } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function InfoToggleCard({
     icon,
@@ -19,7 +20,7 @@ function InfoToggleCard({
     collected?: boolean;
 }) {
     return (
-        <div className="flex items-center justify-between gap-4 p-5 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-xl shadow-2xl shadow-black/20 hover:bg-white/15 hover:shadow-blue-400/20 transition-all duration-300">
+        <div className="flex items-center justify-between gap-4 p-5 rounded-2xl glass-card glass-hover">
             <div className="flex items-start gap-4">
                 <div className="text-blue-300 text-3xl mt-1">{icon}</div>
                 <div>
@@ -30,8 +31,7 @@ function InfoToggleCard({
             <div
                 role="switch"
                 aria-checked={collected}
-                className={`relative inline-flex h-6 w-12 flex-shrink-0 rounded-full border border-white/20 transition-colors duration-200 ${collected ? "bg-blue-500/80 backdrop-blur-sm" : "bg-white/20 backdrop-blur-sm"
-                    }`}
+                className={`relative inline-flex h-6 w-12 flex-shrink-0 rounded-full transition-colors duration-200 glass ${collected ? "bg-blue-500/20" : "bg-white/10"}`}
             >
                 <span
                     className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg transition duration-200 ${collected ? "translate-x-5" : "translate-x-1"
@@ -41,50 +41,56 @@ function InfoToggleCard({
         </div>
     );
 }
-
 export default function PrivacyPermissions() {
+    const navigate = useNavigate();
     const permissions = [
         {
             key: "clicks",
-            label: "Click Tracking",
+            label: "Interaction Events (On‑device)",
             description:
-                "Collects click events to understand user interaction and improve Chrome UI features.",
+                "No click tracking for profiling. Basic interaction events are processed on‑device only to power features. Nothing is sent externally.",
             icon: <FaMousePointer />,
+            collected: true,
         },
         {
             key: "storage",
             label: "Local Storage",
             description:
-                "Stores preferences, tabs, and workspace data directly in Chrome.",
+                "All data stays on your device (history up to 30 days/1000 items, bookmarks, tabs, notes, preferences). Stored via Chrome storage only.",
             icon: <FaDatabase />,
+            collected: true,
         },
         {
             key: "analytics",
-            label: "Usage Analytics",
+            label: "Telemetry (On‑device, optional)",
             description:
-                "Collects anonymized usage metrics to improve feature design and performance.",
+                "No remote analytics. Optional on‑device telemetry may improve suggestions and performance. You can disable this anytime.",
             icon: <FaChartBar />,
+            collected: false,
         },
         {
             key: "ads",
             label: "Advertising Metrics",
             description:
-                "Tracks clicks on promotional content to measure campaign performance.",
+                "No ads or ad tracking. We do not collect advertising metrics or share data with third parties.",
             icon: <FaAd />,
+            collected: false,
         },
         {
             key: "voice",
             label: "Voice Commands",
             description:
-                "Records basic command input (not content) to enable voice navigation features.",
+                "Processed entirely on‑device. We detect command intent (not content) to enable voice navigation.",
             icon: <FaMicrophone />,
+            collected: true,
         },
         {
             key: "workspaces",
             label: "Workspace Sync",
             description:
-                "Keeps your workspaces organized by saving tab groups and layout preferences.",
+                "Organizes tabs, bookmarks, and layouts locally to power smart workspaces. No data leaves your device.",
             icon: <FaFolder />,
+            collected: true,
         },
     ];
 
@@ -105,13 +111,23 @@ export default function PrivacyPermissions() {
                         label={p.label}
                         description={p.description}
                         icon={p.icon}
+                        collected={p.collected ?? true}
                     />
                 ))}
             </div>
 
-            <p className="mt-10 text-xs text-gray-300 text-center">
+            <div className="mt-10 text-center">
+                <button
+                    onClick={() => navigate('/privacy-details')}
+                    className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-200"
+                >
+                    View Full Privacy Policy
+                </button>
+            </div>
+
+            <p className="mt-6 text-xs text-gray-300 text-center">
                 Learn more in our{" "}
-                <a href="#privacy" className="underline hover:text-white transition-colors duration-200">
+                <a href="/privacy-details" className="underline hover:text-white transition-colors duration-200">
                     Privacy Policy
                 </a>
                 .

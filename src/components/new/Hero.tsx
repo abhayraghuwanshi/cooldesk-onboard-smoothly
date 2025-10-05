@@ -10,7 +10,7 @@ function Hero() {
                             Think Less <span className="text-blue-400">Do More</span>
                         </h1>
                         <p className="text-gray-300 text-lg md:text-xl mb-8 max-w-lg mx-auto md:mx-0">
-                            Let Cooldesk organize your browsing so you can focus. Your browser, finally working at your speed. your cool browser
+                            Let Cooldesk organize your browsing so you can focus. Your browser, finally working at your speed. cool right??
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                             <a href="#" className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium text-center transition-colors duration-200 shadow-lg shadow-blue-500/20">

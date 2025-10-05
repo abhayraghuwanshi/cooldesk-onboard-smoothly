@@ -43,50 +43,59 @@ function FeatureBloom() {
         <div className="relative py-8 md:py-12 isolate z-10">
             {/* Left Side: Radial Bloom Layout */}
             <h2 className="text-4xl md:text-5xl font-bold mb-12 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                Powerful Features
+                Cool <span className="text-blue-500">Features</span>
             </h2>
             <div className="flex flex-col md:flex-row gap-12 items-center justify-between">
 
-                <div className="w-full md:w-1/2 relative h-96 md:h-[28rem] max-w-2xl mx-auto">
-                    {/* Central Hub (Cycling Browser Icons) */}
-                    <div className="absolute top-1/2 left-1/2 w-20 h-20 bg-gradient-to-br from-black to-gray-900 rounded-full flex items-center justify-center shadow-lg shadow-blue-500/30 z-20 transform -translate-x-1/2 -translate-y-1/2 transition-transform duration-500 hover:scale-110">
-                        {browserIcons[browserIconIndex]}
+                <div className="w-full md:w-1/2 max-w-2xl mx-auto overflow-hidden">
+                    <div className="relative w-full h-[26rem] md:h-[30rem]">
+                        <img
+                            src="/feature13.png"
+                            alt="Feature preview"
+                            className="w-full h-full object-cover"
+                        />
                     </div>
-
-                    {/* Feature Icons as Petals */}
-                    {features.map((feat, index) => {
-                        const angle = (index / features.length) * 360;
-                        const isHighlighted = index === highlighted;
-                        return (
-                            <div
-                                key={index}
-                                className={`absolute w-16 h-16 rounded-full flex items-center justify-center text-2xl shadow-md shadow-blue-400/20 transition-all duration-300 cursor-pointer
-                                    ${isHighlighted
-                                        ? "bg-blue-600/80 scale-125 rotate-6"
-                                        : "bg-gray-800/60 hover:scale-110 hover:rotate-12 hover:bg-blue-600/60"}`}
-                                style={{
-                                    top: `calc(50% + ${Math.sin(angle * Math.PI / 180) * 8}rem)`,
-                                    left: `calc(50% + ${Math.cos(angle * Math.PI / 180) * 8}rem)`,
-                                    transform: "translate(-50%, -50%)",
-                                }}
-                                onMouseEnter={() => setHighlighted(index)}
-                            >
-                                {feat.icon}
-                            </div>
-                        );
-                    })}
                 </div>
 
+                {/* Right Side: Radial Hub + Descriptions */}
+                <div className="w-full md:w-1/2 flex flex-col gap-10">
+                    <div className="relative h-96 md:h-[28rem]">
+                        {/* Central Hub (Cycling Browser Icons) */}
+                        <div className="absolute top-1/2 left-1/2 w-20 h-20 bg-gradient-to-br from-black to-gray-900 rounded-full flex items-center justify-center shadow-lg shadow-blue-500/30 z-20 transform -translate-x-1/2 -translate-y-1/2 transition-transform duration-500 hover:scale-110">
+                            {browserIcons[browserIconIndex]}
+                        </div>
 
-                {/* Right Side: Feature Descriptions */}
-                <div className="w-full md:w-1/2">
-                    <div className="relative p-8 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl shadow-black/20 transition-all duration-500 hover:bg-white/15 hover:border-white/30 hover:shadow-3xl hover:shadow-blue-500/10">
+                        {/* Feature Icons as Petals */}
+                        {features.map((feat, index) => {
+                            const angle = (index / features.length) * 360;
+                            const isHighlighted = index === highlighted;
+                            return (
+                                <div
+                                    key={index}
+                                    className={`absolute w-16 h-16 rounded-full flex items-center justify-center text-2xl shadow-md shadow-blue-400/20 transition-all duration-300 cursor-pointer
+                                        ${isHighlighted
+                                            ? "bg-blue-600/80 scale-125 rotate-6"
+                                            : "bg-gray-800/60 hover:scale-110 hover:rotate-12 hover:bg-blue-600/60"}`}
+                                    style={{
+                                        top: `calc(50% + ${Math.sin(angle * Math.PI / 180) * 8}rem)`,
+                                        left: `calc(50% + ${Math.cos(angle * Math.PI / 180) * 8}rem)`,
+                                        transform: "translate(-50%, -50%)",
+                                    }}
+                                    onMouseEnter={() => setHighlighted(index)}
+                                >
+                                    {feat.icon}
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    <div className="relative p-8 rounded-3xl glass-card glass-hover transition-all duration-500">
                         {/* Subtle inner glow */}
                         <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/5 to-transparent pointer-events-none"></div>
 
                         <div className="relative z-10">
                             <div className="flex items-center mb-6">
-                                <div className="p-3 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mr-5">
+                                <div className="p-3 rounded-2xl glass mr-5">
                                     <span className="text-3xl text-blue-300">{features[highlighted].icon}</span>
                                 </div>
                                 <h3 className="text-2xl font-semibold text-white/95">{features[highlighted].title}</h3>
