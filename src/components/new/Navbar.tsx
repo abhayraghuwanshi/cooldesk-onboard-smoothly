@@ -1,27 +1,93 @@
-export default function Navbar() {
-    return (
-        <nav className="fixed top-0 left-0 right-0 z-30 bg-black/60 backdrop-blur-xl border-b border-white/20 shadow-2xl shadow-black/20">
-            <div className="container mx-auto px-6 py-4 flex items-center justify-between">
-                {/* Logo */}
-                <div className="text-2xl font-bold text-blue-400">CoolDesk</div>
+import { useState } from 'react';
 
-                {/* Links */}
-                <div className="hidden md:flex space-x-8 text-sm font-medium">
-                    <a href="/#home" className="hover:text-blue-400 transition-colors">Home</a>
-                    <a href="/#features" className="hover:text-blue-400 transition-colors">Features</a>
-                    <a href="/#faq" className="hover:text-blue-400 transition-colors">FAQ</a>
-                    <a href="/#testimonials" className="hover:text-blue-400 transition-colors">Testimonials</a>
-                    <a href="/#permissions" className="hover:text-blue-400 transition-colors">Permissions</a>
-                    <a href="/contact" className="hover:text-blue-400 transition-colors">Contact</a>
+export default function Navbar() {
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+    const links = [
+        { href: '/#home', label: 'Home' },
+        { href: '/#features', label: 'Features' },
+        { href: '/#faq', label: 'FAQ' },
+        { href: '/#privacy', label: 'Privacy' },
+    ];
+
+    return (
+        <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-xl border-b border-white/10">
+            <div className="max-w-7xl mx-auto px-6 py-4">
+                <div className="flex items-center justify-between">
+                    {/* Logo */}
+                    <a href="/#home" className="flex items-center gap-2 group">
+                        <img
+                            src="/cooldesk.png"
+                            alt="CoolDesk logo"
+                            className="h-10 w-auto"
+                        />
+                    </a>
+
+                    {/* Desktop Links */}
+                    <div className="hidden md:flex items-center gap-8">
+                        {links.map((link) => (
+                            <a
+                                key={link.href}
+                                href={link.href}
+                                className="text-gray-300 hover:text-white transition-colors text-sm font-medium"
+                            >
+                                {link.label}
+                            </a>
+                        ))}
+                    </div>
+
+                    {/* CTA Button */}
+                    <div className="hidden md:block">
+                        <a
+                            href="https://chromewebstore.google.com/detail/cooldesk/ioggffobciopdddacpclplkeodllhjko"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2.5 rounded-lg font-semibold transition-all duration-200 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40"
+                        >
+                            Get Started
+                        </a>
+                    </div>
+
+                    {/* Mobile Menu Button */}
+                    <button
+                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                        className="md:hidden text-gray-300 hover:text-white transition-colors"
+                        aria-label="Toggle menu"
+                    >
+                        {mobileMenuOpen ? (
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        ) : (
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        )}
+                    </button>
                 </div>
 
-                {/* CTA */}
-                <a
-                    href="/#get-started"
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-medium transition-colors shadow-lg shadow-blue-500/20"
-                >
-                    Get Started
-                </a>
+                {/* Mobile Menu */}
+                {mobileMenuOpen && (
+                    <div className="md:hidden mt-4 pb-4 space-y-3 border-t border-white/10 pt-4">
+                        {links.map((link) => (
+                            <a
+                                key={link.href}
+                                href={link.href}
+                                onClick={() => setMobileMenuOpen(false)}
+                                className="block text-gray-300 hover:text-white transition-colors py-2"
+                            >
+                                {link.label}
+                            </a>
+                        ))}
+                        <a
+                            href="/#get-started"
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="block bg-blue-500 hover:bg-blue-600 text-white px-6 py-2.5 rounded-lg font-semibold transition-colors text-center mt-4"
+                        >
+                            Get Started
+                        </a>
+                    </div>
+                )}
             </div>
         </nav>
     );

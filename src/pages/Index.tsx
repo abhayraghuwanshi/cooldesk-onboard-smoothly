@@ -1,10 +1,13 @@
 import FAQ from "@/components/new/FAQ";
 import FeatureBloom from "@/components/new/FeatureBloom";
+import FeatureComparison from "@/components/new/FeatureComparison";
+import FounderNote from "@/components/new/FounderNote";
 import Hero from "@/components/new/Hero";
 import Navbar from '@/components/new/Navbar';
+import NavigationComparison from "@/components/new/NavigationComparison";
+import PreviewGallery from "@/components/new/PreviewGallery";
 import PrivacySettings from "@/components/new/PrivacySettings";
 import UsersTestimonials from "@/components/new/UsersTestimonials";
-import PreviewGallery from "@/components/new/PreviewGallery";
 
 const Index = () => {
   return (
@@ -21,6 +24,18 @@ const Index = () => {
       >
         <div className="container mx-auto px-6 text-center">
           <Hero />
+        </div>
+      </section>
+
+      {/* Navigation Comparison Section */}
+      <section id="navigation" className="relative z-10 py-24 backdrop-blur-sm">
+        {/* Decorative background elements */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.08),transparent_70%)] pointer-events-none" />
+        <div className="absolute top-20 left-1/6 w-96 h-96 bg-blue-500/8 blur-3xl rounded-full pointer-events-none" />
+        <div className="absolute bottom-20 right-1/6 w-80 h-80 bg-purple-500/8 blur-3xl rounded-full pointer-events-none" />
+
+        <div className="container mx-auto px-6 relative z-10">
+          <NavigationComparison />
         </div>
       </section>
 
@@ -60,6 +75,21 @@ const Index = () => {
         </div>
       </section>
 
+
+      {/* Feature Comparison Table */}
+      <section id="compare" className="relative z-10 py-24 backdrop-blur-sm">
+        <div className="container mx-auto px-6 relative z-10">
+          <FeatureComparison />
+        </div>
+      </section>
+
+      {/* Founder's Note */}
+      <section id="vision" className="relative z-10 py-24 backdrop-blur-sm">
+        <div className="container mx-auto px-6 relative z-10">
+          <FounderNote />
+        </div>
+      </section>
+
       {/* Users Testimonials */}
       <section id="testimonials" className="relative z-10 py-24 backdrop-blur-sm">
         {/* Decorative background elements */}
@@ -88,9 +118,9 @@ const Index = () => {
         <div className="container mx-auto px-6 text-center">
           <p>© {new Date().getFullYear()} CoolDesk. All rights reserved.</p>
           <div className="mt-6 flex justify-center space-x-8 text-sm">
-            <a href="#privacy" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#terms" className="hover:text-white transition-colors">Terms of Service</a>
-            <a href="#contact" className="hover:text-white transition-colors">Contact Us</a>
+            <a href="/privacy-details" className="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="/terms" className="hover:text-white transition-colors">Terms of Service</a>
+            <a href="/contact" className="hover:text-white transition-colors">Contact Us</a>
           </div>
         </div>
       </footer>

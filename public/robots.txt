@@ -12,3 +12,27 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+
+# 1. THE MOST IMPORTANT PART: Tell Google where your map is
+# Replace with your actual domain extension (.com, .io, etc)
+Sitemap: https://cool-desk.com/sitemap.xml
+
+# 2. General Rules for All Bots (Google, Bing, Twitter, etc.)
+User-agent: *
+Allow: /
+
+# 3. Block Backend/System Routes (Save Crawl Budget)
+# Even if you don't have these yet, it's good security practice
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /tmp/
+
+# 4. Explicitly Allow Assets (Critical for React/Vite Apps)
+# Google MUST see your JS and CSS to render your keywords
+Allow: /assets/
+Allow: *.js
+Allow: *.css
+Allow: *.png
+Allow: *.jpg

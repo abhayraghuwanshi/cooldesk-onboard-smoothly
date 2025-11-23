@@ -99,7 +99,7 @@ export default function Contact() {
                     </form>
 
                     <p className="mt-6 text-gray-400 text-center text-sm">
-                        Prefer email? <a href="mailto:support@cooldesk.app" className="underline hover:text-white">support@cooldesk.app</a>
+                        Prefer email? <a href="mailto:raghuwanshi.abhay405@gmail.com" className="underline hover:text-white">raghuwanshi.abhay405@gmail.com</a>
                     </p>
                 </div>
             </section>

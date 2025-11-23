@@ -12,15 +12,15 @@ const items: FAQItem[] = [
     },
     {
         q: "Is it free to install?",
-        a: "Yes. It’s free to install during beta. A generous free tier will remain; optional premium features may be added later with transparent pricing.",
+        a: "Yes Free.",
     },
     {
         q: "Do I need any setup or account?",
-        a: "No setup required. It works out of the box with your existing tabs. No account is needed. You can optionally sign in later to sync across devices.",
+        a: "No setup required.",
     },
     {
         q: "Where is my data stored?",
-        a: "By default, your data is stored locally on your device. Nothing leaves your machine unless you choose to enable sync or share. We do not sell your data.",
+        a: "By default, your data is store in chrome indexdb safely encrypted.",
     },
     {
         q: "Which browsers are supported?",
@@ -31,8 +31,8 @@ const items: FAQItem[] = [
         a: "Almighty Search across tabs, links, notes, and tasks; Pins & Cool Feed to keep important links in sight; Automatic Workspaces that group tabs by project; Notes & To‑Do for quick capture; Themes & UI customization; and Voice Navigation to control your browser hands‑free.",
     },
     {
-        q: "How can I get early access?",
-        a: "Join the waitlist or install the beta via the Edge/Chrome store links on our homepage.",
+        q: "What are the future goals for CoolDesk?",
+        a: "Our goal is to make CoolDesk the ultimate productivity hub for your browser. We are working on deeper integrations with popular apps, AI-powered suggestions to streamline your workflow, and expanding to more platforms like Firefox. We aim to build a tool that not only organizes your digital life but also proactively helps you achieve your goals.",
     },
 ];
 
@@ -55,30 +55,47 @@ export default function FAQ() {
     const [openIndex, setOpenIndex] = useState<number | null>(0);
 
     return (
-        <div className="mx-auto max-w-6xl px-6">
+        <div id="faq" className="mx-auto max-w-6xl px-6 py-16 scroll-mt-20">
             <div className="flex flex-col md:flex-row gap-12">
                 {/* Left: FAQ Title */}
                 <div className="md:w-1/3 flex items-start md:items-center">
-                    <h2 className="text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300">
-                        FAQs
-                    </h2>
+                    <div className="flex items-center gap-4">
+                        <img
+                            src="/help.png"
+                            alt="Help"
+                            className="w-16 h-16 md:w-20 md:h-20 object-contain"
+                        />
+                        <h2 className="text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300">
+                            FAQs
+                        </h2>
+                    </div>
                 </div>
 
                 {/* Right: FAQ List */}
-                <div className="md:w-2/3 space-y-4">
-                    <div className="divide-y divide-white/10 rounded-2xl overflow-hidden glass-card glass-hover">
-                        {items.map((item, idx) => {
-                            const isOpen = openIndex === idx;
-                            return (
-                                <div key={idx} className="group">
+                <div className="md:w-2/3 space-y-3">
+                    {items.map((item, idx) => {
+                        const isOpen = openIndex === idx;
+                        return (
+                            <div key={idx} className={`relative rounded-xl overflow-hidden transition-all duration-300 ${isOpen
+                                    ? 'bg-gradient-to-r from-blue-500/10 via-blue-600/5 to-transparent border-l-4 border-blue-400'
+                                    : 'bg-white/5 hover:bg-white/10 border-l-4 border-transparent'
+                                }`}>
+                                {/* Subtle glow effect for open items */}
+                                {isOpen && (
+                                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-transparent pointer-events-none" />
+                                )}
+
+                                <div className="relative">
                                     <button
-                                        className="w-full flex items-center justify-between gap-6 px-6 py-5 text-left text-white hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30 transition-all duration-200 backdrop-blur-sm"
+                                        className="w-full flex items-center justify-between gap-6 px-6 py-5 text-left text-white focus:outline-none transition-all duration-200"
                                         aria-expanded={isOpen}
                                         aria-controls={`faq-panel-${idx}`}
                                         onClick={() => setOpenIndex(isOpen ? null : idx)}
                                     >
-                                        <span className="text-base md:text-lg font-medium">{item.q}</span>
-                                        <span className="text-gray-300 group-hover:text-white transition-colors duration-200">
+                                        <span className={`text-base md:text-lg font-semibold transition-colors duration-200 ${isOpen ? 'text-white' : 'text-gray-300'
+                                            }`}>{item.q}</span>
+                                        <span className={`transition-colors duration-200 flex-shrink-0 ${isOpen ? 'text-blue-400' : 'text-gray-500'
+                                            }`}>
                                             <Chevron open={isOpen} />
                                         </span>
                                     </button>
@@ -87,15 +104,15 @@ export default function FAQ() {
                                         id={`faq-panel-${idx}`}
                                         role="region"
                                         aria-labelledby={`faq-header-${idx}`}
-                                        className={`px-6 transition-[max-height,opacity] duration-300 ease-out bg-white/5 backdrop-blur-sm ${isOpen ? "max-h-64 opacity-100 py-1" : "max-h-0 opacity-0 overflow-hidden"
+                                        className={`px-6 transition-[max-height,opacity] duration-300 ease-out ${isOpen ? "max-h-64 opacity-100 pb-5" : "max-h-0 opacity-0 overflow-hidden"
                                             }`}
                                     >
-                                        <p className="text-gray-200 text-sm md:text-base pb-5">{item.a}</p>
+                                        <p className="text-gray-400 text-sm md:text-base leading-relaxed">{item.a}</p>
                                     </div>
                                 </div>
-                            );
-                        })}
-                    </div>
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         </div>

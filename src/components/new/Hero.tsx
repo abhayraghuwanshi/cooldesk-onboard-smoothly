@@ -1,6 +1,6 @@
 function Hero() {
     return (
-        <section className="relative text-white py-20 overflow-hidden isolate z-20" style={{ background: 'transparent' }}>
+        <section id="home" className="relative text-white py-20 overflow-hidden isolate z-20 scroll-mt-20" style={{ background: 'transparent' }}>
 
             <div className="container mx-auto px-4 relative z-10">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-x-16 pt-10">
@@ -10,13 +10,13 @@ function Hero() {
                             Think Less <span className="text-blue-400">Do More</span>
                         </h1>
                         <p className="text-gray-300 text-lg md:text-xl mb-8 max-w-lg mx-auto md:mx-0">
-                            Let Cooldesk organize your browsing so you can focus. Your browser, finally working at your speed. cool right??
+                            Let Cooldesk organize your browsing so you can focus. Your browser, finally working at your speed.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                             <a href="#" className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium text-center transition-colors duration-200 shadow-lg shadow-blue-500/20">
                                 Edge and Chrome
                             </a>
-                            <a href="#" className="border border-blue-400 text-blue-400 hover:text-white hover:border-white px-6 py-3 rounded-lg font-medium text-center transition-colors duration-200">
+                            <a href="https://chromewebstore.google.com/detail/cooldesk/ioggffobciopdddacpclplkeodllhjko" target="_blank" rel="noopener noreferrer" className="border border-blue-400 text-blue-400 hover:text-white hover:border-white px-6 py-3 rounded-lg font-medium text-center transition-colors duration-200">
                                 Add Extension
                             </a>
                         </div>

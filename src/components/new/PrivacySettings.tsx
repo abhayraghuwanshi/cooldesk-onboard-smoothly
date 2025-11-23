@@ -20,23 +20,43 @@ function InfoToggleCard({
     collected?: boolean;
 }) {
     return (
-        <div className="flex items-center justify-between gap-4 p-5 rounded-2xl glass-card glass-hover">
-            <div className="flex items-start gap-4">
-                <div className="text-blue-300 text-3xl mt-1">{icon}</div>
-                <div>
-                    <h3 className="text-white font-semibold">{label}</h3>
-                    <p className="text-gray-200 text-sm">{description}</p>
+        <div className={`relative rounded-xl overflow-hidden p-6 transition-all duration-300 ${collected
+                ? 'bg-gradient-to-r from-blue-500/10 via-blue-600/5 to-transparent border-l-4 border-blue-400'
+                : 'bg-white/5 border-l-4 border-gray-600'
+            }`}>
+            {collected && (
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-transparent pointer-events-none" />
+            )}
+
+            <div className="relative flex items-start justify-between gap-4">
+                <div className="flex items-start gap-4 flex-1">
+                    <div className={`p-3 rounded-lg flex-shrink-0 ${collected ? 'bg-blue-500/20 text-blue-300' : 'bg-gray-700/50 text-gray-400'
+                        }`}>
+                        <span className="text-xl">{icon}</span>
+                    </div>
+                    <div className="flex-1">
+                        <h3 className={`font-semibold mb-2 ${collected ? 'text-white' : 'text-gray-300'
+                            }`}>{label}</h3>
+                        <p className={`text-sm leading-relaxed ${collected ? 'text-gray-300' : 'text-gray-500'
+                            }`}>{description}</p>
+                    </div>
                 </div>
-            </div>
-            <div
-                role="switch"
-                aria-checked={collected}
-                className={`relative inline-flex h-6 w-12 flex-shrink-0 rounded-full transition-colors duration-200 glass ${collected ? "bg-blue-500/20" : "bg-white/10"}`}
-            >
-                <span
-                    className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg transition duration-200 ${collected ? "translate-x-5" : "translate-x-1"
-                        }`}
-                />
+
+                <div className="flex-shrink-0">
+                    {collected ? (
+                        <div className="flex items-center gap-2 text-green-400 text-sm font-medium">
+                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                            </svg>
+                        </div>
+                    ) : (
+                        <div className="flex items-center gap-2 text-gray-500 text-sm font-medium">
+                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                            </svg>
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );
@@ -95,16 +115,17 @@ export default function PrivacyPermissions() {
     ];
 
     return (
-        <div className="mx-auto max-w-4xl px-6 py-16 space-y-8">
-            <h2 className="text-5xl font-bold text-center bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                Permissions & Data Collection
-            </h2>
-            <p className="text-center text-gray-200 max-w-2xl mx-auto">
-                CoolDesk collects the following types of data to provide the best user experience in Chrome.
-                All data is stored locally unless otherwise stated.
-            </p>
+        <div id="privacy" className="mx-auto max-w-5xl px-6 py-16 scroll-mt-20">
+            <div className="text-center mb-12">
+                <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                    Your <span className="text-blue-400">Privacy</span> Matters
+                </h2>
+                <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+                    Everything stays on your device. No tracking, no ads, no data sharing.
+                </p>
+            </div>
 
-            <div className="grid gap-6 md:grid-cols-2">
+            <div className="grid gap-4 md:grid-cols-2 mb-12">
                 {permissions.map((p) => (
                     <InfoToggleCard
                         key={p.key}
@@ -116,22 +137,20 @@ export default function PrivacyPermissions() {
                 ))}
             </div>
 
-            <div className="mt-10 text-center">
+            <div className="text-center space-y-4">
                 <button
                     onClick={() => navigate('/privacy-details')}
-                    className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-200"
+                    className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-200 font-medium"
                 >
                     View Full Privacy Policy
                 </button>
+                <p className="text-sm text-gray-500">
+                    Questions? Read our{" "}
+                    <a href="/privacy-details" className="text-blue-400 hover:text-blue-300 underline">
+                        detailed privacy policy
+                    </a>
+                </p>
             </div>
-
-            <p className="mt-6 text-xs text-gray-300 text-center">
-                Learn more in our{" "}
-                <a href="/privacy-details" className="underline hover:text-white transition-colors duration-200">
-                    Privacy Policy
-                </a>
-                .
-            </p>
         </div>
     );
 }

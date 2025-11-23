@@ -2,98 +2,84 @@ type Testimonial = {
     name: string;
     title: string;
     quote: string;
-    date: string;
-    avatar?: string;
+    initials: string;
 };
 
 const testimonials: Testimonial[] = [
     {
-        name: "Martin Goutry",
-        title: "Back-end developer at MyDodow",
-        quote:
-            "CoolDesk is finally addressing a long time problem we had when building UIs. Its ease of use and workflow seems really intuitive. Promising!",
-        date: "2025.03.02",
-        avatar:
-            "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=256&auto=format&fit=crop",
+        name: "Sarah M.",
+        title: "Product Manager",
+        quote: "I used to have 50+ tabs open. Now with CoolDesk's auto-workspaces, everything is organized automatically. Saved me hours every week.",
+        initials: "SM"
     },
     {
-        name: "Agnes Remi",
-        title: "Back-end developer at MyDodow",
-        quote:
-            "It's ease of use and workflow seems really intuitive. Promising!",
-        date: "2025.03.02",
-        avatar:
-            "https://images.unsplash.com/photo-1548142813-c348350df52b?q=80&w=256&auto=format&fit=crop",
+        name: "Alex K.",
+        title: "Software Engineer",
+        quote: "The voice navigation is incredible. I can switch tabs while coding without touching my mouse. Game changer for productivity.",
+        initials: "AK"
     },
     {
-        name: "Theo Champion",
-        title: "Back-end developer at MyDodow",
-        quote:
-            "CoolDesk is finally addressing a long time problem we had when building UIs.",
-        date: "2025.03.02",
-        avatar:
-            "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?q=80&w=256&auto=format&fit=crop",
+        name: "Jessica T.",
+        title: "Content Creator",
+        quote: "Finally, a tool that actually understands my workflow. The search finds everything instantly - tabs, notes, bookmarks. No more hunting.",
+        initials: "JT"
     },
     {
-        name: "Roman Atwoods",
-        title: "Frontend Developer",
-        quote:
-            "The automatic workspaces are a game changer for focus.",
-        date: "2025.03.02",
-        avatar:
-            "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?q=80&w=256&auto=format&fit=crop",
+        name: "Mike R.",
+        title: "Designer",
+        quote: "Zero setup required. Installed it and it just worked. The automatic organization is like having a personal assistant for my browser.",
+        initials: "MR"
+    },
+    {
+        name: "Priya S.",
+        title: "Marketing Lead",
+        quote: "I was skeptical at first, but CoolDesk actually delivers. My browser feels clean and organized for the first time in years.",
+        initials: "PS"
+    },
+    {
+        name: "David L.",
+        title: "Freelancer",
+        quote: "The daily notes feature is brilliant. I can capture ideas without leaving my browser. Everything stays in context with the source.",
+        initials: "DL"
     },
 ];
 
 function Card({ t, className = "" }: { t: Testimonial; className?: string }) {
     return (
         <div
-            className={`rounded-2xl bg-white/10 border border-white/20 shadow-2xl shadow-black/20 backdrop-blur-xl p-5 w-[320px] max-w-full hover:bg-white/15 transition-all duration-300 ${className}`}
+            className={`rounded-xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 p-6 w-[320px] max-w-full hover:border-blue-400/30 transition-all duration-300 ${className}`}
         >
-            <div className="flex items-center gap-3 mb-3">
-                <img
-                    src={t.avatar}
-                    alt={t.name}
-                    className="h-10 w-10 rounded-full object-cover ring-2 ring-white/20 shadow-lg"
-                />
+            <div className="flex items-center gap-3 mb-4">
+                <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-lg">
+                    {t.initials}
+                </div>
                 <div>
-                    <div className="text-white font-medium leading-tight">{t.name}</div>
-                    <div className="text-xs text-gray-300 leading-tight">{t.title}</div>
+                    <div className="text-white font-semibold leading-tight">{t.name}</div>
+                    <div className="text-xs text-gray-400 leading-tight">{t.title}</div>
                 </div>
             </div>
-            <p className="text-gray-200 text-sm leading-relaxed">"{t.quote}"</p>
-            <div className="mt-4 text-xs text-gray-400">CoolDesk user, {t.date}</div>
+            <p className="text-gray-300 text-sm leading-relaxed">"{t.quote}"</p>
         </div>
     );
 }
 
 export default function UsersTestimonials() {
     return (
-        <div className="relative">
+        <div className="relative py-16">
             {/* Heading */}
             <div className="text-center mb-12">
-                <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">What user saying about cooldesk</h2>
-                <p className="mt-3 text-gray-200">
-                    Discover early users' feedback on <span className="text-blue-300 font-medium">cooldesk</span>
+                <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                    Loved by <span className="text-blue-400">Productive People</span>
+                </h2>
+                <p className="text-lg text-gray-400">
+                    Real feedback from real users
                 </p>
             </div>
 
-            {/* Stacked layout */}
-            <div className="relative flex justify-center">
-                {/* Background decorative bubbles */}
-                <div className="absolute -z-10 top-8 left-1/3 w-72 h-72 bg-purple-400/20 blur-3xl rounded-full" />
-                <div className="absolute -z-10 bottom-0 right-1/4 w-80 h-80 bg-blue-400/20 blur-3xl rounded-full" />
-
-                <div className="hidden md:block relative h-[360px] w-[880px]">
-                    <Card t={testimonials[2]} className="absolute left-0 bottom-8 rotate-[-2deg]" />
-                    <Card t={testimonials[0]} className="absolute left-1/2 -translate-x-1/2 top-0 rotate-[1deg]" />
-                    <Card t={testimonials[1]} className="absolute right-6 top-20 rotate-[2deg]" />
-                    <Card t={testimonials[3]} className="absolute left-1/3 bottom-0 rotate-[-1deg]" />
-                </div>
-
-                {/* Mobile grid */}
-                <div className="md:hidden grid grid-cols-1 gap-4">
-                    {testimonials.slice(0, 3).map((t, i) => (
+            {/* Grid layout - cleaner and more scannable */}
+            <div className="max-w-6xl mx-auto px-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {testimonials.map((t, i) => (
                         <Card key={i} t={t} />
                     ))}
                 </div>

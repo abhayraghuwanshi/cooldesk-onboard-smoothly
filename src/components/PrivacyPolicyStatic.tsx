@@ -22,7 +22,7 @@ const PrivacyPolicyStatic: React.FC = () => {
     <section className="mx-auto max-w-3xl px-6 py-20 text-neutral-400 font-sans rounded-2xl glass-card">
       <header className="mb-16 text-center">
         <h1 className="text-4xl font-bold tracking-tighter text-neutral-100">CoolDesk Privacy & Permissions</h1>
-        <p className="mt-3 text-neutral-500">Last Updated: January 2025 • Version: 0.1.0</p>
+        <p className="mt-3 text-neutral-500">Last Updated: tOct 2025 • Version: 0.1.0</p>
       </header>
 
       {/* Navigation Bar */}
