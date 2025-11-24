@@ -1,13 +1,15 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const links = [
-        { href: '/#home', label: 'Home' },
-        { href: '/#features', label: 'Features' },
-        { href: '/#faq', label: 'FAQ' },
-        { href: '/#privacy', label: 'Privacy' },
+        { href: '/', label: 'Home', isRoute: true },
+        { href: '/#features', label: 'Features', isRoute: false },
+        { href: '/how-to-use', label: 'How to Use', isRoute: true },
+        { href: '/pricing', label: 'Pricing', isRoute: true },
+        { href: '/resources', label: 'Resources', isRoute: true },
     ];
 
     return (
@@ -26,13 +28,23 @@ export default function Navbar() {
                     {/* Desktop Links */}
                     <div className="hidden md:flex items-center gap-8">
                         {links.map((link) => (
-                            <a
-                                key={link.href}
-                                href={link.href}
-                                className="text-gray-300 hover:text-white transition-colors text-sm font-medium"
-                            >
-                                {link.label}
-                            </a>
+                            link.isRoute ? (
+                                <Link
+                                    key={link.href}
+                                    to={link.href}
+                                    className="text-gray-300 hover:text-white transition-colors text-sm font-medium"
+                                >
+                                    {link.label}
+                                </Link>
+                            ) : (
+                                <a
+                                    key={link.href}
+                                    href={link.href}
+                                    className="text-gray-300 hover:text-white transition-colors text-sm font-medium"
+                                >
+                                    {link.label}
+                                </a>
+                            )
                         ))}
                     </div>
 
@@ -70,14 +82,25 @@ export default function Navbar() {
                 {mobileMenuOpen && (
                     <div className="md:hidden mt-4 pb-4 space-y-3 border-t border-white/10 pt-4">
                         {links.map((link) => (
-                            <a
-                                key={link.href}
-                                href={link.href}
-                                onClick={() => setMobileMenuOpen(false)}
-                                className="block text-gray-300 hover:text-white transition-colors py-2"
-                            >
-                                {link.label}
-                            </a>
+                            link.isRoute ? (
+                                <Link
+                                    key={link.href}
+                                    to={link.href}
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    className="block text-gray-300 hover:text-white transition-colors py-2"
+                                >
+                                    {link.label}
+                                </Link>
+                            ) : (
+                                <a
+                                    key={link.href}
+                                    href={link.href}
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    className="block text-gray-300 hover:text-white transition-colors py-2"
+                                >
+                                    {link.label}
+                                </a>
+                            )
                         ))}
                         <a
                             href="/#get-started"

@@ -1,12 +1,9 @@
 import FAQ from "@/components/new/FAQ";
 import FeatureBloom from "@/components/new/FeatureBloom";
 import FeatureComparison from "@/components/new/FeatureComparison";
-import FounderNote from "@/components/new/FounderNote";
 import Hero from "@/components/new/Hero";
 import Navbar from '@/components/new/Navbar';
 import NavigationComparison from "@/components/new/NavigationComparison";
-import PreviewGallery from "@/components/new/PreviewGallery";
-import PrivacySettings from "@/components/new/PrivacySettings";
 import UsersTestimonials from "@/components/new/UsersTestimonials";
 
 const Index = () => {
@@ -40,8 +37,8 @@ const Index = () => {
       </section>
 
       {/* Preview Gallery Section */}
-      <section id="previews" className="relative z-10 py-24 backdrop-blur-sm">
-        {/* Decorative background elements */}
+      {/* <section id="previews" className="relative z-10 py-24 backdrop-blur-sm">
+ 
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.06),transparent_70%)] pointer-events-none" />
         <div className="absolute top-10 left-1/5 w-96 h-96 bg-white/5 blur-3xl rounded-full pointer-events-none" />
         <div className="absolute bottom-10 right-1/5 w-80 h-80 bg-white/5 blur-3xl rounded-full pointer-events-none" />
@@ -49,7 +46,7 @@ const Index = () => {
         <div className="container mx-auto px-6 relative z-10">
           <PreviewGallery />
         </div>
-      </section>
+      </section> */}
       {/* Features Section */}
       <section
         id="features"
@@ -83,13 +80,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Founder's Note */}
-      <section id="vision" className="relative z-10 py-24 backdrop-blur-sm">
-        <div className="container mx-auto px-6 relative z-10">
-          <FounderNote />
-        </div>
-      </section>
-
       {/* Users Testimonials */}
       <section id="testimonials" className="relative z-10 py-24 backdrop-blur-sm">
         {/* Decorative background elements */}
@@ -102,8 +92,8 @@ const Index = () => {
         </div>
       </section>
 
-      <section id="permissions" className="relative z-10 py-24 backdrop-blur-sm">
-        {/* Decorative background elements */}
+      {/* <section id="permissions" className="relative z-10 py-24 backdrop-blur-sm">
+        
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center_right,rgba(147,51,234,0.1),transparent_70%)] pointer-events-none" />
         <div className="absolute top-24 left-1/4 w-80 h-80 bg-purple-400/15 blur-3xl rounded-full pointer-events-none" />
         <div className="absolute bottom-24 right-1/4 w-72 h-72 bg-violet-400/15 blur-3xl rounded-full pointer-events-none" />
@@ -111,7 +101,7 @@ const Index = () => {
         <div className="container mx-auto px-6 relative z-10">
           <PrivacySettings />
         </div>
-      </section>
+      </section> */}
 
       {/* Footer */}
       <footer className="bg-black/40 text-gray-400 py-10 mt-20 relative z-10 border-t border-white/10">
