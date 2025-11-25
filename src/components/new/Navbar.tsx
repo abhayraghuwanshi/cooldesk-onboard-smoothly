@@ -10,6 +10,7 @@ export default function Navbar() {
         { href: '/how-to-use', label: 'How to Use', isRoute: true },
         { href: '/pricing', label: 'Pricing', isRoute: true },
         { href: '/resources', label: 'Resources', isRoute: true },
+        { href: '/search', label: 'Search', isRoute: true },
     ];
 
     return (
