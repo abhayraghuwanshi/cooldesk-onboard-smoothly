@@ -6,7 +6,6 @@ export default function Navbar() {
 
     const links = [
         { href: '/', label: 'Home', isRoute: true },
-        { href: '/#features', label: 'Features', isRoute: false },
         { href: '/how-to-use', label: 'How to Use', isRoute: true },
         { href: '/pricing', label: 'Pricing', isRoute: true },
         { href: '/resources', label: 'Resources', isRoute: true },
