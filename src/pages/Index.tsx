@@ -24,15 +24,8 @@ const Index = () => {
       </section>
 
       {/* Navigation Comparison Section */}
-      <section id="navigation" className="relative z-10 py-24 backdrop-blur-sm">
-        {/* Decorative background elements */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.08),transparent_70%)] pointer-events-none" />
-        <div className="absolute top-20 left-1/6 w-96 h-96 bg-blue-500/8 blur-3xl rounded-full pointer-events-none" />
-        <div className="absolute bottom-20 right-1/6 w-80 h-80 bg-purple-500/8 blur-3xl rounded-full pointer-events-none" />
-
-        <div className="container mx-auto px-6 relative z-10">
-          <NavigationComparison />
-        </div>
+      <section id="navigation" className="relative z-10">
+        <NavigationComparison />
       </section>
 
       {/* Preview Gallery Section */}
@@ -47,25 +40,14 @@ const Index = () => {
         </div>
       </section> */}
       {/* Features Section */}
-      <section
-        id="features"
-        className="relative z-10 py-24 backdrop-blur-sm"
-      >
-        {/* Decorative background elements */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.1),transparent_70%)] pointer-events-none" />
-        <div className="absolute top-20 left-1/4 w-96 h-96 bg-blue-500/10 blur-3xl rounded-full pointer-events-none" />
-        <div className="absolute bottom-20 right-1/4 w-80 h-80 bg-purple-500/10 blur-3xl rounded-full pointer-events-none" />
-
+      <section id="features" className="relative z-10 py-24">
         <div className="container mx-auto px-6 text-center relative z-10">
           <FeatureBloom />
         </div>
       </section>
-      <section id="f" className="relative z-10 py-24 backdrop-blur-sm">
-        {/* Decorative background elements */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(59,130,246,0.1),transparent_70%)] pointer-events-none" />
-        <div className="absolute top-20 left-1/5 w-88 h-88 bg-blue-400/12 blur-3xl rounded-full pointer-events-none" />
-        <div className="absolute bottom-20 right-1/5 w-96 h-96 bg-indigo-400/12 blur-3xl rounded-full pointer-events-none" />
 
+      {/* FAQ Section */}
+      <section id="f" className="relative z-10 py-24">
         <div className="container mx-auto px-6 relative z-10">
           <FAQ />
         </div>
@@ -73,7 +55,7 @@ const Index = () => {
 
 
       {/* Feature Comparison Table */}
-      <section id="compare" className="relative z-10 py-24 backdrop-blur-sm">
+      <section id="compare" className="relative z-10 py-24">
         <div className="container mx-auto px-6 relative z-10">
           <FeatureComparison />
         </div>

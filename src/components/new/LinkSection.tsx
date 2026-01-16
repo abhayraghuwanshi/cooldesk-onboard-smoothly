@@ -224,24 +224,17 @@ const LinkSection = () => {
     }, [activeCategory, searchQuery, currentLinks]);
 
     return (
-        <div className="w-full max-w-7xl mx-auto p-6 lg:p-8">
+        <div className="w-full max-w-7xl mx-auto">
 
-            {/* Header & Search */}
-            <div className="text-center mb-16">
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
-                    <FaGlobe className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-blue-500" />
-                    Discovery Hub
-                </h2>
-                <p className="text-gray-400 text-lg sm:text-xl mb-12 max-w-3xl mx-auto leading-relaxed px-4">
-                    Explore the web's best sites, organized by category. Find what you need, fast.
-                </p>
-
+            {/* Search Bar */}
+            <div className="text-center mb-12">
                 <div className="relative max-w-lg mx-auto px-4">
                     <Input
                         type="text"
                         placeholder={`Search ${activeCategory}...`}
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
+                        className="bg-gray-900/60 border-gray-700 text-white placeholder-gray-500 focus:border-blue-500 focus:ring-blue-500/20"
                     />
                 </div>
             </div>

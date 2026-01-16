@@ -41,10 +41,23 @@ const comparisons = [
 
 export default function NavigationComparison() {
     return (
-        <section className="relative py-32 overflow-hidden">
-            {/* Subtle Background */}
+        <section className="relative py-32 overflow-hidden bg-zinc-950">
+            {/* Dot Grid Pattern */}
+            <div className="absolute inset-0" style={{
+                backgroundImage: 'radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px)',
+                backgroundSize: '40px 40px'
+            }}></div>
+
+            {/* Animated Gradient Mesh Orbs */}
             <div className="absolute inset-0">
-                <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-blue-500/3 rounded-full blur-[140px]"></div>
+                {/* Main blue orb - top left */}
+                <div className="absolute top-[10%] left-[15%] w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px] animate-pulse-slow"></div>
+
+                {/* Secondary blue orb - bottom right */}
+                <div className="absolute bottom-[15%] right-[10%] w-[600px] h-[600px] bg-blue-600/8 rounded-full blur-[140px] animate-pulse-slower"></div>
+
+                {/* Accent orb - center */}
+                <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-cyan-500/6 rounded-full blur-[100px] animate-float-slow"></div>
             </div>
 
             <div className="container mx-auto px-6 relative z-10">
@@ -189,6 +202,51 @@ export default function NavigationComparison() {
                     </p>
                 </div>
             </div>
+
+            <style>{`
+                @keyframes pulse-slow {
+                    0%, 100% {
+                        opacity: 0.8;
+                        transform: scale(1);
+                    }
+                    50% {
+                        opacity: 1;
+                        transform: scale(1.05);
+                    }
+                }
+
+                @keyframes pulse-slower {
+                    0%, 100% {
+                        opacity: 0.6;
+                        transform: scale(1);
+                    }
+                    50% {
+                        opacity: 0.9;
+                        transform: scale(1.1);
+                    }
+                }
+
+                @keyframes float-slow {
+                    0%, 100% {
+                        transform: translate(-50%, -50%) translateY(0px);
+                    }
+                    50% {
+                        transform: translate(-50%, -50%) translateY(-20px);
+                    }
+                }
+
+                .animate-pulse-slow {
+                    animation: pulse-slow 8s ease-in-out infinite;
+                }
+
+                .animate-pulse-slower {
+                    animation: pulse-slower 10s ease-in-out infinite;
+                }
+
+                .animate-float-slow {
+                    animation: float-slow 12s ease-in-out infinite;
+                }
+            `}</style>
         </section>
     );
 }

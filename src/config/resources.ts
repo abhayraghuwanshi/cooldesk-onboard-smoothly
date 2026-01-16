@@ -11,9 +11,44 @@ export type ResourceCategory =
     | 'privacy'
     | 'contact'
     | 'founder'
-    | 'preview';
+    | 'preview'
+    | 'docs';
 
 export const resources: Resource[] = [
+    // Documentation
+    {
+        id: 'getting-started',
+        title: 'Getting Started',
+        description: 'Learn the basics and set up CoolDesk in minutes',
+        url: '/how-to-use',
+        category: 'docs',
+        icon: '🚀'
+    },
+    {
+        id: 'blog',
+        title: 'Blog',
+        description: 'Tips, guides, and insights for maximizing productivity',
+        url: '/blog',
+        category: 'docs',
+        icon: '📝'
+    },
+    {
+        id: 'features-guide',
+        title: 'Features Guide',
+        description: 'Explore all features and learn how to use them effectively',
+        url: '/#features',
+        category: 'docs',
+        icon: '📚'
+    },
+    {
+        id: 'faq',
+        title: 'FAQ',
+        description: 'Frequently asked questions and answers',
+        url: '/#f',
+        category: 'docs',
+        icon: '❓'
+    },
+
     // Privacy & Legal
     {
         id: 'privacy-policy',
@@ -66,6 +101,7 @@ export const getResourceById = (id: string): Resource | undefined => {
 
 // Category labels for UI
 export const categoryLabels: Record<ResourceCategory, string> = {
+    docs: 'Documentation',
     privacy: 'Privacy & Legal',
     contact: 'Contact & Support',
     founder: 'Founder Notes',

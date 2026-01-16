@@ -35,7 +35,18 @@ const CheckIcon = () => (
 
 export default function FeatureComparison() {
     return (
-        <div className="py-16 sm:py-24">
+        <div className="relative py-16 sm:py-24">
+            {/* Dot Grid Pattern */}
+            <div className="absolute inset-0 pointer-events-none" style={{
+                backgroundImage: 'radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px)',
+                backgroundSize: '40px 40px'
+            }}></div>
+
+            {/* Animated Gradient Mesh Orbs */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                <div className="absolute top-[25%] right-[12%] w-[420px] h-[420px] bg-blue-500/8 rounded-full blur-[105px] animate-pulse-slow"></div>
+                <div className="absolute bottom-[15%] left-[10%] w-[480px] h-[480px] bg-cyan-500/6 rounded-full blur-[115px] animate-pulse-slower"></div>
+            </div>
             <div className="mx-auto max-w-5xl px-6">
                 <div className="text-center mb-12">
                     <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
@@ -91,6 +102,38 @@ export default function FeatureComparison() {
                     </p>
                 </div>
             </div>
+
+            <style>{`
+                @keyframes pulse-slow {
+                    0%, 100% {
+                        opacity: 0.8;
+                        transform: scale(1);
+                    }
+                    50% {
+                        opacity: 1;
+                        transform: scale(1.05);
+                    }
+                }
+
+                @keyframes pulse-slower {
+                    0%, 100% {
+                        opacity: 0.6;
+                        transform: scale(1);
+                    }
+                    50% {
+                        opacity: 0.9;
+                        transform: scale(1.1);
+                    }
+                }
+
+                .animate-pulse-slow {
+                    animation: pulse-slow 8s ease-in-out infinite;
+                }
+
+                .animate-pulse-slower {
+                    animation: pulse-slower 10s ease-in-out infinite;
+                }
+            `}</style>
         </div>
     );
 }

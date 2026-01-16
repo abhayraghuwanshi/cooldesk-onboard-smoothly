@@ -55,7 +55,18 @@ export default function FAQ() {
     const [openIndex, setOpenIndex] = useState<number | null>(0);
 
     return (
-        <div id="faq" className="mx-auto max-w-6xl px-6 py-16 scroll-mt-20">
+        <div id="faq" className="relative mx-auto max-w-6xl px-6 py-16 scroll-mt-20">
+            {/* Dot Grid Pattern */}
+            <div className="absolute inset-0 pointer-events-none" style={{
+                backgroundImage: 'radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px)',
+                backgroundSize: '40px 40px'
+            }}></div>
+
+            {/* Animated Gradient Mesh Orbs */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                <div className="absolute top-[15%] left-[10%] w-[450px] h-[450px] bg-blue-500/8 rounded-full blur-[110px] animate-pulse-slow"></div>
+                <div className="absolute bottom-[20%] right-[15%] w-[500px] h-[500px] bg-cyan-500/6 rounded-full blur-[120px] animate-pulse-slower"></div>
+            </div>
             <div className="flex flex-col md:flex-row gap-12">
                 {/* Left: FAQ Title */}
                 <div className="md:w-1/3 flex items-start md:items-center">
@@ -113,6 +124,38 @@ export default function FAQ() {
                             </div>
                         );
                     })}
+
+                    <style>{`
+                        @keyframes pulse-slow {
+                            0%, 100% {
+                                opacity: 0.8;
+                                transform: scale(1);
+                            }
+                            50% {
+                                opacity: 1;
+                                transform: scale(1.05);
+                            }
+                        }
+
+                        @keyframes pulse-slower {
+                            0%, 100% {
+                                opacity: 0.6;
+                                transform: scale(1);
+                            }
+                            50% {
+                                opacity: 0.9;
+                                transform: scale(1.1);
+                            }
+                        }
+
+                        .animate-pulse-slow {
+                            animation: pulse-slow 8s ease-in-out infinite;
+                        }
+
+                        .animate-pulse-slower {
+                            animation: pulse-slower 10s ease-in-out infinite;
+                        }
+                    `}</style>
                 </div>
             </div>
         </div>

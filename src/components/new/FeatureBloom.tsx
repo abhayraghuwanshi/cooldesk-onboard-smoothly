@@ -16,11 +16,23 @@ function FeatureBloom() {
 
     return (
         <div id="features" className="relative py-8 md:py-12 isolate z-10 scroll-mt-20">
-            <h2 className="text-4xl md:text-5xl font-bold mb-12 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+            {/* Dot Grid Pattern */}
+            <div className="absolute inset-0 pointer-events-none" style={{
+                backgroundImage: 'radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px)',
+                backgroundSize: '40px 40px'
+            }}></div>
+
+            {/* Animated Gradient Mesh Orbs */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                <div className="absolute top-[20%] right-[10%] w-[400px] h-[400px] bg-blue-500/8 rounded-full blur-[100px] animate-pulse-slow"></div>
+                <div className="absolute bottom-[10%] left-[15%] w-[500px] h-[500px] bg-cyan-500/6 rounded-full blur-[120px] animate-pulse-slower"></div>
+            </div>
+
+            <h2 className="text-4xl md:text-5xl font-bold mb-12 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent relative z-10">
                 Cool <span className="text-blue-500">Features</span>
             </h2>
 
-            <div className="flex flex-col md:flex-row gap-12 items-start">
+            <div className="flex flex-col md:flex-row gap-12 items-start relative z-10">
                 {/* Left Side: Feature Image */}
                 <div className="w-full md:w-1/2 max-w-2xl mx-auto overflow-hidden">
                     <div className="relative w-full h-[26rem] md:h-[30rem] rounded-2xl overflow-hidden">
@@ -93,10 +105,40 @@ function FeatureBloom() {
                     })}
                 </div>
             </div>
+
+            <style>{`
+                @keyframes pulse-slow {
+                    0%, 100% {
+                        opacity: 0.8;
+                        transform: scale(1);
+                    }
+                    50% {
+                        opacity: 1;
+                        transform: scale(1.05);
+                    }
+                }
+
+                @keyframes pulse-slower {
+                    0%, 100% {
+                        opacity: 0.6;
+                        transform: scale(1);
+                    }
+                    50% {
+                        opacity: 0.9;
+                        transform: scale(1.1);
+                    }
+                }
+
+                .animate-pulse-slow {
+                    animation: pulse-slow 8s ease-in-out infinite;
+                }
+
+                .animate-pulse-slower {
+                    animation: pulse-slower 10s ease-in-out infinite;
+                }
+            `}</style>
         </div>
     );
 }
 
 export default FeatureBloom;
-
-

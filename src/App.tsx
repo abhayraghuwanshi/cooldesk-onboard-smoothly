@@ -13,6 +13,8 @@ import NotFound from "./pages/NotFound";
 import PricingPage from "./pages/Pricing";
 import ResourcesPage from "./pages/Resources";
 import Search from "./pages/Search";
+import BlogPage from "./pages/Blog";
+import BlogPostPage from "./pages/BlogPost";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +29,8 @@ const App = () => (
           <Route path="/how-to-use" element={<HowToUse />} />
           <Route path="/pricing" element={<PricingPage />} />
           <Route path="/resources" element={<ResourcesPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:slug" element={<BlogPostPage />} />
           <Route path="/search" element={<Search />} />
           <Route path="/founder" element={<FounderPage />} />
           <Route path="/gallery" element={<GalleryPage />} />
