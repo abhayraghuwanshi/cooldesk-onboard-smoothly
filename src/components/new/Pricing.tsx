@@ -12,19 +12,19 @@ export default function Pricing() {
                 <div className="text-center max-w-7xl mx-auto w-full">
                     {/* Main Heading - Responsive Massive Typography */}
                     <div className="mb-4 sm:mb-6 md:mb-8 overflow-hidden">
-                        <h1 className="text-[8rem] sm:text-[10rem] md:text-[12rem] lg:text-[14rem] xl:text-[16rem] font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 leading-[0.8] tracking-tighter animate-gradient animate-fade-in-up select-none">
+                        <h1 className="display-xl text-gradient leading-[0.8] tracking-tighter animate-gradient animate-fade-in-up select-none">
                             FREE
                         </h1>
-                        <h1 className="text-[8rem] sm:text-[10rem] md:text-[12rem] lg:text-[14rem] xl:text-[16rem] font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-cyan-400 to-blue-400 leading-[0.8] tracking-tighter animate-gradient animate-fade-in-up-delay-1 -mt-4 sm:-mt-6 md:-mt-8 lg:-mt-10 select-none">
+                        <h1 className="display-xl text-gradient-accent leading-[0.8] tracking-tighter animate-gradient animate-fade-in-up-delay-1 -mt-4 sm:-mt-6 md:-mt-8 lg:-mt-10 select-none">
                             TO
                         </h1>
-                        <h1 className="text-[8rem] sm:text-[10rem] md:text-[12rem] lg:text-[14rem] xl:text-[16rem] font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 leading-[0.8] tracking-tighter animate-gradient animate-fade-in-up-delay-2 -mt-4 sm:-mt-6 md:-mt-8 lg:-mt-10 select-none">
+                        <h1 className="display-xl text-gradient leading-[0.8] tracking-tighter animate-gradient animate-fade-in-up-delay-2 -mt-4 sm:-mt-6 md:-mt-8 lg:-mt-10 select-none">
                             USE
                         </h1>
                     </div>
 
                     {/* Subheading */}
-                    <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-zinc-300 font-light mb-6 sm:mb-8 tracking-tight leading-tight max-w-4xl mx-auto animate-fade-in-up-delay-3">
+                    <p className="heading-4 text-txt-secondary font-light mb-6 sm:mb-8 tracking-tight leading-tight max-w-4xl mx-auto animate-fade-in-up-delay-3">
                         No hidden costs. No subscriptions. Just pure productivity.
                     </p>
 
@@ -32,11 +32,11 @@ export default function Pricing() {
                     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up-delay-4">
                         <a
                             href="https://chromewebstore.google.com/detail/cooldesk/ioggffobciopdddacpclplkeodllhjko"
-                            className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold text-base md:text-lg rounded-full hover:scale-110 hover:shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 shadow-xl shadow-blue-500/30 animate-pulse-glow"
+                            className="btn-gradient btn-lg rounded-full hover:scale-110 hover:shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 shadow-xl shadow-blue-500/30 animate-pulse-glow"
                         >
                             Get Started Now
                         </a>
-                        <span className="text-zinc-500 text-sm font-medium">Forever Free ✨</span>
+                        <span className="caption text-txt-muted font-medium">Forever Free</span>
                     </div>
                 </div>
             </div>

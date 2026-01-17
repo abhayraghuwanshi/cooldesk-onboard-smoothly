@@ -1,5 +1,18 @@
+import { Mic, Search, StickyNote, Target } from 'lucide-react';
+import { ReactNode } from 'react';
 
-const comparisons = [
+interface Comparison {
+    problem: string;
+    without: string;
+    with: string;
+    feature: string;
+    stat: string;
+    statLabel: string;
+    icon: ReactNode;
+    example?: string;
+}
+
+const comparisons: Comparison[] = [
     {
         problem: "Lost in 50+ open tabs?",
         without: "Waste 5+ minutes daily clicking through tabs to find what you need",
@@ -7,7 +20,7 @@ const comparisons = [
         feature: "Almighty Search",
         stat: "5min",
         statLabel: "saved daily",
-        emoji: "🔍"
+        icon: <Search className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />
     },
     {
         problem: "Work tabs mixed with personal?",
@@ -16,7 +29,7 @@ const comparisons = [
         feature: "Smart Workspaces",
         stat: "90%",
         statLabel: "less clutter",
-        emoji: "🎯"
+        icon: <Target className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />
     },
     {
         problem: "Hands glued to mouse and keyboard?",
@@ -26,7 +39,7 @@ const comparisons = [
         example: '"Switch to Gmail" • "Scroll down"',
         stat: "100%",
         statLabel: "hands-free",
-        emoji: "🎤"
+        icon: <Mic className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />
     },
     {
         problem: "Important info scattered everywhere?",
@@ -35,7 +48,7 @@ const comparisons = [
         feature: "Daily Notes",
         stat: "3sec",
         statLabel: "to capture",
-        emoji: "📝"
+        icon: <StickyNote className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />
     }
 ];
 
@@ -63,22 +76,22 @@ export default function NavigationComparison() {
             <div className="container mx-auto px-6 relative z-10">
                 {/* Header */}
                 <div className="text-center mb-16 md:mb-24">
-                    <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-white mb-3 md:mb-4 leading-tight px-4">
+                    <h2 className="heading-1 text-txt-primary mb-3 md:mb-4 leading-tight px-4">
                         Stop Fighting
                         <br />
                         Your Browser.
                     </h2>
 
                     <div className="flex items-center justify-center gap-2 md:gap-4 mb-6 md:mb-8 px-4">
-                        <div className="h-px w-8 md:w-16 bg-gradient-to-r from-transparent to-blue-500"></div>
-                        <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-blue-500">
+                        <div className="h-px w-8 md:w-16 bg-gradient-to-r from-transparent to-btn-primary"></div>
+                        <p className="heading-3 text-txt-accent">
                             Start Working Smarter
                         </p>
-                        <div className="h-px w-8 md:w-16 bg-gradient-to-l from-transparent to-blue-500"></div>
+                        <div className="h-px w-8 md:w-16 bg-gradient-to-l from-transparent to-btn-primary"></div>
                     </div>
 
-                    <p className="text-base md:text-xl text-zinc-400 max-w-3xl mx-auto px-4">
-                        The average person wastes <span className="text-white font-bold">2 hours per week</span> managing tabs.
+                    <p className="body-lg text-txt-secondary max-w-3xl mx-auto px-4">
+                        The average person wastes <span className="text-txt-primary font-bold">2 hours per week</span> managing tabs.
                         <br className="hidden md:block" />
                         <span className="block md:inline"> Here's how CoolDesk fixes that.</span>
                     </p>
@@ -92,12 +105,12 @@ export default function NavigationComparison() {
                             <div className="space-y-4 md:space-y-6">
                                 {/* Problem Title */}
                                 <div className="flex items-start gap-3 md:gap-4">
-                                    <span className="text-3xl md:text-5xl">{item.emoji}</span>
+                                    {item.icon}
                                     <div className="flex-1">
-                                        <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-white mb-2">
+                                        <h3 className="heading-4 text-txt-primary mb-2">
                                             {item.problem}
                                         </h3>
-                                        <p className="text-zinc-500 text-xs md:text-sm">
+                                        <p className="caption text-txt-muted">
                                             {item.without}
                                         </p>
                                     </div>
@@ -107,19 +120,19 @@ export default function NavigationComparison() {
                             {/* Right: CoolDesk Way */}
                             <div className="space-y-3 md:space-y-4">
                                 <div className="flex items-start gap-3">
-                                    <svg className="w-5 h-5 md:w-6 md:h-6 text-blue-500 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg className="w-5 h-5 md:w-6 md:h-6 text-btn-primary flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                     </svg>
                                     <div className="flex-1">
-                                        <p className="text-white text-base sm:text-lg md:text-xl font-bold leading-relaxed mb-3">
+                                        <p className="body-lg text-txt-primary font-bold leading-relaxed mb-3">
                                             {item.with}
                                         </p>
                                         <div className="flex flex-wrap items-center gap-2 md:gap-3">
-                                            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-blue-500 text-white">
+                                            <span className="label-accent">
                                                 {item.feature}
                                             </span>
                                             {item.example && (
-                                                <span className="text-xs md:text-sm text-zinc-400 italic">
+                                                <span className="caption text-txt-secondary italic">
                                                     {item.example}
                                                 </span>
                                             )}
@@ -127,10 +140,10 @@ export default function NavigationComparison() {
 
                                         {/* Stat */}
                                         <div className="mt-3 md:mt-4 inline-block">
-                                            <div className="text-3xl md:text-4xl font-black text-blue-500">
+                                            <div className="display-lg text-txt-accent">
                                                 {item.stat}
                                             </div>
-                                            <div className="text-xs text-zinc-500 uppercase tracking-wide font-semibold">
+                                            <div className="caption text-txt-muted uppercase tracking-wide font-semibold">
                                                 {item.statLabel}
                                             </div>
                                         </div>
@@ -150,27 +163,27 @@ export default function NavigationComparison() {
                 <div className="mt-20 md:mt-32 max-w-5xl mx-auto">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
                         <div className="text-center">
-                            <div className="text-5xl md:text-7xl font-black text-blue-500 mb-2 md:mb-3">
+                            <div className="display-xl text-txt-accent mb-2 md:mb-3">
                                 2hrs
                             </div>
-                            <div className="text-zinc-400 text-sm font-semibold uppercase tracking-wider">Saved weekly</div>
-                            <div className="text-xs text-zinc-600 mt-1">That's 104 hours/year</div>
+                            <div className="label text-txt-secondary uppercase tracking-wider">Saved weekly</div>
+                            <div className="caption text-txt-muted mt-1">That's 104 hours/year</div>
                         </div>
 
                         <div className="text-center">
-                            <div className="text-5xl md:text-7xl font-black text-blue-500 mb-2 md:mb-3">
+                            <div className="display-xl text-txt-accent mb-2 md:mb-3">
                                 90%
                             </div>
-                            <div className="text-zinc-400 text-sm font-semibold uppercase tracking-wider">Less clutter</div>
-                            <div className="text-xs text-zinc-600 mt-1">Finally, a clean browser</div>
+                            <div className="label text-txt-secondary uppercase tracking-wider">Less clutter</div>
+                            <div className="caption text-txt-muted mt-1">Finally, a clean browser</div>
                         </div>
 
                         <div className="text-center">
-                            <div className="text-5xl md:text-7xl font-black text-blue-500 mb-2 md:mb-3">
+                            <div className="display-xl text-txt-accent mb-2 md:mb-3">
                                 3sec
                             </div>
-                            <div className="text-zinc-400 text-sm font-semibold uppercase tracking-wider">Find any tab</div>
-                            <div className="text-xs text-zinc-600 mt-1">Lightning-fast search</div>
+                            <div className="label text-txt-secondary uppercase tracking-wider">Find any tab</div>
+                            <div className="caption text-txt-muted mt-1">Lightning-fast search</div>
                         </div>
                     </div>
                 </div>
@@ -181,7 +194,7 @@ export default function NavigationComparison() {
                         href="https://chromewebstore.google.com/detail/cooldesk/ioggffobciopdddacpclplkeodllhjko"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group inline-flex items-center gap-2 md:gap-3 px-6 md:px-10 py-4 md:py-5 text-base md:text-lg font-bold text-white bg-blue-600 hover:bg-blue-500 rounded-2xl hover:shadow-2xl hover:shadow-blue-500/50 hover:scale-105 transition-all duration-300 relative overflow-hidden"
+                        className="btn-primary btn-xl group inline-flex items-center gap-2 md:gap-3 hover:shadow-2xl hover:shadow-blue-500/50 hover:scale-105 transition-all duration-300 relative overflow-hidden"
                     >
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000"></div>
                         <span className="relative">Reclaim Your Browser Now</span>
@@ -190,9 +203,9 @@ export default function NavigationComparison() {
                         </svg>
                     </a>
 
-                    <p className="mt-6 text-zinc-500 text-xs md:text-sm flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-0">
+                    <p className="mt-6 caption text-txt-muted flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-0">
                         <span className="inline-flex items-center gap-2">
-                            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                            <span className="w-2 h-2 rounded-full bg-txt-success animate-pulse"></span>
                             100% Free Forever
                         </span>
                         <span className="hidden sm:inline mx-3">•</span>

@@ -74,7 +74,7 @@ export default function WorkspaceCard({ workspace }: WorkspaceCardProps) {
                 )}
 
                 {/* Title with gradient on hover */}
-                <h3 className="text-2xl font-black text-white mb-3 leading-tight
+                <h3 className="heading-3 text-txt-primary mb-3 leading-tight
                              group-hover:bg-gradient-to-r group-hover:from-violet-400 group-hover:via-fuchsia-400 group-hover:to-pink-400
                              group-hover:bg-clip-text group-hover:text-transparent
                              transition-all duration-500">
@@ -82,7 +82,7 @@ export default function WorkspaceCard({ workspace }: WorkspaceCardProps) {
                 </h3>
 
                 {/* Description */}
-                <p className="text-gray-400 text-sm mb-6 leading-relaxed line-clamp-2 flex-grow">
+                <p className="body-sm text-txt-secondary mb-6 leading-relaxed line-clamp-2 flex-grow">
                     {description}
                 </p>
 

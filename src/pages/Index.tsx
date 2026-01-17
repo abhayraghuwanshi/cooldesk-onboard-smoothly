@@ -4,10 +4,16 @@ import FeatureComparison from "@/components/new/FeatureComparison";
 import Hero from "@/components/new/Hero";
 import Navbar from '@/components/new/Navbar';
 import NavigationComparison from "@/components/new/NavigationComparison";
+import SEO from "@/components/SEO";
 
 const Index = () => {
   return (
     <main className="min-h-screen text-white scroll-smooth">
+      <SEO
+        title="Voice Navigation & AI Productivity Extension"
+        description="Experience Cooldesk: The ultimate browser extension with voice navigation, AI-powered productivity tools, and an almighty search."
+        canonical="https://cool-desk.com/"
+      />
       {/* Background Glow Overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-600/10 pointer-events-none z-0" />
       <Navbar />

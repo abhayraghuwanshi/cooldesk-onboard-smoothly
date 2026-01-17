@@ -1,10 +1,24 @@
+import {
+    BookOpen,
+    ClipboardList,
+    FileQuestion,
+    FileText,
+    Image,
+    Lock,
+    Mail,
+    PenLine,
+    Rocket,
+    Target
+} from 'lucide-react';
+import { ReactNode } from 'react';
+
 export interface Resource {
     id: string;
     title: string;
     description: string;
     url: string;
     category: ResourceCategory;
-    icon?: string;
+    icon?: ReactNode;
 }
 
 export type ResourceCategory =
@@ -12,7 +26,8 @@ export type ResourceCategory =
     | 'contact'
     | 'founder'
     | 'preview'
-    | 'docs';
+    | 'docs'
+    | 'release';
 
 export const resources: Resource[] = [
     // Documentation
@@ -22,7 +37,7 @@ export const resources: Resource[] = [
         description: 'Learn the basics and set up CoolDesk in minutes',
         url: '/how-to-use',
         category: 'docs',
-        icon: '🚀'
+        icon: <Rocket className="w-6 h-6" />
     },
     {
         id: 'blog',
@@ -30,7 +45,7 @@ export const resources: Resource[] = [
         description: 'Tips, guides, and insights for maximizing productivity',
         url: '/blog',
         category: 'docs',
-        icon: '📝'
+        icon: <PenLine className="w-6 h-6" />
     },
     {
         id: 'features-guide',
@@ -38,7 +53,7 @@ export const resources: Resource[] = [
         description: 'Explore all features and learn how to use them effectively',
         url: '/#features',
         category: 'docs',
-        icon: '📚'
+        icon: <BookOpen className="w-6 h-6" />
     },
     {
         id: 'faq',
@@ -46,7 +61,7 @@ export const resources: Resource[] = [
         description: 'Frequently asked questions and answers',
         url: '/#f',
         category: 'docs',
-        icon: '❓'
+        icon: <FileQuestion className="w-6 h-6" />
     },
 
     // Privacy & Legal
@@ -56,7 +71,7 @@ export const resources: Resource[] = [
         description: 'How we handle your data and protect your privacy',
         url: '/privacy-details',
         category: 'privacy',
-        icon: '🔒'
+        icon: <Lock className="w-6 h-6" />
     },
 
     // Contact & Support
@@ -66,7 +81,7 @@ export const resources: Resource[] = [
         description: 'Get in touch with our team for support and inquiries',
         url: '/contact',
         category: 'contact',
-        icon: '📧'
+        icon: <Mail className="w-6 h-6" />
     },
 
     // Founder Notes
@@ -76,7 +91,7 @@ export const resources: Resource[] = [
         description: 'The journey and vision behind CoolDesk',
         url: '/founder',
         category: 'founder',
-        icon: '🎯'
+        icon: <Target className="w-6 h-6" />
     },
 
     // Preview Gallery
@@ -86,7 +101,17 @@ export const resources: Resource[] = [
         description: 'Visual tour of CoolDesk interface and features',
         url: '/gallery',
         category: 'preview',
-        icon: '🖼️'
+        icon: <Image className="w-6 h-6" />
+    },
+
+    // Release Notes
+    {
+        id: 'release-notes',
+        title: 'Release Notes',
+        description: 'Latest updates, new features, and changes in CoolDesk',
+        url: '/releases',
+        category: 'release',
+        icon: <FileText className="w-6 h-6" />
     }
 ];
 
@@ -105,5 +130,6 @@ export const categoryLabels: Record<ResourceCategory, string> = {
     privacy: 'Privacy & Legal',
     contact: 'Contact & Support',
     founder: 'Founder Notes',
-    preview: 'CoolDesk Preview'
+    preview: 'CoolDesk Preview',
+    release: 'Release Notes'
 };

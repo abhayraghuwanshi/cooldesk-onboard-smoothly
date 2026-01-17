@@ -1,7 +1,12 @@
+import { useEffect } from 'react';
 import HowToUseComponent from "@/components/new/HowToUse";
 import Navbar from '@/components/new/Navbar';
 
 export default function HowToUsePage() {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <main className="min-h-screen text-white scroll-smooth">
             {/* Background Glow Overlay */}

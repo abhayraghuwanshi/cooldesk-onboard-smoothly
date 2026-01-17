@@ -1,10 +1,27 @@
+import {
+    Bot,
+    Command,
+    Highlighter,
+    Link2,
+    MessageSquare,
+    Mic,
+    Pin,
+    Rocket,
+    Sparkles,
+    StickyNote,
+    Target,
+    User,
+    Users,
+    Zap
+} from 'lucide-react';
+
 export default function HowToUse() {
     const steps = [
         {
             number: "01",
             title: "Install Extension",
             description: "One click to transform your browser into an intelligent workspace.",
-            icon: "⚡",
+            icon: <Zap className="w-8 h-8 text-cyan-400" />,
             gradient: "from-cyan-500 to-blue-600",
             illustration: (
                 <div className="relative w-full h-48 bg-gradient-to-br from-cyan-500/10 to-blue-600/10 rounded-xl flex items-center justify-center overflow-hidden">
@@ -22,7 +39,7 @@ export default function HowToUse() {
             number: "02",
             title: "Pin & Access",
             description: "Keep CoolDesk at your fingertips for instant productivity.",
-            icon: "📌",
+            icon: <Pin className="w-8 h-8 text-purple-400" />,
             gradient: "from-blue-600 to-purple-600",
             illustration: (
                 <div className="relative w-full h-48 bg-gradient-to-br from-blue-600/10 to-purple-600/10 rounded-xl flex items-center justify-center overflow-hidden">
@@ -38,8 +55,8 @@ export default function HowToUse() {
                                 <div className="h-2 bg-blue-500/40 rounded w-1/2"></div>
                             </div>
                         </div>
-                        <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-lg animate-pulse shadow-lg shadow-purple-500/50">
-                            📌
+                        <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center animate-pulse shadow-lg shadow-purple-500/50">
+                            <Pin className="w-4 h-4 text-white" />
                         </div>
                     </div>
                 </div>
@@ -49,7 +66,7 @@ export default function HowToUse() {
             number: "03",
             title: "Experience Magic",
             description: "Watch AI organize your digital life automatically.",
-            icon: "✨",
+            icon: <Sparkles className="w-8 h-8 text-pink-400" />,
             gradient: "from-purple-600 to-pink-600",
             illustration: (
                 <div className="relative w-full h-48 bg-gradient-to-br from-purple-600/10 to-pink-600/10 rounded-xl flex items-center justify-center overflow-hidden">
@@ -59,7 +76,7 @@ export default function HowToUse() {
                         <div className="absolute bottom-12 left-16 w-14 h-12 bg-blue-500/20 rounded border border-blue-400/30 animate-float" style={{ animationDelay: '1s' }}></div>
                     </div>
                     <div className="relative z-10">
-                        <div className="text-6xl animate-spin-slow">✨</div>
+                        <Sparkles className="w-16 h-16 text-pink-400 animate-spin-slow" />
                         <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 blur-xl opacity-50 animate-pulse"></div>
                     </div>
                 </div>
@@ -71,7 +88,7 @@ export default function HowToUse() {
         {
             title: "Smart Workspaces",
             description: "AI-powered tab organization with real-time analytics and insights.",
-            icon: "🎯",
+            icon: <Target className="w-7 h-7" />,
             gradient: "from-cyan-500/20 to-blue-600/20",
             borderGradient: "from-cyan-500/50 to-blue-600/50",
             visual: (
@@ -101,22 +118,22 @@ export default function HowToUse() {
         {
             title: "Team Sync",
             description: "Seamless collaboration with instant workspace sharing.",
-            icon: "👥",
+            icon: <Users className="w-7 h-7" />,
             gradient: "from-blue-500/20 to-indigo-600/20",
             borderGradient: "from-blue-500/50 to-indigo-600/50",
             visual: (
                 <div className="relative w-full h-40 bg-gradient-to-br from-blue-500/5 to-indigo-600/5 rounded-lg overflow-hidden flex items-center justify-center">
                     <div className="relative flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500/40 to-blue-600/40 border-2 border-blue-400/50 flex items-center justify-center text-lg animate-pulse">
-                            👤
+                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500/40 to-blue-600/40 border-2 border-blue-400/50 flex items-center justify-center animate-pulse">
+                            <User className="w-5 h-5 text-blue-200" />
                         </div>
                         <div className="flex flex-col gap-1">
                             <div className="w-2 h-2 bg-blue-400 rounded-full animate-ping"></div>
                             <div className="w-2 h-2 bg-indigo-400 rounded-full animate-ping" style={{ animationDelay: '0.3s' }}></div>
                             <div className="w-2 h-2 bg-blue-400 rounded-full animate-ping" style={{ animationDelay: '0.6s' }}></div>
                         </div>
-                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500/40 to-indigo-600/40 border-2 border-indigo-400/50 flex items-center justify-center text-lg animate-pulse" style={{ animationDelay: '0.5s' }}>
-                            👤
+                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500/40 to-indigo-600/40 border-2 border-indigo-400/50 flex items-center justify-center animate-pulse" style={{ animationDelay: '0.5s' }}>
+                            <User className="w-5 h-5 text-indigo-200" />
                         </div>
                         <div className="absolute -top-8 left-1/2 -translate-x-1/2 px-3 py-1 bg-blue-500/30 backdrop-blur-sm rounded-full border border-blue-400/40 text-xs text-blue-200 whitespace-nowrap">
                             Syncing...
@@ -128,7 +145,7 @@ export default function HowToUse() {
         {
             title: "Context Notes",
             description: "Intelligent sticky notes that remember where you left off.",
-            icon: "📝",
+            icon: <StickyNote className="w-7 h-7" />,
             gradient: "from-purple-500/20 to-pink-600/20",
             borderGradient: "from-purple-500/50 to-pink-600/50",
             visual: (
@@ -152,22 +169,22 @@ export default function HowToUse() {
         {
             title: "AI Chat Hub",
             description: "Auto-categorize conversations across platforms with ML.",
-            icon: "🤖",
+            icon: <Bot className="w-7 h-7" />,
             gradient: "from-pink-500/20 to-rose-600/20",
             borderGradient: "from-pink-500/50 to-rose-600/50",
             visual: (
                 <div className="relative w-full h-40 bg-gradient-to-br from-pink-500/5 to-rose-600/5 rounded-lg overflow-hidden p-4 space-y-2">
                     <div className="flex gap-2 animate-slide-up">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-500/40 to-rose-600/40 border border-pink-400/50 flex items-center justify-center text-sm">
-                            🤖
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-500/40 to-rose-600/40 border border-pink-400/50 flex items-center justify-center">
+                            <Bot className="w-4 h-4 text-pink-200" />
                         </div>
                         <div className="flex-1 h-8 bg-pink-500/20 rounded-lg border border-pink-400/30 flex items-center px-2 text-xs text-pink-200">
                             Analyzing...
                         </div>
                     </div>
                     <div className="flex gap-2 animate-slide-up" style={{ animationDelay: '0.3s' }}>
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-rose-500/40 to-pink-600/40 border border-rose-400/50 flex items-center justify-center text-sm">
-                            💬
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-rose-500/40 to-pink-600/40 border border-rose-400/50 flex items-center justify-center">
+                            <MessageSquare className="w-4 h-4 text-rose-200" />
                         </div>
                         <div className="flex-1 h-8 bg-rose-500/20 rounded-lg border border-rose-400/30 flex items-center px-2 text-xs text-rose-200">
                             Categorized
@@ -182,15 +199,63 @@ export default function HowToUse() {
             )
         },
         {
+            title: "Page Highlights & Notes",
+            description: "Create sticky notes and highlight text on any webpage with injected buttons.",
+            icon: <Highlighter className="w-7 h-7" />,
+            gradient: "from-yellow-500/20 to-lime-600/20",
+            borderGradient: "from-yellow-500/50 to-lime-600/50",
+            visual: (
+                <div className="relative w-full h-40 bg-gradient-to-br from-yellow-500/5 to-lime-600/5 rounded-lg overflow-hidden p-3">
+                    {/* Browser mockup */}
+                    <div className="w-full h-full bg-zinc-800/60 rounded-lg border border-white/10 overflow-hidden">
+                        {/* Browser header */}
+                        <div className="h-5 bg-zinc-700/80 border-b border-white/5 flex items-center px-2 gap-1">
+                            <div className="w-1.5 h-1.5 rounded-full bg-red-500/60"></div>
+                            <div className="w-1.5 h-1.5 rounded-full bg-yellow-500/60"></div>
+                            <div className="w-1.5 h-1.5 rounded-full bg-green-500/60"></div>
+                            <div className="flex-1 mx-2 h-2.5 bg-zinc-600/50 rounded text-[6px] text-zinc-400 flex items-center px-1">gemini.google.com</div>
+                        </div>
+                        {/* Page content with highlights */}
+                        <div className="p-2 space-y-1.5 relative">
+                            <div className="h-2 bg-zinc-600/40 rounded w-full"></div>
+                            <div className="h-2 bg-yellow-400/40 rounded w-3/4 animate-pulse"></div>
+                            <div className="h-2 bg-zinc-600/40 rounded w-5/6"></div>
+                            <div className="h-2 bg-lime-400/40 rounded w-2/3 animate-pulse" style={{ animationDelay: '0.3s' }}></div>
+                            <div className="h-2 bg-zinc-600/40 rounded w-full"></div>
+
+                            {/* Sticky note */}
+                            <div className="absolute top-1 right-1 w-16 h-14 bg-gradient-to-br from-yellow-300 to-yellow-400 rounded shadow-lg p-1.5 rotate-[2deg] animate-float">
+                                <div className="text-[6px] text-yellow-900 font-medium leading-tight">Note saved!</div>
+                                <div className="mt-1 space-y-0.5">
+                                    <div className="h-1 bg-yellow-600/30 rounded w-full"></div>
+                                    <div className="h-1 bg-yellow-600/30 rounded w-2/3"></div>
+                                </div>
+                            </div>
+
+                            {/* Injected button indicator */}
+                            <div className="absolute bottom-1 right-1 flex gap-1">
+                                <div className="w-5 h-5 bg-gradient-to-br from-yellow-500 to-lime-500 rounded flex items-center justify-center shadow-lg animate-bounce" style={{ animationDelay: '0.2s' }}>
+                                    <StickyNote className="w-3 h-3 text-white" />
+                                </div>
+                                <div className="w-5 h-5 bg-gradient-to-br from-lime-500 to-green-500 rounded flex items-center justify-center shadow-lg animate-bounce" style={{ animationDelay: '0.4s' }}>
+                                    <Link2 className="w-3 h-3 text-white" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        },
+        {
             title: "Voice Control",
             description: "Navigate hands-free with natural language commands.",
-            icon: "🎤",
+            icon: <Mic className="w-7 h-7" />,
             gradient: "from-orange-500/20 to-amber-600/20",
             borderGradient: "from-orange-500/50 to-amber-600/50",
             visual: (
                 <div className="relative w-full h-40 bg-gradient-to-br from-orange-500/5 to-amber-600/5 rounded-lg overflow-hidden flex items-center justify-center">
                     <div className="relative">
-                        <div className="text-6xl animate-pulse">🎤</div>
+                        <Mic className="w-16 h-16 text-orange-400 animate-pulse" />
                         <div className="absolute inset-0 flex items-center justify-center">
                             <div className="w-20 h-20 border-4 border-orange-400/40 rounded-full animate-ping"></div>
                         </div>
@@ -207,15 +272,16 @@ export default function HowToUse() {
         {
             title: "Command Palette",
             description: "Lightning-fast access to every feature, every workspace.",
-            icon: "⌘",
+            icon: <Command className="w-7 h-7" />,
             gradient: "from-emerald-500/20 to-teal-600/20",
             borderGradient: "from-emerald-500/50 to-teal-600/50",
             visual: (
                 <div className="relative w-full h-40 bg-gradient-to-br from-emerald-500/5 to-teal-600/5 rounded-lg overflow-hidden flex items-center justify-center">
                     <div className="w-full max-w-[200px] bg-zinc-800/80 backdrop-blur-sm rounded-lg border border-emerald-400/30 shadow-2xl">
                         <div className="p-2 border-b border-white/5">
-                            <div className="h-6 bg-emerald-500/20 rounded border border-emerald-400/30 flex items-center px-2 text-xs text-emerald-200">
-                                <span className="animate-pulse">⌘ Search...</span>
+                            <div className="h-6 bg-emerald-500/20 rounded border border-emerald-400/30 flex items-center gap-1 px-2 text-xs text-emerald-200">
+                                <Command className="w-3 h-3 animate-pulse" />
+                                <span className="animate-pulse">Search...</span>
                             </div>
                         </div>
                         <div className="p-2 space-y-1">
@@ -254,23 +320,23 @@ export default function HowToUse() {
                 <div className="text-center mb-24 relative">
                     <div className="inline-block mb-6">
                         <div className="px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 border border-white/10 backdrop-blur-xl">
-                            <span className="text-sm font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                            <span className="label text-gradient-accent">
                                 GETTING STARTED
                             </span>
                         </div>
                     </div>
-                    <h2 className="text-5xl md:text-7xl font-black text-white mb-6 leading-tight">
+                    <h2 className="heading-1 text-txt-primary mb-6 leading-tight">
                         From Zero to{' '}
-                        <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent animate-gradient">
+                        <span className="text-gradient animate-gradient">
                             Superhuman
                         </span>
                         <br />
-                        <span className="text-4xl md:text-5xl text-zinc-400 font-light">in 30 seconds</span>
+                        <span className="heading-2 text-txt-secondary font-light">in 30 seconds</span>
                     </h2>
-                    <p className="text-zinc-400 text-lg max-w-2xl mx-auto leading-relaxed">
+                    <p className="body-lg text-txt-secondary max-w-2xl mx-auto leading-relaxed">
                         No setup complexity. No learning curve. No credit card.
                         <br />
-                        <span className="text-white font-semibold">Just pure, intelligent productivity.</span>
+                        <span className="text-txt-primary font-semibold">Just pure, intelligent productivity.</span>
                     </p>
                 </div>
 
@@ -299,10 +365,10 @@ export default function HowToUse() {
                                         </div>
                                     </div>
 
-                                    <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-cyan-400 group-hover:to-blue-500 group-hover:bg-clip-text transition-all duration-300">
+                                    <h3 className="heading-4 text-txt-primary mb-4 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-cyan-400 group-hover:to-blue-500 group-hover:bg-clip-text transition-all duration-300">
                                         {step.title}
                                     </h3>
-                                    <p className="text-zinc-400 leading-relaxed">
+                                    <p className="body-base text-txt-secondary leading-relaxed">
                                         {step.description}
                                     </p>
 
@@ -317,14 +383,14 @@ export default function HowToUse() {
                 {/* Features Showcase - Bento Grid Style */}
                 <div className="max-w-7xl mx-auto mb-32">
                     <div className="text-center mb-16">
-                        <h3 className="text-4xl md:text-5xl font-black text-white mb-6">
-                            <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-                                Six Superpowers.
+                        <h3 className="heading-2 text-txt-primary mb-6">
+                            <span className="text-gradient">
+                                Seven Superpowers.
                             </span>
                             <br />
                             One Extension.
                         </h3>
-                        <p className="text-zinc-400 text-lg max-w-3xl mx-auto">
+                        <p className="body-lg text-txt-secondary max-w-3xl mx-auto">
                             Every feature designed to eliminate friction and amplify your focus.
                         </p>
                     </div>
@@ -354,10 +420,10 @@ export default function HowToUse() {
                                         <div className={`absolute inset-0 bg-gradient-to-br ${feature.borderGradient} blur-2xl opacity-0 group-hover:opacity-60 transition-opacity duration-500`} />
                                     </div>
 
-                                    <h4 className="text-xl font-bold text-white mb-3 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-zinc-300 group-hover:bg-clip-text transition-all duration-300">
+                                    <h4 className="heading-5 text-txt-primary mb-3 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-zinc-300 group-hover:bg-clip-text transition-all duration-300">
                                         {feature.title}
                                     </h4>
-                                    <p className="text-zinc-400 text-sm leading-relaxed group-hover:text-zinc-300 transition-colors duration-300">
+                                    <p className="body-sm text-txt-secondary leading-relaxed group-hover:text-txt-primary transition-colors duration-300">
                                         {feature.description}
                                     </p>
                                 </div>
@@ -370,7 +436,7 @@ export default function HowToUse() {
                     <a href="https://chromewebstore.google.com/detail/cooldesk/ioggffobciopdddacpclplkeodllhjko"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group inline-flex items-center gap-3 bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white px-10 py-5 rounded-2xl font-bold text-lg hover:shadow-2xl hover:shadow-blue-500/50 transition-all duration-500 hover:scale-110 active:scale-95 relative overflow-hidden">
+                        className="btn-gradient btn-xl group inline-flex items-center gap-3 hover:shadow-2xl hover:shadow-blue-500/50 transition-all duration-500 hover:scale-110 active:scale-95 relative overflow-hidden">
 
                         {/* Animated Shine Effect */}
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
@@ -381,9 +447,9 @@ export default function HowToUse() {
                         </svg>
                     </a>
 
-                    <div className="mt-6 flex items-center justify-center gap-6 text-zinc-500 text-sm">
+                    <div className="mt-6 flex items-center justify-center gap-6 caption text-txt-muted">
                         <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                            <div className="w-2 h-2 rounded-full bg-txt-success animate-pulse" />
                             <span>100% Free</span>
                         </div>
                         <div className="w-1 h-1 rounded-full bg-zinc-700" />
@@ -409,13 +475,13 @@ export default function HowToUse() {
 
                         {/* About CoolDesk */}
                         <div>
-                            <h4 className="text-white font-bold text-lg mb-6 flex items-center gap-2">
+                            <h4 className="heading-5 text-txt-primary mb-6 flex items-center gap-2">
                                 <div className="w-8 h-8 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center">
-                                    <span className="text-sm">🚀</span>
+                                    <Rocket className="w-4 h-4 text-white" />
                                 </div>
                                 CoolDesk
                             </h4>
-                            <p className="text-zinc-400 text-sm leading-relaxed mb-4">
+                            <p className="body-sm text-txt-secondary leading-relaxed mb-4">
                                 Transform your browser into an AI-powered productivity powerhouse. Smart workspaces, intelligent organization, and seamless collaboration at your fingertips.
                             </p>
                             <div className="flex items-center gap-3">
@@ -433,26 +499,26 @@ export default function HowToUse() {
 
                         {/* Product */}
                         <div>
-                            <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-6">Product</h4>
+                            <h4 className="label text-txt-primary uppercase tracking-wider mb-6">Product</h4>
                             <ul className="space-y-3">
-                                <li><a href="#features" className="text-zinc-400 hover:text-white transition-colors text-sm flex items-center gap-2 group">
-                                    <span className="w-1 h-1 rounded-full bg-blue-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                <li><a href="#features" className="link text-txt-secondary hover:text-txt-primary flex items-center gap-2 group">
+                                    <span className="w-1 h-1 rounded-full bg-btn-primary opacity-0 group-hover:opacity-100 transition-opacity"></span>
                                     Features
                                 </a></li>
-                                <li><a href="#how-to-use" className="text-zinc-400 hover:text-white transition-colors text-sm flex items-center gap-2 group">
-                                    <span className="w-1 h-1 rounded-full bg-blue-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                <li><a href="#how-to-use" className="link text-txt-secondary hover:text-txt-primary flex items-center gap-2 group">
+                                    <span className="w-1 h-1 rounded-full bg-btn-primary opacity-0 group-hover:opacity-100 transition-opacity"></span>
                                     How It Works
                                 </a></li>
-                                <li><a href="#pricing" className="text-zinc-400 hover:text-white transition-colors text-sm flex items-center gap-2 group">
-                                    <span className="w-1 h-1 rounded-full bg-blue-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                <li><a href="#pricing" className="link text-txt-secondary hover:text-txt-primary flex items-center gap-2 group">
+                                    <span className="w-1 h-1 rounded-full bg-btn-primary opacity-0 group-hover:opacity-100 transition-opacity"></span>
                                     Pricing
                                 </a></li>
-                                <li><a href="#" className="text-zinc-400 hover:text-white transition-colors text-sm flex items-center gap-2 group">
-                                    <span className="w-1 h-1 rounded-full bg-blue-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                <li><a href="#" className="link text-txt-secondary hover:text-txt-primary flex items-center gap-2 group">
+                                    <span className="w-1 h-1 rounded-full bg-btn-primary opacity-0 group-hover:opacity-100 transition-opacity"></span>
                                     Roadmap
                                 </a></li>
-                                <li><a href="#" className="text-zinc-400 hover:text-white transition-colors text-sm flex items-center gap-2 group">
-                                    <span className="w-1 h-1 rounded-full bg-blue-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                <li><a href="#" className="link text-txt-secondary hover:text-txt-primary flex items-center gap-2 group">
+                                    <span className="w-1 h-1 rounded-full bg-btn-primary opacity-0 group-hover:opacity-100 transition-opacity"></span>
                                     Changelog
                                 </a></li>
                             </ul>
@@ -460,26 +526,26 @@ export default function HowToUse() {
 
                         {/* Resources */}
                         <div>
-                            <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-6">Resources</h4>
+                            <h4 className="label text-txt-primary uppercase tracking-wider mb-6">Resources</h4>
                             <ul className="space-y-3">
-                                <li><a href="#" className="text-zinc-400 hover:text-white transition-colors text-sm flex items-center gap-2 group">
-                                    <span className="w-1 h-1 rounded-full bg-purple-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                <li><a href="#" className="link text-txt-secondary hover:text-txt-primary flex items-center gap-2 group">
+                                    <span className="w-1 h-1 rounded-full bg-btn-secondary opacity-0 group-hover:opacity-100 transition-opacity"></span>
                                     Documentation
                                 </a></li>
-                                <li><a href="#" className="text-zinc-400 hover:text-white transition-colors text-sm flex items-center gap-2 group">
-                                    <span className="w-1 h-1 rounded-full bg-purple-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                <li><a href="#" className="link text-txt-secondary hover:text-txt-primary flex items-center gap-2 group">
+                                    <span className="w-1 h-1 rounded-full bg-btn-secondary opacity-0 group-hover:opacity-100 transition-opacity"></span>
                                     Help Center
                                 </a></li>
-                                <li><a href="#" className="text-zinc-400 hover:text-white transition-colors text-sm flex items-center gap-2 group">
-                                    <span className="w-1 h-1 rounded-full bg-purple-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                <li><a href="#" className="link text-txt-secondary hover:text-txt-primary flex items-center gap-2 group">
+                                    <span className="w-1 h-1 rounded-full bg-btn-secondary opacity-0 group-hover:opacity-100 transition-opacity"></span>
                                     Blog
                                 </a></li>
-                                <li><a href="#" className="text-zinc-400 hover:text-white transition-colors text-sm flex items-center gap-2 group">
-                                    <span className="w-1 h-1 rounded-full bg-purple-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                <li><a href="#" className="link text-txt-secondary hover:text-txt-primary flex items-center gap-2 group">
+                                    <span className="w-1 h-1 rounded-full bg-btn-secondary opacity-0 group-hover:opacity-100 transition-opacity"></span>
                                     Video Tutorials
                                 </a></li>
-                                <li><a href="#" className="text-zinc-400 hover:text-white transition-colors text-sm flex items-center gap-2 group">
-                                    <span className="w-1 h-1 rounded-full bg-purple-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                <li><a href="#" className="link text-txt-secondary hover:text-txt-primary flex items-center gap-2 group">
+                                    <span className="w-1 h-1 rounded-full bg-btn-secondary opacity-0 group-hover:opacity-100 transition-opacity"></span>
                                     Community
                                 </a></li>
                             </ul>
@@ -487,30 +553,30 @@ export default function HowToUse() {
 
                         {/* Legal */}
                         <div>
-                            <h4 className="text-white font-bold text-sm uppercase tracking-wider mb-6">Legal</h4>
+                            <h4 className="label text-txt-primary uppercase tracking-wider mb-6">Legal</h4>
                             <ul className="space-y-3">
-                                <li><a href="#" className="text-zinc-400 hover:text-white transition-colors text-sm flex items-center gap-2 group">
-                                    <span className="w-1 h-1 rounded-full bg-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                <li><a href="#" className="link text-txt-secondary hover:text-txt-primary flex items-center gap-2 group">
+                                    <span className="w-1 h-1 rounded-full bg-tech-cyan opacity-0 group-hover:opacity-100 transition-opacity"></span>
                                     Privacy Policy
                                 </a></li>
-                                <li><a href="#" className="text-zinc-400 hover:text-white transition-colors text-sm flex items-center gap-2 group">
-                                    <span className="w-1 h-1 rounded-full bg-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                <li><a href="#" className="link text-txt-secondary hover:text-txt-primary flex items-center gap-2 group">
+                                    <span className="w-1 h-1 rounded-full bg-tech-cyan opacity-0 group-hover:opacity-100 transition-opacity"></span>
                                     Terms of Service
                                 </a></li>
-                                <li><a href="#" className="text-zinc-400 hover:text-white transition-colors text-sm flex items-center gap-2 group">
-                                    <span className="w-1 h-1 rounded-full bg-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                <li><a href="#" className="link text-txt-secondary hover:text-txt-primary flex items-center gap-2 group">
+                                    <span className="w-1 h-1 rounded-full bg-tech-cyan opacity-0 group-hover:opacity-100 transition-opacity"></span>
                                     Cookie Policy
                                 </a></li>
-                                <li><a href="#" className="text-zinc-400 hover:text-white transition-colors text-sm flex items-center gap-2 group">
-                                    <span className="w-1 h-1 rounded-full bg-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                                <li><a href="#" className="link text-txt-secondary hover:text-txt-primary flex items-center gap-2 group">
+                                    <span className="w-1 h-1 rounded-full bg-tech-cyan opacity-0 group-hover:opacity-100 transition-opacity"></span>
                                     Security
                                 </a></li>
                             </ul>
                             <div className="mt-6 pt-6 border-t border-white/5">
-                                <p className="text-xs text-zinc-500">
-                                    <span className="font-semibold text-zinc-400">Status:</span>
+                                <p className="caption text-txt-muted">
+                                    <span className="font-semibold text-txt-secondary">Status:</span>
                                     <span className="ml-2 inline-flex items-center gap-1">
-                                        <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                                        <span className="w-1.5 h-1.5 rounded-full bg-txt-success animate-pulse"></span>
                                         All Systems Operational
                                     </span>
                                 </p>
@@ -520,13 +586,13 @@ export default function HowToUse() {
 
                     {/* Bottom Bar */}
                     <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-                        <p className="text-zinc-500 text-sm">
+                        <p className="caption text-txt-muted">
                             © 2026 CoolDesk. Built with 💙 for productivity enthusiasts worldwide.
                         </p>
-                        <div className="flex items-center gap-6 text-sm">
-                            <a href="#" className="text-zinc-500 hover:text-white transition-colors">Contact</a>
-                            <a href="#" className="text-zinc-500 hover:text-white transition-colors">Support</a>
-                            <a href="https://chromewebstore.google.com/detail/cooldesk/ioggffobciopdddacpclplkeodllhjko" target="_blank" rel="noopener noreferrer" className="px-4 py-2 bg-gradient-to-r from-blue-600/20 to-purple-600/20 text-blue-400 rounded-lg border border-blue-500/30 hover:border-blue-500/50 transition-all text-xs font-semibold">
+                        <div className="flex items-center gap-6 caption">
+                            <a href="#" className="link text-txt-muted hover:text-txt-primary">Contact</a>
+                            <a href="#" className="link text-txt-muted hover:text-txt-primary">Support</a>
+                            <a href="https://chromewebstore.google.com/detail/cooldesk/ioggffobciopdddacpclplkeodllhjko" target="_blank" rel="noopener noreferrer" className="btn-outline btn-sm">
                                 View on Chrome Store
                             </a>
                         </div>

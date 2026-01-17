@@ -32,7 +32,7 @@ export default function Navbar() {
                                 <Link
                                     key={link.href}
                                     to={link.href}
-                                    className="text-gray-300 hover:text-white transition-colors text-sm font-medium"
+                                    className="text-txt-secondary hover:text-txt-primary transition-colors text-sm font-medium"
                                 >
                                     {link.label}
                                 </Link>
@@ -40,7 +40,7 @@ export default function Navbar() {
                                 <a
                                     key={link.href}
                                     href={link.href}
-                                    className="text-gray-300 hover:text-white transition-colors text-sm font-medium"
+                                    className="text-txt-secondary hover:text-txt-primary transition-colors text-sm font-medium"
                                 >
                                     {link.label}
                                 </a>
@@ -54,7 +54,7 @@ export default function Navbar() {
                             href="https://chromewebstore.google.com/detail/cooldesk/ioggffobciopdddacpclplkeodllhjko"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2.5 rounded-lg font-semibold transition-all duration-200 shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40"
+                            className="btn-primary btn-md font-semibold"
                         >
                             Get Started
                         </a>
@@ -87,7 +87,7 @@ export default function Navbar() {
                                     key={link.href}
                                     to={link.href}
                                     onClick={() => setMobileMenuOpen(false)}
-                                    className="block text-gray-300 hover:text-white transition-colors py-2"
+                                    className="block text-txt-secondary hover:text-txt-primary transition-colors py-2"
                                 >
                                     {link.label}
                                 </Link>
@@ -96,7 +96,7 @@ export default function Navbar() {
                                     key={link.href}
                                     href={link.href}
                                     onClick={() => setMobileMenuOpen(false)}
-                                    className="block text-gray-300 hover:text-white transition-colors py-2"
+                                    className="block text-txt-secondary hover:text-txt-primary transition-colors py-2"
                                 >
                                     {link.label}
                                 </a>
@@ -105,7 +105,7 @@ export default function Navbar() {
                         <a
                             href="/#get-started"
                             onClick={() => setMobileMenuOpen(false)}
-                            className="block bg-blue-500 hover:bg-blue-600 text-white px-6 py-2.5 rounded-lg font-semibold transition-colors text-center mt-4"
+                            className="btn-primary btn-md font-semibold text-center block mt-4"
                         >
                             Get Started
                         </a>

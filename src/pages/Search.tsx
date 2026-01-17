@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaRocket, FaLink } from 'react-icons/fa';
 import LinkSection from "@/components/new/LinkSection";
 import Navbar from "@/components/new/Navbar";
@@ -8,6 +8,10 @@ type ViewMode = 'workspaces' | 'links';
 
 export default function Search() {
     const [viewMode, setViewMode] = useState<ViewMode>('workspaces');
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     return (
         <main className="min-h-screen text-white scroll-smooth bg-black">
@@ -28,24 +32,24 @@ export default function Search() {
                 <div className="container mx-auto px-6">
                     {/* Hero Header */}
                     <div className="text-center mb-12 animate-fade-in">
-                        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent leading-tight">
+                        <h1 className="heading-1 text-gradient leading-tight mb-6">
                             Discover & Explore
                         </h1>
-                        <p className="text-gray-400 text-lg sm:text-xl mb-8 max-w-3xl mx-auto leading-relaxed px-4">
+                        <p className="body-lg text-txt-secondary mb-8 max-w-3xl mx-auto leading-relaxed px-4">
                             Your gateway to trending projects and essential web destinations
                         </p>
                     </div>
 
                     {/* View Mode Toggle */}
                     <div className="flex justify-center mb-12 animate-fade-in-delay">
-                        <div className="inline-flex bg-gray-900/60 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-1.5">
+                        <div className="inline-flex bg-zinc-900/60 backdrop-blur-sm border border-zinc-700/50 rounded-2xl p-1.5">
                             <button
                                 onClick={() => setViewMode('workspaces')}
                                 className={`
-                                    flex items-center gap-3 px-6 py-3 rounded-xl text-sm font-bold transition-all duration-300
+                                    flex items-center gap-3 px-6 py-3 rounded-xl label transition-all duration-300
                                     ${viewMode === 'workspaces'
-                                        ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/30'
-                                        : 'text-gray-400 hover:text-white'}
+                                        ? 'btn-gradient shadow-lg shadow-blue-500/30'
+                                        : 'text-txt-secondary hover:text-txt-primary'}
                                 `}
                             >
                                 <FaRocket size={18} />
@@ -55,10 +59,10 @@ export default function Search() {
                             <button
                                 onClick={() => setViewMode('links')}
                                 className={`
-                                    flex items-center gap-3 px-6 py-3 rounded-xl text-sm font-bold transition-all duration-300
+                                    flex items-center gap-3 px-6 py-3 rounded-xl label transition-all duration-300
                                     ${viewMode === 'links'
-                                        ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/30'
-                                        : 'text-gray-400 hover:text-white'}
+                                        ? 'btn-gradient shadow-lg shadow-blue-500/30'
+                                        : 'text-txt-secondary hover:text-txt-primary'}
                                 `}
                             >
                                 <FaLink size={18} />
@@ -80,13 +84,13 @@ export default function Search() {
             </section>
 
             {/* Footer */}
-            <footer className="bg-black/40 text-gray-400 py-10 mt-20 relative z-10 border-t border-white/10">
+            <footer className="bg-black/40 py-10 mt-20 relative z-10 border-t border-white/10">
                 <div className="container mx-auto px-6 text-center">
-                    <p>© {new Date().getFullYear()} CoolDesk. All rights reserved.</p>
-                    <div className="mt-6 flex justify-center space-x-8 text-sm">
-                        <a href="/privacy-details" className="hover:text-white transition-colors">Privacy Policy</a>
-                        <a href="/terms" className="hover:text-white transition-colors">Terms of Service</a>
-                        <a href="/contact" className="hover:text-white transition-colors">Contact Us</a>
+                    <p className="caption text-txt-muted">© {new Date().getFullYear()} CoolDesk. All rights reserved.</p>
+                    <div className="mt-6 flex justify-center space-x-8 caption">
+                        <a href="/privacy-details" className="link text-txt-secondary hover:text-txt-primary">Privacy Policy</a>
+                        <a href="/terms" className="link text-txt-secondary hover:text-txt-primary">Terms of Service</a>
+                        <a href="/contact" className="link text-txt-secondary hover:text-txt-primary">Contact Us</a>
                     </div>
                 </div>
             </footer>
