@@ -25,21 +25,29 @@ export default function Search() {
     }, [viewMode]);
 
     return (
-        <main className="min-h-screen text-white scroll-smooth bg-black">
-            {/* Background Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-600/10 pointer-events-none z-0" />
-
+        <main className="min-h-screen text-white scroll-smooth bg-zinc-950 relative overflow-hidden">
             {/* Dot Grid Pattern */}
             <div className="absolute inset-0 pointer-events-none z-0" style={{
-                backgroundImage: 'radial-gradient(circle, rgba(255, 255, 255, 0.03) 1px, transparent 1px)',
-                backgroundSize: '32px 32px'
+                backgroundImage: 'radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px)',
+                backgroundSize: '40px 40px'
             }} />
 
-            {/* Animated Background Gradients */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-1/4 left-1/4 w-[800px] h-[800px] bg-blue-500/10 rounded-full blur-[150px] animate-pulse" />
-                <div className="absolute bottom-1/4 right-1/4 w-[700px] h-[700px] bg-purple-500/10 rounded-full blur-[140px] animate-pulse"
-                    style={{ animationDelay: '1s' }} />
+            {/* Animated Gradient Mesh Orbs */}
+            <div className="absolute inset-0 pointer-events-none z-0">
+                {/* Main blue orb - top left */}
+                <div className="absolute top-[5%] left-[10%] w-[600px] h-[600px] bg-blue-500/12 rounded-full blur-[120px] animate-pulse-slow" />
+
+                {/* Secondary purple orb - bottom right */}
+                <div className="absolute bottom-[10%] right-[5%] w-[700px] h-[700px] bg-purple-600/10 rounded-full blur-[140px] animate-pulse-slower" />
+
+                {/* Accent cyan orb - center */}
+                <div className="absolute top-[40%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-cyan-500/8 rounded-full blur-[100px] animate-float-slow" />
+
+                {/* Small accent orb - top right */}
+                <div className="absolute top-[15%] right-[20%] w-[300px] h-[300px] bg-fuchsia-500/8 rounded-full blur-[80px] animate-pulse-slow" style={{ animationDelay: '2s' }} />
+
+                {/* Small accent orb - bottom left */}
+                <div className="absolute bottom-[20%] left-[15%] w-[350px] h-[350px] bg-indigo-500/8 rounded-full blur-[90px] animate-pulse-slower" style={{ animationDelay: '1s' }} />
             </div>
 
             <Navbar />
@@ -139,6 +147,37 @@ export default function Search() {
                     }
                 }
 
+                @keyframes pulse-slow {
+                    0%, 100% {
+                        opacity: 0.8;
+                        transform: scale(1);
+                    }
+                    50% {
+                        opacity: 1;
+                        transform: scale(1.05);
+                    }
+                }
+
+                @keyframes pulse-slower {
+                    0%, 100% {
+                        opacity: 0.6;
+                        transform: scale(1);
+                    }
+                    50% {
+                        opacity: 0.9;
+                        transform: scale(1.1);
+                    }
+                }
+
+                @keyframes float-slow {
+                    0%, 100% {
+                        transform: translate(-50%, -50%) translateY(0px);
+                    }
+                    50% {
+                        transform: translate(-50%, -50%) translateY(-30px);
+                    }
+                }
+
                 .animate-fade-in {
                     animation: fade-in 0.6s ease-out forwards;
                 }
@@ -151,6 +190,18 @@ export default function Search() {
                 .animate-fade-in-content {
                     opacity: 0;
                     animation: fade-in 0.4s ease-out 0.1s forwards;
+                }
+
+                .animate-pulse-slow {
+                    animation: pulse-slow 8s ease-in-out infinite;
+                }
+
+                .animate-pulse-slower {
+                    animation: pulse-slower 12s ease-in-out infinite;
+                }
+
+                .animate-float-slow {
+                    animation: float-slow 15s ease-in-out infinite;
                 }
             `}</style>
         </main>

@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HelmetProvider } from "react-helmet-async";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import PrivacyPolicyStatic from "./components/privacy/PrivacyPolicyStatic";
+import { usePageTracking } from "./hooks/usePageTracking";
 import BlogPage from "./pages/Blog";
 import BlogPostPage from "./pages/BlogPost";
 import Contact from "./pages/Contact";
@@ -20,6 +21,12 @@ import Search from "./pages/Search";
 
 const queryClient = new QueryClient();
 
+// Component to track page views - must be inside BrowserRouter
+function PageTracker() {
+  usePageTracking();
+  return null;
+}
+
 const App = () => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
@@ -27,6 +34,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <PageTracker />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/how-to-use" element={<HowToUse />} />
