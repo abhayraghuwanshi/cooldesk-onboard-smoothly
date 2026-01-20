@@ -1,6 +1,4 @@
 import FAQ from "@/components/new/FAQ";
-import FeatureBloom from "@/components/new/FeatureBloom";
-import FeatureComparison from "@/components/new/FeatureComparison";
 import Hero from "@/components/new/Hero";
 import Navbar from '@/components/new/Navbar';
 import NavigationComparison from "@/components/new/NavigationComparison";
@@ -46,11 +44,11 @@ const Index = () => {
         </div>
       </section> */}
       {/* Features Section */}
-      <section id="features" className="relative z-10 py-24">
+      {/* <section id="features" className="relative z-10 py-24">
         <div className="container mx-auto px-6 text-center relative z-10">
           <FeatureBloom />
         </div>
-      </section>
+      </section> */}
 
       {/* FAQ Section */}
       <section id="f" className="relative z-10 py-24">
@@ -60,12 +58,6 @@ const Index = () => {
       </section>
 
 
-      {/* Feature Comparison Table */}
-      <section id="compare" className="relative z-10 py-24">
-        <div className="container mx-auto px-6 relative z-10">
-          <FeatureComparison />
-        </div>
-      </section>
 
       {/* Users Testimonials */}
       {/* <section id="testimonials" className="relative z-10 py-24 backdrop-blur-sm">

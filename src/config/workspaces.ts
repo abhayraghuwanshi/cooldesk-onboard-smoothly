@@ -72,6 +72,7 @@ export interface ProjectWorkspace {
         playground?: string;
         npm?: string;
         discord?: string;
+        [key: string]: string | undefined;
     };
 
     // Trending indicators
@@ -145,6 +146,8 @@ export type WorkspaceCategory =
     | 'apis'
     | 'payments'
     | 'storage'
+    | 'dev-tools'
+    | 'startup-product'
     | 'other';
 
 export const workspaces: ProjectWorkspace[] = [
@@ -2134,64 +2137,66 @@ export const searchWorkspaces = (query: string): ProjectWorkspace[] => {
     );
 };
 
-// Category labels for UI
+// Category labels for UI (without emojis - icons are added separately in UI)
 export const categoryLabels: Record<WorkspaceCategory, string> = {
     // Development
-    'frontend': '🎨 Frontend Development',
-    'backend': '⚙️ Backend Development',
-    'fullstack': '🔄 Full Stack Frameworks',
-    'mobile': '📱 Mobile Development',
-    'database': '🗄️ Databases & ORMs',
-    'devops': '🚀 DevOps & CI/CD',
+    'frontend': 'Frontend',
+    'backend': 'Backend',
+    'fullstack': 'Full Stack',
+    'mobile': 'Mobile',
+    'database': 'Databases',
+    'devops': 'DevOps',
 
     // AI & Data
-    'ai-ml': '🤖 AI & Machine Learning',
-    'data-analytics': '📊 Data Analytics',
-    'llm-tools': '🧠 LLM & AI Tools',
+    'ai-ml': 'AI & ML',
+    'data-analytics': 'Analytics',
+    'llm-tools': 'LLM Tools',
 
     // Design & Creative
-    'design-systems': '🎨 Design Systems',
-    'design-tools': '🖌️ Design Tools',
-    'animation': '🎬 Animation & Motion',
-    'video-editing': '🎥 Video Editing',
-    'image-generation': '🖼️ AI Image Generation',
+    'design-systems': 'Design Systems',
+    'design-tools': 'Design Tools',
+    'animation': 'Animation',
+    'video-editing': 'Video',
+    'image-generation': 'AI Images',
 
     // Audio & Music
-    'music-production': '🎵 Music Production',
-    'audio-editing': '🎧 Audio Editing',
-    'voice-ai': '🎤 Voice & Speech AI',
-    'podcasting': '🎙️ Podcasting Tools',
+    'music-production': 'Music',
+    'audio-editing': 'Audio',
+    'voice-ai': 'Voice AI',
+    'podcasting': 'Podcasting',
 
     // Infrastructure & Deployment
-    'deployment': '🚢 Deployment Platforms',
-    'hosting': '🌐 Web Hosting',
-    'cloud-services': '☁️ Cloud Services',
-    'monitoring': '📈 Monitoring & Observability',
+    'deployment': 'Deployment',
+    'hosting': 'Hosting',
+    'cloud-services': 'Cloud',
+    'monitoring': 'Monitoring',
 
     // Productivity & Business
-    'collaboration': '👥 Collaboration Tools',
-    'project-management': '📋 Project Management',
-    'automation': '⚡ Automation & Workflow',
-    'crm': '💼 CRM & Sales',
-    'analytics': '📊 Business Analytics',
+    'collaboration': 'Collaboration',
+    'project-management': 'Projects',
+    'automation': 'Automation',
+    'crm': 'CRM',
+    'analytics': 'Business',
 
     // Content & Marketing
-    'cms': '📝 Content Management',
-    'ecommerce': '🛒 E-commerce Platforms',
-    'marketing': '📢 Marketing Tools',
-    'seo': '🔍 SEO & Search',
-    'email': '✉️ Email Marketing',
+    'cms': 'CMS',
+    'ecommerce': 'E-commerce',
+    'marketing': 'Marketing',
+    'seo': 'SEO',
+    'email': 'Email',
 
     // Security & Auth
-    'authentication': '🔐 Authentication & Auth',
-    'security': '🛡️ Security Tools',
-    'testing': '🧪 Testing & QA',
+    'authentication': 'Auth',
+    'security': 'Security',
+    'testing': 'Testing',
 
     // Miscellaneous
-    'apis': '🔌 APIs & Integrations',
-    'payments': '💳 Payment Processing',
-    'storage': '💾 Cloud Storage',
-    'other': '🔧 Other Tools'
+    'apis': 'APIs',
+    'payments': 'Payments',
+    'storage': 'Storage',
+    'dev-tools': 'Dev Tools',
+    'startup-product': 'Startups',
+    'other': 'Other'
 };
 
 // Badge colors

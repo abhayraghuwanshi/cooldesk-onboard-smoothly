@@ -1,54 +1,40 @@
 import {
-    categoryLabels,
-    getWorkspacesByCategory,
-    searchWorkspaces,
-    WorkspaceCategory,
-    workspaces,
-} from '@/config/workspaces';
+    profiles
+} from '@/config/profiles';
 import {
-    Activity,
-    BarChart3,
     Brain,
     Cloud,
     Code,
-    Contact,
-    CreditCard,
-    Database,
-    FileText,
-    Film,
-    Globe,
-    HardDrive,
-    Headphones,
-    Image,
-    Kanban,
-    Layers,
     LayoutGrid,
-    Lock,
-    Mail,
-    Megaphone,
-    MessageSquare,
-    Mic,
-    MoreHorizontal,
-    Music,
-    Paintbrush,
     Palette,
     PieChart,
-    Plug,
-    Radio, Rocket,
-    Search,
-    Server,
-    Shield,
-    ShoppingCart,
-    Smartphone,
-    Target,
-    TestTube,
-    Users,
-    Video,
-    Zap
+    Search
 } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { FaBook, FaChevronDown, FaChevronUp, FaDiscord, FaGamepad, FaGithub, FaGlobe, FaNpm, FaPlay, FaPlus, FaSearch, FaTimes, FaTrash } from 'react-icons/fa';
-import WorkspaceCard from './WorkspaceCard';
+import ProfileCard from './ProfileCard';
+
+// Category labels for profiles
+const profileCategoryLabels: Record<string, string> = {
+    'all': 'All Profiles',
+    'fullstack': 'Full Stack',
+    'ai-ml': 'AI & ML',
+    'data-analytics': 'Data Science',
+    'devops': 'DevOps',
+    'design-systems': 'Design',
+    'backend': 'Backend',
+};
+
+// Category icons
+const profileCategoryIcons: Record<string, JSX.Element> = {
+    'all': <LayoutGrid size={16} />,
+    'fullstack': <Code size={16} />,
+    'ai-ml': <Brain size={16} />,
+    'data-analytics': <PieChart size={16} />,
+    'devops': <Cloud size={16} />,
+    'design-systems': <Palette size={16} />,
+    'backend': <Code size={16} />,
+};
 
 // Selected link interface
 interface SelectedLink {
@@ -82,73 +68,6 @@ const urlTypeLabels: Record<string, string> = {
     discord: 'Discord',
 };
 
-const ITEMS_PER_PAGE = 9; // Show 9 workspaces initially (3 rows of 3)
-
-// Category icons using Lucide
-const categoryIcons: Record<string, JSX.Element> = {
-    // Development
-    'frontend': <Code size={14} />,
-    'backend': <Server size={14} />,
-    'fullstack': <Layers size={14} />,
-    'mobile': <Smartphone size={14} />,
-    'database': <Database size={14} />,
-    'devops': <Cloud size={14} />,
-    // AI & Data
-    'ai-ml': <Brain size={14} />,
-    'data-analytics': <BarChart3 size={14} />,
-    'llm-tools': <MessageSquare size={14} />,
-    // Design & Creative
-    'design-systems': <Palette size={14} />,
-    'design-tools': <Paintbrush size={14} />,
-    'animation': <Film size={14} />,
-    'video-editing': <Video size={14} />,
-    'image-generation': <Image size={14} />,
-    // Audio & Music
-    'music-production': <Music size={14} />,
-    'audio-editing': <Headphones size={14} />,
-    'voice-ai': <Mic size={14} />,
-    'podcasting': <Radio size={14} />,
-    // Infrastructure
-    'deployment': <Rocket size={14} />,
-    'hosting': <Globe size={14} />,
-    'cloud-services': <Cloud size={14} />,
-    'monitoring': <Activity size={14} />,
-    // Productivity
-    'collaboration': <Users size={14} />,
-    'project-management': <Kanban size={14} />,
-    'automation': <Zap size={14} />,
-    'crm': <Contact size={14} />,
-    'analytics': <PieChart size={14} />,
-    // Content & Marketing
-    'cms': <FileText size={14} />,
-    'ecommerce': <ShoppingCart size={14} />,
-    'marketing': <Megaphone size={14} />,
-    'seo': <Target size={14} />,
-    'email': <Mail size={14} />,
-    // Security
-    'authentication': <Lock size={14} />,
-    'security': <Shield size={14} />,
-    'testing': <TestTube size={14} />,
-    // Misc
-    'apis': <Plug size={14} />,
-    'payments': <CreditCard size={14} />,
-    'storage': <HardDrive size={14} />,
-    'other': <MoreHorizontal size={14} />,
-};
-
-// Group categories for better navigation
-const CATEGORY_GROUPS = {
-    'Development': ['frontend', 'backend', 'fullstack', 'mobile', 'database', 'devops'],
-    'AI & Data': ['ai-ml', 'data-analytics', 'llm-tools'],
-    'Design & Creative': ['design-systems', 'design-tools', 'animation', 'video-editing', 'image-generation'],
-    'Audio & Music': ['music-production', 'audio-editing', 'voice-ai', 'podcasting'],
-    'Infrastructure': ['deployment', 'hosting', 'cloud-services', 'monitoring'],
-    'Productivity': ['collaboration', 'project-management', 'automation', 'crm', 'analytics'],
-    'Content & Marketing': ['cms', 'ecommerce', 'marketing', 'seo', 'email'],
-    'Security': ['authentication', 'security', 'testing'],
-    'Other': ['apis', 'payments', 'storage', 'other']
-};
-
 // Add to CoolDesk function
 function addToCoolDesk(workspaceName: string, urls: { url: string; title: string }[], icon: string = 'globe') {
     const extensionId = 'dolmgalgldegfddhnafmganlbhkgapoj';
@@ -171,23 +90,56 @@ function addToCoolDesk(workspaceName: string, urls: { url: string; title: string
     }
 }
 
-export default function WorkspaceSection() {
-    // Get all unique categories from workspaces
+export default function ProfileSection() {
+    const [searchQuery, setSearchQuery] = useState('');
+    const [activeCategory, setActiveCategory] = useState<string>('all');
+
+    // Get all unique categories from profiles
     const allCategories = useMemo(() => {
-        const cats = new Set(workspaces.map(w => w.category));
-        return ['all', ...Array.from(cats).sort()] as (WorkspaceCategory | 'all')[];
+        const cats = new Set(profiles.map(p => p.category));
+        return ['all', ...Array.from(cats)];
     }, []);
 
-    const [activeCategory, setActiveCategory] = useState<WorkspaceCategory | 'all'>('all');
-    const [searchQuery, setSearchQuery] = useState('');
-    const [displayCount, setDisplayCount] = useState(ITEMS_PER_PAGE);
-    const [showAllCategories, setShowAllCategories] = useState(false);
-
     // Selection mode state - tracks individual links
-    const [selectionMode, setSelectionMode] = useState(false);
-    const [selectedLinks, setSelectedLinks] = useState<SelectedLink[]>([]);
+    const [selectedLinks, setSelectedLinks] = useState<SelectedLink[]>(() => {
+        if (typeof window !== 'undefined') {
+            const saved = localStorage.getItem('cooldesk_profile_selection');
+            return saved ? JSON.parse(saved) : [];
+        }
+        return [];
+    });
+
+    // Derived state, but initialized to true if we have links
+    const [selectionMode, setSelectionMode] = useState(() => {
+        if (typeof window !== 'undefined') {
+            const saved = localStorage.getItem('cooldesk_profile_selection');
+            return !!(saved && JSON.parse(saved).length > 0);
+        }
+        return false;
+    });
+
     const [showDropdown, setShowDropdown] = useState(false);
-    const [workspaceName, setWorkspaceName] = useState('');
+    const [workspaceName, setWorkspaceName] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('cooldesk_profile_name') || '';
+        }
+        return '';
+    });
+
+    // Save selection to localStorage
+    useEffect(() => {
+        localStorage.setItem('cooldesk_profile_selection', JSON.stringify(selectedLinks));
+        if (selectedLinks.length === 0) {
+            setSelectionMode(false);
+        } else {
+            setSelectionMode(true);
+        }
+    }, [selectedLinks]);
+
+    // Save workspace name to localStorage
+    useEffect(() => {
+        localStorage.setItem('cooldesk_profile_name', workspaceName);
+    }, [workspaceName]);
 
     // Get unique workspace IDs from selected links
     const selectedWorkspaceIds = useMemo(() => {
@@ -201,7 +153,7 @@ export default function WorkspaceSection() {
             setSelectionMode(true);
         }
 
-        const workspace = workspaces.find(w => w.id === workspaceId);
+        const workspace = profiles.find(w => w.id === workspaceId);
         if (!workspace) return;
 
         const isCurrentlySelected = selectedWorkspaceIds.has(workspaceId);
@@ -301,37 +253,28 @@ export default function WorkspaceSection() {
         setWorkspaceName('');
     };
 
-    // Filter workspaces based on category and search
-    const filteredWorkspaces = useMemo(() => {
+    // Filter profiles based on category and search
+    const filteredProfiles = useMemo(() => {
         let filtered = activeCategory === 'all'
-            ? workspaces
-            : getWorkspacesByCategory(activeCategory);
+            ? profiles
+            : profiles.filter(p => p.category === activeCategory);
 
         if (searchQuery.trim()) {
-            filtered = searchWorkspaces(searchQuery);
-            // If category filter is active, apply it to search results too
-            if (activeCategory !== 'all') {
-                filtered = filtered.filter(ws => ws.category === activeCategory);
-            }
+            const query = searchQuery.toLowerCase();
+            filtered = filtered.filter(p =>
+                p.title.toLowerCase().includes(query) ||
+                p.description.toLowerCase().includes(query) ||
+                p.tags.some(tag => tag.toLowerCase().includes(query))
+            );
         }
 
         return filtered;
     }, [activeCategory, searchQuery]);
 
-    // Workspaces to display (with pagination)
-    const displayedWorkspaces = filteredWorkspaces.slice(0, displayCount);
-    const hasMore = displayCount < filteredWorkspaces.length;
-    const totalCount = filteredWorkspaces.length;
-
-    // Reset display count when filters change
-    const handleCategoryChange = (cat: WorkspaceCategory | 'all') => {
+    // Handle category change
+    const handleCategoryChange = (cat: string) => {
         setActiveCategory(cat);
         setSearchQuery('');
-        setDisplayCount(ITEMS_PER_PAGE);
-    };
-
-    const loadMore = () => {
-        setDisplayCount(prev => prev + ITEMS_PER_PAGE);
     };
 
     return (
@@ -358,8 +301,8 @@ export default function WorkspaceSection() {
                                 <div className="text-left min-w-0">
                                     <h4 className="text-white font-semibold flex items-center gap-2 text-sm sm:text-base">
                                         {selectedLinks.length === 0
-                                            ? 'Select workspaces'
-                                            : `${selectedWorkspaceIds.size} ${selectedWorkspaceIds.size === 1 ? 'workspace' : 'workspaces'}`}
+                                            ? 'Select profiles'
+                                            : `${selectedWorkspaceIds.size} ${selectedWorkspaceIds.size === 1 ? 'profile' : 'profiles'}`}
                                         {selectedLinks.length > 0 && (
                                             showDropdown ? <FaChevronUp size={10} className="text-gray-400" /> : <FaChevronDown size={10} className="text-gray-400" />
                                         )}
@@ -405,7 +348,7 @@ export default function WorkspaceSection() {
                             {/* Workspace name input */}
                             <div className="px-3 sm:px-5 py-3 sm:py-4 bg-zinc-800/30 border-b border-zinc-700">
                                 <label className="block text-xs sm:text-sm font-medium text-gray-400 mb-1.5 sm:mb-2">
-                                    Workspace Name
+                                    Profile Name
                                 </label>
                                 <input
                                     type="text"
@@ -436,7 +379,7 @@ export default function WorkspaceSection() {
                                         <button
                                             onClick={() => removeWorkspace(workspaceId)}
                                             className="text-gray-500 active:text-red-400 transition-colors p-2 -mr-1"
-                                            title="Remove all links from this workspace"
+                                            title="Remove all links from this profile"
                                         >
                                             <FaTrash size={12} />
                                         </button>
@@ -474,58 +417,48 @@ export default function WorkspaceSection() {
                 </div>
             )}
 
-            {/* Compact Filter Bar - Search + Categories together */}
-            <div className="mb-6 sm:mb-10 px-2 sm:px-4">
-                {/* Search and Category stacked on mobile, row on desktop */}
+            {/* Search + Categories Row */}
+            <div className="mb-6 sm:mb-8 px-2 sm:px-4">
                 <div className="flex flex-col md:flex-row md:items-center gap-3 sm:gap-4 max-w-6xl mx-auto">
                     {/* Search Input - Full width on mobile, fixed width on desktop */}
                     <div className="relative w-full md:w-72 flex-shrink-0">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" size={16} />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" size={16} />
                         <input
                             type="text"
-                            placeholder="Search..."
+                            placeholder="Search profiles..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="w-full pl-10 pr-4 py-2.5 bg-zinc-900/60 border border-zinc-700 rounded-xl text-sm text-white placeholder-gray-500
-                                     focus:outline-none focus:border-fuchsia-500/50 transition-colors"
+                            className="w-full pl-10 pr-10 py-2.5 bg-zinc-900/80 border border-zinc-700 rounded-xl text-sm text-white placeholder-zinc-500
+                                     focus:outline-none focus:border-zinc-500 transition-colors"
                         />
+                        {searchQuery && (
+                            <button
+                                onClick={() => setSearchQuery('')}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-white p-1 rounded transition-colors"
+                            >
+                                <FaTimes size={12} />
+                            </button>
+                        )}
                     </div>
 
                     {/* Category Pills - Horizontal scroll */}
                     <div className="w-full md:flex-1 overflow-x-auto scrollbar-hide -mx-2 px-2 md:mx-0 md:px-0">
                         <div className="flex items-center gap-2 pb-2 md:pb-0">
-                            <button
-                                onClick={() => handleCategoryChange('all')}
-                                className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200
-                                    ${activeCategory === 'all'
-                                        ? 'bg-white text-zinc-900 shadow-lg shadow-white/20'
-                                        : 'bg-zinc-800/80 text-gray-300 hover:text-white hover:bg-zinc-700 border border-zinc-700/50'}`}
-                            >
-                                <LayoutGrid size={14} />
-                                All
-                            </button>
-                            {allCategories.slice(1, showAllCategories ? undefined : 8).map((cat) => (
+                            {allCategories.map((cat) => (
                                 <button
                                     key={cat}
-                                    onClick={() => handleCategoryChange(cat as WorkspaceCategory)}
-                                    className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200
+                                    onClick={() => handleCategoryChange(cat)}
+                                    className={`
+                                        flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-all duration-200
                                         ${activeCategory === cat
-                                            ? 'bg-white text-zinc-900 shadow-lg shadow-white/20'
-                                            : 'bg-zinc-800/80 text-gray-300 hover:text-white hover:bg-zinc-700 border border-zinc-700/50'}`}
+                                            ? 'bg-white text-zinc-900 shadow-md'
+                                            : 'bg-zinc-800/80 text-zinc-400 hover:text-white hover:bg-zinc-700 border border-zinc-700/50'}
+                                    `}
                                 >
-                                    {categoryIcons[cat] || <MoreHorizontal size={14} />}
-                                    {categoryLabels[cat as WorkspaceCategory]}
+                                    {profileCategoryIcons[cat] || <LayoutGrid size={14} />}
+                                    {profileCategoryLabels[cat] || cat}
                                 </button>
                             ))}
-                            {allCategories.length > 8 && (
-                                <button
-                                    onClick={() => setShowAllCategories(!showAllCategories)}
-                                    className="flex items-center gap-1 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap text-fuchsia-400 hover:text-fuchsia-300 transition-colors"
-                                >
-                                    <MoreHorizontal size={14} />
-                                    {showAllCategories ? 'Less' : `+${allCategories.length - 8}`}
-                                </button>
-                            )}
                         </div>
                     </div>
                 </div>
@@ -533,69 +466,46 @@ export default function WorkspaceSection() {
 
             {/* Grid Layout */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
-                {displayedWorkspaces.map((workspace, index) => (
+                {filteredProfiles.map((profile, index) => (
                     <div
-                        key={workspace.id}
+                        key={profile.id}
                         className="animate-fade-in-up"
                         style={{ animationDelay: `${index * 50}ms` }}
                     >
-                        <WorkspaceCard
-                            workspace={workspace}
+                        <ProfileCard
+                            workspace={profile}
                             selectionMode={selectionMode}
-                            isSelected={isWorkspaceSelected(workspace.id)}
-                            onSelect={() => toggleWorkspaceSelection(workspace.id)}
+                            isSelected={isWorkspaceSelected(profile.id)}
+                            onSelect={() => toggleWorkspaceSelection(profile.id)}
                         />
                     </div>
                 ))}
             </div>
 
-            {/* Load More Button */}
-            {hasMore && (
-                <div className="flex justify-center">
-                    <button
-                        onClick={loadMore}
-                        className="group relative px-8 py-4 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600
-                                 hover:from-violet-500 hover:via-fuchsia-500 hover:to-pink-500
-                                 rounded-2xl text-sm font-bold text-white
-                                 shadow-lg shadow-fuchsia-500/25 hover:shadow-xl hover:shadow-fuchsia-500/40
-                                 transform hover:scale-105 transition-all duration-300
-                                 flex items-center gap-3"
-                    >
-                        <span>Load More Workspaces</span>
-                        <span className="text-xs bg-white/20 px-2 py-1 rounded-full">
-                            +{Math.min(ITEMS_PER_PAGE, totalCount - displayCount)}
-                        </span>
-                    </button>
-                </div>
-            )}
-
             {/* Empty State */}
-            {filteredWorkspaces.length === 0 && (
+            {filteredProfiles.length === 0 && (
                 <div className="text-center py-20">
                     <div className="bg-gray-800/50 backdrop-blur-sm w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-6 border border-gray-700/50">
                         <FaSearch className="text-gray-400 w-10 h-10" />
                     </div>
-                    <h3 className="text-2xl font-semibold text-gray-200 mb-3">No workspaces found</h3>
+                    <h3 className="text-2xl font-semibold text-gray-200 mb-3">No profiles found</h3>
                     <p className="text-gray-500 text-lg mb-6">
                         {searchQuery
-                            ? `No results for "${searchQuery}"${activeCategory !== 'all' ? ` in ${categoryLabels[activeCategory]}` : ''}`
-                            : 'Try selecting a different category'}
+                            ? `No results for "${searchQuery}"`
+                            : 'Try a different search'}
                     </p>
-                    {(searchQuery || activeCategory !== 'all') && (
+                    {searchQuery && (
                         <button
-                            onClick={() => {
-                                setSearchQuery('');
-                                setActiveCategory('all');
-                            }}
+                            onClick={() => setSearchQuery('')}
                             className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl hover:scale-105 transition-transform duration-300"
                         >
-                            Clear Filters
+                            Clear Search
                         </button>
                     )}
                 </div>
             )}
 
-            <style jsx>{`
+            <style>{`
                 @keyframes fade-in {
                     from {
                         opacity: 0;
@@ -618,17 +528,6 @@ export default function WorkspaceSection() {
                     }
                 }
 
-                @keyframes slide-up {
-                    from {
-                        opacity: 0;
-                        transform: translate(-50%, 100%);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: translate(-50%, 0);
-                    }
-                }
-
                 .animate-fade-in {
                     animation: fade-in 0.8s ease-out forwards;
                 }
@@ -636,10 +535,6 @@ export default function WorkspaceSection() {
                 .animate-fade-in-up {
                     opacity: 0;
                     animation: fade-in-up 0.6s ease-out forwards;
-                }
-
-                .animate-slide-up {
-                    animation: slide-up 0.3s ease-out forwards;
                 }
             `}</style>
         </div>

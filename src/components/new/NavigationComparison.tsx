@@ -1,4 +1,4 @@
-import { Mic, Search, StickyNote, Target } from 'lucide-react';
+import { LayoutGrid, Mic, Monitor, Search, StickyNote, Target, Users } from 'lucide-react';
 import { ReactNode } from 'react';
 
 interface Comparison {
@@ -14,27 +14,27 @@ interface Comparison {
 
 const comparisons: Comparison[] = [
     {
-        problem: "Lost in 50+ open tabs?",
-        without: "Waste 5+ minutes daily clicking through tabs to find what you need",
-        with: "Type 2 words, find any tab instantly",
+        problem: "Drowning in a sea of tabs?",
+        without: "Endless clicking, hunting, and 'where was that link?' frustration.",
+        with: "Summon any tab, URL, or history item instantly with a keystroke.",
         feature: "Almighty Search",
         stat: "5min",
         statLabel: "saved daily",
         icon: <Search className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />
     },
     {
-        problem: "Work tabs mixed with personal?",
-        without: "Everything cluttered together—no separation, no focus",
-        with: "Auto-organized workspaces keep work, research, and personal browsing separate",
+        problem: "Brain feeling scattered?",
+        without: "Work, personal, and random research all fighting for your attention.",
+        with: "Powerful scrapers and local list-based categorization auto-organize your AI chats, Jira, and GitHub repos into focused zones.",
         feature: "Smart Workspaces",
         stat: "90%",
         statLabel: "less clutter",
         icon: <Target className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />
     },
     {
-        problem: "Hands glued to mouse and keyboard?",
-        without: "Every scroll, click, and tab switch requires manual input",
-        with: "Control your browser completely hands-free with voice commands",
+        problem: "Tired of the click-scroll grind?",
+        without: "Tethered to your mouse and keyboard for every simple action.",
+        with: "Navigate the web at the speed of thought—entirely hands-free.",
         feature: "Voice Navigation",
         example: '"Switch to Gmail" • "Scroll down"',
         stat: "100%",
@@ -42,13 +42,40 @@ const comparisons: Comparison[] = [
         icon: <Mic className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />
     },
     {
-        problem: "Important info scattered everywhere?",
-        without: "Copy-paste to 3 different apps, lose the source link every time",
-        with: "One-click capture with automatic source tracking and timestamps",
-        feature: "Daily Notes",
+        problem: "Ideas vanishing into thin air?",
+        without: "Copy-pasting to lost docs, losing context, and forgetting insights.",
+        with: "Highlight text and attach sticky notes directly to web pages—they await your return.",
+        feature: "Context Notes",
         stat: "3sec",
         statLabel: "to capture",
         icon: <StickyNote className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />
+    },
+    {
+        problem: "Team out of sync?",
+        without: "Emailing links, lost Slack threads, and constant context switching.",
+        with: "P2P URL sharing, team notice boards, and daily project context in one view.",
+        feature: "Team Sync",
+        stat: "Real-time",
+        statLabel: "collaboration",
+        icon: <Users className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />
+    },
+    {
+        problem: "Starting from scratch?",
+        without: "Hours spent finding and organizing the right tools for your role.",
+        with: "Browse 1000+ predefined workspaces for any role, ready in one click.",
+        feature: "Workspace Store",
+        stat: "1000+",
+        statLabel: "predefined",
+        icon: <LayoutGrid className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />
+    },
+    {
+        problem: "Juggling apps all day?",
+        without: "Alt-tabbing between browser, IDE, Slack, and dozens of desktop apps—losing focus every time.",
+        with: "Your desktop apps sync to a central browser hub. Switch to any running process instantly from one place.",
+        feature: "Desktop App Sync",
+        stat: "1 Hub",
+        statLabel: "for everything",
+        icon: <Monitor className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />
     }
 ];
 
@@ -77,23 +104,23 @@ export default function NavigationComparison() {
                 {/* Header */}
                 <div className="text-center mb-16 md:mb-24">
                     <h2 className="heading-1 text-txt-primary mb-3 md:mb-4 leading-tight px-4">
-                        Stop Fighting
+                        Your Browser is
                         <br />
-                        Your Browser.
+                        Slowing You Down.
                     </h2>
 
                     <div className="flex items-center justify-center gap-2 md:gap-4 mb-6 md:mb-8 px-4">
                         <div className="h-px w-8 md:w-16 bg-gradient-to-r from-transparent to-btn-primary"></div>
                         <p className="heading-3 text-txt-accent">
-                            Start Working Smarter
+                            Unleash Your Flow State
                         </p>
                         <div className="h-px w-8 md:w-16 bg-gradient-to-l from-transparent to-btn-primary"></div>
                     </div>
 
                     <p className="body-lg text-txt-secondary max-w-3xl mx-auto px-4">
-                        The average person wastes <span className="text-txt-primary font-bold">2 hours per week</span> managing tabs.
+                        Reclaim the <span className="text-txt-primary font-bold">100+ hours lost</span> to tab clutter every year.
                         <br className="hidden md:block" />
-                        <span className="block md:inline"> Here's how CoolDesk fixes that.</span>
+                        <span className="block md:inline"> See how CoolDesk transforms your workflow.</span>
                     </p>
                 </div>
 
