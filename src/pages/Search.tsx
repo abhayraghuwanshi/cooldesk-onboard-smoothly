@@ -1,17 +1,19 @@
 import LinkSection from "@/components/new/LinkSection";
 import Navbar from "@/components/new/Navbar";
 import ProfileSection from "@/components/new/ProfileSection";
+import SpaceSection from "@/components/new/SpaceSection";
 import WorkspaceSection from "@/components/new/WorkspaceSection";
+import SEO from "@/components/SEO";
 import { useEffect, useState } from 'react';
-import { FaLink, FaRocket, FaUser } from 'react-icons/fa';
+import { FaLayerGroup, FaLink, FaRocket, FaUser } from 'react-icons/fa';
 
-type ViewMode = 'workspaces' | 'links' | 'profiles';
+type ViewMode = 'workspaces' | 'links' | 'profiles' | 'spaces';
 
 export default function Search() {
     const [viewMode, setViewMode] = useState<ViewMode>(() => {
         if (typeof window !== 'undefined') {
             const saved = localStorage.getItem('cooldesk_view_mode');
-            return (saved === 'workspaces' || saved === 'links' || saved === 'profiles') ? saved : 'workspaces';
+            return (saved === 'workspaces' || saved === 'links' || saved === 'profiles' || saved === 'spaces') ? saved : 'workspaces';
         }
         return 'workspaces';
     });
@@ -26,6 +28,11 @@ export default function Search() {
 
     return (
         <main className="min-h-screen text-white scroll-smooth bg-zinc-950 relative overflow-hidden">
+            <SEO
+                title="Curated Workspaces & Profiles"
+                description="Explore curated browser workspaces, developer profiles, and quick links to supercharge your productivity with CoolDesk."
+                canonical="https://cool-desk.com/search"
+            />
             {/* Dot Grid Pattern */}
             <div className="absolute inset-0 pointer-events-none z-0" style={{
                 backgroundImage: 'radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px)',
@@ -107,6 +114,19 @@ export default function Search() {
                                 <span className="hidden sm:inline">Links</span>
                                 <span className="sm:hidden">Links</span>
                             </button>
+                            <button
+                                onClick={() => setViewMode('spaces')}
+                                className={`
+                                    flex items-center gap-3 px-6 py-3 rounded-xl font-semibold transition-all duration-300 whitespace-nowrap
+                                    ${viewMode === 'spaces'
+                                        ? 'bg-white text-zinc-900 shadow-lg shadow-white/20'
+                                        : 'text-gray-400 hover:text-white hover:bg-zinc-800'}
+                                `}
+                            >
+                                <FaLayerGroup size={18} />
+                                <span className="hidden sm:inline">Spaces</span>
+                                <span className="sm:hidden">Spaces</span>
+                            </button>
                         </div>
                     </div>
 
@@ -116,6 +136,8 @@ export default function Search() {
                             <WorkspaceSection />
                         ) : viewMode === 'profiles' ? (
                             <ProfileSection />
+                        ) : viewMode === 'spaces' ? (
+                            <SpaceSection />
                         ) : (
                             <LinkSection />
                         )}

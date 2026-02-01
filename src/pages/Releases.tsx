@@ -10,6 +10,21 @@ interface Release {
 
 const releases: Release[] = [
     {
+        version: '1.0.3',
+        features: [
+            'Notes and UI improvement',
+            'Add workspace from store',
+            'Teams sync fixes and signaling server improvement'
+        ]
+    },
+    {
+        version: '1.0.2',
+        features: [
+            'Workspace creation bug fixed',
+            'Bug fixes and minor enhancements'
+        ]
+    },
+    {
         version: '1.0.1',
         features: [
             'Team Screen UI fixes - fixes for create, invite and join team',

@@ -107,9 +107,16 @@ export const profiles: ProjectWorkspace[] = [
         tags: ['Figma', 'Design', 'Systems', 'Tailwind'],
         urls: {
             ...getWorkspaceLinks(['figma', 'radix-ui', 'headlessui', 'tailwindui', 'chakra-ui', 'material-ui', 'ant-design', 'shadcn-ui']),
+            'Figma': 'https://figma.com',
+            'Framer': 'https://framer.com',
+            'Canva': 'https://canva.com',
+            'Spline': 'https://spline.design',
             'Dribbble': 'https://dribbble.com',
             'Behance': 'https://behance.net',
-            'Coolors': 'https://coolors.co'
+            'Coolors': 'https://coolors.co',
+            'Mobbin': 'https://mobbin.com',
+            'LottieFiles': 'https://lottiefiles.com',
+            'FontShare': 'https://fontshare.com'
         },
         trending: {
             badge: 'HOT',

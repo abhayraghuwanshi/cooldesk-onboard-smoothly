@@ -2,16 +2,40 @@ import FAQ from "@/components/new/FAQ";
 import Hero from "@/components/new/Hero";
 import Navbar from '@/components/new/Navbar';
 import NavigationComparison from "@/components/new/NavigationComparison";
+import TabbedDashboardPreview from "@/components/new/TabbedDashboardPreview";
 import SEO from "@/components/SEO";
+import { Helmet } from 'react-helmet-async';
 
 const Index = () => {
   return (
     <main className="min-h-screen text-white scroll-smooth">
       <SEO
-        title="Voice Navigation & AI Productivity Extension"
-        description="Experience Cooldesk: The ultimate browser extension with voice navigation, AI-powered productivity tools, and an almighty search."
+        title="CoolDesk | The Best New Tab Dashboard for Productivity"
+        description="Transform your browser with CoolDesk, the ultimate New Tab replacement. 100% Free - No Sign-in Required. Autosave tabs, share project workspaces, and use AI-powered search."
         canonical="https://cool-desk.com/"
       />
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "CoolDesk",
+            "operatingSystem": "Browser (Chrome, Edge, Brave)",
+            "applicationCategory": "ProductivityApplication",
+            "description": "A powerful, friction-less browser extension that replaces your new tab page with a project-based workspace. 100% Free - No accounts or sign-in required.",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.9",
+              "ratingCount": "120"
+            }
+          })}
+        </script>
+      </Helmet>
       {/* Background Glow Overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-600/10 pointer-events-none z-0" />
       <Navbar />
@@ -27,9 +51,15 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Navigation Comparison Section */}
       <section id="navigation" className="relative z-10">
         <NavigationComparison />
+      </section>
+
+
+
+      {/* Tabbed Dashboard Showcase */}
+      <section id="preview-tabs" className="relative z-10">
+        <TabbedDashboardPreview />
       </section>
 
       {/* Preview Gallery Section */}

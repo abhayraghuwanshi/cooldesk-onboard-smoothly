@@ -1,7 +1,9 @@
+import * as LucideIcons from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/new/Navbar';
-import { blogPosts, getCategoryLabel, BlogCategory } from '../config/blogs';
+import SEO from '../components/SEO';
+import { BlogCategory, blogPosts, getCategoryLabel } from '../config/blogs';
 
 type ReadingMode = 'normal' | 'detail' | 'extra-detail';
 
@@ -64,6 +66,11 @@ export default function BlogPage() {
 
     return (
         <main className="min-h-screen text-white scroll-smooth bg-black">
+            <SEO
+                title="Blog | Insights & Guides"
+                description="Explore the CoolDesk blog for tips on browser productivity, AI tools, and efficient workflow management."
+                canonical="https://cool-desk.com/blog"
+            />
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-600/10 pointer-events-none z-0" />
             <Navbar />
 
@@ -95,11 +102,10 @@ export default function BlogPage() {
                                 <button
                                     key={mode}
                                     onClick={() => setReadingMode(mode)}
-                                    className={`group relative flex-1 min-w-[200px] px-6 py-4 rounded-2xl text-sm font-semibold transition-all duration-300 transform hover:scale-105 ${
-                                        readingMode === mode
+                                    className={`group relative flex-1 min-w-[200px] px-6 py-4 rounded-2xl text-sm font-semibold transition-all duration-300 transform hover:scale-105 ${readingMode === mode
                                             ? 'bg-gradient-to-br from-blue-600 to-purple-600 text-white shadow-2xl shadow-blue-500/40 border-2 border-blue-400'
                                             : 'bg-zinc-900/60 border-2 border-zinc-700 text-zinc-300 hover:text-white hover:bg-zinc-900 hover:border-zinc-600 backdrop-blur-sm'
-                                    }`}
+                                        }`}
                                 >
                                     {readingMode === mode && (
                                         <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500 to-purple-500 opacity-20 blur-xl animate-pulse" />
@@ -123,11 +129,10 @@ export default function BlogPage() {
                             <button
                                 key={category}
                                 onClick={() => setSelectedCategory(category)}
-                                className={`group relative px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 transform hover:scale-105 ${
-                                    selectedCategory === category
+                                className={`group relative px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 transform hover:scale-105 ${selectedCategory === category
                                         ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-2xl shadow-blue-500/40'
                                         : 'bg-zinc-900/60 border border-zinc-700 text-zinc-300 hover:text-white hover:bg-zinc-900 hover:border-zinc-600 backdrop-blur-sm'
-                                }`}
+                                    }`}
                             >
                                 {selectedCategory === category && (
                                     <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 opacity-20 blur-xl animate-pulse" />
@@ -153,10 +158,15 @@ export default function BlogPage() {
                                     <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/0 via-purple-500/0 to-cyan-500/0 group-hover:from-blue-500/10 group-hover:via-purple-500/10 group-hover:to-cyan-500/10 transition-all duration-500 pointer-events-none" />
 
                                     {/* Content */}
-                                    <div className="relative z-10">
+                                    <div className="relative z-10 text-center md:text-left">
                                         {/* Icon */}
-                                        <div className="text-6xl mb-6 transform group-hover:scale-110 transition-transform duration-300">
-                                            {post.image}
+                                        <div className="mb-6 flex justify-center md:justify-start">
+                                            <div className="p-4 bg-blue-500/10 rounded-2xl border border-blue-500/20 transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                                                {(() => {
+                                                    const Icon = (LucideIcons as any)[post.icon || 'FileText'] || LucideIcons.FileText;
+                                                    return <Icon className="w-12 h-12 text-blue-400" />;
+                                                })()}
+                                            </div>
                                         </div>
 
                                         {/* Category Badge */}
@@ -228,7 +238,7 @@ export default function BlogPage() {
                 </div>
             </section>
 
-            <style jsx>{`
+            <style>{`
                 @keyframes fade-in {
                     from {
                         opacity: 0;

@@ -119,6 +119,7 @@ export default function ProfileSection() {
     });
 
     const [showDropdown, setShowDropdown] = useState(false);
+    const [viewingProfile, setViewingProfile] = useState<string | null>(null);
     const [workspaceName, setWorkspaceName] = useState(() => {
         if (typeof window !== 'undefined') {
             return localStorage.getItem('cooldesk_profile_name') || '';
@@ -276,6 +277,35 @@ export default function ProfileSection() {
         setActiveCategory(cat);
         setSearchQuery('');
     };
+
+    // Group profile URLs for detailed view
+    const groupProfileUrls = (profile: typeof profiles[0]) => {
+        const groups: Record<string, { type: string; url: string; title: string }[]> = {
+            'Core Essentials': [],
+            'Resources & Docs': [],
+            'Community & Social': [],
+            'Other Tools': []
+        };
+
+        Object.entries(profile.urls).forEach(([type, url]) => {
+            if (!url) return;
+            const item = { type, url, title: type === 'main' ? profile.title : (urlTypeLabels[type] || type) };
+
+            if (['main', 'demo', 'playground'].includes(type) || !urlTypeLabels[type]) {
+                groups['Core Essentials'].push(item);
+            } else if (['docs', 'github', 'npm'].includes(type)) {
+                groups['Resources & Docs'].push(item);
+            } else if (['discord', 'twitter', 'slack'].includes(type)) {
+                groups['Community & Social'].push(item);
+            } else {
+                groups['Other Tools'].push(item);
+            }
+        });
+
+        return Object.entries(groups).filter(([_, items]) => items.length > 0);
+    };
+
+    const activeProfile = profiles.find(p => p.id === viewingProfile);
 
     return (
         <div className="w-full max-w-7xl mx-auto">
@@ -476,11 +506,116 @@ export default function ProfileSection() {
                             workspace={profile}
                             selectionMode={selectionMode}
                             isSelected={isWorkspaceSelected(profile.id)}
-                            onSelect={() => toggleWorkspaceSelection(profile.id)}
+                            onSelect={() => selectionMode ? toggleWorkspaceSelection(profile.id) : setViewingProfile(profile.id)}
                         />
                     </div>
                 ))}
             </div>
+
+            {/* Profile Detail Modal */}
+            {activeProfile && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+                    <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={() => setViewingProfile(null)} />
+
+                    <div className="relative w-full max-w-2xl bg-zinc-900 border border-zinc-800 rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300">
+                        {/* Modal Header */}
+                        <div className="p-6 sm:p-8 bg-gradient-to-br from-zinc-800/50 to-transparent border-b border-zinc-800">
+                            <div className="flex items-start justify-between gap-4">
+                                <div className="flex items-center gap-4 sm:gap-6">
+                                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-violet-600 to-fuchsia-600 flex items-center justify-center text-3xl sm:text-4xl shadow-xl">
+                                        {activeProfile.icon}
+                                    </div>
+                                    <div>
+                                        <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">{activeProfile.title}</h2>
+                                        <div className="flex flex-wrap gap-2">
+                                            {activeProfile.tags.map(tag => (
+                                                <span key={tag} className="text-[10px] sm:text-xs px-2 py-0.5 bg-zinc-800 text-zinc-400 rounded-full border border-zinc-700">
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => setViewingProfile(null)}
+                                    className="p-2 text-zinc-500 hover:text-white hover:bg-zinc-800 rounded-xl transition-all"
+                                >
+                                    <FaTimes size={20} />
+                                </button>
+                            </div>
+                            <p className="mt-6 text-zinc-400 text-sm sm:text-base leading-relaxed">
+                                {activeProfile.description}
+                            </p>
+                        </div>
+
+                        {/* Modal Content - Structured List */}
+                        <div className="p-6 sm:p-8 max-h-[60vh] overflow-y-auto custom-scrollbar">
+                            <div className="space-y-8">
+                                {groupProfileUrls(activeProfile).map(([groupName, items]) => (
+                                    <div key={groupName}>
+                                        <h3 className="text-xs font-black text-zinc-500 uppercase tracking-[0.2em] mb-4 flex items-center gap-2">
+                                            <span className="w-8 h-px bg-zinc-800" />
+                                            {groupName}
+                                        </h3>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                            {items.map((item, idx) => (
+                                                <a
+                                                    key={idx}
+                                                    href={item.url}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="flex items-center gap-3 p-3 rounded-2xl bg-zinc-800/30 border border-zinc-800 hover:border-fuchsia-500/50 hover:bg-zinc-800/50 transition-all group"
+                                                >
+                                                    <div className="w-10 h-10 rounded-xl bg-zinc-900 flex items-center justify-center text-zinc-400 group-hover:text-fuchsia-400 transition-colors">
+                                                        {urlTypeIcons[item.type] || <FaGlobe size={16} />}
+                                                    </div>
+                                                    <div className="min-w-0">
+                                                        <div className="text-sm font-bold text-zinc-200 group-hover:text-white transition-colors truncate">
+                                                            {item.title}
+                                                        </div>
+                                                        <div className="text-[10px] text-zinc-500 truncate">
+                                                            {item.url.replace(/^https?:\/\/(www\.)?/, '')}
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Modal Footer */}
+                        <div className="p-6 border-t border-zinc-800 bg-zinc-800/20 flex flex-col sm:flex-row gap-4">
+                            <button
+                                onClick={() => {
+                                    toggleWorkspaceSelection(activeProfile.id);
+                                    setViewingProfile(null);
+                                }}
+                                className="flex-1 py-3 px-6 bg-white text-zinc-900 rounded-2xl font-black text-sm hover:bg-zinc-200 transition-all flex items-center justify-center gap-2 shadow-xl shadow-white/10"
+                            >
+                                <FaPlus size={14} />
+                                SELECT FOR COOLDESK
+                            </button>
+                            <button
+                                onClick={() => {
+                                    const urls = Object.entries(activeProfile.urls)
+                                        .filter(([_, url]) => url)
+                                        .map(([type, url]) => ({
+                                            url: url as string,
+                                            title: type === 'main' ? activeProfile.title : `${activeProfile.title} ${urlTypeLabels[type] || type}`
+                                        }));
+                                    addToCoolDesk(activeProfile.title, urls, 'globe');
+                                    setViewingProfile(null);
+                                }}
+                                className="flex-1 py-3 px-6 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white rounded-2xl font-black text-sm hover:from-violet-500 hover:to-fuchsia-500 transition-all shadow-xl shadow-fuchsia-600/20"
+                            >
+                                QUICK INSTALL
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Empty State */}
             {filteredProfiles.length === 0 && (

@@ -1,4 +1,5 @@
 import { ProjectWorkspace, badgeStyles } from '@/config/workspaces';
+import { Search } from 'lucide-react';
 import { FaBook, FaCheck, FaDiscord, FaExternalLinkAlt, FaGamepad, FaGithub, FaGlobe, FaNpm, FaPlay, FaPlus } from 'react-icons/fa';
 
 interface ProfileCardProps {
@@ -171,13 +172,13 @@ export default function ProfileCard({ workspace, selectionMode = false, isSelect
                                  rounded-xl font-bold text-white text-sm shadow-lg shadow-fuchsia-500/20 hover:shadow-fuchsia-500/40
                                  transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2"
                     >
-                        <FaPlus size={12} />
-                        Add All to CoolDesk
+                        <Search size={14} />
+                        View Structured Profile
                     </button>
                 )}
             </div>
 
-            <style jsx>{`
+            <style>{`
                 .custom-scrollbar::-webkit-scrollbar {
                     width: 4px;
                 }

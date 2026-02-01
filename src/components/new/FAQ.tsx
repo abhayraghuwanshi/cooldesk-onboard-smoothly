@@ -8,7 +8,11 @@ interface FAQItem {
 const items: FAQItem[] = [
     {
         q: "What is CoolDesk?",
-        a: "CoolDesk is a lightweight browser enhancement that organizes your web life: Automatic Workspaces, Almighty Search, Pins & Cool Feed, Notes & To‑Do, Themes & UI, and even Voice Navigation.",
+        a: "CoolDesk is a lightweight browser enhancement that replaces your New Tab page with a powerful project dashboard: Automatic Workspaces, Almighty Search, Pins & Cool Feed, Notes & To‑Do, Themes & UI, and even Voice Navigation.",
+    },
+    {
+        q: "How does CoolDesk improve my New Tab experience?",
+        a: "Unlike standard extensions, CoolDesk turns your New Tab into a productivity hub that automatically saves your project states, allowing you to pick up exactly where you left off across any window or device.",
     },
     {
         q: "Is it free to install?",
@@ -16,7 +20,7 @@ const items: FAQItem[] = [
     },
     {
         q: "Do I need any setup or account?",
-        a: "No setup required.",
+        a: "No account or sign-in required. CoolDesk emphasizes privacy and speed — just install it and start organizing your workspaces immediately.",
     },
     {
         q: "Where is my data stored?",
@@ -88,8 +92,8 @@ export default function FAQ() {
                         const isOpen = openIndex === idx;
                         return (
                             <div key={idx} className={`relative rounded-xl overflow-hidden transition-all duration-300 ${isOpen
-                                    ? 'bg-gradient-to-r from-blue-500/10 via-blue-600/5 to-transparent border-l-4 border-blue-400'
-                                    : 'bg-white/5 hover:bg-white/10 border-l-4 border-transparent'
+                                ? 'bg-gradient-to-r from-blue-500/10 via-blue-600/5 to-transparent border-l-4 border-blue-400'
+                                : 'bg-white/5 hover:bg-white/10 border-l-4 border-transparent'
                                 }`}>
                                 {/* Subtle glow effect for open items */}
                                 {isOpen && (

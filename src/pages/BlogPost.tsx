@@ -1,9 +1,12 @@
-import { useParams, Link, useSearchParams } from 'react-router-dom';
+import * as LucideIcons from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import remarkGfm from 'remark-gfm';
 import Navbar from '../components/new/Navbar';
+import SEO from '../components/SEO';
 import { getBlogPostBySlug, getCategoryLabel, getLatestBlogs } from '../config/blogs';
 
 type ReadingMode = 'normal' | 'detail' | 'extra-detail';
@@ -97,8 +100,46 @@ export default function BlogPostPage() {
         return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     };
 
+    const canonicalUrl = `https://cool-desk.com/blog/${post.slug}`;
+
+    // Schema.org Structured Data
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": post.title,
+        "description": post.description,
+        "author": {
+            "@type": "Person",
+            "name": post.author
+        },
+        "datePublished": post.date,
+        "url": canonicalUrl,
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": canonicalUrl
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "CoolDesk",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://cool-desk.com/favicon.ico"
+            }
+        }
+    };
+
     return (
         <main className="min-h-screen text-white scroll-smooth bg-black">
+            <SEO
+                title={post.title}
+                description={post.description}
+                canonical={canonicalUrl}
+            />
+            <Helmet>
+                <script type="application/ld+json">
+                    {JSON.stringify(jsonLd)}
+                </script>
+            </Helmet>
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-600/10 pointer-events-none z-0" />
             <Navbar />
 
@@ -130,15 +171,15 @@ export default function BlogPostPage() {
                         {/* Meta Info */}
                         <div className="flex flex-wrap items-center gap-6 text-zinc-400">
                             <div className="flex items-center gap-2">
-                                <span className="text-2xl">👤</span>
+                                <LucideIcons.User className="w-5 h-5 text-blue-400" />
                                 <span>{post.author}</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <span className="text-2xl">📅</span>
+                                <LucideIcons.Calendar className="w-5 h-5 text-purple-400" />
                                 <span>{formatDate(post.date)}</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <span className="text-2xl">⏱️</span>
+                                <LucideIcons.Clock className="w-5 h-5 text-cyan-400" />
                                 <span className="text-blue-400 font-semibold">
                                     {getAdjustedReadTime(post.readTime, readingMode)}
                                 </span>
@@ -155,20 +196,19 @@ export default function BlogPostPage() {
                                     <Link
                                         key={mode}
                                         to={`/blog/${slug}?mode=${mode}`}
-                                        className={`group relative px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${
-                                            readingMode === mode
-                                                ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/30 cursor-default'
-                                                : 'bg-zinc-900/60 border border-zinc-700 text-zinc-400 hover:text-white hover:border-zinc-600 hover:bg-zinc-800'
-                                        }`}
+                                        className={`group relative px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${readingMode === mode
+                                            ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/30 cursor-default'
+                                            : 'bg-zinc-900/60 border border-zinc-700 text-zinc-400 hover:text-white hover:border-zinc-600 hover:bg-zinc-800'
+                                            }`}
                                         onClick={(e) => readingMode === mode && e.preventDefault()}
                                     >
                                         {readingMode === mode && (
                                             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 opacity-20 blur-md" />
                                         )}
                                         <span className="relative z-10 flex items-center gap-1.5">
-                                            {mode === 'normal' && '⚡'}
-                                            {mode === 'detail' && '📖'}
-                                            {mode === 'extra-detail' && '🔍'}
+                                            {mode === 'normal' && <LucideIcons.Zap className="w-4 h-4" />}
+                                            {mode === 'detail' && <LucideIcons.BookOpen className="w-4 h-4" />}
+                                            {mode === 'extra-detail' && <LucideIcons.Search className="w-4 h-4" />}
                                             <span>
                                                 {mode === 'normal' && 'Quick'}
                                                 {mode === 'detail' && 'Detailed'}
@@ -313,7 +353,14 @@ export default function BlogPostPage() {
                                     to={`/blog/${relatedPost.slug}`}
                                     className="group bg-gradient-to-br from-zinc-900/80 to-zinc-900/40 border border-zinc-800 rounded-2xl p-6 hover:border-blue-500/50 transition-all duration-300 hover:-translate-y-1"
                                 >
-                                    <div className="text-4xl mb-4">{relatedPost.image}</div>
+                                    <div className="mb-4">
+                                        <div className="w-10 h-10 bg-blue-500/10 rounded-xl border border-blue-500/20 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                                            {(() => {
+                                                const Icon = (LucideIcons as any)[relatedPost.icon || 'FileText'] || LucideIcons.FileText;
+                                                return <Icon className="w-6 h-6 text-blue-400" />;
+                                            })()}
+                                        </div>
+                                    </div>
                                     <h3 className="text-lg font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
                                         {relatedPost.title}
                                     </h3>
@@ -327,7 +374,7 @@ export default function BlogPostPage() {
                 </div>
             </article>
 
-            <style jsx>{`
+            <style>{`
                 @keyframes fade-in {
                     from {
                         opacity: 0;

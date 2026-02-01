@@ -1,58 +1,46 @@
-# Welcome to your Lovable project
+# Cooldesk - New Tab Productivity Extension
 
-## Project info
+Transform your browser's new tab into a powerful productivity dashboard. [Cooldesk](https://chromewebstore.google.com/detail/new-tab-by-cooldesk-start/ioggffobciopdddacpclplkeodllhjko) helps you organize your digital workspace, boost productivity, and stay focused.
 
-**URL**: https://lovable.dev/projects/3903415e-51b3-41b0-8355-58499b122307
+## Install the Extension
 
-## How can I edit this code?
+[![Available on Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Install%20Now-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/new-tab-by-cooldesk-start/ioggffobciopdddacpclplkeodllhjko)
 
-There are several ways of editing your application.
+**[Install New Tab by Cooldesk](https://chromewebstore.google.com/detail/new-tab-by-cooldesk-start/ioggffobciopdddacpclplkeodllhjko)** - Free Chrome Extension for better productivity.
 
-**Use Lovable**
+## Features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/3903415e-51b3-41b0-8355-58499b122307) and start prompting.
+- **Custom New Tab Dashboard** - Replace your boring new tab with a personalized productivity hub
+- **Workspace Organization** - Organize bookmarks, links, and resources by projects or categories
+- **Community Profiles** - Share your workspace setup with the community and discover others' configurations
+- **Quick Access** - Fast access to your most-used websites and tools
+- **Clean Interface** - Minimalist design that helps you focus
 
-Changes made via Lovable will be committed automatically to this repo.
+## Share Your Workspace
 
-**Use your preferred IDE**
+Cooldesk is community-driven! Share your workspace configuration and discover how others organize their digital life:
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+1. Set up your personalized new tab dashboard
+2. Export and share your workspace profile
+3. Browse community profiles for inspiration
+4. Import configurations that match your workflow
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Why Cooldesk?
 
-Follow these steps:
+- **Save Time** - Stop wasting time searching for bookmarks and tabs
+- **Stay Organized** - Keep all your important links in one place
+- **Boost Productivity** - Start every browsing session with focus
+- **Community Powered** - Learn from how others organize their workspace
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## Links
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+- [Chrome Web Store](https://chromewebstore.google.com/detail/new-tab-by-cooldesk-start/ioggffobciopdddacpclplkeodllhjko) - Install the extension
+- [Website](https://cooldesk.app) - Learn more about Cooldesk
+- [Community Profiles](https://cooldesk.app/search) - Browse shared workspaces
 
-# Step 3: Install the necessary dependencies.
-npm i
+## Tech Stack
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
+This website is built with:
 
 - Vite
 - TypeScript
@@ -60,14 +48,34 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
-## How can I deploy this project?
+## Development
 
-Simply open [Lovable](https://lovable.dev/projects/3903415e-51b3-41b0-8355-58499b122307) and click on Share -> Publish.
+```sh
+# Clone the repository
+git clone https://github.com/user/cooldesk-onboard-smoothly.git
 
-## Can I connect a custom domain to my Lovable project?
+# Navigate to the project directory
+cd cooldesk-onboard-smoothly
 
-Yes, you can!
+# Install dependencies
+npm install
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+# Start the development server
+npm run dev
+```
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## Contributing
+
+We welcome contributions! Whether it's:
+- Sharing your workspace profile
+- Suggesting new features
+- Reporting bugs
+- Improving documentation
+
+## Keywords
+
+new tab extension, chrome new tab, productivity extension, browser dashboard, workspace organizer, bookmark manager, chrome productivity, new tab replacement, browser start page, quick links, productivity tools, browser customization
+
+---
+
+**[Get Cooldesk for Chrome](https://chromewebstore.google.com/detail/new-tab-by-cooldesk-start/ioggffobciopdddacpclplkeodllhjko)** | Made with love for the productivity community

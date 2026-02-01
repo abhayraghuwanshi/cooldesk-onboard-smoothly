@@ -1,6 +1,4 @@
 import {
-    BookOpen,
-    ClipboardList,
     FileQuestion,
     FileText,
     Image,
@@ -46,14 +44,6 @@ export const resources: Resource[] = [
         url: '/blog',
         category: 'docs',
         icon: <PenLine className="w-6 h-6" />
-    },
-    {
-        id: 'features-guide',
-        title: 'Features Guide',
-        description: 'Explore all features and learn how to use them effectively',
-        url: '/#features',
-        category: 'docs',
-        icon: <BookOpen className="w-6 h-6" />
     },
     {
         id: 'faq',
