@@ -1,3 +1,4 @@
+import Footer from '../components/new/Footer';
 import Navbar from '../components/new/Navbar';
 import ResourceSelector from '../components/new/ResourceSelector';
 
@@ -10,6 +11,8 @@ export default function ResourcesPage() {
 
             {/* Resources Section */}
             <ResourceSelector />
+
+            <Footer />
         </main>
     );
 }

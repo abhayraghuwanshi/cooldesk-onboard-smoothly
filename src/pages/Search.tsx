@@ -1,3 +1,4 @@
+import Footer from "@/components/new/Footer";
 import LinkSection from "@/components/new/LinkSection";
 import Navbar from "@/components/new/Navbar";
 import ProfileSection from "@/components/new/ProfileSection";
@@ -145,17 +146,7 @@ export default function Search() {
                 </div>
             </section>
 
-            {/* Footer */}
-            <footer className="bg-black/40 py-10 mt-20 relative z-10 border-t border-white/10">
-                <div className="container mx-auto px-6 text-center">
-                    <p className="caption text-txt-muted">© {new Date().getFullYear()} CoolDesk. All rights reserved.</p>
-                    <div className="mt-6 flex justify-center space-x-8 caption">
-                        <a href="/privacy-details" className="link text-txt-secondary hover:text-txt-primary">Privacy Policy</a>
-                        <a href="/terms" className="link text-txt-secondary hover:text-txt-primary">Terms of Service</a>
-                        <a href="/contact" className="link text-txt-secondary hover:text-txt-primary">Contact Us</a>
-                    </div>
-                </div>
-            </footer>
+            <Footer />
 
             <style>{`
                 @keyframes fade-in {

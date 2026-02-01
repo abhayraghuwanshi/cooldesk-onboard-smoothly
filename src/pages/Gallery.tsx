@@ -1,3 +1,4 @@
+import Footer from '@/components/new/Footer';
 import Navbar from '@/components/new/Navbar';
 import PreviewGallery from '@/components/new/PreviewGallery';
 
@@ -14,6 +15,8 @@ export default function GalleryPage() {
                     <PreviewGallery />
                 </div>
             </section>
+
+            <Footer />
         </main>
     );
 }

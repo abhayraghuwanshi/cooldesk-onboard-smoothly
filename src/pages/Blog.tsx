@@ -1,6 +1,7 @@
 import * as LucideIcons from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Footer from '../components/new/Footer';
 import Navbar from '../components/new/Navbar';
 import SEO from '../components/SEO';
 import { BlogCategory, blogPosts, getCategoryLabel } from '../config/blogs';
@@ -237,6 +238,8 @@ export default function BlogPage() {
                     </div>
                 </div>
             </section>
+
+            <Footer />
 
             <style>{`
                 @keyframes fade-in {

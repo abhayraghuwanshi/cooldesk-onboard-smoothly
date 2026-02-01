@@ -1,3 +1,4 @@
+import Footer from "@/components/new/Footer";
 import FounderNote from "@/components/new/FounderNote";
 import Navbar from '@/components/new/Navbar';
 
@@ -14,6 +15,8 @@ export default function FounderPage() {
                     <FounderNote />
                 </div>
             </section>
+
+            <Footer />
         </main>
     );
 }

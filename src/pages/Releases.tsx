@@ -1,3 +1,4 @@
+import Footer from '@/components/new/Footer';
 import Navbar from '@/components/new/Navbar';
 import { Link } from 'react-router-dom';
 
@@ -158,7 +159,7 @@ export default function ReleasesPage() {
                         </div>
                     </div>
 
-                    {/* Footer */}
+                    {/* Coming Soon Note */}
                     <div className="mt-16 text-center">
                         <p className="text-zinc-500 text-sm">
                             More updates coming soon. Stay tuned!
@@ -166,6 +167,8 @@ export default function ReleasesPage() {
                     </div>
                 </div>
             </section>
+
+            <Footer />
         </main>
     );
 }

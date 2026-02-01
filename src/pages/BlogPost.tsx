@@ -5,6 +5,7 @@ import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import remarkGfm from 'remark-gfm';
+import Footer from '../components/new/Footer';
 import Navbar from '../components/new/Navbar';
 import SEO from '../components/SEO';
 import { getBlogPostBySlug, getCategoryLabel, getLatestBlogs } from '../config/blogs';
@@ -373,6 +374,8 @@ export default function BlogPostPage() {
                     </div>
                 </div>
             </article>
+
+            <Footer />
 
             <style>{`
                 @keyframes fade-in {

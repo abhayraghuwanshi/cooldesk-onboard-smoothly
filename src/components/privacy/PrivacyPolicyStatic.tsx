@@ -1,7 +1,56 @@
 import React from "react";
-import PolicyHeader from "./PolicyHeader";
-import PolicyNav from "./PolicyNav";
-import PolicySection from "./PolicySection";
+
+interface PolicySectionProps {
+    id: string;
+    title: string;
+    children: React.ReactNode;
+}
+
+const PolicySection: React.FC<PolicySectionProps> = ({ id, title, children }) => (
+    <section id={id} className="mb-8 scroll-mt-24">
+        <h2 className="text-xl font-semibold text-gray-900 mb-3">{title}</h2>
+        <div className="text-gray-700 leading-relaxed">{children}</div>
+    </section>
+);
+
+const PolicyHeader: React.FC = () => (
+    <header className="mb-10">
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Privacy Policy</h1>
+        <p className="text-gray-500 text-sm">Last updated: January 2025</p>
+    </header>
+);
+
+const PolicyNav: React.FC = () => {
+    const sections = [
+        { id: "overview", label: "Overview" },
+        { id: "info-we-collect", label: "Information We Collect" },
+        { id: "how-we-use", label: "How We Use Your Data" },
+        { id: "permissions", label: "Chrome Permissions" },
+        { id: "security", label: "Data Security" },
+        { id: "user-rights", label: "User Control & Rights" },
+        { id: "compliance", label: "Compliance" },
+        { id: "intl", label: "International Users" },
+        { id: "contact", label: "Contact" },
+        { id: "summary", label: "Summary" },
+    ];
+
+    return (
+        <nav className="hidden lg:block w-64 shrink-0 border-r border-gray-200 p-6 sticky top-0 h-screen overflow-y-auto">
+            <ul className="space-y-2">
+                {sections.map((section) => (
+                    <li key={section.id}>
+                        <a
+                            href={`#${section.id}`}
+                            className="text-sm text-gray-600 hover:text-gray-900 hover:underline"
+                        >
+                            {section.label}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </nav>
+    );
+};
 
 /**
  * Modern Google-style Privacy Policy
@@ -26,7 +75,7 @@ const PrivacyPolicyStatic: React.FC = () => {
                     {/* Info We Collect */}
                     <PolicySection id="info-we-collect" title="Information We Collect">
                         <p>
-                            CoolDesk stores your data <strong>locally</strong> on your device using Chrome’s
+                            CoolDesk stores your data <strong>locally</strong> on your device using Chrome's
                             storage systems. We collect:
                         </p>
                         <ul className="list-disc ml-6 mt-3 space-y-2">
@@ -88,7 +137,7 @@ const PrivacyPolicyStatic: React.FC = () => {
                     {/* Compliance */}
                     <PolicySection id="compliance" title="Compliance">
                         <p>
-                            CoolDesk complies with Chrome Web Store’s Limited Use Policy, ensuring no
+                            CoolDesk complies with Chrome Web Store's Limited Use Policy, ensuring no
                             unauthorized sharing or sale of user data.
                         </p>
                     </PolicySection>

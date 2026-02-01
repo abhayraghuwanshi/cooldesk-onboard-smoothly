@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import Footer from "@/components/new/Footer";
 import HowToUseComponent from "@/components/new/HowToUse";
 import Navbar from '@/components/new/Navbar';
 
@@ -15,6 +16,8 @@ export default function HowToUsePage() {
 
             {/* How to Use Section */}
             <HowToUseComponent />
+
+            <Footer />
         </main>
     );
 }

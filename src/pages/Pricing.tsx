@@ -1,3 +1,4 @@
+import Footer from '@/components/new/Footer';
 import Navbar from '@/components/new/Navbar';
 import PricingComponent from "@/components/new/Pricing";
 import SEO from "@/components/SEO";
@@ -16,6 +17,8 @@ export default function PricingPage() {
 
             {/* Pricing Section */}
             <PricingComponent />
+
+            <Footer />
         </main>
     );
 }

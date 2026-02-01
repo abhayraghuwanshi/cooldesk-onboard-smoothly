@@ -1,3 +1,4 @@
+import Footer from "@/components/new/Footer";
 import Navbar from "@/components/new/Navbar";
 import SEO from "@/components/SEO";
 import "@/styles/globals.css";
@@ -234,6 +235,8 @@ export default function Contact() {
                     </div>
                 </div>
             </section>
+
+            <Footer />
         </main>
     );
 }
