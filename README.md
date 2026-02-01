@@ -37,6 +37,7 @@ Cooldesk is community-driven! Share your workspace configuration and discover ho
 - [Chrome Web Store](https://chromewebstore.google.com/detail/new-tab-by-cooldesk-start/ioggffobciopdddacpclplkeodllhjko) - Install the extension
 - [Website](https://cooldesk.app) - Learn more about Cooldesk
 - [Community Profiles](https://cooldesk.app/search) - Browse shared workspaces
+- [GitHub Repository](https://github.com/abhayraghuwanshi/cooldesk-onboard-smoothly) - Source code and contributions
 
 ## Tech Stack
 
@@ -52,7 +53,7 @@ This website is built with:
 
 ```sh
 # Clone the repository
-git clone https://github.com/user/cooldesk-onboard-smoothly.git
+git clone https://github.com/abhayraghuwanshi/cooldesk-onboard-smoothly.git
 
 # Navigate to the project directory
 cd cooldesk-onboard-smoothly
@@ -78,4 +79,4 @@ new tab extension, chrome new tab, productivity extension, browser dashboard, wo
 
 ---
 
-**[Get Cooldesk for Chrome](https://chromewebstore.google.com/detail/new-tab-by-cooldesk-start/ioggffobciopdddacpclplkeodllhjko)** | Made with love for the productivity community
+**[Get Cooldesk for Chrome](https://chromewebstore.google.com/detail/new-tab-by-cooldesk-start/ioggffobciopdddacpclplkeodllhjko)** | **[GitHub](https://github.com/abhayraghuwanshi/cooldesk-onboard-smoothly)** | Made with love for the productivity community
