@@ -36,3 +36,6 @@ Allow: *.js
 Allow: *.css
 Allow: *.png
 Allow: *.jpg
+
+# 5. LLM Optimization
+Allow: /llms.txt

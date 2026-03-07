@@ -1,0 +1,13 @@
+# Cooldesk
+
+> The Best Free New Tab Dashboard (No Sign-in Required)
+
+Transform your browser with Cooldesk, the ultimate New Tab replacement. 100% Free - No Sign-in Required. Autosave tabs, share project workspaces, and use AI-powered search.
+
+## Navigation
+
+- [Home](https://cool-desk.com/)
+- [How to Use](https://cool-desk.com/how-to-use)
+- [Pricing](https://cool-desk.com/pricing)
+- [Blog](https://cool-desk.com/blog)
+- [Search](https://cool-desk.com/search)

@@ -1,4 +1,4 @@
-import { LayoutGrid, Mic, Monitor, Search, StickyNote, Target, Users } from 'lucide-react';
+import { Monitor, Save, Search, Share2 } from 'lucide-react';
 import { ReactNode } from 'react';
 
 interface Comparison {
@@ -9,73 +9,50 @@ interface Comparison {
     stat: string;
     statLabel: string;
     icon: ReactNode;
+    image: string;
     example?: string;
 }
 
 const comparisons: Comparison[] = [
     {
-        problem: "Drowning in a sea of tabs?",
-        without: "Endless clicking, hunting, and 'where was that link?' frustration.",
-        with: "Summon any tab, URL, or history item instantly with a keystroke.",
-        feature: "Almighty Search",
-        stat: "5min",
-        statLabel: "saved daily",
-        icon: <Search className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />
-    },
-    {
-        problem: "Brain feeling scattered?",
-        without: "Work, personal, and random research all fighting for your attention.",
-        with: "Powerful scrapers and local list-based categorization auto-organize your AI chats, Jira, and GitHub repos into focused zones.",
-        feature: "Smart Workspaces",
-        stat: "90%",
-        statLabel: "less clutter",
-        icon: <Target className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />
-    },
-    {
-        problem: "Tired of the click-scroll grind?",
-        without: "Tethered to your mouse and keyboard for every simple action.",
-        with: "Navigate the web at the speed of thought—entirely hands-free.",
-        feature: "Voice Navigation",
-        example: '"Switch to Gmail" • "Scroll down"',
+        problem: "Losing your train of thought?",
+        without: "Valuable context evaporates the moment you close a window.",
+        with: "Your digital footprint—notes, research paths, and window states—is auto-saved locally. Never lose a thought again.",
+        feature: "Auto-Memory",
         stat: "100%",
-        statLabel: "hands-free",
-        icon: <Mic className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />
+        statLabel: "Recall",
+        icon: <Save className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />,
+        image: '/assets/images/auto-memory.png'
     },
     {
-        problem: "Ideas vanishing into thin air?",
-        without: "Copy-pasting to lost docs, losing context, and forgetting insights.",
-        with: "Highlight text and attach sticky notes directly to web pages—they await your return.",
-        feature: "Context Notes",
-        stat: "3sec",
-        statLabel: "to capture",
-        icon: <StickyNote className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />
-    },
-    {
-        problem: "Team out of sync?",
-        without: "Emailing links, lost Slack threads, and constant context switching.",
-        with: "P2P URL sharing, team notice boards, and daily project context in one view.",
-        feature: "Team Sync",
+        problem: "Friction in collaboration?",
+        without: "Sending static links that lack the full picture of your work.",
+        with: "Teleport your entire workspace context—active session and all—directly to your peer's browser.",
+        feature: "Live Sync",
         stat: "Real-time",
-        statLabel: "collaboration",
-        icon: <Users className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />
+        statLabel: "Sync",
+        icon: <Share2 className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />,
+        image: '/assets/images/live-sync.png'
     },
     {
-        problem: "Starting from scratch?",
-        without: "Hours spent finding and organizing the right tools for your role.",
-        with: "Browse 1000+ predefined workspaces for any role, ready in one click.",
-        feature: "Workspace Store",
-        stat: "1000+",
-        statLabel: "predefined",
-        icon: <LayoutGrid className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />
+        problem: "Breaking flow to find things?",
+        without: "Manually digging through history or folders to find that one resource.",
+        with: "A universal command center to navigate your entire digital life at the speed of thought.",
+        feature: "Spotlight",
+        stat: "0.2s",
+        statLabel: "To Find",
+        icon: <Search className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />,
+        image: '/assets/images/spotlight.png'
     },
     {
-        problem: "Juggling apps all day?",
-        without: "Alt-tabbing between browser, IDE, Slack, and dozens of desktop apps—losing focus every time.",
-        with: "Your desktop apps sync to a central browser hub. Switch to any running process instantly from one place.",
-        feature: "Desktop App Sync",
+        problem: "App switching fatigue?",
+        without: "Constantly Alt-Tabbing between your browser and desktop tools.",
+        with: "Bridge the gap. Control desktop apps like VS Code, Slack, and Spotify directly from your browser workflow.",
+        feature: "Desktop Bridge",
         stat: "1 Hub",
-        statLabel: "for everything",
-        icon: <Monitor className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />
+        statLabel: "For OS",
+        icon: <Monitor className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />,
+        image: '/assets/images/desktop-bridge.png'
     }
 ];
 
@@ -125,65 +102,90 @@ export default function NavigationComparison() {
                 </div>
 
                 {/* Comparison Cards */}
-                <div className="max-w-6xl mx-auto space-y-12 md:space-y-16">
-                    {comparisons.map((item, index) => (
-                        <div key={index} className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
-                            {/* Left: Problem & Old Way */}
-                            <div className="space-y-4 md:space-y-6">
-                                {/* Problem Title */}
-                                <div className="flex items-start gap-3 md:gap-4">
-                                    {item.icon}
-                                    <div className="flex-1">
-                                        <h3 className="heading-4 text-txt-primary mb-2">
-                                            {item.problem}
-                                        </h3>
-                                        <p className="caption text-txt-muted">
-                                            {item.without}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                <div className="max-w-7xl mx-auto space-y-16 md:space-y-32">
+                    {comparisons.map((item, index) => {
+                        const isEven = index % 2 === 0;
+                        return (
+                            <div key={index} className="grid md:grid-cols-2 gap-8 md:gap-20 items-center relative group/card">
+                                {/* Connector Line (Desktop) */}
+                                {index < comparisons.length - 1 && (
+                                    <div className="hidden md:block absolute left-1/2 bottom-[-80px] w-px h-[80px] bg-gradient-to-b from-white/10 to-transparent -translate-x-1/2 z-0"></div>
+                                )}
 
-                            {/* Right: CoolDesk Way */}
-                            <div className="space-y-3 md:space-y-4">
-                                <div className="flex items-start gap-3">
-                                    <svg className="w-5 h-5 md:w-6 md:h-6 text-btn-primary flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                                    </svg>
-                                    <div className="flex-1">
-                                        <p className="body-lg text-txt-primary font-bold leading-relaxed mb-3">
-                                            {item.with}
-                                        </p>
-                                        <div className="flex flex-wrap items-center gap-2 md:gap-3">
-                                            <span className="label-accent">
+                                {/* Text Column */}
+                                <div className={`space-y-8 relative z-10 ${isEven ? 'order-2 md:order-1' : 'order-2 md:order-2'}`}>
+                                    <div className="flex flex-col gap-6">
+                                        <div className="flex items-center gap-4">
+                                            <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 shadow-inner backdrop-blur-sm">
+                                                {item.icon}
+                                            </div>
+                                            <h3 className="heading-3 text-white font-semibold tracking-tight">
+                                                {item.problem}
+                                            </h3>
+                                        </div>
+
+                                        <div className="space-y-6 pl-2 md:pl-4">
+                                            <div className="relative pl-6 border-l-2 border-red-500/20 py-1">
+                                                <p className="body-md text-txt-muted/80 leading-relaxed italic">
+                                                    "{item.without}"
+                                                </p>
+                                            </div>
+
+                                            <div className="relative pl-6 border-l-2 border-btn-primary py-1">
+                                                <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-btn-primary/20 flex items-center justify-center">
+                                                    <div className="w-1.5 h-1.5 rounded-full bg-btn-primary animate-pulse"></div>
+                                                </div>
+                                                <p className="heading-5 text-white leading-relaxed font-medium">
+                                                    {item.with}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Stats Badge */}
+                                    <div className="inline-flex items-center gap-4 pl-2 md:pl-4">
+                                        <div className="flex flex-col">
+                                            <span className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-white to-white/60 tracking-tighter">
+                                                {item.stat}
+                                            </span>
+                                            <span className="text-xs font-bold text-btn-primary uppercase tracking-widest mt-1">
+                                                {item.statLabel}
+                                            </span>
+                                        </div>
+                                        <div className="h-12 w-px bg-gradient-to-b from-transparent via-white/10 to-transparent mx-4"></div>
+                                        <div className="px-5 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
+                                            <span className="text-sm font-medium text-txt-secondary">
                                                 {item.feature}
                                             </span>
-                                            {item.example && (
-                                                <span className="caption text-txt-secondary italic">
-                                                    {item.example}
-                                                </span>
-                                            )}
                                         </div>
+                                    </div>
+                                </div>
 
-                                        {/* Stat */}
-                                        <div className="mt-3 md:mt-4 inline-block">
-                                            <div className="display-lg text-txt-accent">
-                                                {item.stat}
-                                            </div>
-                                            <div className="caption text-txt-muted uppercase tracking-wide font-semibold">
-                                                {item.statLabel}
-                                            </div>
+                                {/* Image Column */}
+                                <div className={`relative group order-1 ${isEven ? 'md:order-2' : 'md:order-1'}`}>
+                                    {/* Glow Effect */}
+                                    <div className="absolute -inset-1 bg-gradient-to-r from-btn-primary/30 to-purple-600/30 rounded-[20px] blur-xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-700"></div>
+
+                                    {/* Image Container */}
+                                    <div className="relative rounded-[20px] overflow-hidden bg-[#0A0A0A] border border-white/10 shadow-2xl aspect-[16/10] transform transition-transform duration-700 group-hover/card:scale-[1.02]">
+                                        <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent z-10 pointer-events-none"></div>
+                                        <img
+                                            src={item.image}
+                                            alt={item.feature}
+                                            className="w-full h-full object-cover opacity-90 group-hover/card:opacity-100 transition-opacity duration-500"
+                                        />
+                                        {/* Inner Vignette */}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-20"></div>
+
+                                        {/* Floating Label inside Image */}
+                                        <div className="absolute bottom-4 left-4 z-30 px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-md border border-white/10 text-xs font-medium text-white/80">
+                                            {item.feature} Preview
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            {/* Divider */}
-                            {index < comparisons.length - 1 && (
-                                <div className="col-span-full border-t border-white/5"></div>
-                            )}
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
 
                 {/* Stats Section */}

@@ -1,13 +1,14 @@
 import {
+    AppWindow,
     Bot,
     Command,
-    Highlighter,
-    Link2,
+    Focus,
+    Keyboard,
+    Layers,
     MessageSquare,
-    Mic,
+    MonitorUp,
     Pin,
     Sparkles,
-    StickyNote,
     Target,
     User,
     Users,
@@ -19,64 +20,102 @@ export default function HowToUse() {
         {
             number: "01",
             title: "Install Extension",
-            description: "One click to transform your browser into an intelligent workspace.",
+            description: "Add CoolDesk to your browser — captures tabs and replaces your new tab page.",
             icon: <Zap className="w-8 h-8 text-cyan-400" />,
             gradient: "from-cyan-500 to-blue-600",
             illustration: (
                 <div className="relative w-full h-48 bg-gradient-to-br from-cyan-500/10 to-blue-600/10 rounded-xl flex items-center justify-center overflow-hidden">
                     <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djItaDJ2LTJoLTJ6bTAgNGgtMnYyaDJ2LTJ6bTQtNHYyaDJ2LTJoLTJ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-30"></div>
-                    <svg className="w-24 h-24 text-cyan-400 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
-                    </svg>
+                    {/* Browser with extension icon */}
+                    <div className="relative">
+                        <div className="w-40 h-28 bg-zinc-800 rounded-lg border border-white/10 shadow-2xl">
+                            <div className="h-6 bg-zinc-700 rounded-t-lg border-b border-white/5 flex items-center gap-1 px-2">
+                                <div className="w-2 h-2 rounded-full bg-red-500/60"></div>
+                                <div className="w-2 h-2 rounded-full bg-yellow-500/60"></div>
+                                <div className="w-2 h-2 rounded-full bg-green-500/60"></div>
+                                <div className="flex-1"></div>
+                                <div className="w-5 h-5 bg-gradient-to-br from-cyan-500 to-blue-600 rounded flex items-center justify-center animate-pulse">
+                                    <Zap className="w-3 h-3 text-white" />
+                                </div>
+                            </div>
+                            <div className="p-2 space-y-1">
+                                <div className="h-2 bg-cyan-500/40 rounded w-3/4"></div>
+                                <div className="h-2 bg-blue-500/40 rounded w-1/2"></div>
+                                <div className="h-2 bg-cyan-500/30 rounded w-2/3"></div>
+                            </div>
+                        </div>
+                    </div>
                     <div className="absolute bottom-4 right-4 px-3 py-1 bg-cyan-500/20 backdrop-blur-sm rounded-full border border-cyan-500/30 text-xs text-cyan-300 font-semibold">
-                        Chrome Store
+                        Chrome / Edge / Brave
                     </div>
                 </div>
             )
         },
         {
             number: "02",
-            title: "Pin & Access",
-            description: "Keep CoolDesk at your fingertips for instant productivity.",
+            title: "Install Desktop App",
+            description: "Download the app for your OS — powers AI search and cross-device sync.",
             icon: <Pin className="w-8 h-8 text-purple-400" />,
             gradient: "from-blue-600 to-purple-600",
             illustration: (
                 <div className="relative w-full h-48 bg-gradient-to-br from-blue-600/10 to-purple-600/10 rounded-xl flex items-center justify-center overflow-hidden">
+                    {/* Desktop with app */}
                     <div className="relative">
-                        <div className="w-32 h-20 bg-zinc-800 rounded-lg border border-white/10 shadow-2xl">
-                            <div className="h-6 bg-zinc-700 rounded-t-lg border-b border-white/5 flex items-center gap-1 px-2">
-                                <div className="w-2 h-2 rounded-full bg-red-500/60"></div>
-                                <div className="w-2 h-2 rounded-full bg-yellow-500/60"></div>
-                                <div className="w-2 h-2 rounded-full bg-green-500/60"></div>
+                        <div className="w-44 h-28 bg-zinc-800 rounded-lg border border-white/10 shadow-2xl">
+                            <div className="h-5 bg-zinc-700 rounded-t-lg border-b border-white/5 flex items-center gap-1 px-2">
+                                <div className="w-1.5 h-1.5 rounded-full bg-red-500/60"></div>
+                                <div className="w-1.5 h-1.5 rounded-full bg-yellow-500/60"></div>
+                                <div className="w-1.5 h-1.5 rounded-full bg-green-500/60"></div>
+                                <span className="text-[8px] text-zinc-400 ml-2">CoolDesk</span>
                             </div>
-                            <div className="p-2 space-y-1">
-                                <div className="h-2 bg-purple-500/40 rounded w-3/4"></div>
-                                <div className="h-2 bg-blue-500/40 rounded w-1/2"></div>
+                            <div className="p-2 flex items-center justify-center h-[calc(100%-20px)]">
+                                <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/30 animate-pulse">
+                                    <Sparkles className="w-6 h-6 text-white" />
+                                </div>
                             </div>
                         </div>
-                        <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center animate-pulse shadow-lg shadow-purple-500/50">
-                            <Pin className="w-4 h-4 text-white" />
-                        </div>
+                        {/* Desktop stand */}
+                        <div className="w-16 h-3 bg-zinc-700 rounded-b mx-auto"></div>
+                        <div className="w-24 h-1.5 bg-zinc-600 rounded mx-auto"></div>
+                    </div>
+                    <div className="absolute bottom-4 left-4 flex gap-2">
+                        <span className="px-2 py-1 bg-purple-500/20 backdrop-blur-sm rounded border border-purple-500/30 text-[10px] text-purple-300 font-semibold">Windows</span>
+                        <span className="px-2 py-1 bg-blue-500/20 backdrop-blur-sm rounded border border-blue-500/30 text-[10px] text-blue-300 font-semibold">Mac</span>
+                        <span className="px-2 py-1 bg-pink-500/20 backdrop-blur-sm rounded border border-pink-500/30 text-[10px] text-pink-300 font-semibold">Linux</span>
                     </div>
                 </div>
             )
         },
         {
             number: "03",
-            title: "Experience Magic",
-            description: "Watch AI organize your digital life automatically.",
+            title: "They Work Together",
+            description: "Extension captures your tabs, desktop app syncs & searches across all devices.",
             icon: <Sparkles className="w-8 h-8 text-pink-400" />,
             gradient: "from-purple-600 to-pink-600",
             illustration: (
                 <div className="relative w-full h-48 bg-gradient-to-br from-purple-600/10 to-pink-600/10 rounded-xl flex items-center justify-center overflow-hidden">
-                    <div className="absolute inset-0">
-                        <div className="absolute top-8 left-8 w-16 h-12 bg-purple-500/20 rounded border border-purple-400/30 animate-float"></div>
-                        <div className="absolute top-12 right-12 w-20 h-12 bg-pink-500/20 rounded border border-pink-400/30 animate-float" style={{ animationDelay: '0.5s' }}></div>
-                        <div className="absolute bottom-12 left-16 w-14 h-12 bg-blue-500/20 rounded border border-blue-400/30 animate-float" style={{ animationDelay: '1s' }}></div>
+                    {/* Extension and App connected */}
+                    <div className="flex items-center gap-4">
+                        {/* Browser/Extension */}
+                        <div className="w-16 h-16 bg-gradient-to-br from-cyan-500/30 to-blue-600/30 rounded-xl border border-cyan-400/40 flex items-center justify-center animate-float">
+                            <Zap className="w-8 h-8 text-cyan-400" />
+                        </div>
+                        {/* Connection line with data flow */}
+                        <div className="flex flex-col items-center gap-1">
+                            <div className="w-12 h-0.5 bg-gradient-to-r from-cyan-500 to-purple-500 relative">
+                                <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-400 animate-pulse"></div>
+                                <div className="absolute top-1/2 left-0 w-2 h-2 bg-cyan-400 rounded-full -translate-y-1/2 animate-ping"></div>
+                                <div className="absolute top-1/2 right-0 w-2 h-2 bg-purple-400 rounded-full -translate-y-1/2 animate-ping" style={{ animationDelay: '0.5s' }}></div>
+                            </div>
+                            <span className="text-[8px] text-zinc-400">syncing</span>
+                        </div>
+                        {/* Desktop App */}
+                        <div className="w-16 h-16 bg-gradient-to-br from-purple-500/30 to-pink-600/30 rounded-xl border border-purple-400/40 flex items-center justify-center animate-float" style={{ animationDelay: '0.5s' }}>
+                            <Sparkles className="w-8 h-8 text-purple-400" />
+                        </div>
                     </div>
-                    <div className="relative z-10">
-                        <Sparkles className="w-16 h-16 text-pink-400 animate-spin-slow" />
-                        <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 blur-xl opacity-50 animate-pulse"></div>
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-1.5 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 backdrop-blur-sm rounded-full border border-white/10 text-xs text-white font-semibold">
+                        Extension + App = Full Power
                     </div>
                 </div>
             )
@@ -118,9 +157,9 @@ export default function HowToUse() {
         },
         {
             title: "Team Sync",
-            description: "Seamless collaboration with instant workspace sharing.",
-            stat: "2x",
-            statLabel: "Faster Sync",
+            description: "Desktop app enables real-time workspace sharing across your team.",
+            stat: "Real-time",
+            statLabel: "Via App",
             icon: <Users className="w-7 h-7" />,
             gradient: "from-blue-500/20 to-indigo-600/20",
             borderGradient: "from-blue-500/50 to-indigo-600/50",
@@ -140,32 +179,6 @@ export default function HowToUse() {
                         </div>
                         <div className="absolute -top-8 left-1/2 -translate-x-1/2 px-3 py-1 bg-blue-500/30 backdrop-blur-sm rounded-full border border-blue-400/40 text-xs text-blue-200 whitespace-nowrap">
                             Syncing...
-                        </div>
-                    </div>
-                </div>
-            )
-        },
-        {
-            title: "Context Notes",
-            description: "Intelligent sticky notes that remember where you left off.",
-            stat: "3sec",
-            statLabel: "To Capture",
-            icon: <StickyNote className="w-7 h-7" />,
-            gradient: "from-purple-500/20 to-pink-600/20",
-            borderGradient: "from-purple-500/50 to-pink-600/50",
-            visual: (
-                <div className="relative w-full h-40 bg-gradient-to-br from-purple-500/5 to-pink-600/5 rounded-lg overflow-hidden p-4">
-                    <div className="absolute top-3 left-3 w-32 h-24 bg-gradient-to-br from-purple-500/30 to-purple-600/30 rounded-lg border border-purple-400/40 p-2 shadow-lg rotate-[-3deg] animate-float">
-                        <div className="space-y-1">
-                            <div className="h-2 bg-purple-300/60 rounded w-full"></div>
-                            <div className="h-2 bg-purple-300/60 rounded w-3/4"></div>
-                            <div className="h-2 bg-purple-300/60 rounded w-1/2"></div>
-                        </div>
-                    </div>
-                    <div className="absolute top-6 right-3 w-28 h-20 bg-gradient-to-br from-pink-500/30 to-pink-600/30 rounded-lg border border-pink-400/40 p-2 shadow-lg rotate-[2deg] animate-float" style={{ animationDelay: '0.4s' }}>
-                        <div className="space-y-1">
-                            <div className="h-2 bg-pink-300/60 rounded w-full"></div>
-                            <div className="h-2 bg-pink-300/60 rounded w-2/3"></div>
                         </div>
                     </div>
                 </div>
@@ -205,86 +218,36 @@ export default function HowToUse() {
                 </div>
             )
         },
-        {
-            title: "Page Highlights & Notes",
-            description: "Create sticky notes and highlight text on any webpage with injected buttons.",
-            stat: "Any",
-            statLabel: "Web Page",
-            icon: <Highlighter className="w-7 h-7" />,
-            gradient: "from-yellow-500/20 to-lime-600/20",
-            borderGradient: "from-yellow-500/50 to-lime-600/50",
-            visual: (
-                <div className="relative w-full h-40 bg-gradient-to-br from-yellow-500/5 to-lime-600/5 rounded-lg overflow-hidden p-3">
-                    {/* Browser mockup */}
-                    <div className="w-full h-full bg-zinc-800/60 rounded-lg border border-white/10 overflow-hidden">
-                        {/* Browser header */}
-                        <div className="h-5 bg-zinc-700/80 border-b border-white/5 flex items-center px-2 gap-1">
-                            <div className="w-1.5 h-1.5 rounded-full bg-red-500/60"></div>
-                            <div className="w-1.5 h-1.5 rounded-full bg-yellow-500/60"></div>
-                            <div className="w-1.5 h-1.5 rounded-full bg-green-500/60"></div>
-                            <div className="flex-1 mx-2 h-2.5 bg-zinc-600/50 rounded text-[6px] text-zinc-400 flex items-center px-1">gemini.google.com</div>
-                        </div>
-                        {/* Page content with highlights */}
-                        <div className="p-2 space-y-1.5 relative">
-                            <div className="h-2 bg-zinc-600/40 rounded w-full"></div>
-                            <div className="h-2 bg-yellow-400/40 rounded w-3/4 animate-pulse"></div>
-                            <div className="h-2 bg-zinc-600/40 rounded w-5/6"></div>
-                            <div className="h-2 bg-lime-400/40 rounded w-2/3 animate-pulse" style={{ animationDelay: '0.3s' }}></div>
-                            <div className="h-2 bg-zinc-600/40 rounded w-full"></div>
-
-                            {/* Sticky note */}
-                            <div className="absolute top-1 right-1 w-16 h-14 bg-gradient-to-br from-yellow-300 to-yellow-400 rounded shadow-lg p-1.5 rotate-[2deg] animate-float">
-                                <div className="text-[6px] text-yellow-900 font-medium leading-tight">Note saved!</div>
-                                <div className="mt-1 space-y-0.5">
-                                    <div className="h-1 bg-yellow-600/30 rounded w-full"></div>
-                                    <div className="h-1 bg-yellow-600/30 rounded w-2/3"></div>
-                                </div>
-                            </div>
-
-                            {/* Injected button indicator */}
-                            <div className="absolute bottom-1 right-1 flex gap-1">
-                                <div className="w-5 h-5 bg-gradient-to-br from-yellow-500 to-lime-500 rounded flex items-center justify-center shadow-lg animate-bounce" style={{ animationDelay: '0.2s' }}>
-                                    <StickyNote className="w-3 h-3 text-white" />
-                                </div>
-                                <div className="w-5 h-5 bg-gradient-to-br from-lime-500 to-green-500 rounded flex items-center justify-center shadow-lg animate-bounce" style={{ animationDelay: '0.4s' }}>
-                                    <Link2 className="w-3 h-3 text-white" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )
-        },
-        {
-            title: "Voice Control",
-            description: "Navigate hands-free with natural language commands.",
-            stat: "100%",
-            statLabel: "Hands Free",
-            icon: <Mic className="w-7 h-7" />,
-            gradient: "from-orange-500/20 to-amber-600/20",
-            borderGradient: "from-orange-500/50 to-amber-600/50",
-            visual: (
-                <div className="relative w-full h-40 bg-gradient-to-br from-orange-500/5 to-amber-600/5 rounded-lg overflow-hidden flex items-center justify-center">
-                    <div className="relative">
-                        <Mic className="w-16 h-16 text-orange-400 animate-pulse" />
-                        <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="w-20 h-20 border-4 border-orange-400/40 rounded-full animate-ping"></div>
-                        </div>
-                        <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="w-28 h-28 border-2 border-amber-400/20 rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
-                        </div>
-                        <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 px-4 py-2 bg-orange-500/30 backdrop-blur-sm rounded-lg border border-orange-400/40 text-sm text-orange-200 whitespace-nowrap animate-pulse">
-                            "Open workspace..."
-                        </div>
-                    </div>
-                </div>
-            )
-        },
+        // {
+        //     title: "Voice Control",
+        //     description: "Navigate hands-free with natural language commands.",
+        //     stat: "100%",
+        //     statLabel: "Hands Free",
+        //     icon: <Mic className="w-7 h-7" />,
+        //     gradient: "from-orange-500/20 to-amber-600/20",
+        //     borderGradient: "from-orange-500/50 to-amber-600/50",
+        //     visual: (
+        //         <div className="relative w-full h-40 bg-gradient-to-br from-orange-500/5 to-amber-600/5 rounded-lg overflow-hidden flex items-center justify-center">
+        //             <div className="relative">
+        //                 <Mic className="w-16 h-16 text-orange-400 animate-pulse" />
+        //                 <div className="absolute inset-0 flex items-center justify-center">
+        //                     <div className="w-20 h-20 border-4 border-orange-400/40 rounded-full animate-ping"></div>
+        //                 </div>
+        //                 <div className="absolute inset-0 flex items-center justify-center">
+        //                     <div className="w-28 h-28 border-2 border-amber-400/20 rounded-full animate-ping" style={{ animationDelay: '0.5s' }}></div>
+        //                 </div>
+        //                 <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 px-4 py-2 bg-orange-500/30 backdrop-blur-sm rounded-lg border border-orange-400/40 text-sm text-orange-200 whitespace-nowrap animate-pulse">
+        //                     "Open workspace..."
+        //                 </div>
+        //             </div>
+        //         </div>
+        //     )
+        // },
         {
             title: "Almighty Search",
-            description: "Lightning-fast access to URLs, history, and every workspace.",
-            stat: "5min",
-            statLabel: "Saved Daily",
+            description: "Desktop app powers AI search across all URLs, notes, highlights & workspaces.",
+            stat: "AI-Powered",
+            statLabel: "Via App",
             icon: <Command className="w-7 h-7" />,
             gradient: "from-emerald-500/20 to-teal-600/20",
             borderGradient: "from-emerald-500/50 to-teal-600/50",
@@ -312,6 +275,130 @@ export default function HowToUse() {
                 </div>
             )
         }
+    ];
+
+    const desktopFeatures = [
+        {
+            icon: <Focus className="w-8 h-8" />,
+            title: "App Focus Mode",
+            description: "Instantly switch focus to any running app with a keystroke.",
+            gradient: "from-cyan-500 to-blue-600",
+            visual: (
+                <div className="relative w-full h-28 flex items-center justify-center">
+                    <div className="flex gap-3">
+                        {['VS Code', 'Chrome', 'Slack'].map((app, i) => (
+                            <div
+                                key={app}
+                                className={`w-12 h-12 rounded-xl flex items-center justify-center text-xs font-medium transition-all duration-300 ${
+                                    i === 1
+                                        ? 'bg-gradient-to-br from-cyan-500 to-blue-600 text-white scale-110 shadow-lg shadow-cyan-500/40'
+                                        : 'bg-zinc-800 text-zinc-400 border border-white/10'
+                                }`}
+                            >
+                                <AppWindow className="w-5 h-5" />
+                            </div>
+                        ))}
+                    </div>
+                    <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-cyan-500/20 rounded-full border border-cyan-500/30 text-[9px] text-cyan-300">
+                        Ctrl + Space
+                    </div>
+                </div>
+            )
+        },
+        {
+            icon: <Layers className="w-8 h-8" />,
+            title: "Smart Tab Switching",
+            description: "Search and jump to any browser tab across all windows instantly.",
+            gradient: "from-blue-500 to-indigo-600",
+            visual: (
+                <div className="relative w-full h-28 flex items-center justify-center">
+                    <div className="w-44 bg-zinc-800/80 rounded-lg border border-white/10 overflow-hidden">
+                        <div className="p-1.5 border-b border-white/5">
+                            <div className="h-4 bg-blue-500/20 rounded border border-blue-500/30 flex items-center px-2 text-[9px] text-blue-300">
+                                Search tabs...
+                            </div>
+                        </div>
+                        <div className="p-1 space-y-0.5">
+                            {['GitHub - PR #42', 'Google Docs', 'Jira Board'].map((tab, i) => (
+                                <div
+                                    key={tab}
+                                    className={`px-2 py-1 rounded text-[9px] flex items-center gap-1.5 ${
+                                        i === 0
+                                            ? 'bg-blue-500/30 text-blue-200 border border-blue-500/40'
+                                            : 'text-zinc-400'
+                                    }`}
+                                >
+                                    <div className="w-2 h-2 rounded bg-white/20"></div>
+                                    {tab}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )
+        },
+        {
+            icon: <MonitorUp className="w-8 h-8" />,
+            title: "Window Navigation",
+            description: "Navigate between windows of the same app. Perfect for multi-monitor.",
+            gradient: "from-purple-500 to-pink-600",
+            visual: (
+                <div className="relative w-full h-28 flex items-center justify-center gap-3">
+                    {[1, 2].map((n) => (
+                        <div
+                            key={n}
+                            className={`w-16 h-12 rounded-lg border ${
+                                n === 1
+                                    ? 'bg-purple-500/20 border-purple-500/50 shadow-lg shadow-purple-500/20'
+                                    : 'bg-zinc-800 border-white/10'
+                            }`}
+                        >
+                            <div className="h-2.5 bg-zinc-700 rounded-t-lg flex items-center gap-0.5 px-1">
+                                <div className="w-1 h-1 rounded-full bg-red-500/60"></div>
+                                <div className="w-1 h-1 rounded-full bg-yellow-500/60"></div>
+                                <div className="w-1 h-1 rounded-full bg-green-500/60"></div>
+                            </div>
+                            <div className="p-1 space-y-0.5">
+                                <div className="h-1 bg-purple-500/30 rounded w-3/4"></div>
+                                <div className="h-1 bg-purple-500/20 rounded w-1/2"></div>
+                            </div>
+                        </div>
+                    ))}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                        <svg className="w-5 h-5 text-purple-400 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                        </svg>
+                    </div>
+                </div>
+            )
+        },
+        {
+            icon: <Keyboard className="w-8 h-8" />,
+            title: "Global Hotkeys",
+            description: "System-wide shortcuts that work even when CoolDesk isn't focused.",
+            gradient: "from-amber-500 to-orange-600",
+            visual: (
+                <div className="relative w-full h-28 flex items-center justify-center">
+                    <div className="flex gap-1.5">
+                        {['Ctrl', '+', 'Shift', '+', 'S'].map((key, i) => (
+                            <div
+                                key={i}
+                                className={`${
+                                    key === '+'
+                                        ? 'text-zinc-500 text-sm'
+                                        : 'px-2 py-1.5 bg-zinc-800 rounded-lg border border-white/10 text-xs font-mono text-amber-300 shadow-lg'
+                                } flex items-center justify-center`}
+                            >
+                                {key}
+                            </div>
+                        ))}
+                    </div>
+                    <div className="absolute bottom-1 left-1/2 -translate-x-1/2 text-[9px] text-zinc-500">
+                        Open Search Anywhere
+                    </div>
+                </div>
+            )
+        },
     ];
 
     return (
@@ -398,10 +485,10 @@ export default function HowToUse() {
                     <div className="text-center mb-16">
                         <h3 className="heading-2 text-txt-primary mb-6">
                             <span className="text-gradient">
-                                Seven Superpowers.
+                                Four Superpowers.
                             </span>
                             <br />
-                            One Extension.
+                            One Ecosystem.
                         </h3>
                         <p className="body-lg text-txt-secondary max-w-3xl mx-auto">
                             Every feature designed to eliminate friction and amplify your focus.
@@ -459,23 +546,68 @@ export default function HowToUse() {
                         ))}
                     </div>
                 </div>
+
+                {/* Desktop App Features */}
+                <div className="max-w-5xl mx-auto mb-32">
+                    <div className="text-center mb-12">
+                        <div className="inline-block mb-4">
+                            <div className="px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/10 via-blue-500/10 to-cyan-500/10 border border-white/10">
+                                <span className="label text-gradient-accent flex items-center justify-center gap-2">
+                                    <Zap className="w-4 h-4" />
+                                    DESKTOP APP POWERS
+                                </span>
+                            </div>
+                        </div>
+                        <h3 className="heading-2 text-txt-primary mb-4">
+                            Beyond the Browser
+                        </h3>
+                        <p className="body-lg text-txt-secondary max-w-2xl mx-auto">
+                            The desktop app adds <strong className="text-white">system-wide controls</strong> —
+                            focus apps, switch tabs, and navigate windows without your mouse.
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-6">
+                        {desktopFeatures.map((feature, index) => (
+                            <div
+                                key={index}
+                                className="group relative bg-gradient-to-br from-zinc-900/80 to-zinc-950/80 backdrop-blur-xl border border-white/5 rounded-2xl p-5 hover:border-white/20 transition-all duration-500 overflow-hidden"
+                            >
+                                <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+
+                                <div className="mb-4">
+                                    {feature.visual}
+                                </div>
+
+                                <div className="relative z-10 flex items-start gap-3">
+                                    <div className={`p-2 rounded-xl bg-gradient-to-br ${feature.gradient} bg-opacity-20`}>
+                                        <div className="text-white">{feature.icon}</div>
+                                    </div>
+                                    <div>
+                                        <h4 className="heading-5 text-txt-primary mb-1">{feature.title}</h4>
+                                        <p className="body-sm text-txt-secondary">{feature.description}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
                 {/* Final CTA with Premium Styling */}
                 <div className="text-center mb-32">
-                    <a href="https://chromewebstore.google.com/detail/cooldesk/ioggffobciopdddacpclplkeodllhjko"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                    <a href="#downloads"
                         className="btn-gradient btn-xl group inline-flex items-center gap-3 hover:shadow-2xl hover:shadow-blue-500/50 transition-all duration-500 hover:scale-110 active:scale-95 relative overflow-hidden">
 
                         {/* Animated Shine Effect */}
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
 
-                        <span className="relative z-10">Add to Chrome — It's Free</span>
+                        <span className="relative z-10">Get Extension + App — It's Free</span>
                         <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                         </svg>
                     </a>
 
-                    <div className="mt-6 flex items-center justify-center gap-6 caption text-txt-muted">
+                    <div className="mt-6 flex flex-wrap items-center justify-center gap-6 caption text-txt-muted">
                         <div className="flex items-center gap-2">
                             <div className="w-2 h-2 rounded-full bg-txt-success animate-pulse" />
                             <span>100% Free</span>
@@ -490,9 +622,9 @@ export default function HowToUse() {
                         <div className="w-1 h-1 rounded-full bg-zinc-700" />
                         <div className="flex items-center gap-2">
                             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                             </svg>
-                            <span>Instant Setup</span>
+                            <span>Windows, Mac, Linux</span>
                         </div>
                     </div>
                 </div>

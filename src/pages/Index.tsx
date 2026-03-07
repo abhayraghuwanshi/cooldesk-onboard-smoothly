@@ -1,3 +1,4 @@
+import Downloads from "@/components/new/Downloads";
 import FAQ from "@/components/new/FAQ";
 import Footer from "@/components/new/Footer";
 import Hero from "@/components/new/Hero";
@@ -21,7 +22,7 @@ const Index = () => {
             "@context": "https://schema.org",
             "@type": "SoftwareApplication",
             "name": "CoolDesk",
-            "operatingSystem": "Browser (Chrome, Edge, Brave)",
+            "operatingSystem": "Browser (Chrome, Edge, Brave), Windows, macOS, Linux",
             "applicationCategory": "ProductivityApplication",
             "description": "A powerful, friction-less browser extension that replaces your new tab page with a project-based workspace. 100% Free - No accounts or sign-in required.",
             "offers": {
@@ -61,6 +62,11 @@ const Index = () => {
       {/* Tabbed Dashboard Showcase */}
       <section id="preview-tabs" className="relative z-10">
         <TabbedDashboardPreview />
+      </section>
+
+      {/* Downloads Section */}
+      <section id="downloads" className="relative z-10">
+        <Downloads />
       </section>
 
       {/* Preview Gallery Section */}
