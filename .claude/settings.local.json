@@ -3,7 +3,8 @@
     "allow": [
       "Bash(copy:*)",
       "Bash(npm run dev:*)",
-      "Bash(dir \"c:\\\\Users\\\\raghu\\\\projects\\\\cooldesk-onboard-smoothly\\\\public\")"
+      "Bash(dir \"c:\\\\Users\\\\raghu\\\\projects\\\\cooldesk-onboard-smoothly\\\\public\")",
+      "Bash(npx tsc *)"
     ]
   }
 }

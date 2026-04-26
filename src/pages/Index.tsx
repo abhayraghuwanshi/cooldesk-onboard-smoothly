@@ -4,7 +4,6 @@ import Footer from "@/components/new/Footer";
 import Hero from "@/components/new/Hero";
 import Navbar from '@/components/new/Navbar';
 import NavigationComparison from "@/components/new/NavigationComparison";
-import TabbedDashboardPreview from "@/components/new/TabbedDashboardPreview";
 import SEO from "@/components/SEO";
 import { Helmet } from 'react-helmet-async';
 
@@ -12,46 +11,22 @@ const Index = () => {
   return (
     <main className="min-h-screen text-white scroll-smooth">
       <SEO
-        title="CoolDesk | The Best New Tab Dashboard for Productivity"
-        description="Transform your browser with CoolDesk, the ultimate New Tab replacement. 100% Free - No Sign-in Required. Autosave tabs, share project workspaces, and use AI-powered search."
+        title="CoolDesk — New Tab Workspace & AI Spotlight for Developers"
+        description="CoolDesk replaces your new tab with a project workspace. Group tabs, apps, links and notes by project. Free browser extension with AI spotlight search — no sign-in required."
         canonical="https://cool-desk.com/"
       />
-      <Helmet>
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            "name": "CoolDesk",
-            "operatingSystem": "Browser (Chrome, Edge, Brave), Windows, macOS, Linux",
-            "applicationCategory": "ProductivityApplication",
-            "description": "A powerful, friction-less browser extension that replaces your new tab page with a project-based workspace. 100% Free - No accounts or sign-in required.",
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "USD"
-            },
-            "aggregateRating": {
-              "@type": "AggregateRating",
-              "ratingValue": "4.9",
-              "ratingCount": "120"
-            }
-          })}
-        </script>
-      </Helmet>
       {/* Background Glow Overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-600/10 pointer-events-none z-0" />
       <Navbar />
 
       {/* Hero Section */}
-      <section
-        id="home"
-        className="relative z-10 min-h-screen flex items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: "url('/hero-background.png')" }}
-      >
-        <div className="container mx-auto px-6 text-center">
-          <Hero />
-        </div>
+      <section id="home" className="relative z-10">
+        <Hero />
       </section>
+
+      {/* <section id="problem" className="relative z-10">
+        <ProblemSection />
+      </section> */}
 
       <section id="navigation" className="relative z-10">
         <NavigationComparison />
@@ -60,9 +35,6 @@ const Index = () => {
 
 
       {/* Tabbed Dashboard Showcase */}
-      <section id="preview-tabs" className="relative z-10">
-        <TabbedDashboardPreview />
-      </section>
 
       {/* Downloads Section */}
       <section id="downloads" className="relative z-10">

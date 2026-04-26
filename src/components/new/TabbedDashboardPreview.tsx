@@ -86,9 +86,9 @@ export default function TabbedDashboardPreview() {
 
             <div className="container mx-auto px-4 md:px-6">
                 <div className="text-center mb-16">
-                    <h2 className="heading-2 mb-4 text-white">Your <span className="text-gradient">Smart Nav Center</span></h2>
+                    <h2 className="heading-2 mb-4 text-white">Your OS and projects,<br /><span className="text-gradient">in one new tab.</span></h2>
                     <p className="body-lg max-w-2xl mx-auto text-txt-secondary">
-                        Experience the frictionless transition between search, focus, and organization. Everything you need, one single tab.
+                        Projects, workspaces, notes, and your running apps — organized the way you actually work.
                     </p>
                 </div>
 

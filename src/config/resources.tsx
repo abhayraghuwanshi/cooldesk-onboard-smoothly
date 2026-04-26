@@ -1,7 +1,6 @@
 import {
     FileQuestion,
     FileText,
-    Image,
     Lock,
     Mail,
     PenLine,
@@ -85,14 +84,14 @@ export const resources: Resource[] = [
     },
 
     // Preview Gallery
-    {
-        id: 'preview-gallery',
-        title: 'Preview Gallery',
-        description: 'Visual tour of CoolDesk interface and features',
-        url: '/gallery',
-        category: 'preview',
-        icon: <Image className="w-6 h-6" />
-    },
+    // {
+    //     id: 'preview-gallery',
+    //     title: 'Preview Gallery',
+    //     description: 'Visual tour of CoolDesk interface and features',
+    //     url: '/gallery',
+    //     category: 'preview',
+    //     icon: <Image className="w-6 h-6" />
+    // },
 
     // Release Notes
     {

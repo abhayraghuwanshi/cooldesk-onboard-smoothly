@@ -1,13 +1,32 @@
-# Cooldesk
+# CoolDesk
 
-> The Best Free New Tab Dashboard (No Sign-in Required)
+> New Tab Workspace & AI Spotlight for Developers — Free, No Sign-in Required
 
-Transform your browser with Cooldesk, the ultimate New Tab replacement. 100% Free - No Sign-in Required. Autosave tabs, share project workspaces, and use AI-powered search.
+CoolDesk is a free browser extension and Windows desktop app that replaces your new tab with a project-based workspace. Group browser tabs, desktop apps, links, notes, and files by project — all in one place. No accounts required.
+
+## Key Features
+
+- **GlobalSpotlight (Alt+K)** — Raycast-style overlay that searches open tabs, browser history, bookmarks, notes, workspaces, and running Windows apps instantly
+- **Project Workspaces** — Save URLs with title/favicon and open all at once; sorted by recent activity
+- **Smart Tab Management** — Auto-group by domain, focus mode, task-first view using Chrome native tab groups
+- **Running Windows Apps** — Desktop app surfaces live Windows processes (VS Code, Slack, etc.) in Spotlight results
+- **Notes Widget** — Quick note capture on new tab with voice dictation
+- **AI SmartWorkspace** — Groups tabs, history and app activity by project using local AI
+- **New Tab Override** — Replaces Chrome/Edge/Brave new tab with a productivity dashboard
+
+## Supported Platforms
+
+- Browser extension: Chrome, Edge, Brave
+- Desktop app: Windows (unlocks running apps feature in Spotlight)
+
+## Pricing
+
+Free — no plans, no sign-in, no tracking
 
 ## Navigation
 
 - [Home](https://cool-desk.com/)
 - [How to Use](https://cool-desk.com/how-to-use)
-- [Pricing](https://cool-desk.com/pricing)
 - [Blog](https://cool-desk.com/blog)
-- [Search](https://cool-desk.com/search)
+- [Search Workspaces](https://cool-desk.com/search)
+- [Contact](https://cool-desk.com/contact)

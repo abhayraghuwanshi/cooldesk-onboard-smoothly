@@ -1,97 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Core pages -->
   <url>
     <loc>https://cool-desk.com/</loc>
-    <lastmod>2026-01-16</lastmod>
+    <lastmod>2026-04-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://cool-desk.com/blog</loc>
-    <lastmod>2026-01-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://cool-desk.com/how-to-use</loc>
+    <lastmod>2026-04-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://cool-desk.com/search</loc>
-    <lastmod>2026-01-16</lastmod>
+    <lastmod>2026-04-26</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://cool-desk.com/blog/p2p-collaboration-technical-deep-dive</loc>
-    <lastmod>2026-01-16</lastmod>
-    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cool-desk.com/blog/voice-navigation-hands-free-browsing</loc>
-    <lastmod>2026-01-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://cool-desk.com/pricing</loc>
-    <lastmod>2026-01-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://cool-desk.com/how-to-use</loc>
-    <lastmod>2026-01-16</lastmod>
+    <loc>https://cool-desk.com/resources</loc>
+    <lastmod>2026-04-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://cool-desk.com/resources</loc>
-    <lastmod>2026-01-16</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://cool-desk.com/releases</loc>
+    <lastmod>2026-04-26</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://cool-desk.com/founder</loc>
-    <lastmod>2026-01-16</lastmod>
+    <lastmod>2026-04-26</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://cool-desk.com/gallery</loc>
-    <lastmod>2026-01-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://cool-desk.com/contact</loc>
-    <lastmod>2026-01-16</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-04-26</lastmod>
+    <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://cool-desk.com/privacy-details</loc>
-    <lastmod>2026-01-16</lastmod>
+    <lastmod>2026-04-26</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://cool-desk.com/terms</loc>
-    <lastmod>2026-01-16</lastmod>
+    <lastmod>2026-04-26</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+
+  <!-- Blog index -->
   <url>
-    <loc>https://cool-desk.com/blog/ai-powered-productivity-llm-transformation</loc>
+    <loc>https://cool-desk.com/blog</loc>
+    <lastmod>2026-04-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Blog posts — only slugs that exist in blogs.ts -->
+  <url>
+    <loc>https://cool-desk.com/blog/the-untapped-power-of-new-tab</loc>
     <lastmod>2026-01-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cool-desk.com/blog/beyond-the-bookmark-intelligent-new-tab</loc>
+    <loc>https://cool-desk.com/blog/universal-search-future-of-browsing</loc>
     <lastmod>2026-01-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cool-desk.com/blog/the-end-of-the-keyword-llm-search-future</loc>
+    <loc>https://cool-desk.com/blog/magic-of-browser-autosave</loc>
     <lastmod>2026-01-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -100,10 +88,16 @@
     <loc>https://cool-desk.com/blog/browser-as-agentic-os-ai-integration</loc>
     <lastmod>2026-01-31</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://cool-desk.com/blog/the-problem-isnt-bookmarks-its-recall</loc>
+    <loc>https://cool-desk.com/blog/p2p-collaboration-technical-deep-dive</loc>
+    <lastmod>2026-01-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://cool-desk.com/blog/voice-navigation-hands-free-browsing</loc>
     <lastmod>2026-01-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -115,51 +109,10 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://cool-desk.com/blog/chat-link-lifecycle-management</loc>
-    <lastmod>2026-01-31</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://cool-desk.com/blog/the-hidden-cost-of-tab-hoarding</loc>
     <lastmod>2026-01-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
-  <url>
-    <loc>https://cool-desk.com/blog/productivity-without-habit-change</loc>
-    <lastmod>2026-01-31</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://cool-desk.com/blog/why-your-productivity-tools-are-failing</loc>
-    <lastmod>2026-01-31</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://cool-desk.com/blog/the-save-for-later-failure-mode</loc>
-    <lastmod>2026-01-31</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://cool-desk.com/blog/document-saving-vs-knowledge-owning</loc>
-    <lastmod>2026-01-31</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://cool-desk.com/blog/transforming-tabs-into-digital-traces</loc>
-    <lastmod>2026-01-31</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://cool-desk.com/blog/the-wasted-potential-of-your-new-tab</loc>
-    <lastmod>2026-01-31</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
+
 </urlset>

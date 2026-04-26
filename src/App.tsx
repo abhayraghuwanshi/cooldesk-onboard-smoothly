@@ -19,6 +19,7 @@ import PricingPage from "./pages/Pricing";
 import ReleasesPage from "./pages/Releases";
 import ResourcesPage from "./pages/Resources";
 import Search from "./pages/Search";
+import TermsPage from "./pages/terms";
 
 const queryClient = new QueryClient();
 
@@ -60,6 +61,7 @@ const App = () => (
             <Route path="/gallery" element={<GalleryPage />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy-details" element={<PrivacyPolicyStatic />} />
+            <Route path="/terms" element={<TermsPage />} />
             <Route path="/releases" element={<ReleasesPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
