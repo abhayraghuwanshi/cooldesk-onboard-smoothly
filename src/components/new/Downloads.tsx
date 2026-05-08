@@ -1,11 +1,11 @@
 const VERSIONS = {
   extension: "1.0.0",
-  windows: "0.9.0-beta",
+  windows: "1.2.3-beta",
 };
 
 const DOWNLOAD_LINKS = {
   extension: "https://chromewebstore.google.com/detail/cooldesk/ioggffobciopdddacpclplkeodllhjko",
-  windows: "#",
+  windows: "https://pub-c48321b20c8942d1ad52781d27b6b607.r2.dev/CoolDesk_1.2.3_x64-setup.exe",
 };
 
 function Downloads() {
@@ -97,6 +97,7 @@ function Downloads() {
             </p>
             <a
               href={DOWNLOAD_LINKS.windows}
+              download
               className="inline-flex items-center gap-2 px-6 py-3 bg-purple-500 hover:bg-purple-600 text-white font-semibold rounded-lg transition-all hover:-translate-y-0.5"
             >
               <DownloadIcon className="w-5 h-5" />
