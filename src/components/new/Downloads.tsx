@@ -1,3 +1,5 @@
+import React from "react";
+
 const VERSIONS = {
   extension: "1.0.0",
   windows: "1.2.7",
@@ -10,7 +12,18 @@ const DOWNLOAD_LINKS = {
   mac: "https://pub-c48321b20c8942d1ad52781d27b6b607.r2.dev/CoolDesk_1.2.7_aarch64.dmg",
 };
 
+const WINGET_COMMAND = "winget install CoolDesk.CoolDesk";
+
 function Downloads() {
+  const [copied, setCopied] = React.useState(false);
+
+  function copyWinget() {
+    navigator.clipboard.writeText(WINGET_COMMAND).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }
+
   return (
     <section className="py-20 relative">
       <div className="container mx-auto px-6">
@@ -78,6 +91,32 @@ function Downloads() {
                 Download
               </span>
             </a>
+
+            <button
+              onClick={copyWinget}
+              className="w-full flex items-center gap-4 px-5 py-4 hover:bg-white/[0.04] transition-colors group border-b border-white/10 text-left"
+            >
+              <div className="w-9 h-9 rounded-lg bg-purple-500/15 flex items-center justify-center shrink-0">
+                <WingetIcon className="w-5 h-5 text-purple-400" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-medium text-white text-sm">Windows <span className="text-txt-muted font-normal">via Winget</span></p>
+                <p className="text-xs text-txt-muted mt-0.5 font-mono">{WINGET_COMMAND}</p>
+              </div>
+              <span className="inline-flex items-center gap-1.5 text-sm font-medium text-txt-secondary group-hover:text-white transition-colors shrink-0">
+                {copied ? (
+                  <>
+                    <CheckIcon className="w-3.5 h-3.5 text-green-400" />
+                    <span className="text-green-400">Copied</span>
+                  </>
+                ) : (
+                  <>
+                    <CopyIcon className="w-3.5 h-3.5" />
+                    Copy
+                  </>
+                )}
+              </span>
+            </button>
 
             <a
               href={DOWNLOAD_LINKS.mac}
@@ -158,6 +197,30 @@ function DownloadIcon({ className }: { className?: string }) {
   return (
     <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+    </svg>
+  );
+}
+
+function WingetIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+    </svg>
+  );
+}
+
+function CopyIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+    </svg>
+  );
+}
+
+function CheckIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
     </svg>
   );
 }
