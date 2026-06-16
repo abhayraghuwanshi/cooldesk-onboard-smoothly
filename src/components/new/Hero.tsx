@@ -1,4 +1,5 @@
 import React from 'react';
+import { site } from '@/config/site';
 import WorkspacePreview from './WorkspacePreview';
 
 const WINGET_COMMAND = "winget install CoolDesk.CoolDesk";
@@ -39,29 +40,29 @@ function Hero() {
                             <svg className="w-3.5 h-3.5 text-blue-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                             </svg>
-                            For builders and developers
+                            {site.hero.badge}
                         </div>
 
                         {/* Headline */}
                         <h1 className="heading-hero mb-6 text-white leading-tight">
-                            Your workspace.{' '}
+                            {site.hero.headlineLead}{' '}
                             <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">
-                                Reimagined.
+                                {site.hero.headlineAccent}
                             </span>
                         </h1>
 
                         {/* Sub */}
                         <p className="body-lg max-w-md mb-10 text-white/70 leading-relaxed">
-                            Browser tabs, desktop apps, links, and notes — grouped by project in one new tab. Built for people who juggle projects all day.
+                            {site.hero.sub}
                         </p>
 
                         {/* CTAs */}
                         <div className="flex flex-wrap items-center gap-4 mb-10">
                             <a
-                                href="#downloads"
+                                href={site.cta.href}
                                 className="btn-primary btn-xl font-bold shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all transform hover:-translate-y-1"
                             >
-                                Get Started
+                                {site.cta.label}
                             </a>
                             <a
                                 href="#navigation"
@@ -72,6 +73,7 @@ function Hero() {
                         </div>
 
                         {/* Winget install */}
+                        {site.downloads.desktop && (
                         <div className="mb-8">
                             <p className="text-xs text-white/30 mb-2 font-semibold uppercase tracking-widest">Or install via Winget</p>
                             <button
@@ -98,6 +100,7 @@ function Hero() {
                                 </span>
                             </button>
                         </div>
+                        )}
 
                         {/* Trust signals */}
                         <div className="flex flex-wrap items-center gap-5 text-xs font-semibold text-white/40">

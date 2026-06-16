@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import { site } from '@/config/site';
 
 interface SEOProps {
     title: string;
@@ -19,7 +20,7 @@ export default function SEO({ title, description, canonical, noindex = false }: 
             <meta property="og:type" content="website" />
             <meta property="og:title" content={title} />
             {description && <meta property="og:description" content={description} />}
-            <meta property="og:url" content={canonical || 'https://cool-desk.com'} />
+            <meta property="og:url" content={canonical || site.url} />
             <meta property="og:image" content="https://cool-desk.com/cooldesk.png" />
 
             {/* Twitter */}

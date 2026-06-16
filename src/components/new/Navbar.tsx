@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { site } from '@/config/site';
 
 export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -20,7 +21,7 @@ export default function Navbar() {
                     <a href="/#home" className="flex items-center gap-2 group">
                         <img
                             src="/cooldesk.png"
-                            alt="CoolDesk logo"
+                            alt={`${site.name} logo`}
                             className="h-10 w-auto"
                         />
                     </a>
@@ -51,12 +52,12 @@ export default function Navbar() {
                     {/* CTA Button */}
                     <div className="hidden md:block">
                         <a
-                            href="https://chromewebstore.google.com/detail/cooldesk/ioggffobciopdddacpclplkeodllhjko"
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            href={site.cta.href}
+                            target={site.cta.href.startsWith('http') ? '_blank' : undefined}
+                            rel={site.cta.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                             className="btn-primary btn-md font-semibold"
                         >
-                            Get Started
+                            {site.cta.label}
                         </a>
                     </div>
 
@@ -103,11 +104,13 @@ export default function Navbar() {
                             )
                         ))}
                         <a
-                            href="/#get-started"
+                            href={site.cta.href}
+                            target={site.cta.href.startsWith('http') ? '_blank' : undefined}
+                            rel={site.cta.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                             onClick={() => setMobileMenuOpen(false)}
                             className="btn-primary btn-md font-semibold text-center block mt-4"
                         >
-                            Get Started
+                            {site.cta.label}
                         </a>
                     </div>
                 )}

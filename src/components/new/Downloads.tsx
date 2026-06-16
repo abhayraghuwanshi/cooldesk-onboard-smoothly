@@ -1,4 +1,5 @@
 import React from "react";
+import { site } from "@/config/site";
 
 const VERSIONS = {
   extension: "1.0.0",
@@ -32,11 +33,13 @@ function Downloads() {
           {/* Header */}
           <div className="mb-8">
             <div className="flex items-baseline gap-3 mb-2">
-              <h2 className="text-3xl font-bold text-white">Download CoolDesk</h2>
-              <span className="text-sm text-txt-muted font-mono">v{VERSIONS.windows}</span>
+              <h2 className="text-3xl font-bold text-white">{site.downloads.heading}</h2>
+              {site.downloads.desktop && (
+                <span className="text-sm text-txt-muted font-mono">v{VERSIONS.windows}</span>
+              )}
             </div>
             <p className="text-txt-secondary">
-              The extension handles tabs. The desktop app adds AI Spotlight across your native apps.
+              {site.downloads.blurb}
             </p>
           </div>
 
@@ -69,6 +72,8 @@ function Downloads() {
               </span>
             </a>
 
+            {site.downloads.desktop && (
+            <>
             {/* Desktop section */}
             <div className="px-5 py-2.5 bg-white/[0.03] border-b border-white/10">
               <p className="text-[11px] font-semibold text-txt-muted uppercase tracking-widest">Desktop</p>
@@ -147,12 +152,14 @@ function Downloads() {
               </div>
               <span className="text-xs text-txt-muted border border-white/15 rounded-md px-2.5 py-1 shrink-0">Soon</span>
             </div>
+            </>
+            )}
 
           </div>
 
           {/* Tip */}
           <p className="text-xs text-txt-muted text-center mt-5">
-            The extension works standalone — the desktop app is optional, for Spotlight across native apps.
+            {site.downloads.tip}
           </p>
 
         </div>
