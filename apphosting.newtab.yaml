@@ -1,0 +1,19 @@
+# Environment-specific config for the newtab.kazekit.com App Hosting backend.
+#
+# How it's selected: the newtab backend's "Environment name" is set to `newtab`
+# (Firebase console > App Hosting > <backend> > Settings). App Hosting then reads
+# this file instead of apphosting.yaml when building that backend.
+#
+# BUILD_SITE=newtab makes `npm run build` run `vite build --mode newtab`,
+# selecting the newtab branding, content, and SEO. The default cooldesk backend
+# has no environment name and builds the cooldesk site.
+
+runConfig:
+  minInstances: 0
+  startupTimeoutSeconds: 300
+
+env:
+  - variable: BUILD_SITE
+    value: newtab
+    availability:
+      - BUILD
