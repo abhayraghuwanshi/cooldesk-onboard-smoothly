@@ -495,12 +495,12 @@ export default function ProfileSection() {
             </div>
 
             {/* Grid Layout */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-12">
                 {filteredProfiles.map((profile, index) => (
                     <div
                         key={profile.id}
                         className="animate-fade-in-up"
-                        style={{ animationDelay: `${index * 50}ms` }}
+                        style={{ animationDelay: `${Math.min(index, 8) * 40}ms` }}
                     >
                         <ProfileCard
                             workspace={profile}

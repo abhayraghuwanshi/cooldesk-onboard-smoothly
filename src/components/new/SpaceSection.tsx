@@ -83,60 +83,56 @@ export default function SpaceSection() {
             </div>
 
             {/* Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 mb-12 px-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12 px-4">
                 {filteredSpaces.map((space, index) => (
                     <div
                         key={space.id}
-                        className="group relative bg-zinc-900/40 backdrop-blur-sm border border-zinc-800/50 rounded-3xl overflow-hidden hover:border-zinc-700 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/10"
+                        className="group relative flex flex-col bg-zinc-900/60 backdrop-blur-sm border border-zinc-800 rounded-2xl overflow-hidden hover:border-blue-500/40 hover:-translate-y-0.5 transition-all duration-200"
                     >
                         {/* Theme Preview Header */}
                         <div
-                            className="h-32 w-full relative overflow-hidden"
+                            className="h-20 w-full relative overflow-hidden"
                             style={{ backgroundColor: space.theme.color }}
                         >
                             <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_white_1px,_transparent_1px)] bg-[size:20px_20px]" />
-                            <div className="absolute top-4 left-6 flex items-center gap-3">
-                                <span className="text-4xl">{space.icon}</span>
-                                <div className="px-3 py-1 bg-black/20 backdrop-blur-md rounded-full border border-white/10">
-                                    <span className="text-xs font-bold text-white uppercase tracking-wider">{space.category}</span>
+                            <div className="absolute top-3 left-4 flex items-center gap-2">
+                                <span className="text-2xl">{space.icon}</span>
+                                <div className="px-2 py-0.5 bg-black/25 backdrop-blur-md rounded-full border border-white/10">
+                                    <span className="text-[10px] font-bold text-white uppercase tracking-wider">{space.category}</span>
                                 </div>
                             </div>
                         </div>
 
                         {/* Content */}
-                        <div className="p-8">
-                            <div className="flex justify-between items-start mb-4">
-                                <div>
-                                    <h3 className="text-2xl font-bold text-white mb-2">{space.title}</h3>
-                                    <p className="text-gray-400 leading-relaxed mb-6">{space.description}</p>
-                                </div>
-                            </div>
+                        <div className="flex flex-col flex-grow p-5">
+                            <h3 className="text-base font-semibold text-white mb-1.5">{space.title}</h3>
+                            <p className="text-sm text-txt-secondary leading-snug line-clamp-2 mb-3 flex-grow">{space.description}</p>
 
-                            <div className="flex flex-wrap gap-2 mb-8">
-                                {space.tags.map(tag => (
-                                    <span key={tag} className="px-3 py-1 bg-zinc-800/50 text-gray-400 text-xs rounded-full border border-zinc-700/50 group-hover:border-zinc-600 transition-colors">
+                            <div className="flex flex-wrap gap-1.5 mb-4">
+                                {space.tags.slice(0, 3).map(tag => (
+                                    <span key={tag} className="px-2 py-0.5 text-[11px] font-medium text-txt-secondary bg-zinc-800/80 rounded-md border border-zinc-700/50">
                                         #{tag}
                                     </span>
                                 ))}
                             </div>
 
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-4 text-sm text-gray-500">
+                            <div className="flex items-center justify-between mt-auto">
+                                <div className="flex items-center gap-3 text-xs text-txt-muted">
                                     <div className="flex items-center gap-1.5">
-                                        <FaUsers className="text-blue-400" size={14} />
-                                        <span>{space.stats.members.toLocaleString()} users</span>
+                                        <FaUsers className="text-blue-400" size={12} />
+                                        <span>{space.stats.members.toLocaleString()}</span>
                                     </div>
                                     <div className="flex items-center gap-1.5">
-                                        <FaStar className="text-yellow-500" size={12} />
+                                        <FaStar className="text-yellow-500" size={11} />
                                         <span>{space.stats.rating}</span>
                                     </div>
                                 </div>
                                 <button
                                     onClick={() => handleJoinSpace(space)}
-                                    className="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-sm transition-all duration-300 transform active:scale-95 flex items-center gap-2 shadow-lg shadow-blue-600/20"
+                                    className="px-4 py-2 bg-zinc-800/80 hover:bg-blue-600 border border-zinc-700/60 hover:border-blue-500 text-txt-secondary hover:text-white rounded-lg font-semibold text-sm transition-colors duration-200 flex items-center gap-2"
                                 >
-                                    <FaRocket size={14} />
-                                    Join Space
+                                    <FaRocket size={12} />
+                                    Join
                                 </button>
                             </div>
                         </div>

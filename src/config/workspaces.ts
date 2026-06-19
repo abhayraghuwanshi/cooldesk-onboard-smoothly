@@ -56,12 +56,18 @@
  * Max capacity: 1000+ workspaces (with pagination)
  */
 
+export type ToolType = 'app' | 'webapp' | 'cli';
+
 export interface ProjectWorkspace {
     id: string;
     title: string;
     description: string;
     category: WorkspaceCategory;
     tags: string[];
+
+    // How the tool is used: a desktop app you install, a web app you open in a
+    // browser, or a command-line tool. Optional — falls back to a classifier.
+    type?: ToolType;
 
     // URLs - multiple links per project
     urls: {
@@ -88,6 +94,26 @@ export interface ProjectWorkspace {
     // Metadata for better sorting/filtering
     featured?: boolean;
     addedDate?: string;
+}
+
+export const toolTypeLabels: Record<ToolType, string> = {
+    app: 'Desktop app',
+    webapp: 'Web app',
+    cli: 'CLI',
+};
+
+// First-pass classifier for the `type` field. Set `type` explicitly on an entry
+// to override. Defaults to 'webapp' since most of the library is browser-based.
+const DESKTOP_APP_IDS = new Set(['docker', 'ableton-live', 'audacity', 'adobe-audition', 'davinci-resolve', 'capcut']);
+const CLI_IDS = new Set(['bun', 'deno', 'pnpm', 'esbuild', 'turbo', 'vite', 'vitest', 'playwright', 'nodejs', 'typescript']);
+
+export function getToolType(ws: ProjectWorkspace): ToolType {
+    if (ws.type) return ws.type;
+    if (CLI_IDS.has(ws.id)) return 'cli';
+    if (DESKTOP_APP_IDS.has(ws.id)) return 'app';
+    const tags = ws.tags.map(t => t.toLowerCase());
+    if (tags.includes('cli') || tags.includes('command line') || tags.includes('runtime')) return 'cli';
+    return 'webapp';
 }
 
 export type WorkspaceCategory =

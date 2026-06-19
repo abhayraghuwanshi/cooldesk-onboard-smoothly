@@ -138,11 +138,10 @@ const extensionFeatures = [
                         {['GitHub - PR #42', 'Google Docs', 'Jira Board'].map((tab, i) => (
                             <div
                                 key={tab}
-                                className={`px-2 py-1 rounded text-[9px] flex items-center gap-1.5 ${
-                                    i === 0
-                                        ? 'bg-blue-500/30 text-blue-200 border border-blue-500/40'
-                                        : 'text-zinc-400'
-                                }`}
+                                className={`px-2 py-1 rounded text-[9px] flex items-center gap-1.5 ${i === 0
+                                    ? 'bg-blue-500/30 text-blue-200 border border-blue-500/40'
+                                    : 'text-zinc-400'
+                                    }`}
                             >
                                 <div className="w-2 h-2 rounded bg-white/20"></div>
                                 {tab}
@@ -167,11 +166,10 @@ const desktopFeatures = [
                     {['VS Code', 'Chrome', 'Slack'].map((app, i) => (
                         <div
                             key={app}
-                            className={`w-12 h-12 rounded-xl flex items-center justify-center text-xs font-medium transition-all duration-300 ${
-                                i === 1
-                                    ? 'bg-gradient-to-br from-cyan-500 to-blue-600 text-white scale-110 shadow-lg shadow-cyan-500/40'
-                                    : 'bg-zinc-800 text-zinc-400 border border-white/10'
-                            }`}
+                            className={`w-12 h-12 rounded-xl flex items-center justify-center text-xs font-medium transition-all duration-300 ${i === 1
+                                ? 'bg-gradient-to-br from-cyan-500 to-blue-600 text-white scale-110 shadow-lg shadow-cyan-500/40'
+                                : 'bg-zinc-800 text-zinc-400 border border-white/10'
+                                }`}
                         >
                             <AppWindow className="w-5 h-5" />
                         </div>
@@ -193,11 +191,10 @@ const desktopFeatures = [
                 {[1, 2].map((n) => (
                     <div
                         key={n}
-                        className={`w-16 h-12 rounded-lg border ${
-                            n === 1
-                                ? 'bg-purple-500/20 border-purple-500/50 shadow-lg shadow-purple-500/20'
-                                : 'bg-zinc-800 border-white/10'
-                        }`}
+                        className={`w-16 h-12 rounded-lg border ${n === 1
+                            ? 'bg-purple-500/20 border-purple-500/50 shadow-lg shadow-purple-500/20'
+                            : 'bg-zinc-800 border-white/10'
+                            }`}
                     >
                         <div className="h-2.5 bg-zinc-700 rounded-t-lg flex items-center gap-0.5 px-1">
                             <div className="w-1 h-1 rounded-full bg-red-500/60"></div>
@@ -229,11 +226,10 @@ const desktopFeatures = [
                     {['Ctrl', '+', 'Shift', '+', 'S'].map((key, i) => (
                         <div
                             key={i}
-                            className={`${
-                                key === '+'
-                                    ? 'text-zinc-500 text-sm'
-                                    : 'px-2 py-1.5 bg-zinc-800 rounded-lg border border-white/10 text-xs font-mono text-amber-300 shadow-lg'
-                            } flex items-center justify-center`}
+                            className={`${key === '+'
+                                ? 'text-zinc-500 text-sm'
+                                : 'px-2 py-1.5 bg-zinc-800 rounded-lg border border-white/10 text-xs font-mono text-amber-300 shadow-lg'
+                                } flex items-center justify-center`}
                         >
                             {key}
                         </div>
@@ -365,33 +361,7 @@ export default function NavigationComparison() {
             </div>
 
             <div className="container mx-auto px-6 relative z-10">
-                {/* Header */}
-                <div className="text-center mb-16 md:mb-24">
-                    <div className="inline-block mb-6">
-                        <div className="px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 border border-white/10 backdrop-blur-xl">
-                            <span className="label text-gradient-accent">
-                                GETTING STARTED
-                            </span>
-                        </div>
-                    </div>
-                    <h2 className="heading-1 text-txt-primary mb-3 md:mb-4 leading-tight px-4">
-                        Two steps.
-                        <br />
-                        Total clarity.
-                    </h2>
 
-                    <div className="flex items-center justify-center gap-2 md:gap-4 mb-6 md:mb-8 px-4">
-                        <div className="h-px w-8 md:w-16 bg-gradient-to-r from-transparent to-btn-primary"></div>
-                        <p className="heading-3 text-txt-accent">
-                            Follow the map, find your flow
-                        </p>
-                        <div className="h-px w-8 md:w-16 bg-gradient-to-l from-transparent to-btn-primary"></div>
-                    </div>
-
-                    <p className="body-lg text-txt-secondary max-w-3xl mx-auto px-4">
-                        Install the extension, add the desktop app — and your browser, your desktop, and your projects become one seamless system.
-                    </p>
-                </div>
 
                 {/* Comparison Cards */}
                 <div className="max-w-7xl mx-auto space-y-16 md:space-y-32">
@@ -400,134 +370,134 @@ export default function NavigationComparison() {
                         const powerGroup = POWER_FEATURES_BY_STEP[item.step];
                         return (
                             <div key={index}>
-                            <div className="grid md:grid-cols-2 gap-8 md:gap-20 items-center relative group/card">
-                                {/* Connector Line (Desktop) — hidden where feature cards fill the gap */}
-                                {index < comparisons.length - 1 && !powerGroup && (
-                                    <div className="hidden md:block absolute left-1/2 bottom-[-80px] w-px h-[80px] bg-gradient-to-b from-white/10 to-transparent -translate-x-1/2 z-0"></div>
-                                )}
+                                <div className="grid md:grid-cols-2 gap-8 md:gap-20 items-center relative group/card">
+                                    {/* Connector Line (Desktop) — hidden where feature cards fill the gap */}
+                                    {index < comparisons.length - 1 && !powerGroup && (
+                                        <div className="hidden md:block absolute left-1/2 bottom-[-80px] w-px h-[80px] bg-gradient-to-b from-white/10 to-transparent -translate-x-1/2 z-0"></div>
+                                    )}
 
-                                {/* Text Column */}
-                                <div className={`space-y-8 relative z-10 ${isEven ? 'order-2 md:order-1' : 'order-2 md:order-2'}`}>
-                                    <div className="flex flex-col gap-6">
-                                        <div className="flex items-center gap-4">
-                                            {/* Step number badge */}
-                                            <div className="flex-shrink-0 w-9 h-9 rounded-full bg-btn-primary/15 border border-btn-primary/30 flex items-center justify-center">
-                                                <span className="text-sm font-bold text-btn-primary">{item.step}</span>
+                                    {/* Text Column */}
+                                    <div className={`space-y-8 relative z-10 ${isEven ? 'order-2 md:order-1' : 'order-2 md:order-2'}`}>
+                                        <div className="flex flex-col gap-6">
+                                            <div className="flex items-center gap-4">
+                                                {/* Step number badge */}
+                                                <div className="flex-shrink-0 w-9 h-9 rounded-full bg-btn-primary/15 border border-btn-primary/30 flex items-center justify-center">
+                                                    <span className="text-sm font-bold text-btn-primary">{item.step}</span>
+                                                </div>
+                                                <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 shadow-inner backdrop-blur-sm">
+                                                    {item.icon}
+                                                </div>
+                                                <h3 className="heading-3 text-white font-semibold tracking-tight">
+                                                    {item.headline}
+                                                </h3>
                                             </div>
-                                            <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 shadow-inner backdrop-blur-sm">
-                                                {item.icon}
+
+                                            <div className="space-y-6 pl-2 md:pl-4">
+                                                <div className="relative pl-6 border-l-2 border-white/10 py-1">
+                                                    <p className="body-md text-txt-muted/80 leading-relaxed">
+                                                        {item.detail}
+                                                    </p>
+                                                </div>
+
+                                                <div className="relative pl-6 border-l-2 border-btn-primary py-1">
+                                                    <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-btn-primary/20 flex items-center justify-center">
+                                                        <div className="w-1.5 h-1.5 rounded-full bg-btn-primary animate-pulse"></div>
+                                                    </div>
+                                                    <p className="heading-5 text-white leading-relaxed font-medium">
+                                                        {item.unlock}
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <h3 className="heading-3 text-white font-semibold tracking-tight">
-                                                {item.headline}
-                                            </h3>
                                         </div>
 
-                                        <div className="space-y-6 pl-2 md:pl-4">
-                                            <div className="relative pl-6 border-l-2 border-white/10 py-1">
-                                                <p className="body-md text-txt-muted/80 leading-relaxed">
-                                                    {item.detail}
-                                                </p>
+                                        {/* Feature pill + mini features */}
+                                        <div className="pl-2 md:pl-4 space-y-4">
+                                            <div className="inline-flex px-5 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
+                                                <span className="text-sm font-medium text-txt-secondary">
+                                                    {item.feature}
+                                                </span>
                                             </div>
+                                            <div className="grid grid-cols-2 gap-3">
+                                                {item.miniFeatures.map((f, i) => (
+                                                    <div key={i} className="flex items-start gap-3 px-4 py-3 rounded-xl bg-white/[0.03] border border-white/8 backdrop-blur-sm">
+                                                        <div className="mt-0.5 shrink-0">{f.icon}</div>
+                                                        <div>
+                                                            <p className="text-xs font-semibold text-white/80 leading-tight">{f.label}</p>
+                                                            <p className="text-[11px] text-txt-muted mt-0.5 leading-tight">{f.desc}</p>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
 
-                                            <div className="relative pl-6 border-l-2 border-btn-primary py-1">
-                                                <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-btn-primary/20 flex items-center justify-center">
-                                                    <div className="w-1.5 h-1.5 rounded-full bg-btn-primary animate-pulse"></div>
+                                        {/* Common problem + how to debug it */}
+                                        <div className="pl-2 md:pl-4">
+                                            <div className="flex items-start gap-2.5 px-4 py-3 rounded-xl bg-amber-500/[0.06] border border-amber-500/20">
+                                                <Wrench className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                                                <div>
+                                                    <p className="text-xs font-semibold text-amber-200/90 leading-snug">{item.troubleshoot.problem}</p>
+                                                    <p className="text-[11px] text-txt-muted mt-1 leading-relaxed">{item.troubleshoot.fix}</p>
                                                 </div>
-                                                <p className="heading-5 text-white leading-relaxed font-medium">
-                                                    {item.unlock}
-                                                </p>
                                             </div>
                                         </div>
                                     </div>
 
-                                    {/* Feature pill + mini features */}
-                                    <div className="pl-2 md:pl-4 space-y-4">
-                                        <div className="inline-flex px-5 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
-                                            <span className="text-sm font-medium text-txt-secondary">
-                                                {item.feature}
-                                            </span>
+                                    {/* Image Column */}
+                                    <div className={`relative group order-1 ${isEven ? 'md:order-2' : 'md:order-1'}`}>
+                                        {/* Glow Effect */}
+                                        <div className="absolute -inset-1 bg-gradient-to-r from-btn-primary/30 to-purple-600/30 rounded-[20px] blur-xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-700"></div>
+
+                                        {/* Image Container */}
+                                        <div className="relative rounded-[20px] overflow-hidden bg-[#0A0A0A] border border-white/10 shadow-2xl aspect-[16/10] transform transition-transform duration-700 group-hover/card:scale-[1.02]">
+                                            <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent z-10 pointer-events-none"></div>
+                                            <video
+                                                src={item.image}
+                                                autoPlay
+                                                muted
+                                                loop
+                                                playsInline
+                                                aria-label={item.feature}
+                                                className="w-full h-full object-cover opacity-90 group-hover/card:opacity-100 transition-opacity duration-500"
+                                            />
+                                            {/* Inner Vignette */}
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-20"></div>
+
+                                            {/* Floating Label inside Image */}
+                                            <div className="absolute bottom-4 left-4 z-30 px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-md border border-white/10 text-xs font-medium text-white/80">
+                                                {item.feature} Preview
+                                            </div>
                                         </div>
-                                        <div className="grid grid-cols-2 gap-3">
-                                            {item.miniFeatures.map((f, i) => (
-                                                <div key={i} className="flex items-start gap-3 px-4 py-3 rounded-xl bg-white/[0.03] border border-white/8 backdrop-blur-sm">
-                                                    <div className="mt-0.5 shrink-0">{f.icon}</div>
-                                                    <div>
-                                                        <p className="text-xs font-semibold text-white/80 leading-tight">{f.label}</p>
-                                                        <p className="text-[11px] text-txt-muted mt-0.5 leading-tight">{f.desc}</p>
+                                    </div>
+                                </div>
+
+                                {/* This step's detailed feature cards, directly beneath it */}
+                                {powerGroup && (
+                                    <div className="mt-8 md:mt-10 max-w-4xl mx-auto">
+                                        <p className="text-xs font-semibold text-txt-muted uppercase tracking-widest mb-4 pl-1">
+                                            {powerGroup.label}
+                                        </p>
+                                        <div className={`grid grid-cols-1 gap-4 ${powerGroup.items.length === 3 ? 'sm:grid-cols-3' : 'sm:grid-cols-2'}`}>
+                                            {powerGroup.items.map((feature, fi) => (
+                                                <div
+                                                    key={fi}
+                                                    className="group relative bg-gradient-to-br from-zinc-900/80 to-zinc-950/80 backdrop-blur-xl border border-white/5 rounded-2xl p-5 hover:border-white/20 transition-all duration-500 overflow-hidden"
+                                                >
+                                                    <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+                                                    <div className="mb-4">{feature.visual}</div>
+                                                    <div className="relative z-10 flex items-start gap-3">
+                                                        <div className={`p-2 rounded-xl bg-gradient-to-br ${feature.gradient} bg-opacity-20`}>
+                                                            <div className="text-white">{feature.icon}</div>
+                                                        </div>
+                                                        <div>
+                                                            <h4 className="heading-5 text-txt-primary mb-1">{feature.title}</h4>
+                                                            <p className="body-sm text-txt-secondary">{feature.description}</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             ))}
                                         </div>
                                     </div>
-
-                                    {/* Common problem + how to debug it */}
-                                    <div className="pl-2 md:pl-4">
-                                        <div className="flex items-start gap-2.5 px-4 py-3 rounded-xl bg-amber-500/[0.06] border border-amber-500/20">
-                                            <Wrench className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                                            <div>
-                                                <p className="text-xs font-semibold text-amber-200/90 leading-snug">{item.troubleshoot.problem}</p>
-                                                <p className="text-[11px] text-txt-muted mt-1 leading-relaxed">{item.troubleshoot.fix}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Image Column */}
-                                <div className={`relative group order-1 ${isEven ? 'md:order-2' : 'md:order-1'}`}>
-                                    {/* Glow Effect */}
-                                    <div className="absolute -inset-1 bg-gradient-to-r from-btn-primary/30 to-purple-600/30 rounded-[20px] blur-xl opacity-0 group-hover/card:opacity-100 transition-opacity duration-700"></div>
-
-                                    {/* Image Container */}
-                                    <div className="relative rounded-[20px] overflow-hidden bg-[#0A0A0A] border border-white/10 shadow-2xl aspect-[16/10] transform transition-transform duration-700 group-hover/card:scale-[1.02]">
-                                        <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent z-10 pointer-events-none"></div>
-                                        <video
-                                            src={item.image}
-                                            autoPlay
-                                            muted
-                                            loop
-                                            playsInline
-                                            aria-label={item.feature}
-                                            className="w-full h-full object-cover opacity-90 group-hover/card:opacity-100 transition-opacity duration-500"
-                                        />
-                                        {/* Inner Vignette */}
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-20"></div>
-
-                                        {/* Floating Label inside Image */}
-                                        <div className="absolute bottom-4 left-4 z-30 px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-md border border-white/10 text-xs font-medium text-white/80">
-                                            {item.feature} Preview
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* This step's detailed feature cards, directly beneath it */}
-                            {powerGroup && (
-                                <div className="mt-8 md:mt-10 max-w-4xl mx-auto">
-                                    <p className="text-xs font-semibold text-txt-muted uppercase tracking-widest mb-4 pl-1">
-                                        {powerGroup.label}
-                                    </p>
-                                    <div className={`grid grid-cols-1 gap-4 ${powerGroup.items.length === 3 ? 'sm:grid-cols-3' : 'sm:grid-cols-2'}`}>
-                                        {powerGroup.items.map((feature, fi) => (
-                                            <div
-                                                key={fi}
-                                                className="group relative bg-gradient-to-br from-zinc-900/80 to-zinc-950/80 backdrop-blur-xl border border-white/5 rounded-2xl p-5 hover:border-white/20 transition-all duration-500 overflow-hidden"
-                                            >
-                                                <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
-                                                <div className="mb-4">{feature.visual}</div>
-                                                <div className="relative z-10 flex items-start gap-3">
-                                                    <div className={`p-2 rounded-xl bg-gradient-to-br ${feature.gradient} bg-opacity-20`}>
-                                                        <div className="text-white">{feature.icon}</div>
-                                                    </div>
-                                                    <div>
-                                                        <h4 className="heading-5 text-txt-primary mb-1">{feature.title}</h4>
-                                                        <p className="body-sm text-txt-secondary">{feature.description}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            )}
+                                )}
                             </div>
                         );
                     })}

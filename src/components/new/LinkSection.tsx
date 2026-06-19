@@ -209,7 +209,7 @@ const LinkItem = ({ link, selectionMode, isSelected, onSelect }: {
             className={`group relative flex flex-col rounded-2xl overflow-hidden transition-all duration-300
                  ${isSelected
                     ? 'ring-2 ring-green-500 shadow-lg shadow-green-500/20'
-                    : 'hover:shadow-xl hover:shadow-black/20 hover:-translate-y-1'}`}
+                    : 'hover:shadow-lg hover:shadow-black/20 hover:-translate-y-0.5'}`}
         >
             {/* Card Background */}
             <div className="absolute inset-0 bg-zinc-900/90 backdrop-blur-sm" />

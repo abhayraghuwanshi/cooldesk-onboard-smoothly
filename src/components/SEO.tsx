@@ -21,13 +21,15 @@ export default function SEO({ title, description, canonical, noindex = false }: 
             <meta property="og:title" content={title} />
             {description && <meta property="og:description" content={description} />}
             <meta property="og:url" content={canonical || site.url} />
-            <meta property="og:image" content="https://cool-desk.com/cooldesk.png" />
+            <meta property="og:image" content="https://cool-desk.com/og-cover.png" />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="630" />
 
             {/* Twitter */}
             <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:title" content={title} />
             {description && <meta name="twitter:description" content={description} />}
-            <meta name="twitter:image" content="https://cool-desk.com/cooldesk.png" />
+            <meta name="twitter:image" content="https://cool-desk.com/og-cover.png" />
 
             {canonical && <link rel="canonical" href={canonical} />}
             <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"} />

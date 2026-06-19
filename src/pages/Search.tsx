@@ -1,39 +1,21 @@
 import Footer from "@/components/new/Footer";
-import LinkSection from "@/components/new/LinkSection";
 import Navbar from "@/components/new/Navbar";
-import ProfileSection from "@/components/new/ProfileSection";
-import SpaceSection from "@/components/new/SpaceSection";
 import WorkspaceSection from "@/components/new/WorkspaceSection";
 import SEO from "@/components/SEO";
-import { useEffect, useState } from 'react';
-import { FaLayerGroup, FaLink, FaRocket, FaUser } from 'react-icons/fa';
-
-type ViewMode = 'workspaces' | 'links' | 'profiles' | 'spaces';
+import { useEffect } from 'react';
 
 export default function Search() {
-    const [viewMode, setViewMode] = useState<ViewMode>(() => {
-        if (typeof window !== 'undefined') {
-            const saved = localStorage.getItem('cooldesk_view_mode');
-            return (saved === 'workspaces' || saved === 'links' || saved === 'profiles' || saved === 'spaces') ? saved : 'workspaces';
-        }
-        return 'workspaces';
-    });
-
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
-
-    useEffect(() => {
-        localStorage.setItem('cooldesk_view_mode', viewMode);
-    }, [viewMode]);
 
     return (
         <main className="min-h-screen text-white scroll-smooth relative overflow-hidden">
             {/* Background Glow Overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-600/10 pointer-events-none z-0" />
             <SEO
-                title="Curated Workspaces & Profiles"
-                description="Explore curated browser workspaces, developer profiles, and quick links to supercharge your productivity with CoolDesk."
+                title="Curated Tool Library"
+                description="Explore a curated library of tools, apps, and workspaces — launch them instantly from CoolDesk."
                 canonical="https://cool-desk.com/search"
             />
             {/* Dot Grid Pattern */}
@@ -65,85 +47,16 @@ export default function Search() {
             {/* Unified Search Section */}
             <section className="relative z-10 pt-24 pb-12">
                 <div className="container mx-auto px-6">
-                    {/* Hero Header */}
-                    <div className="text-center mb-12 animate-fade-in">
-                        <h1 className="heading-1 text-gradient leading-tight mb-6">
-                            Curated for Productivity
+                    {/* Title */}
+                    <div className="text-center mb-8 animate-fade-in">
+                        <h1 className="text-2xl sm:text-3xl font-bold text-txt-primary">
+                            Curated Tool Library
                         </h1>
-                        <p className="body-lg text-txt-secondary mb-8 max-w-3xl mx-auto leading-relaxed px-4">
-                            Hand-picked workspaces, developer profiles, and quick links — ready to supercharge your browser
-                        </p>
-                    </div>
-
-                    {/* View Mode Toggle */}
-                    <div className="flex justify-center mb-12 animate-fade-in-delay">
-                        <div className="inline-flex bg-zinc-900/80 backdrop-blur-sm border border-zinc-700/50 rounded-2xl p-1.5 overflow-x-auto max-w-full">
-                            <button
-                                onClick={() => setViewMode('workspaces')}
-                                className={`
-                                    flex items-center gap-3 px-6 py-3 rounded-xl font-semibold transition-all duration-300 whitespace-nowrap
-                                    ${viewMode === 'workspaces'
-                                        ? 'bg-white text-zinc-900 shadow-lg shadow-white/20'
-                                        : 'text-gray-400 hover:text-white hover:bg-zinc-800'}
-                                `}
-                            >
-                                <FaRocket size={18} />
-                                <span className="hidden sm:inline">Workspaces</span>
-                                <span className="sm:hidden">Workspaces</span>
-                            </button>
-                            <button
-                                onClick={() => setViewMode('profiles')}
-                                className={`
-                                    flex items-center gap-3 px-6 py-3 rounded-xl font-semibold transition-all duration-300 whitespace-nowrap
-                                    ${viewMode === 'profiles'
-                                        ? 'bg-white text-zinc-900 shadow-lg shadow-white/20'
-                                        : 'text-gray-400 hover:text-white hover:bg-zinc-800'}
-                                `}
-                            >
-                                <FaUser size={18} />
-                                <span className="hidden sm:inline">Profiles</span>
-                                <span className="sm:hidden">Profiles</span>
-                            </button>
-                            <button
-                                onClick={() => setViewMode('links')}
-                                className={`
-                                    flex items-center gap-3 px-6 py-3 rounded-xl font-semibold transition-all duration-300 whitespace-nowrap
-                                    ${viewMode === 'links'
-                                        ? 'bg-white text-zinc-900 shadow-lg shadow-white/20'
-                                        : 'text-gray-400 hover:text-white hover:bg-zinc-800'}
-                                `}
-                            >
-                                <FaLink size={18} />
-                                <span className="hidden sm:inline">Links</span>
-                                <span className="sm:hidden">Links</span>
-                            </button>
-                            <button
-                                onClick={() => setViewMode('spaces')}
-                                className={`
-                                    flex items-center gap-3 px-6 py-3 rounded-xl font-semibold transition-all duration-300 whitespace-nowrap
-                                    ${viewMode === 'spaces'
-                                        ? 'bg-white text-zinc-900 shadow-lg shadow-white/20'
-                                        : 'text-gray-400 hover:text-white hover:bg-zinc-800'}
-                                `}
-                            >
-                                <FaLayerGroup size={18} />
-                                <span className="hidden sm:inline">Spaces</span>
-                                <span className="sm:hidden">Spaces</span>
-                            </button>
-                        </div>
                     </div>
 
                     {/* Content Area */}
                     <div className="animate-fade-in-content">
-                        {viewMode === 'workspaces' ? (
-                            <WorkspaceSection />
-                        ) : viewMode === 'profiles' ? (
-                            <ProfileSection />
-                        ) : viewMode === 'spaces' ? (
-                            <SpaceSection />
-                        ) : (
-                            <LinkSection />
-                        )}
+                        <WorkspaceSection />
                     </div>
                 </div>
             </section>

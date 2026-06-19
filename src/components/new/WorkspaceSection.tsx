@@ -1,50 +1,19 @@
 import {
     categoryLabels,
-    getWorkspacesByCategory,
     searchWorkspaces,
     WorkspaceCategory,
     workspaces,
 } from '@/config/workspaces';
 import {
-    Activity,
-    BarChart3,
     Brain,
-    Cloud,
     Code,
-    Contact,
-    CreditCard,
-    Database,
-    FileText,
     Film,
-    Globe,
-    HardDrive,
-    Headphones,
-    Image,
-    Kanban,
-    Layers,
     LayoutGrid,
-    Lock,
-    Mail,
     Megaphone,
-    MessageSquare,
-    Mic,
-    MoreHorizontal,
-    Music,
-    Paintbrush,
     Palette,
-    PieChart,
-    Plug,
-    Radio, Rocket,
+    Rocket,
     Search,
-    Server,
-    Shield,
-    ShoppingCart,
-    Smartphone,
-    Target,
-    TestTube,
-    Users,
-    Video,
-    Zap
+    Sparkles,
 } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { FaBook, FaChevronDown, FaChevronUp, FaDiscord, FaGamepad, FaGithub, FaGlobe, FaNpm, FaPlay, FaPlus, FaSearch, FaTimes, FaTrash } from 'react-icons/fa';
@@ -82,71 +51,80 @@ const urlTypeLabels: Record<string, string> = {
     discord: 'Discord',
 };
 
-const ITEMS_PER_PAGE = 9; // Show 9 workspaces initially (3 rows of 3)
+const ITEMS_PER_PAGE = 16; // Show 16 workspaces initially (4 rows of 4 on wide screens)
 
-// Category icons using Lucide
-const categoryIcons: Record<string, JSX.Element> = {
-    // Development
-    'frontend': <Code size={14} />,
-    'backend': <Server size={14} />,
-    'fullstack': <Layers size={14} />,
-    'mobile': <Smartphone size={14} />,
-    'database': <Database size={14} />,
-    'devops': <Cloud size={14} />,
-    // AI & Data
-    'ai-ml': <Brain size={14} />,
-    'data-analytics': <BarChart3 size={14} />,
-    'llm-tools': <MessageSquare size={14} />,
-    // Design & Creative
-    'design-systems': <Palette size={14} />,
-    'design-tools': <Paintbrush size={14} />,
-    'animation': <Film size={14} />,
-    'video-editing': <Video size={14} />,
-    'image-generation': <Image size={14} />,
-    // Audio & Music
-    'music-production': <Music size={14} />,
-    'audio-editing': <Headphones size={14} />,
-    'voice-ai': <Mic size={14} />,
-    'podcasting': <Radio size={14} />,
-    // Infrastructure
-    'deployment': <Rocket size={14} />,
-    'hosting': <Globe size={14} />,
-    'cloud-services': <Cloud size={14} />,
-    'monitoring': <Activity size={14} />,
-    // Productivity
-    'collaboration': <Users size={14} />,
-    'project-management': <Kanban size={14} />,
-    'automation': <Zap size={14} />,
-    'crm': <Contact size={14} />,
-    'analytics': <PieChart size={14} />,
-    // Content & Marketing
-    'cms': <FileText size={14} />,
-    'ecommerce': <ShoppingCart size={14} />,
-    'marketing': <Megaphone size={14} />,
-    'seo': <Target size={14} />,
-    'email': <Mail size={14} />,
-    // Security
-    'authentication': <Lock size={14} />,
-    'security': <Shield size={14} />,
-    'testing': <TestTube size={14} />,
-    // Misc
-    'apis': <Plug size={14} />,
-    'payments': <CreditCard size={14} />,
-    'storage': <HardDrive size={14} />,
-    'other': <MoreHorizontal size={14} />,
-};
+// Lifecycle stages — collapse the ~38 raw categories into the phases of building something.
+// Every WorkspaceCategory maps into exactly one stage.
+const LIFECYCLE_STAGES: { id: string; label: string; icon: JSX.Element; categories: WorkspaceCategory[] }[] = [
+    {
+        id: 'design', label: 'Design', icon: <Palette size={14} />,
+        categories: ['design-systems', 'design-tools', 'animation', 'image-generation'],
+    },
+    {
+        id: 'build', label: 'Build', icon: <Code size={14} />,
+        categories: ['frontend', 'backend', 'fullstack', 'mobile', 'database', 'apis', 'dev-tools', 'automation', 'storage', 'other'],
+    },
+    {
+        id: 'ai', label: 'AI & Data', icon: <Brain size={14} />,
+        categories: ['ai-ml', 'llm-tools', 'data-analytics', 'voice-ai'],
+    },
+    {
+        id: 'ship', label: 'Ship', icon: <Rocket size={14} />,
+        categories: ['deployment', 'hosting', 'cloud-services', 'devops', 'monitoring', 'security', 'authentication', 'testing', 'startup-product'],
+    },
+    {
+        id: 'grow', label: 'Grow', icon: <Megaphone size={14} />,
+        categories: ['marketing', 'seo', 'email', 'analytics', 'ecommerce', 'cms', 'crm', 'payments', 'collaboration', 'project-management'],
+    },
+    {
+        id: 'create', label: 'Create', icon: <Film size={14} />,
+        categories: ['video-editing', 'music-production', 'audio-editing', 'podcasting'],
+    },
+];
 
-// Group categories for better navigation
-const CATEGORY_GROUPS = {
-    'Development': ['frontend', 'backend', 'fullstack', 'mobile', 'database', 'devops'],
-    'AI & Data': ['ai-ml', 'data-analytics', 'llm-tools'],
-    'Design & Creative': ['design-systems', 'design-tools', 'animation', 'video-editing', 'image-generation'],
-    'Audio & Music': ['music-production', 'audio-editing', 'voice-ai', 'podcasting'],
-    'Infrastructure': ['deployment', 'hosting', 'cloud-services', 'monitoring'],
-    'Productivity': ['collaboration', 'project-management', 'automation', 'crm', 'analytics'],
-    'Content & Marketing': ['cms', 'ecommerce', 'marketing', 'seo', 'email'],
-    'Security': ['authentication', 'security', 'testing'],
-    'Other': ['apis', 'payments', 'storage', 'other']
+// Short AI-style overview shown at the top of each sub-category section.
+const CATEGORY_OVERVIEWS: Partial<Record<WorkspaceCategory, string>> = {
+    'design-systems': 'Component libraries and UI kits that hand you accessible, ready-made building blocks — so you ship consistent interfaces without redesigning every button.',
+    'design-tools': 'Tools for designing, prototyping, and handing off interfaces, from quick wireframes to pixel-perfect mockups developers can build straight from.',
+    'animation': 'Libraries and apps for adding motion — micro-interactions, transitions, and animated graphics that make a UI feel alive.',
+    'image-generation': 'AI models that turn text prompts into images, handy for mockups, assets, and fast creative exploration.',
+    'frontend': 'Frameworks, build tools, and component libraries for building the part of your app users actually see and click.',
+    'backend': 'Runtimes, web frameworks, and server tooling for the logic, APIs, and data handling behind your app.',
+    'fullstack': 'End-to-end frameworks covering both frontend and backend, so a small team can ship a whole app from one codebase.',
+    'mobile': 'Frameworks for building iOS and Android apps — often from a single codebase you can also ship to the web.',
+    'database': 'Databases and data platforms for storing, querying, and scaling your data — SQL, serverless, and real-time options.',
+    'apis': 'Services and gateways for building, connecting, and consuming the APIs that glue your app to the outside world.',
+    'dev-tools': 'Everyday developer utilities — languages, package managers, bundlers, and containers — that speed up how you write and ship code.',
+    'automation': 'Tools that connect your apps and automate repetitive workflows, so routine tasks happen without manual steps.',
+    'storage': 'Object and file storage for keeping uploads, assets, and backups durable and fast to retrieve.',
+    'other': "Useful tools that don't fit one neat category but still earn a place in a builder's toolkit.",
+    'ai-ml': 'Frameworks, models, and platforms for building, training, and running machine-learning and AI features in your product.',
+    'llm-tools': 'Frameworks and SDKs for building on top of large language models — orchestration, agents, and AI-powered interfaces.',
+    'data-analytics': 'Tools for collecting, analyzing, and visualizing data, turning raw numbers into product and business decisions.',
+    'voice-ai': 'Speech platforms for text-to-speech, transcription, and natural-sounding generated audio.',
+    'deployment': 'Platforms that take your code live, handling builds, scaling, and infrastructure so you can ship fast.',
+    'hosting': 'Hosting and edge platforms for serving your site or app close to users with minimal setup.',
+    'cloud-services': 'Cloud building blocks — compute, edge functions, and managed services — for running apps at scale.',
+    'devops': 'Build systems, monorepo tools, and pipelines that keep larger codebases fast to build, test, and release.',
+    'monitoring': 'Observability platforms for tracking errors, performance, and uptime so you catch problems before users do.',
+    'security': 'Tools for protecting your app and data, from secrets management to vulnerability scanning.',
+    'authentication': "Drop-in auth and user-management services that handle login, sessions, and identity so you don't roll your own.",
+    'testing': 'Frameworks for unit, integration, and end-to-end testing to catch bugs before they reach production.',
+    'startup-product': 'Platforms commonly bundled into a modern startup stack — hosting, backend, auth, and monitoring.',
+    'marketing': 'Tools for reaching and converting an audience through campaigns, content, and growth experiments.',
+    'seo': 'Tools for improving search visibility — keyword research, technical audits, and ranking insights.',
+    'email': 'Email APIs and platforms for sending reliable transactional and marketing email from your app.',
+    'analytics': 'Product and web analytics for understanding how people use your app and where they drop off.',
+    'ecommerce': 'Platforms for selling online — storefronts, carts, and checkout that scale from first sale to high volume.',
+    'cms': 'Content management systems for creating and structuring content your site or app pulls in via API or templates.',
+    'crm': 'Customer relationship tools for tracking leads, deals, and conversations across sales and support.',
+    'payments': 'Payment infrastructure for accepting money online — subscriptions, one-off charges, and global checkout.',
+    'collaboration': "Workspaces and docs tools that keep a team's notes, plans, and knowledge in one shared place.",
+    'project-management': 'Issue trackers and planning tools that keep work organized, prioritized, and moving.',
+    'video-editing': 'Editors and AI tools for cutting, polishing, and generating video — from social clips to pro post-production.',
+    'music-production': 'DAWs and sample platforms for composing, recording, and producing music.',
+    'audio-editing': 'Tools for recording, cleaning up, and mastering audio across podcasts, music, and video.',
+    'podcasting': 'Recording, hosting, and distribution platforms for producing and publishing a podcast.',
 };
 
 // Add to CoolDesk function
@@ -172,16 +150,9 @@ function addToCoolDesk(workspaceName: string, urls: { url: string; title: string
 }
 
 export default function WorkspaceSection() {
-    // Get all unique categories from workspaces
-    const allCategories = useMemo(() => {
-        const cats = new Set(workspaces.map(w => w.category));
-        return ['all', ...Array.from(cats).sort()] as (WorkspaceCategory | 'all')[];
-    }, []);
-
-    const [activeCategory, setActiveCategory] = useState<WorkspaceCategory | 'all'>('all');
+    const [activeStage, setActiveStage] = useState<string>('all');
     const [searchQuery, setSearchQuery] = useState('');
     const [displayCount, setDisplayCount] = useState(ITEMS_PER_PAGE);
-    const [showAllCategories, setShowAllCategories] = useState(false);
 
     // Selection mode state - tracks individual links
     const [selectionMode, setSelectionMode] = useState(false);
@@ -301,31 +272,35 @@ export default function WorkspaceSection() {
         setWorkspaceName('');
     };
 
-    // Filter workspaces based on category and search
+    const activeStageDef = LIFECYCLE_STAGES.find(s => s.id === activeStage);
+
+    // Filter workspaces based on lifecycle stage and search
     const filteredWorkspaces = useMemo(() => {
-        let filtered = activeCategory === 'all'
-            ? workspaces
-            : getWorkspacesByCategory(activeCategory);
-
-        if (searchQuery.trim()) {
-            filtered = searchWorkspaces(searchQuery);
-            // If category filter is active, apply it to search results too
-            if (activeCategory !== 'all') {
-                filtered = filtered.filter(ws => ws.category === activeCategory);
-            }
+        const stage = LIFECYCLE_STAGES.find(s => s.id === activeStage);
+        let filtered = searchQuery.trim() ? searchWorkspaces(searchQuery) : workspaces;
+        if (stage) {
+            filtered = filtered.filter(ws => stage.categories.includes(ws.category));
         }
-
         return filtered;
-    }, [activeCategory, searchQuery]);
+    }, [activeStage, searchQuery]);
 
-    // Workspaces to display (with pagination)
+    // Workspaces to display (with pagination) — used for the flat "All" view
     const displayedWorkspaces = filteredWorkspaces.slice(0, displayCount);
     const hasMore = displayCount < filteredWorkspaces.length;
     const totalCount = filteredWorkspaces.length;
 
+    // When a stage is active, break it into sub-sections by underlying category
+    // (Build → Frontend, Backend, Database…; AI & Data → AI/ML, LLM Tools…)
+    const subSections = useMemo(() => {
+        if (!activeStageDef) return [];
+        return activeStageDef.categories
+            .map(cat => ({ cat, label: categoryLabels[cat] ?? cat, items: filteredWorkspaces.filter(w => w.category === cat) }))
+            .filter(group => group.items.length > 0);
+    }, [activeStageDef, filteredWorkspaces]);
+
     // Reset display count when filters change
-    const handleCategoryChange = (cat: WorkspaceCategory | 'all') => {
-        setActiveCategory(cat);
+    const handleStageChange = (id: string) => {
+        setActiveStage(id);
         setSearchQuery('');
         setDisplayCount(ITEMS_PER_PAGE);
     };
@@ -491,82 +466,109 @@ export default function WorkspaceSection() {
                         />
                     </div>
 
-                    {/* Category Pills - Horizontal scroll */}
+                    {/* Lifecycle Stage Pills - the phases of building something */}
                     <div className="w-full md:flex-1 overflow-x-auto scrollbar-hide -mx-2 px-2 md:mx-0 md:px-0">
                         <div className="flex items-center gap-2 pb-2 md:pb-0">
                             <button
-                                onClick={() => handleCategoryChange('all')}
+                                onClick={() => handleStageChange('all')}
                                 className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200
-                                    ${activeCategory === 'all'
+                                    ${activeStage === 'all'
                                         ? 'bg-white text-zinc-900 shadow-lg shadow-white/20'
                                         : 'bg-zinc-800/80 text-gray-300 hover:text-white hover:bg-zinc-700 border border-zinc-700/50'}`}
                             >
                                 <LayoutGrid size={14} />
                                 All
                             </button>
-                            {allCategories.slice(1, showAllCategories ? undefined : 8).map((cat) => (
+                            {LIFECYCLE_STAGES.map((stage) => (
                                 <button
-                                    key={cat}
-                                    onClick={() => handleCategoryChange(cat as WorkspaceCategory)}
+                                    key={stage.id}
+                                    onClick={() => handleStageChange(stage.id)}
                                     className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-200
-                                        ${activeCategory === cat
+                                        ${activeStage === stage.id
                                             ? 'bg-white text-zinc-900 shadow-lg shadow-white/20'
                                             : 'bg-zinc-800/80 text-gray-300 hover:text-white hover:bg-zinc-700 border border-zinc-700/50'}`}
                                 >
-                                    {categoryIcons[cat] || <MoreHorizontal size={14} />}
-                                    {categoryLabels[cat as WorkspaceCategory]}
+                                    {stage.icon}
+                                    {stage.label}
                                 </button>
                             ))}
-                            {allCategories.length > 8 && (
-                                <button
-                                    onClick={() => setShowAllCategories(!showAllCategories)}
-                                    className="flex items-center gap-1 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap text-fuchsia-400 hover:text-fuchsia-300 transition-colors"
-                                >
-                                    <MoreHorizontal size={14} />
-                                    {showAllCategories ? 'Less' : `+${allCategories.length - 8}`}
-                                </button>
-                            )}
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* Grid Layout */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
-                {displayedWorkspaces.map((workspace, index) => (
-                    <div
-                        key={workspace.id}
-                        className="animate-fade-in-up"
-                        style={{ animationDelay: `${index * 50}ms` }}
-                    >
-                        <WorkspaceCard
-                            workspace={workspace}
-                            selectionMode={selectionMode}
-                            isSelected={isWorkspaceSelected(workspace.id)}
-                            onSelect={() => toggleWorkspaceSelection(workspace.id)}
-                        />
-                    </div>
-                ))}
-            </div>
-
-            {/* Load More Button */}
-            {hasMore && (
-                <div className="flex justify-center">
-                    <button
-                        onClick={loadMore}
-                        className="group relative px-8 py-4 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600
-                                 hover:from-violet-500 hover:via-fuchsia-500 hover:to-pink-500
-                                 rounded-2xl text-sm font-bold text-white
-                                 shadow-lg shadow-fuchsia-500/25 hover:shadow-xl hover:shadow-fuchsia-500/40
-                                 transform hover:scale-105 transition-all duration-300
-                                 flex items-center gap-3"
-                    >
-                        <span>Load More Workspaces</span>
-                        <span className="text-xs bg-white/20 px-2 py-1 rounded-full">
-                            +{Math.min(ITEMS_PER_PAGE, totalCount - displayCount)}
-                        </span>
-                    </button>
+            {activeStageDef ? (
+                /* Stage view — grouped into sub-sections by category */
+                <div className="space-y-12 mb-12">
+                    {subSections.map(({ cat, label, items }) => (
+                        <section key={cat}>
+                            <div className="flex items-baseline gap-3 mb-3 px-1">
+                                <h2 className="text-lg font-semibold text-txt-primary">{label}</h2>
+                                <span className="text-sm text-txt-muted">{items.length}</span>
+                                <div className="flex-1 h-px bg-zinc-800" />
+                            </div>
+                            {CATEGORY_OVERVIEWS[cat] && (
+                                <div className="flex gap-2.5 mb-5 px-1 max-w-3xl">
+                                    <Sparkles size={15} className="text-fuchsia-400 mt-0.5 flex-shrink-0" />
+                                    <p className="text-sm text-txt-secondary leading-relaxed">
+                                        <span className="font-medium text-txt-primary">AI overview · </span>
+                                        {CATEGORY_OVERVIEWS[cat]}
+                                    </p>
+                                </div>
+                            )}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                                {items.map((workspace) => (
+                                    <WorkspaceCard
+                                        key={workspace.id}
+                                        workspace={workspace}
+                                        selectionMode={selectionMode}
+                                        isSelected={isWorkspaceSelected(workspace.id)}
+                                        onSelect={() => toggleWorkspaceSelection(workspace.id)}
+                                    />
+                                ))}
+                            </div>
+                        </section>
+                    ))}
                 </div>
+            ) : (
+                /* "All" view — flat paginated grid */
+                <>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-12">
+                        {displayedWorkspaces.map((workspace, index) => (
+                            <div
+                                key={workspace.id}
+                                className="animate-fade-in-up"
+                                style={{ animationDelay: `${Math.min(index, 8) * 40}ms` }}
+                            >
+                                <WorkspaceCard
+                                    workspace={workspace}
+                                    selectionMode={selectionMode}
+                                    isSelected={isWorkspaceSelected(workspace.id)}
+                                    onSelect={() => toggleWorkspaceSelection(workspace.id)}
+                                />
+                            </div>
+                        ))}
+                    </div>
+
+                    {hasMore && (
+                        <div className="flex justify-center">
+                            <button
+                                onClick={loadMore}
+                                className="group relative px-8 py-4 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-600
+                                         hover:from-violet-500 hover:via-fuchsia-500 hover:to-pink-500
+                                         rounded-2xl text-sm font-bold text-white
+                                         shadow-lg shadow-fuchsia-500/25 hover:shadow-xl hover:shadow-fuchsia-500/40
+                                         transform hover:scale-105 transition-all duration-300
+                                         flex items-center gap-3"
+                            >
+                                <span>Load More Workspaces</span>
+                                <span className="text-xs bg-white/20 px-2 py-1 rounded-full">
+                                    +{Math.min(ITEMS_PER_PAGE, totalCount - displayCount)}
+                                </span>
+                            </button>
+                        </div>
+                    )}
+                </>
             )}
 
             {/* Empty State */}
@@ -578,14 +580,14 @@ export default function WorkspaceSection() {
                     <h3 className="text-2xl font-semibold text-gray-200 mb-3">No workspaces found</h3>
                     <p className="text-gray-500 text-lg mb-6">
                         {searchQuery
-                            ? `No results for "${searchQuery}"${activeCategory !== 'all' ? ` in ${categoryLabels[activeCategory]}` : ''}`
-                            : 'Try selecting a different category'}
+                            ? `No results for "${searchQuery}"${activeStageDef ? ` in ${activeStageDef.label}` : ''}`
+                            : 'Try selecting a different stage'}
                     </p>
-                    {(searchQuery || activeCategory !== 'all') && (
+                    {(searchQuery || activeStage !== 'all') && (
                         <button
                             onClick={() => {
                                 setSearchQuery('');
-                                setActiveCategory('all');
+                                setActiveStage('all');
                             }}
                             className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-2xl hover:scale-105 transition-transform duration-300"
                         >
@@ -595,7 +597,7 @@ export default function WorkspaceSection() {
                 </div>
             )}
 
-            <style jsx>{`
+            <style>{`
                 @keyframes fade-in {
                     from {
                         opacity: 0;
