@@ -27,7 +27,7 @@ const comparisons: Step[] = [
         unlock: "Tab management, history sync, and browsing context — all flowing into your workspaces automatically.",
         feature: "Browser Bridge",
         icon: <Chrome className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />,
-        image: '/gif/extension.gif',
+        image: '/gif/extension.mp4',
         miniFeatures: [
             { icon: <Zap className="w-4 h-4 text-cyan-400" />, label: "Tab Capture", desc: "Every tab tracked by project" },
             { icon: <Layers className="w-4 h-4 text-blue-400" />, label: "Smart Tab Switching", desc: "Jump to any tab instantly" },
@@ -44,7 +44,7 @@ const comparisons: Step[] = [
         unlock: "Desktop app windows, per-window focus, and OS-level context connected to your browser workspaces.",
         feature: "Desktop Bridge",
         icon: <AppWindow className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />,
-        image: '/gif/write-notes-todo-detail.gif',
+        image: '/gif/write-notes-todo-detail.mp4',
         miniFeatures: [
             { icon: <AppWindow className="w-4 h-4 text-purple-400" />, label: "App Focus Mode", desc: "Switch to any window by project" },
             { icon: <Sparkles className="w-4 h-4 text-pink-400" />, label: "Windows · Mac · Linux", desc: "Works across all platforms" },
@@ -65,7 +65,7 @@ const finishItems: Step[] = [
         unlock: "Your projects, organized without effort. Manual control when you want it. AI speed when you don't.",
         feature: "AI SmartWorkspace",
         icon: <Bot className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />,
-        image: '/gif/create-workspace.gif',
+        image: '/gif/create-workspace.mp4',
         miniFeatures: [
             { icon: <Target className="w-4 h-4 text-cyan-400" />, label: "Smart Workspaces", desc: "90% less clutter, auto-organized" },
             { icon: <Bot className="w-4 h-4 text-pink-400" />, label: "AI Chat Hub", desc: "All your AI threads, one place" },
@@ -82,7 +82,7 @@ const finishItems: Step[] = [
         unlock: "The last piece. Everything's organized, everything's findable. This is what working without friction feels like.",
         feature: "Spotlight Search",
         icon: <Search className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />,
-        image: '/gif/spotlight.gif',
+        image: '/gif/spotlight.mp4',
         miniFeatures: [
             { icon: <Search className="w-4 h-4 text-emerald-400" />, label: "Spotlight Search", desc: "Tabs, files, folders, apps — one bar" },
             { icon: <Zap className="w-4 h-4 text-yellow-400" />, label: "One Keystroke", desc: "No mouse. No friction." },
@@ -480,9 +480,13 @@ export default function NavigationComparison() {
                                     {/* Image Container */}
                                     <div className="relative rounded-[20px] overflow-hidden bg-[#0A0A0A] border border-white/10 shadow-2xl aspect-[16/10] transform transition-transform duration-700 group-hover/card:scale-[1.02]">
                                         <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent z-10 pointer-events-none"></div>
-                                        <img
+                                        <video
                                             src={item.image}
-                                            alt={item.feature}
+                                            autoPlay
+                                            muted
+                                            loop
+                                            playsInline
+                                            aria-label={item.feature}
                                             className="w-full h-full object-cover opacity-90 group-hover/card:opacity-100 transition-opacity duration-500"
                                         />
                                         {/* Inner Vignette */}
@@ -554,9 +558,13 @@ export default function NavigationComparison() {
                                 {/* Image */}
                                 <div className="relative aspect-[16/10] overflow-hidden bg-[#0A0A0A]">
                                     <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent z-10 pointer-events-none"></div>
-                                    <img
+                                    <video
                                         src={item.image}
-                                        alt={item.feature}
+                                        autoPlay
+                                        muted
+                                        loop
+                                        playsInline
+                                        aria-label={item.feature}
                                         className="w-full h-full object-cover opacity-90 group-hover/card:opacity-100 transition-opacity duration-500"
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-20"></div>

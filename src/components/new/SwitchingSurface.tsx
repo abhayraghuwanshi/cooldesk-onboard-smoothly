@@ -1,5 +1,6 @@
 import { AppWindow, ArrowLeftRight, Container, FolderOpen, Layers, LayoutDashboard, Sparkles, Terminal } from 'lucide-react';
 import { useState } from 'react';
+import { useSectionView } from '@/lib/analytics';
 import { AnthropicLogo, ChromeLogo, GeminiLogo, ObsidianLogo, OBSLogo, OpenAILogo, RedditLogo } from './SvgsLogos';
 
 const DESKTOP_TOOLS = [
@@ -34,10 +35,12 @@ export default function SwitchingSurface() {
     return ua.includes('win') ? 'windows' : 'mac';
   });
 
+  const sectionRef = useSectionView<HTMLElement>('problem');
+
   return (
     <>
       {/* Blog Post Intro — Full Screen */}
-      <section className="relative overflow-hidden min-h-screen flex items-center justify-center py-16 md:py-24">
+      <section ref={sectionRef} className="relative overflow-hidden min-h-screen flex items-center justify-center py-16 md:py-24">
         <div className="absolute inset-0 bg-gradient-to-b from-black via-zinc-950 to-black" />
         <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 via-transparent to-orange-500/5" />
 

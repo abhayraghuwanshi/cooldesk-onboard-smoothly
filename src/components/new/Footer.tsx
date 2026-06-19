@@ -18,10 +18,6 @@ export default function Footer() {
             <p className="text-sm text-gray-500 max-w-xs leading-relaxed">
               Browser tabs, desktop apps, links, and notes — grouped by project in one new tab.
             </p>
-            <div className="flex items-center gap-2 text-[11px] text-green-400/60 font-mono">
-              <span className="w-1.5 h-1.5 rounded-full bg-green-400/60" />
-              All Systems Online
-            </div>
           </div>
 
           {/* Quick Links */}

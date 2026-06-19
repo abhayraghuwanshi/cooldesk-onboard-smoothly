@@ -1,5 +1,6 @@
 import { AppWindow, ArrowRight, FileText, Folder, Globe, History, Layers, LayoutGrid, Link2, Search, StickyNote } from 'lucide-react';
 import React from 'react';
+import { trackEvent, useSectionView } from '@/lib/analytics';
 
 type DemoKey = 'spotlight' | 'apps' | 'extension';
 
@@ -15,7 +16,7 @@ const DEMOS: Record<DemoKey, {
     tabLabel: 'Spotlight',
     tabIcon: <Search className="w-4 h-4" />,
     caption: 'Spotlight, in motion',
-    src: '/gif/spotlight.gif',
+    src: '/gif/spotlight.mp4',
     alt: 'CoolDesk Spotlight — searching across tabs, files, apps and workspaces from anywhere',
     chips: [
       { icon: <Globe className="w-3.5 h-3.5" />, label: 'Every browser' },
@@ -30,7 +31,7 @@ const DEMOS: Record<DemoKey, {
     tabLabel: 'Apps',
     tabIcon: <AppWindow className="w-4 h-4" />,
     caption: 'Your apps, one launch away',
-    src: '/app-demo/app-demo.gif',
+    src: '/app-demo/app-demo.mp4',
     alt: 'CoolDesk — launching desktop apps straight from the new tab',
     chips: [
       { icon: <AppWindow className="w-3.5 h-3.5" />, label: 'Desktop apps' },
@@ -42,7 +43,7 @@ const DEMOS: Record<DemoKey, {
     tabLabel: 'Extension',
     tabIcon: <Layers className="w-4 h-4" />,
     caption: 'Projects, grouped in your new tab',
-    src: '/gif/extension.gif',
+    src: '/gif/extension.mp4',
     alt: 'CoolDesk browser extension — tabs, links and notes grouped by project in the new tab',
     chips: [
       { icon: <Layers className="w-3.5 h-3.5" />, label: 'Workspaces' },
@@ -56,56 +57,20 @@ const DEMOS: Record<DemoKey, {
 const SHOWCASE_SECTION = "showcase_section";
 
 function trackShowcaseCtaClick() {
-  const payload = {
-    event_category: "engagement",
+  trackEvent("showcase_cta_click", {
     section: SHOWCASE_SECTION,
     action: "click",
     cta_label: "get_cooldesk_free",
     cta_target: "downloads_section",
-  };
-
-  if (typeof window !== "undefined") {
-    window.dataLayer = Array.isArray(window.dataLayer) ? window.dataLayer : [];
-
-    if (typeof window.gtag === "function") {
-      window.gtag("event", "showcase_cta_click", payload);
-    }
-
-    window.dataLayer.push({
-      event: "showcase_cta_click",
-      ...payload,
-    });
-  }
-
-  if (import.meta.env.DEV) {
-    console.log("[showcase_cta_click]", payload);
-  }
+  });
 }
 
 function trackShowcaseDemoSwitch(demo: DemoKey) {
-  const payload = {
-    event_category: "engagement",
+  trackEvent("showcase_demo_switch", {
     section: SHOWCASE_SECTION,
     action: "switch",
     demo,
-  };
-
-  if (typeof window !== "undefined") {
-    window.dataLayer = Array.isArray(window.dataLayer) ? window.dataLayer : [];
-
-    if (typeof window.gtag === "function") {
-      window.gtag("event", "showcase_demo_switch", payload);
-    }
-
-    window.dataLayer.push({
-      event: "showcase_demo_switch",
-      ...payload,
-    });
-  }
-
-  if (import.meta.env.DEV) {
-    console.log("[showcase_demo_switch]", payload);
-  }
+  });
 }
 
 /**
@@ -117,6 +82,7 @@ function trackShowcaseDemoSwitch(demo: DemoKey) {
 export default function ExtensionShowcase() {
   const [active, setActive] = React.useState<DemoKey>('spotlight');
   const demo = DEMOS[active];
+  const sectionRef = useSectionView<HTMLElement>('showcase');
 
   function selectDemo(key: DemoKey) {
     if (key === active) return;
@@ -125,7 +91,7 @@ export default function ExtensionShowcase() {
   }
 
   return (
-    <section className="relative overflow-hidden py-16 md:py-24">
+    <section ref={sectionRef} className="relative overflow-hidden py-16 md:py-24">
       {/* Background base */}
       <div className="absolute inset-0 bg-black" />
 
@@ -176,12 +142,15 @@ export default function ExtensionShowcase() {
           {/* Glow */}
           <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/30 to-purple-600/30 rounded-[20px] blur-xl opacity-60 group-hover:opacity-100 transition-opacity duration-700" />
           <div className="relative rounded-[20px] overflow-hidden border border-white/10 shadow-2xl bg-[#0A0A0A]">
-            <img
+            <video
               key={demo.src}
               src={demo.src}
-              alt={demo.alt}
+              autoPlay
+              muted
+              loop
+              playsInline
+              aria-label={demo.alt}
               className="w-full h-auto"
-              loading="lazy"
             />
           </div>
         </div>

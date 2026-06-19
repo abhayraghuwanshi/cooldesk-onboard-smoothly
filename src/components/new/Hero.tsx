@@ -1,10 +1,12 @@
 import { site } from '@/config/site';
+import { useSectionView } from '@/lib/analytics';
 import React from 'react';
 
 const WINGET_COMMAND = "winget install CoolDesk.CoolDesk";
 
 function Hero() {
     const [copied, setCopied] = React.useState(false);
+    const sectionRef = useSectionView<HTMLElement>('hero');
 
     function copyWinget() {
         navigator.clipboard.writeText(WINGET_COMMAND).then(() => {
@@ -14,7 +16,7 @@ function Hero() {
     }
 
     return (
-        <section id="home" className="relative text-white overflow-hidden isolate z-20 scroll-mt-20 min-h-screen flex items-center">
+        <section ref={sectionRef} id="home" className="relative text-white overflow-hidden isolate z-20 scroll-mt-20 min-h-screen flex items-center">
 
             {/* Background base */}
             <div className="absolute inset-0 z-0 bg-black" />

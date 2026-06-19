@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { useSectionView } from "@/lib/analytics";
 
 interface FAQItem {
     q: string;
@@ -71,9 +72,10 @@ const faqStructuredData = {
 
 export default function FAQ() {
     const [openIndex, setOpenIndex] = useState<number | null>(0);
+    const sectionRef = useSectionView<HTMLDivElement>("faq");
 
     return (
-        <div id="faq" className="relative mx-auto max-w-6xl px-6 py-16 scroll-mt-20">
+        <div ref={sectionRef} id="faq" className="relative mx-auto max-w-6xl px-6 py-16 scroll-mt-20">
             <Helmet>
                 <script type="application/ld+json">{JSON.stringify(faqStructuredData)}</script>
             </Helmet>

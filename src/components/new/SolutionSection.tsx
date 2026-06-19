@@ -1,4 +1,5 @@
 import { AppWindow, ArrowRight, CheckCircle2, LayoutGrid, Search, Sparkles } from 'lucide-react';
+import { useSectionView } from '@/lib/analytics';
 
 /**
  * The Solution — answers the three pains raised in SwitchingSurface
@@ -36,8 +37,10 @@ const SOLUTIONS = [
 ];
 
 export default function SolutionSection() {
+  const sectionRef = useSectionView<HTMLElement>('solution');
+
   return (
-    <section className="relative overflow-hidden py-16 md:py-24">
+    <section ref={sectionRef} className="relative overflow-hidden py-16 md:py-24">
       {/* Background — clean and minimal */}
       <div className="absolute inset-0 bg-black" />
       <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/3 via-transparent to-blue-500/3" />
