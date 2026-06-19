@@ -13,7 +13,7 @@ const SOLUTIONS = [
     solves: 'Constant switching',
     solvesColor: 'text-amber-300/90 border-amber-500/25 bg-amber-500/10',
     title: 'Switch projects in seconds',
-    desc: 'Every project gets one new tab — its tabs, links, notes and apps grouped together. Jump back in without hunting.',
+    desc: 'Each project gets its own new-tab workspace — tabs, links, notes and apps grouped together. Jump back in without hunting.',
   },
   {
     icon: <AppWindow className="w-5 h-5 text-emerald-400" />,
@@ -31,7 +31,7 @@ const SOLUTIONS = [
     solves: 'Broken focus',
     solvesColor: 'text-violet-300/90 border-violet-500/25 bg-violet-500/10',
     title: 'Find anything, stay in flow',
-    desc: 'One search across tabs, history, notes and running apps. Get what you need back without breaking your focus.',
+    desc: 'One search across tabs, files, folders, apps and your workspaces — reaching your whole machine, not just the active window.',
   },
 ];
 

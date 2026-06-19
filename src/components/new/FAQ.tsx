@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 interface FAQItem {
     q: string;
@@ -55,11 +56,27 @@ const Chevron = ({ open }: { open: boolean }) => (
     </svg>
 );
 
+const faqStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: {
+            "@type": "Answer",
+            text: item.a,
+        },
+    })),
+};
+
 export default function FAQ() {
     const [openIndex, setOpenIndex] = useState<number | null>(0);
 
     return (
         <div id="faq" className="relative mx-auto max-w-6xl px-6 py-16 scroll-mt-20">
+            <Helmet>
+                <script type="application/ld+json">{JSON.stringify(faqStructuredData)}</script>
+            </Helmet>
             {/* Dot Grid Pattern */}
             <div className="absolute inset-0 pointer-events-none" style={{
                 backgroundImage: 'radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px)',

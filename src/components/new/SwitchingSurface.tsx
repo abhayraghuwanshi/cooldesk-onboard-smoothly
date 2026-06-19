@@ -49,7 +49,7 @@ export default function SwitchingSurface() {
         <div className="relative z-10 w-full container mx-auto px-6">
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-xs font-semibold text-red-400/80 uppercase tracking-widest mb-6 font-mono">The Problem</p>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-8 leading-tight">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-8 leading-tight text-balance">
               Your work is scattered across everything
             </h1>
             <p className="text-lg md:text-xl text-gray-300 leading-relaxed mb-8 max-w-2xl mx-auto">

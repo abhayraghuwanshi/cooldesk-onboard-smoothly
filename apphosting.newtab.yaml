@@ -1,4 +1,4 @@
-# Environment-specific config for the newtab.kazekit.com App Hosting backend.
+# Environment-specific config for the newtab App Hosting backend (not deployed yet).
 #
 # How it's selected: the newtab backend's "Environment name" is set to `newtab`
 # (Firebase console > App Hosting > <backend> > Settings). App Hosting then reads

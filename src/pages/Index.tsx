@@ -1,4 +1,5 @@
 import Downloads from "@/components/new/Downloads";
+import ExtensionShowcase from "@/components/new/ExtensionShowcase";
 import FAQ from "@/components/new/FAQ";
 import Footer from "@/components/new/Footer";
 import Hero from "@/components/new/Hero";
@@ -7,30 +8,12 @@ import SolutionSection from "@/components/new/SolutionSection";
 import SwitchingSurface from "@/components/new/SwitchingSurface";
 import SEO from "@/components/SEO";
 import { site } from "@/config/site";
-import { useEffect, useState } from "react";
 
 const Index = () => {
-  const [bootComplete, setBootComplete] = useState(false);
-  const [showBoot, setShowBoot] = useState(true);
-
-  const handleBootComplete = () => {
-    setBootComplete(true);
-    setTimeout(() => setShowBoot(false), 700);
-  };
-
-  useEffect(() => {
-    const skipped = sessionStorage.getItem('cooldesk-boot-skipped');
-    if (skipped) {
-      setBootComplete(true);
-      setShowBoot(false);
-    }
-  }, []);
-
   return (
     <>
 
-      <main className={`min-h-screen text-white scroll-smooth transition-all duration-700 ${bootComplete ? 'opacity-100 blur-0 translate-y-0' : 'opacity-0 blur-[2px] translate-y-4'
-        }`}>
+      <main className="min-h-screen text-white scroll-smooth">
         <SEO
           title={site.seo.title}
           description={site.seo.description}
@@ -50,6 +33,10 @@ const Index = () => {
 
         <section id="solution" className="relative z-10">
           <SolutionSection />
+        </section>
+
+        <section id="showcase" className="relative z-10">
+          <ExtensionShowcase />
         </section>
 
         <section id="downloads" className="relative z-10">

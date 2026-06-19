@@ -1,5 +1,6 @@
 import Footer from '@/components/new/Footer';
 import Navbar from '@/components/new/Navbar';
+import SEO from '@/components/SEO';
 import { Link } from 'react-router-dom';
 
 interface Release {
@@ -75,8 +76,11 @@ const releases: Release[] = [
 export default function ReleasesPage() {
     return (
         <main className="min-h-screen text-white scroll-smooth">
-            {/* Background Glow Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-600/10 pointer-events-none z-0" />
+            <SEO
+                title="CoolDesk Release Notes — Updates & New Features"
+                description="Track every CoolDesk update: new features, improvements and bug fixes across each version — from workspace creation to Spotlight search and team sync."
+                canonical="https://cool-desk.com/releases"
+            />
             {/* Background Glow Overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-600/10 pointer-events-none z-0" />
             <Navbar />

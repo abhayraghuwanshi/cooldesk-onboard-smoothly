@@ -230,6 +230,13 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html {
+    /* Reserve space for the scrollbar so layout doesn't jump when it
+       appears/disappears. Only on the scrollbar's own (end) side — using
+       both-edges leaves an empty phantom gutter on the left. */
+    scrollbar-gutter: stable;
+  }
+
   body {
     @apply text-foreground;
     /* Fallback for old browsers */

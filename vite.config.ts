@@ -5,8 +5,8 @@ import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
 // `mode` doubles as the site selector:
-//   --mode newtab  -> newtab.kazekit.com (browser extension product)
-//   anything else  -> cooldesk.kazekit.com (full suite, default)
+//   --mode newtab  -> newtab.kazekit.com (browser extension product; placeholder, not deployed)
+//   anything else  -> cool-desk.com (full suite, default)
 export default defineConfig(({ mode }) => {
   const site = mode === "newtab" ? "newtab" : "cooldesk";
   return {

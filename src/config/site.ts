@@ -1,8 +1,9 @@
 // Single source of truth for per-site branding/content.
 //
 // One repo builds two sites, selected at build time via Vite `--mode`:
-//   - mode "cooldesk" (default)  -> the full suite (browser + desktop)
-//   - mode "newtab"              -> the browser extension / new-tab product only
+//   - mode "cooldesk" (default)  -> the full suite (browser + desktop)  cool-desk.com
+//   - mode "newtab"              -> the browser extension / new-tab product
+//                                   TODO: not deployed; newtab.kazekit.com is a placeholder.
 //
 // vite.config.ts injects `import.meta.env.VITE_SITE` from the mode.
 
@@ -14,7 +15,8 @@ export const SITE_ID: SiteId =
 const CHROME_STORE =
   "https://chromewebstore.google.com/detail/cooldesk/ioggffobciopdddacpclplkeodllhjko";
 
-const COOLDESK_URL = "https://cooldesk.kazekit.com";
+const COOLDESK_URL = "https://cool-desk.com";
+// TODO: newtab product not deployed yet — placeholder domain until launch.
 const NEWTAB_URL = "https://newtab.kazekit.com";
 
 interface SiteConfig {

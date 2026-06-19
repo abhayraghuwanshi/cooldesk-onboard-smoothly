@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "@/components/new/Navbar";
+import SEO from "@/components/SEO";
 
 interface PolicySectionProps {
     id: string;
@@ -51,6 +52,11 @@ const PolicyNav: React.FC = () => {
 const PrivacyPolicyStatic: React.FC = () => {
     return (
         <main className="bg-white text-gray-800 font-sans min-h-screen">
+            <SEO
+                title="Privacy Policy — CoolDesk"
+                description="How CoolDesk handles your data: everything stays local in your browser, no sign-in required. Read our full privacy policy, Chrome permissions and your rights."
+                canonical="https://cool-desk.com/privacy-details"
+            />
             <Navbar />
 
             <div className="max-w-7xl mx-auto flex flex-col lg:flex-row pt-20">
