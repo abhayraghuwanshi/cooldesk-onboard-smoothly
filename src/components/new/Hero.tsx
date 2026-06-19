@@ -16,7 +16,7 @@ function Hero() {
     }
 
     return (
-        <section ref={sectionRef} id="home" className="relative text-white overflow-hidden isolate z-20 scroll-mt-20 min-h-screen flex items-center">
+        <section ref={sectionRef} id="home" className="relative text-white overflow-hidden isolate z-20 scroll-mt-20 min-h-screen flex items-center pt-28 pb-16 md:py-0">
 
             {/* Background base */}
             <div className="absolute inset-0 z-0 bg-black" />

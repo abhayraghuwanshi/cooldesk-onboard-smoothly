@@ -59,7 +59,7 @@ export default function Contact() {
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-600/10 pointer-events-none z-0" />
             {/* Hero */}
             <Navbar />
-            <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+            <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-28 pb-16 md:py-0">
                 {/* Background layers */}
                 <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950/50 to-purple-950/50"></div>
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,blue-900/30,transparent_50%)]"></div>

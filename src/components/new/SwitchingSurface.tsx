@@ -40,7 +40,7 @@ export default function SwitchingSurface() {
   return (
     <>
       {/* Blog Post Intro — Full Screen */}
-      <section ref={sectionRef} className="relative overflow-hidden min-h-screen flex items-center justify-center py-16 md:py-24">
+      <section ref={sectionRef} className="relative overflow-hidden min-h-screen flex items-center justify-center pt-28 pb-16 md:py-24">
         <div className="absolute inset-0 bg-gradient-to-b from-black via-zinc-950 to-black" />
         <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 via-transparent to-orange-500/5" />
 

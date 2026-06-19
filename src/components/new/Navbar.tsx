@@ -1,6 +1,29 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { site } from '@/config/site';
+import { trackEvent } from '@/lib/analytics';
+
+const NAV_SECTION = 'navbar';
+
+function trackNavClick(label: string, href: string, source: 'desktop' | 'mobile') {
+    trackEvent('nav_link_click', {
+        section: NAV_SECTION,
+        action: 'click',
+        nav_label: label,
+        nav_target: href,
+        source,
+    });
+}
+
+function trackNavCtaClick(source: 'desktop' | 'mobile') {
+    trackEvent('nav_cta_click', {
+        section: NAV_SECTION,
+        action: 'click',
+        cta_label: site.cta.label,
+        cta_target: site.cta.href,
+        source,
+    });
+}
 
 export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -33,6 +56,7 @@ export default function Navbar() {
                                 <Link
                                     key={link.href}
                                     to={link.href}
+                                    onClick={() => trackNavClick(link.label, link.href, 'desktop')}
                                     className="text-txt-secondary hover:text-txt-primary transition-colors text-sm font-medium"
                                 >
                                     {link.label}
@@ -41,6 +65,7 @@ export default function Navbar() {
                                 <a
                                     key={link.href}
                                     href={link.href}
+                                    onClick={() => trackNavClick(link.label, link.href, 'desktop')}
                                     className="text-txt-secondary hover:text-txt-primary transition-colors text-sm font-medium"
                                 >
                                     {link.label}
@@ -55,6 +80,7 @@ export default function Navbar() {
                             href={site.cta.href}
                             target={site.cta.href.startsWith('http') ? '_blank' : undefined}
                             rel={site.cta.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                            onClick={() => trackNavCtaClick('desktop')}
                             className="btn-primary btn-md font-semibold"
                         >
                             {site.cta.label}
@@ -87,7 +113,10 @@ export default function Navbar() {
                                 <Link
                                     key={link.href}
                                     to={link.href}
-                                    onClick={() => setMobileMenuOpen(false)}
+                                    onClick={() => {
+                                        trackNavClick(link.label, link.href, 'mobile');
+                                        setMobileMenuOpen(false);
+                                    }}
                                     className="block text-txt-secondary hover:text-txt-primary transition-colors py-2"
                                 >
                                     {link.label}
@@ -96,7 +125,10 @@ export default function Navbar() {
                                 <a
                                     key={link.href}
                                     href={link.href}
-                                    onClick={() => setMobileMenuOpen(false)}
+                                    onClick={() => {
+                                        trackNavClick(link.label, link.href, 'mobile');
+                                        setMobileMenuOpen(false);
+                                    }}
                                     className="block text-txt-secondary hover:text-txt-primary transition-colors py-2"
                                 >
                                     {link.label}
@@ -107,7 +139,10 @@ export default function Navbar() {
                             href={site.cta.href}
                             target={site.cta.href.startsWith('http') ? '_blank' : undefined}
                             rel={site.cta.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                            onClick={() => setMobileMenuOpen(false)}
+                            onClick={() => {
+                                trackNavCtaClick('mobile');
+                                setMobileMenuOpen(false);
+                            }}
                             className="btn-primary btn-md font-semibold text-center block mt-4"
                         >
                             {site.cta.label}
