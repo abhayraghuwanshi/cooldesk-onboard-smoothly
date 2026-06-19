@@ -744,6 +744,16 @@ All colors MUST be HSL.
     animation: fadeInUp 0.8s ease-out 1.2s forwards;
   }
 
+  /* Blink Cursor Animation */
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .animate-blink {
+    animation: blink 1s step-end infinite;
+  }
+
   /* Pulse Glow Animation */
   @keyframes pulseGlow {
     0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
@@ -752,6 +762,16 @@ All colors MUST be HSL.
 
   .animate-pulse-glow {
     animation: pulseGlow 2s ease-in-out infinite;
+  }
+
+  /* Architecture diagram connector flow */
+  @keyframes flowDash {
+    to { stroke-dashoffset: -16; }
+  }
+
+  .animate-flow {
+    stroke-dasharray: 4 6;
+    animation: flowDash 0.9s linear infinite;
   }
 
   /* Scrollbar Hide Utility */

@@ -65,7 +65,7 @@ const comparisons: Step[] = [
         unlock: "The last piece. Everything's organized, everything's findable. This is what working without friction feels like.",
         feature: "Spotlight Search",
         icon: <Search className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />,
-        image: '/spotlight.png',
+        image: '/cooldesk-new.png',
         miniFeatures: [
             { icon: <Search className="w-4 h-4 text-emerald-400" />, label: "Almighty Search", desc: "Tabs, notes, files, apps — one bar" },
             { icon: <Zap className="w-4 h-4 text-yellow-400" />, label: "One Keystroke", desc: "No mouse. No friction." },
@@ -75,11 +75,11 @@ const comparisons: Step[] = [
 
 export default function NavigationComparison() {
     return (
-        <section className="relative py-32 overflow-hidden bg-zinc-950">
+        <section className="relative py-32 overflow-hidden bg-black/40">
             {/* Dot Grid Pattern */}
-            <div className="absolute inset-0" style={{
-                backgroundImage: 'radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px)',
-                backgroundSize: '40px 40px'
+            <div className="absolute inset-0 opacity-50" style={{
+                backgroundImage: 'radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px)',
+                backgroundSize: '32px 32px'
             }}></div>
 
             {/* Animated Gradient Mesh Orbs */}

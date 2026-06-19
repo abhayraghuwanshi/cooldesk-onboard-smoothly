@@ -49,6 +49,14 @@ export default function Navbar() {
                         ))}
                     </div>
 
+                    {/* System Status */}
+                    <div className="hidden md:flex items-center gap-3 mr-3">
+                        <span className="flex items-center gap-1.5 text-[11px] text-green-400/70 font-mono">
+                            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                            SYSTEM OK
+                        </span>
+                    </div>
+
                     {/* CTA Button */}
                     <div className="hidden md:block">
                         <a

@@ -28,7 +28,9 @@ export default function Search() {
     }, [viewMode]);
 
     return (
-        <main className="min-h-screen text-white scroll-smooth bg-zinc-950 relative overflow-hidden">
+        <main className="min-h-screen text-white scroll-smooth relative overflow-hidden">
+            {/* Background Glow Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-600/10 pointer-events-none z-0" />
             <SEO
                 title="Curated Workspaces & Profiles"
                 description="Explore curated browser workspaces, developer profiles, and quick links to supercharge your productivity with CoolDesk."

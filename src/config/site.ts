@@ -65,9 +65,9 @@ const configs: Record<SiteId, SiteConfig> = {
     },
     hero: {
       badge: "For builders and developers",
-      headlineLead: "Your workspace.",
-      headlineAccent: "Reimagined.",
-      sub: "Browser tabs, desktop apps, links, and notes — grouped by project in one new tab. Built for people who juggle projects all day.",
+      headlineLead: "One bar. Full screen.",
+      headlineAccent: "Everything where it belongs.",
+      sub: "Summon one spotlight from anywhere. Your projects, tabs, apps and notes — full screen, no wasted pixels, all in their place.",
     },
     cta: {
       label: "Get Started",

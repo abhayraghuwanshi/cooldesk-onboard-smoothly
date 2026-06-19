@@ -20,7 +20,9 @@ export default function Contact() {
 
     if (state.succeeded) {
         return (
-            <main className="min-h-screen bg-gray-950 text-white flex flex-col">
+            <main className="min-h-screen text-white flex flex-col relative">
+                {/* Background Glow Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-600/10 pointer-events-none z-0" />
                 <SEO
                     title="Message Sent | Contact CoolDesk"
                     description="Your message has been sent successfully. We'll get back to you soon."
@@ -47,12 +49,14 @@ export default function Contact() {
     }
 
     return (
-        <main className="min-h-screen bg-gray-950 text-white flex flex-col">
+        <main className="min-h-screen text-white flex flex-col relative">
             <SEO
                 title="Contact Us | Support & Feedback"
                 description="Get in touch with the CoolDesk team. Report bugs, share feedback, or request new features to help us build the best browser tool."
                 canonical="https://cool-desk.com/contact"
             />
+            {/* Background Glow Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-600/10 pointer-events-none z-0" />
             {/* Hero */}
             <Navbar />
             <section className="relative min-h-screen flex items-center justify-center overflow-hidden">

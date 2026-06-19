@@ -74,7 +74,9 @@ const releases: Release[] = [
 
 export default function ReleasesPage() {
     return (
-        <main className="min-h-screen bg-black text-white scroll-smooth">
+        <main className="min-h-screen text-white scroll-smooth">
+            {/* Background Glow Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-600/10 pointer-events-none z-0" />
             {/* Background Glow Overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-600/10 pointer-events-none z-0" />
             <Navbar />
@@ -111,23 +113,20 @@ export default function ReleasesPage() {
                             {releases.map((release, index) => (
                                 <div key={release.version} className="relative pl-20">
                                     {/* Timeline dot */}
-                                    <div className={`absolute left-6 w-5 h-5 rounded-full border-4 ${
-                                        release.isMajor
+                                    <div className={`absolute left-6 w-5 h-5 rounded-full border-4 ${release.isMajor
                                             ? 'bg-blue-500 border-blue-400 shadow-lg shadow-blue-500/50'
                                             : 'bg-zinc-900 border-zinc-700'
-                                    }`} />
+                                        }`} />
 
                                     {/* Card */}
-                                    <div className={`bg-zinc-900/50 border rounded-xl p-6 transition-all hover:bg-zinc-900 ${
-                                        release.isMajor
+                                    <div className={`bg-zinc-900/50 border rounded-xl p-6 transition-all hover:bg-zinc-900 ${release.isMajor
                                             ? 'border-blue-500/50 hover:border-blue-400/70'
                                             : 'border-zinc-800 hover:border-zinc-700'
-                                    }`}>
+                                        }`}>
                                         {/* Version Header */}
                                         <div className="flex items-center gap-3 mb-4">
-                                            <span className={`text-2xl font-bold ${
-                                                release.isMajor ? 'text-blue-400' : 'text-white'
-                                            }`}>
+                                            <span className={`text-2xl font-bold ${release.isMajor ? 'text-blue-400' : 'text-white'
+                                                }`}>
                                                 v{release.version}
                                             </span>
                                             {release.isMajor && (

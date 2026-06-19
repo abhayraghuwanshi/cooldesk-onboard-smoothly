@@ -1,6 +1,5 @@
-import React from 'react';
 import { site } from '@/config/site';
-import WorkspacePreview from './WorkspacePreview';
+import React from 'react';
 
 const WINGET_COMMAND = "winget install CoolDesk.CoolDesk";
 
@@ -17,16 +16,8 @@ function Hero() {
     return (
         <section id="home" className="relative text-white overflow-hidden isolate z-20 scroll-mt-20 min-h-screen flex items-center">
 
-            {/* Background Image */}
-            <img
-                src="/main-image (2).png"
-                alt=""
-                className="absolute inset-0 w-full h-full object-cover z-0"
-                fetchPriority="high"
-            />
-
-            {/* Overlay */}
-            <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/90 via-black/75 to-black/40" />
+            {/* Background base */}
+            <div className="absolute inset-0 z-0 bg-black" />
 
             {/* Content */}
             <div className="relative z-20 w-full container mx-auto px-6">
@@ -56,50 +47,35 @@ function Hero() {
                             {site.hero.sub}
                         </p>
 
-                        {/* CTAs */}
-                        <div className="flex flex-wrap items-center gap-4 mb-10">
-                            <a
-                                href={site.cta.href}
-                                className="btn-primary btn-xl font-bold shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all transform hover:-translate-y-1"
-                            >
-                                {site.cta.label}
-                            </a>
-                            <a
-                                href="#navigation"
-                                className="btn-xl font-semibold text-white/80 hover:text-white border border-white/20 hover:border-white/40 rounded-xl px-6 py-3 transition-all backdrop-blur-sm bg-white/5 hover:bg-white/10"
-                            >
-                                See How It Works
-                            </a>
-                        </div>
 
                         {/* Winget install */}
                         {site.downloads.desktop && (
-                        <div className="mb-8">
-                            <p className="text-xs text-white/30 mb-2 font-semibold uppercase tracking-widest">Or install via Winget</p>
-                            <button
-                                onClick={copyWinget}
-                                className="inline-flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all group"
-                            >
-                                <span className="font-mono text-sm text-white/70 group-hover:text-white/90 transition-colors">{WINGET_COMMAND}</span>
-                                <span className="shrink-0 text-xs font-semibold text-white/40 group-hover:text-white/70 transition-colors flex items-center gap-1">
-                                    {copied ? (
-                                        <>
-                                            <svg className="w-3.5 h-3.5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                                            </svg>
-                                            <span className="text-green-400">Copied</span>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                                            </svg>
-                                            Copy
-                                        </>
-                                    )}
-                                </span>
-                            </button>
-                        </div>
+                            <div className="mb-8">
+                                <p className="text-xs text-white/30 mb-2 font-semibold uppercase tracking-widest">Or install via Winget</p>
+                                <button
+                                    onClick={copyWinget}
+                                    className="inline-flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all group"
+                                >
+                                    <span className="font-mono text-sm text-white/70 group-hover:text-white/90 transition-colors">{WINGET_COMMAND}</span>
+                                    <span className="shrink-0 text-xs font-semibold text-white/40 group-hover:text-white/70 transition-colors flex items-center gap-1">
+                                        {copied ? (
+                                            <>
+                                                <svg className="w-3.5 h-3.5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                                                </svg>
+                                                <span className="text-green-400">Copied</span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                                </svg>
+                                                Copy
+                                            </>
+                                        )}
+                                    </span>
+                                </button>
+                            </div>
                         )}
 
                         {/* Trust signals */}
@@ -123,11 +99,22 @@ function Hero() {
                                 Chrome, Brave & Edge
                             </span>
                         </div>
+
                     </div>
 
-                    {/* Right: Interactive Workspace Preview */}
+                    {/* Right: Spotlight Preview */}
                     <div className="flex-1 flex justify-center md:justify-end">
-                        <WorkspacePreview />
+                        <div className="relative group w-full max-w-xl">
+                            {/* Glow */}
+                            <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/30 to-purple-600/30 rounded-[20px] blur-xl opacity-60 group-hover:opacity-100 transition-opacity duration-700" />
+                            <div className="relative rounded-[20px] overflow-hidden border border-white/10 shadow-2xl bg-[#0A0A0A]">
+                                <img
+                                    src="/cooldesk-new.png"
+                                    alt="CoolDesk Spotlight — search workspaces, tabs and apps from anywhere"
+                                    className="w-full h-auto"
+                                />
+                            </div>
+                        </div>
                     </div>
 
                 </div>

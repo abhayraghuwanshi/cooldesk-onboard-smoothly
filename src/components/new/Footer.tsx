@@ -1,16 +1,95 @@
 import { site } from '@/config/site';
 
 export default function Footer() {
-    return (
-        <footer className="bg-black/40 text-gray-400 py-10 mt-20 relative z-10 border-t border-white/10">
-            <div className="container mx-auto px-6 text-center">
-                <p>© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
-                <div className="mt-6 flex justify-center space-x-8 text-sm">
-                    <a href="/privacy-details" className="hover:text-white transition-colors">Privacy Policy</a>
-                    <a href="/terms" className="hover:text-white transition-colors">Terms of Service</a>
-                    <a href="/contact" className="hover:text-white transition-colors">Contact Us</a>
-                </div>
+  return (
+    <footer className="relative z-10 border-t border-white/10 bg-black/60 backdrop-blur-sm">
+      {/* Top section */}
+      <div className="container mx-auto px-6 py-12 md:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
+          {/* Brand */}
+          <div className="space-y-4">
+            <a href="/" className="flex items-center gap-3 group">
+              <img
+                src="/cooldesk.png"
+                alt={`${site.name} logo`}
+                className="h-9 w-auto"
+              />
+            </a>
+            <p className="text-sm text-gray-500 max-w-xs leading-relaxed">
+              Browser tabs, desktop apps, links, and notes — grouped by project in one new tab.
+            </p>
+            <div className="flex items-center gap-2 text-[11px] text-green-400/60 font-mono">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-400/60" />
+              All Systems Online
             </div>
-        </footer>
-    );
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <p className="text-[11px] font-semibold text-gray-500 uppercase tracking-widest mb-4">
+              Navigation
+            </p>
+            <ul className="space-y-2.5">
+              {[
+                { label: 'How to Use', href: '/how-to-use' },
+                { label: 'Resources', href: '/resources' },
+                { label: 'FAQ', href: '/#faq' },
+                { label: 'Pricing', href: '/pricing' },
+              ].map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    className="text-sm text-gray-400 hover:text-white transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Legal & Contact */}
+          <div>
+            <p className="text-[11px] font-semibold text-gray-500 uppercase tracking-widest mb-4">
+              Resources
+            </p>
+            <ul className="space-y-2.5">
+              {[
+                { label: 'Privacy Policy', href: '/privacy-details' },
+                { label: 'Terms of Service', href: '/terms' },
+                { label: 'Contact Us', href: '/contact' },
+                { label: 'Blog', href: '/blog' },
+              ].map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    className="text-sm text-gray-400 hover:text-white transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom bar */}
+      <div className="border-t border-white/5">
+        <div className="container mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-gray-600 font-mono">
+            © {new Date().getFullYear()} {site.name}. All rights reserved.
+          </p>
+          <div className="flex items-center gap-4 text-xs text-gray-600">
+            <span className="flex items-center gap-1.5">
+              <span className="w-1 h-1 rounded-full bg-green-400/40" />
+              v1.2.7
+            </span>
+            <span className="text-gray-700">|</span>
+            <span className="font-mono">Open Source</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
 }

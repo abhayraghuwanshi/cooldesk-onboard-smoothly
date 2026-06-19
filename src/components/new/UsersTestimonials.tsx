@@ -47,7 +47,7 @@ const testimonials: Testimonial[] = [
 function Card({ t, className = "" }: { t: Testimonial; className?: string }) {
     return (
         <div
-            className={`rounded-xl bg-gradient-to-br from-white/10 to-white/5 border border-white/20 p-6 w-[320px] max-w-full hover:border-blue-400/30 transition-all duration-300 ${className}`}
+            className={`rounded-xl bg-white/3 border border-white/15 p-6 w-[320px] max-w-full hover:border-white/25 transition-colors duration-300 ${className}`}
         >
             <div className="flex items-center gap-3 mb-4">
                 <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-lg">

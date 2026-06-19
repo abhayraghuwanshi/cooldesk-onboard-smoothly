@@ -25,7 +25,9 @@ export default function BlogPage() {
     const otherPosts = filteredPosts.slice(1);
 
     return (
-        <main className="min-h-screen bg-black text-white font-sans selection:bg-blue-500/30">
+        <main className="min-h-screen text-white font-sans selection:bg-blue-500/30">
+            {/* Background Glow Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-600/10 pointer-events-none z-0" />
             <SEO
                 title="Blog | Insights & Guides"
                 description="Explore the CoolDesk blog for tips on browser productivity, AI tools, and efficient workflow management."
@@ -52,8 +54,8 @@ export default function BlogPage() {
                             key={category}
                             onClick={() => setSelectedCategory(category)}
                             className={`transition-colors whitespace-nowrap pb-4 -mb-4 border-b-2 ${selectedCategory === category
-                                    ? 'text-white border-white'
-                                    : 'text-txt-muted border-transparent hover:text-white'
+                                ? 'text-white border-white'
+                                : 'text-txt-muted border-transparent hover:text-white'
                                 }`}
                         >
                             {category === 'all' ? 'Latest' : getCategoryLabel(category)}
