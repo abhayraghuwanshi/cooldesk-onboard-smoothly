@@ -1,7 +1,9 @@
 import { GITHUB_REPO, site } from '@/config/site';
+import { useLatestRelease } from '@/hooks/useLatestRelease';
 import { Github } from 'lucide-react';
 
 export default function Footer() {
+  const release = useLatestRelease();
   return (
     <footer className="relative z-10 border-t border-white/10 bg-black/60 backdrop-blur-sm">
       {/* Top section */}
@@ -82,7 +84,7 @@ export default function Footer() {
           <div className="flex items-center gap-4 text-xs text-gray-600">
             <span className="flex items-center gap-1.5">
               <span className="w-1 h-1 rounded-full bg-green-400/40" />
-              v1.2.7
+              v{release.version}
             </span>
             <span className="text-gray-700">|</span>
             <a

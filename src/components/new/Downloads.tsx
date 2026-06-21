@@ -1,19 +1,12 @@
 import { site } from "@/config/site";
+import { useLatestRelease } from "@/hooks/useLatestRelease";
 import React from "react";
 import DownloadFeedback from "./DownloadFeedback";
 import StatsSlideshow from "./StatsSlideshow";
 
-const VERSIONS = {
-  extension: "1.0.0",
-  windows: "1.2.7",
-  mac: "1.2.7",
-};
-
-const DOWNLOAD_LINKS = {
-  extension: "https://chromewebstore.google.com/detail/cooldesk/ioggffobciopdddacpclplkeodllhjko",
-  windows: "https://pub-c48321b20c8942d1ad52781d27b6b607.r2.dev/CoolDesk_1.2.7_x64-setup.exe",
-  mac: "https://pub-c48321b20c8942d1ad52781d27b6b607.r2.dev/CoolDesk_1.2.7_aarch64.dmg",
-};
+// Extension lives on the Chrome Web Store (versioned separately from the desktop app).
+const EXTENSION_VERSION = "1.0.0";
+const EXTENSION_LINK = "https://chromewebstore.google.com/detail/cooldesk/ioggffobciopdddacpclplkeodllhjko";
 
 const WINGET_COMMAND = "winget install CoolDesk.CoolDesk";
 const BREW_COMMAND =
@@ -58,6 +51,11 @@ function trackDownloadEvent(eventName: string, params: DownloadTrackingParams) {
 function Downloads() {
   const [copied, setCopied] = React.useState(false);
   const [brewCopied, setBrewCopied] = React.useState(false);
+
+  // Desktop version + installer links come live from GitHub Releases; extension is static.
+  const release = useLatestRelease();
+  const VERSIONS = { extension: EXTENSION_VERSION, windows: release.version, mac: release.version };
+  const DOWNLOAD_LINKS = { extension: EXTENSION_LINK, windows: release.windows, mac: release.mac };
 
   React.useEffect(() => {
     trackDownloadEvent("downloads_section_view", {
