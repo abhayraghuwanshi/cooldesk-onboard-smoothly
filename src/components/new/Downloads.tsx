@@ -1,6 +1,5 @@
 import { site } from "@/config/site";
 import React from "react";
-import ArchitectureDiagram from "./ArchitectureDiagram";
 import DownloadFeedback from "./DownloadFeedback";
 import StatsSlideshow from "./StatsSlideshow";
 
@@ -17,9 +16,11 @@ const DOWNLOAD_LINKS = {
 };
 
 const WINGET_COMMAND = "winget install CoolDesk.CoolDesk";
+const BREW_COMMAND =
+  "brew tap abhayraghuwanshi/cooldesk https://github.com/abhayraghuwanshi/cooldesk-extension\nbrew install --cask cooldesk";
 const DOWNLOADS_SECTION = "downloads_section";
 
-type DownloadTarget = "browser_extension" | "windows_installer" | "winget_command" | "macos_installer";
+type DownloadTarget = "browser_extension" | "windows_installer" | "winget_command" | "macos_installer" | "brew_command";
 
 type DownloadTrackingParams = {
   action: string;
@@ -56,6 +57,7 @@ function trackDownloadEvent(eventName: string, params: DownloadTrackingParams) {
 
 function Downloads() {
   const [copied, setCopied] = React.useState(false);
+  const [brewCopied, setBrewCopied] = React.useState(false);
 
   React.useEffect(() => {
     trackDownloadEvent("downloads_section_view", {
@@ -85,6 +87,21 @@ function Downloads() {
     });
   }
 
+  function copyBrew() {
+    trackDownloadEvent("download_brew_copy", {
+      action: "copy",
+      download_target: "brew_command",
+      download_platform: "macos",
+      download_version: VERSIONS.mac,
+      download_method: "homebrew",
+    });
+
+    navigator.clipboard.writeText(BREW_COMMAND).then(() => {
+      setBrewCopied(true);
+      setTimeout(() => setBrewCopied(false), 2000);
+    });
+  }
+
   return (
     <section
       className="py-20 relative"
@@ -108,7 +125,7 @@ function Downloads() {
 
           {/* Merged panel: stats + downloads + diagram */}
           <div className="rounded-2xl border border-white/15 overflow-hidden">
-            <div className="grid lg:grid-cols-3 lg:divide-x divide-white/15">
+            <div className="grid lg:grid-cols-2 lg:divide-x divide-white/15">
 
               {/* Stats column */}
               <div className="bg-white/[0.015]">
@@ -265,6 +282,39 @@ function Downloads() {
                       </span>
                     </a>
 
+                    <button
+                      onClick={copyBrew}
+                      data-gtm-element="download-copy"
+                      data-gtm-action="copy"
+                      data-gtm-section={DOWNLOADS_SECTION}
+                      data-gtm-target="brew_command"
+                      data-gtm-platform="macos"
+                      data-gtm-version={VERSIONS.mac}
+                      data-gtm-method="homebrew"
+                      className="w-full flex items-center gap-4 px-5 py-4 hover:bg-white/[0.04] transition-colors group border-b border-white/15 text-left"
+                    >
+                      <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/15 flex items-center justify-center shrink-0">
+                        <WingetIcon className="w-5 h-5 text-zinc-300" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="heading-5">macOS <span className="text-txt-muted font-normal">via Homebrew</span></p>
+                        <p className="caption mt-0.5 font-mono truncate">brew install --cask cooldesk</p>
+                      </div>
+                      <span className="inline-flex items-center gap-1.5 text-sm font-medium text-txt-secondary group-hover:text-white transition-colors shrink-0">
+                        {brewCopied ? (
+                          <>
+                            <CheckIcon className="w-3.5 h-3.5 text-green-400" />
+                            <span className="text-green-400">Copied</span>
+                          </>
+                        ) : (
+                          <>
+                            <CopyIcon className="w-3.5 h-3.5" />
+                            Copy
+                          </>
+                        )}
+                      </span>
+                    </button>
+
                     {/* Linux — coming soon */}
                     <div
                       className="flex items-center gap-4 px-5 py-4 opacity-40 select-none border-b border-white/15"
@@ -286,11 +336,6 @@ function Downloads() {
                   </>
                 )}
 
-              </div>
-
-              {/* Diagram column */}
-              <div className="bg-white/[0.015]">
-                <ArchitectureDiagram />
               </div>
 
             </div>

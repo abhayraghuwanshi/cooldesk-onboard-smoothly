@@ -28,5 +28,5 @@ Free — no plans, no sign-in, no tracking
 - [Home](https://cool-desk.com/)
 - [How to Use](https://cool-desk.com/how-to-use)
 - [Blog](https://cool-desk.com/blog)
-- [Search Workspaces](https://cool-desk.com/search)
+- [Library of Curated Tools](https://cool-desk.com/library)
 - [Contact](https://cool-desk.com/contact)

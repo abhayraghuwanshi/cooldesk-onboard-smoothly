@@ -1,4 +1,5 @@
-import { site } from '@/config/site';
+import { Github } from 'lucide-react';
+import { GITHUB_REPO, site } from '@/config/site';
 
 export default function Footer() {
   return (
@@ -13,6 +14,9 @@ export default function Footer() {
                 src="/cooldesk.png"
                 alt={`${site.name} logo`}
                 className="h-9 w-auto"
+                width={256}
+                height={256}
+                loading="lazy"
               />
             </a>
             <p className="text-sm text-gray-500 max-w-xs leading-relaxed">
@@ -30,7 +34,6 @@ export default function Footer() {
                 { label: 'How to Use', href: '/how-to-use' },
                 { label: 'Resources', href: '/resources' },
                 { label: 'FAQ', href: '/#faq' },
-                { label: 'Pricing', href: '/pricing' },
               ].map((link) => (
                 <li key={link.href}>
                   <a
@@ -82,7 +85,15 @@ export default function Footer() {
               v1.2.7
             </span>
             <span className="text-gray-700">|</span>
-            <span className="font-mono">Open Source</span>
+            <a
+              href={GITHUB_REPO}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 font-mono text-gray-500 hover:text-white transition-colors"
+            >
+              <Github className="w-3.5 h-3.5" />
+              Open Source
+            </a>
           </div>
         </div>
       </div>

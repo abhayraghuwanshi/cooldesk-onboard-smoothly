@@ -50,7 +50,7 @@ export default function ProfileCard({ workspace, selectionMode = false, isSelect
                     <div className="flex items-center gap-2">
                         <h3 className="text-base font-semibold text-txt-primary truncate">{title}</h3>
                         {trending.badge && (
-                            <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${badgeStyles[trending.badge]}`}>
+                            <span className={`text-[9px] font-semibold uppercase tracking-[0.15em] flex-shrink-0 ${badgeStyles[trending.badge]}`}>
                                 {trending.badge}
                             </span>
                         )}

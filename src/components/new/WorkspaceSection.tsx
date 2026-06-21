@@ -13,7 +13,6 @@ import {
     Palette,
     Rocket,
     Search,
-    Sparkles,
 } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { FaBook, FaChevronDown, FaChevronUp, FaDiscord, FaGamepad, FaGithub, FaGlobe, FaNpm, FaPlay, FaPlus, FaSearch, FaTimes, FaTrash } from 'react-icons/fa';
@@ -498,37 +497,60 @@ export default function WorkspaceSection() {
             </div>
 
             {activeStageDef ? (
-                /* Stage view — grouped into sub-sections by category */
-                <div className="space-y-12 mb-12">
-                    {subSections.map(({ cat, label, items }) => (
-                        <section key={cat}>
-                            <div className="flex items-baseline gap-3 mb-3 px-1">
-                                <h2 className="text-lg font-semibold text-txt-primary">{label}</h2>
-                                <span className="text-sm text-txt-muted">{items.length}</span>
-                                <div className="flex-1 h-px bg-zinc-800" />
-                            </div>
-                            {CATEGORY_OVERVIEWS[cat] && (
-                                <div className="flex gap-2.5 mb-5 px-1 max-w-3xl">
-                                    <Sparkles size={15} className="text-fuchsia-400 mt-0.5 flex-shrink-0" />
-                                    <p className="text-sm text-txt-secondary leading-relaxed">
-                                        <span className="font-medium text-txt-primary">AI overview · </span>
-                                        {CATEGORY_OVERVIEWS[cat]}
-                                    </p>
+                /* Stage view — grouped into editorial, magazine-style sub-sections by category */
+                <div className="space-y-16 mb-12">
+                    {subSections.map(({ cat, label, items }, idx) => {
+                        const overview = CATEGORY_OVERVIEWS[cat];
+                        return (
+                            <section key={cat} className="scroll-mt-24">
+                                {/* Editorial header */}
+                                <header className="mb-7 px-1">
+                                    {/* Kicker rule: section number + stage, count on the right */}
+                                    <div className="flex items-center gap-3 mb-3">
+                                        <span className="font-display text-base font-bold text-fuchsia-400 tabular-nums">
+                                            {String(idx + 1).padStart(2, '0')}
+                                        </span>
+                                        <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-txt-muted">
+                                            {activeStageDef.label}
+                                        </span>
+                                        <div className="h-px flex-1 bg-gradient-to-r from-zinc-700/70 to-transparent" />
+                                        <span className="text-xs text-txt-muted tabular-nums whitespace-nowrap">
+                                            {items.length} {items.length === 1 ? 'tool' : 'tools'}
+                                        </span>
+                                    </div>
+
+                                    {/* Headline */}
+                                    <h2 className="font-display text-[26px] sm:text-3xl font-bold text-txt-primary tracking-tight leading-none mb-3">
+                                        {label}
+                                    </h2>
+
+                                    {/* Standfirst — AI overview as a magazine dek with a drop cap */}
+                                    {overview && (
+                                        <div className="max-w-3xl">
+                                            <p className="text-[15px] sm:text-base text-txt-secondary leading-relaxed">
+                                                <span className="float-left mr-2.5 mt-1 font-display text-[40px] font-bold leading-[0.7] bg-gradient-to-br from-fuchsia-300 via-fuchsia-400 to-purple-500 bg-clip-text text-transparent">
+                                                    {overview.charAt(0)}
+                                                </span>
+                                                {overview.slice(1)}
+                                            </p>
+                                        </div>
+                                    )}
+                                </header>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                                    {items.map((workspace) => (
+                                        <WorkspaceCard
+                                            key={workspace.id}
+                                            workspace={workspace}
+                                            selectionMode={selectionMode}
+                                            isSelected={isWorkspaceSelected(workspace.id)}
+                                            onSelect={() => toggleWorkspaceSelection(workspace.id)}
+                                        />
+                                    ))}
                                 </div>
-                            )}
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                                {items.map((workspace) => (
-                                    <WorkspaceCard
-                                        key={workspace.id}
-                                        workspace={workspace}
-                                        selectionMode={selectionMode}
-                                        isSelected={isWorkspaceSelected(workspace.id)}
-                                        onSelect={() => toggleWorkspaceSelection(workspace.id)}
-                                    />
-                                ))}
-                            </div>
-                        </section>
-                    ))}
+                            </section>
+                        );
+                    })}
                 </div>
             ) : (
                 /* "All" view — flat paginated grid */

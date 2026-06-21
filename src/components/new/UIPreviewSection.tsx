@@ -20,7 +20,7 @@ export default function UIPreviewSection() {
 
                     {/* Bottom Window - Search */}
                     <div className="absolute top-[10%] left-[5%] w-[80%] md:w-[60%] lg:w-[50%] transform -rotate-3 hover:translate-y-[-10px] transition-transform duration-500 z-10">
-                        <BrowserMockup url="cool-desk.com/search" height="350px">
+                        <BrowserMockup url="cool-desk.com/library" height="350px">
                             <img src="/a2.png" alt="Real Search UI" className="w-full h-auto object-top" />
                         </BrowserMockup>
                     </div>

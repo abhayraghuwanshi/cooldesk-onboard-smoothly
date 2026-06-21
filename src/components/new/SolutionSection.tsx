@@ -1,4 +1,4 @@
-import { AppWindow, ArrowRight, CheckCircle2, LayoutGrid, Search, Sparkles } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import { useSectionView } from '@/lib/analytics';
 
 /**
@@ -8,31 +8,16 @@ import { useSectionView } from '@/lib/analytics';
  */
 const SOLUTIONS = [
   {
-    icon: <LayoutGrid className="w-5 h-5 text-blue-400" />,
-    iconBg: 'bg-blue-500/15 border-blue-500/25',
-    glow: 'from-blue-500/10',
-    solves: 'Constant switching',
-    solvesColor: 'text-amber-300/90 border-amber-500/25 bg-amber-500/10',
     title: 'Switch projects in seconds',
-    desc: 'Each project gets its own new-tab workspace — tabs, links, notes and apps grouped together. Jump back in without hunting.',
+    desc: 'Each project gets its own new tab — tabs, links, notes and apps in one place.',
   },
   {
-    icon: <AppWindow className="w-5 h-5 text-emerald-400" />,
-    iconBg: 'bg-emerald-500/15 border-emerald-500/25',
-    glow: 'from-emerald-500/10',
-    solves: 'Wasted screen space',
-    solvesColor: 'text-rose-300/90 border-rose-500/25 bg-rose-500/10',
     title: 'Your new tab runs everything',
-    desc: 'See and launch desktop apps — VS Code, Slack, Spotify — straight from the browser. No more digging through docks and taskbars.',
+    desc: 'Launch desktop apps — VS Code, Slack, Spotify — straight from the browser.',
   },
   {
-    icon: <Search className="w-5 h-5 text-purple-400" />,
-    iconBg: 'bg-purple-500/15 border-purple-500/25',
-    glow: 'from-purple-500/10',
-    solves: 'Broken focus',
-    solvesColor: 'text-violet-300/90 border-violet-500/25 bg-violet-500/10',
     title: 'Find anything, stay in flow',
-    desc: 'One search across tabs, files, folders, apps and your workspaces — reaching your whole machine, not just the active window.',
+    desc: 'One search across tabs, files, apps and workspaces — your whole machine, not just this window.',
   },
 ];
 
@@ -52,7 +37,6 @@ export default function SolutionSection() {
           <h2 className="heading-hero mb-3">One calm surface for all your projects</h2>
           <p className="body-lg max-w-md">
             CoolDesk groups your tabs, links, notes and running apps by project — in one new tab.
-            The scattering stops, your screen comes back, and your focus stays put.
           </p>
         </div>
 
@@ -61,21 +45,9 @@ export default function SolutionSection() {
           {SOLUTIONS.map((s) => (
             <div key={s.title} className="relative rounded-xl border border-white/15 overflow-hidden group bg-white/3 hover:border-white/25 transition-colors">
               <div className="relative p-6 h-full flex flex-col">
-                {/* Icon */}
-                <div className={`w-10 h-10 rounded-xl border flex items-center justify-center mb-4 ${s.iconBg}`}>
-                  {s.icon}
-                </div>
-
                 {/* Title + desc */}
                 <h3 className="text-lg font-bold text-white mb-1.5">{s.title}</h3>
                 <p className="text-[13px] text-gray-400 leading-relaxed flex-1">{s.desc}</p>
-
-                {/* Explicit callback to the matching problem card */}
-                <div className="mt-4 pt-3 border-t border-white/5 flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                  <span className="text-[10px] text-gray-500">Solves</span>
-                  <span className={`text-[10px] font-medium rounded-md border px-1.5 py-0.5 ${s.solvesColor}`}>{s.solves}</span>
-                </div>
               </div>
             </div>
           ))}

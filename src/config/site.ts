@@ -15,6 +15,9 @@ export const SITE_ID: SiteId =
 const CHROME_STORE =
   "https://chromewebstore.google.com/detail/cooldesk/ioggffobciopdddacpclplkeodllhjko";
 
+// Public source for the CoolDesk extension/app.
+const GITHUB_REPO = "https://github.com/abhayraghuwanshi/cooldesk-extension";
+
 const COOLDESK_URL = "https://cool-desk.com";
 // TODO: newtab product not deployed yet — placeholder domain until launch.
 const NEWTAB_URL = "https://newtab.kazekit.com";
@@ -123,4 +126,4 @@ const configs: Record<SiteId, SiteConfig> = {
 
 export const site = configs[SITE_ID];
 
-export { CHROME_STORE };
+export { CHROME_STORE, GITHUB_REPO };

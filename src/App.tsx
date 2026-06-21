@@ -4,7 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { HelmetProvider } from "react-helmet-async";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import PrivacyPolicyStatic from "./components/privacy/PrivacyPolicyStatic";
 import { usePageTracking } from "./hooks/usePageTracking";
 import BlogPage from "./pages/Blog";
@@ -18,7 +18,7 @@ import NotFound from "./pages/NotFound";
 import PricingPage from "./pages/Pricing";
 import ReleasesPage from "./pages/Releases";
 import ResourcesPage from "./pages/Resources";
-import Search from "./pages/Search";
+import Library from "./pages/Library";
 import TermsPage from "./pages/terms";
 
 const queryClient = new QueryClient();
@@ -56,7 +56,8 @@ const App = () => (
             <Route path="/resources" element={<ResourcesPage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
-            <Route path="/search" element={<Search />} />
+            <Route path="/library" element={<Library />} />
+            <Route path="/search" element={<Navigate to="/library" replace />} />
             <Route path="/founder" element={<FounderPage />} />
             <Route path="/gallery" element={<GalleryPage />} />
             <Route path="/contact" element={<Contact />} />

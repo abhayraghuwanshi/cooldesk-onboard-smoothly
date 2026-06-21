@@ -1,6 +1,6 @@
+import { trackEvent, useSectionView } from '@/lib/analytics';
 import { AppWindow, ArrowRight, FileText, Folder, Globe, History, Layers, LayoutGrid, Link2, Search, StickyNote } from 'lucide-react';
 import React from 'react';
-import { trackEvent, useSectionView } from '@/lib/analytics';
 
 type DemoKey = 'spotlight' | 'apps' | 'extension';
 
@@ -111,11 +111,10 @@ export default function ExtensionShowcase() {
                 data-gtm-action="switch"
                 data-gtm-section={SHOWCASE_SECTION}
                 data-gtm-target={key}
-                className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold transition-colors ${
-                  active === key
-                    ? 'bg-white/10 text-white'
-                    : 'text-white/50 hover:text-white/80'
-                }`}
+                className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold transition-colors ${active === key
+                  ? 'bg-white/10 text-white'
+                  : 'text-white/50 hover:text-white/80'
+                  }`}
               >
                 {DEMOS[key].tabIcon}
                 {DEMOS[key].tabLabel}
@@ -124,18 +123,6 @@ export default function ExtensionShowcase() {
           </div>
         </div>
 
-        {/* Capability chips */}
-        <div className="mb-6 flex flex-wrap gap-2">
-          {demo.chips.map((c) => (
-            <span
-              key={c.label}
-              className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/[0.04] px-3 py-1.5 text-xs font-medium text-white/70"
-            >
-              <span className="text-blue-400">{c.icon}</span>
-              {c.label}
-            </span>
-          ))}
-        </div>
 
         {/* GIF preview — framed with the brand glow treatment */}
         <div className="relative group w-full">

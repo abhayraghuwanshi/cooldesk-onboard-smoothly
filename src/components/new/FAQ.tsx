@@ -98,6 +98,9 @@ export default function FAQ() {
                             src="/help.png"
                             alt="Help"
                             className="w-16 h-16 md:w-20 md:h-20 object-contain"
+                            width={200}
+                            height={200}
+                            loading="lazy"
                         />
                         <h2 className="text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300">
                             FAQs

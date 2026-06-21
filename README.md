@@ -36,7 +36,7 @@ Cooldesk is community-driven! Share your workspace configuration and discover ho
 
 - [Chrome Web Store](https://chromewebstore.google.com/detail/new-tab-by-cooldesk-start/ioggffobciopdddacpclplkeodllhjko) - Install the extension
 - [Website](https://cooldesk.app) - Learn more about Cooldesk
-- [Community Profiles](https://cooldesk.app/search) - Browse shared workspaces
+- [Community Profiles](https://cooldesk.app/library) - Browse shared workspaces
 - [GitHub Repository](https://github.com/abhayraghuwanshi/cooldesk-onboard-smoothly) - Source code and contributions
 
 ## Tech Stack

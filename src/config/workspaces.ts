@@ -946,7 +946,7 @@ export const workspaces: ProjectWorkspace[] = [
         id: 'framer-motion',
         title: 'Framer Motion',
         description: 'Production-ready motion library for React with powerful animations',
-        category: 'design-systems',
+        category: 'animation',
         tags: ['Animation', 'React', 'Motion', 'UI'],
         urls: {
             main: 'https://framer.com/motion',
@@ -1017,7 +1017,7 @@ export const workspaces: ProjectWorkspace[] = [
         id: 'storybook',
         title: 'Storybook',
         description: 'Frontend workshop for building UI components and pages in isolation',
-        category: 'design-systems',
+        category: 'dev-tools',
         tags: ['UI', 'Development', 'Components', 'Testing'],
         urls: {
             main: 'https://storybook.js.org',
@@ -2227,7 +2227,7 @@ export const categoryLabels: Record<WorkspaceCategory, string> = {
 
 // Badge colors
 export const badgeStyles = {
-    'NEW': 'bg-green-500/20 text-green-300 border-green-500/30',
-    'HOT': 'bg-orange-500/20 text-orange-300 border-orange-500/30',
-    'TRENDING': 'bg-blue-500/20 text-blue-300 border-blue-500/30'
+    'NEW': 'text-emerald-400/70',
+    'HOT': 'text-orange-400/70',
+    'TRENDING': 'text-sky-400/70'
 };

@@ -15,16 +15,6 @@ function trackNavClick(label: string, href: string, source: 'desktop' | 'mobile'
     });
 }
 
-function trackNavCtaClick(source: 'desktop' | 'mobile') {
-    trackEvent('nav_cta_click', {
-        section: NAV_SECTION,
-        action: 'click',
-        cta_label: site.cta.label,
-        cta_target: site.cta.href,
-        source,
-    });
-}
-
 export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -33,7 +23,7 @@ export default function Navbar() {
         { href: '/how-to-use', label: 'How to Use', isRoute: true },
         // { href: '/pricing', label: 'Pricing', isRoute: true },
         { href: '/resources', label: 'Resources', isRoute: true },
-        { href: '/search', label: 'Search', isRoute: true },
+        { href: '/library', label: 'Library', isRoute: true },
     ];
 
     return (
@@ -41,11 +31,13 @@ export default function Navbar() {
             <div className="max-w-7xl mx-auto px-6 py-4">
                 <div className="flex items-center justify-between">
                     {/* Logo */}
-                    <a href="/#home" className="flex items-center gap-2 group">
+                    <a href="/#home" className="flex items-center gap-2 group ml-2 md:ml-4">
                         <img
                             src="/cooldesk.png"
                             alt={`${site.name} logo`}
                             className="h-10 w-auto"
+                            width={256}
+                            height={256}
                         />
                     </a>
 
@@ -72,19 +64,6 @@ export default function Navbar() {
                                 </a>
                             )
                         ))}
-                    </div>
-
-                    {/* CTA Button */}
-                    <div className="hidden md:block">
-                        <a
-                            href={site.cta.href}
-                            target={site.cta.href.startsWith('http') ? '_blank' : undefined}
-                            rel={site.cta.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                            onClick={() => trackNavCtaClick('desktop')}
-                            className="btn-primary btn-md font-semibold"
-                        >
-                            {site.cta.label}
-                        </a>
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -135,18 +114,6 @@ export default function Navbar() {
                                 </a>
                             )
                         ))}
-                        <a
-                            href={site.cta.href}
-                            target={site.cta.href.startsWith('http') ? '_blank' : undefined}
-                            rel={site.cta.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                            onClick={() => {
-                                trackNavCtaClick('mobile');
-                                setMobileMenuOpen(false);
-                            }}
-                            className="btn-primary btn-md font-semibold text-center block mt-4"
-                        >
-                            {site.cta.label}
-                        </a>
                     </div>
                 )}
             </div>

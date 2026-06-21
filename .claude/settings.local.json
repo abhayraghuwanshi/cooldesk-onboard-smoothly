@@ -6,7 +6,10 @@
       "Bash(dir \"c:\\\\Users\\\\raghu\\\\projects\\\\cooldesk-onboard-smoothly\\\\public\")",
       "Bash(npx tsc *)",
       "mcp__ide__getDiagnostics",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "PowerShell(npx tsc --noEmit -p tsconfig.json 2>&1 | Select-Object -First 15)",
+      "Bash(gzip -c dist/assets/index-*.css)",
+      "Bash(node -e ' *)"
     ]
   }
 }

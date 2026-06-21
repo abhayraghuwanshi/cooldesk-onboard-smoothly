@@ -44,12 +44,17 @@
     gtag('config', 'G-F1YM216TKY');
   </script>
 
-  <!-- Preload critical resources -->
-  <link rel="preload" href="/cooldesk.png" as="image" />
+  <!-- Preload the LCP hero image so it's discoverable before JS renders -->
+  <link rel="preload" href="/cooldesk-new.png" as="image" fetchpriority="high" />
   <link rel="dns-prefetch" href="//fonts.googleapis.com" />
 
   <!-- Performance optimizations -->
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+  />
 
   <script type="application/ld+json">
   {
@@ -74,7 +79,7 @@
     "url": "https://cool-desk.com/",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://cool-desk.com/search?q={search_term_string}",
+      "target": "https://cool-desk.com/library?q={search_term_string}",
       "query-input": "required name=search_term_string"
     }
   }
@@ -109,9 +114,9 @@
       {
         "@type": "SiteNavigationElement",
         "position": 4,
-        "name": "Search",
-        "description": "Discover trending workspaces",
-        "url": "https://cool-desk.com/search"
+        "name": "Library",
+        "description": "Library of curated tools, apps, and workspaces",
+        "url": "https://cool-desk.com/library"
       }
     ]
   }

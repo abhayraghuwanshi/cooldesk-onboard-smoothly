@@ -11,7 +11,6 @@ interface Step {
     step: number;
     headline: string;
     detail: string;
-    unlock: string;
     feature: string;
     icon: ReactNode;
     image: string;
@@ -23,8 +22,7 @@ const comparisons: Step[] = [
     {
         step: 1,
         headline: "Install the Chrome Extension",
-        detail: "Every tab you open gets bridged into CoolDesk. Your browser stops being a pile of tabs and becomes a living map of what you're working on.",
-        unlock: "Tab management, history sync, and browsing context — all flowing into your workspaces automatically.",
+        detail: "Every tab gets bridged into CoolDesk — your browser becomes a live map of your work, not a pile of tabs.",
         feature: "Browser Bridge",
         icon: <Chrome className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />,
         image: '/gif/extension.mp4',
@@ -33,15 +31,14 @@ const comparisons: Step[] = [
             { icon: <Layers className="w-4 h-4 text-blue-400" />, label: "Smart Tab Switching", desc: "Jump to any tab instantly" },
         ],
         troubleshoot: {
-            problem: "Installed it but your new tab looks the same?",
-            fix: "Open a fresh tab. If it still doesn't change, visit chrome://extensions, toggle CoolDesk off and on, then restart the browser so the new-tab override takes effect.",
+            problem: "New tab looks the same?",
+            fix: "Open a fresh tab. Still unchanged? Toggle CoolDesk off and on in chrome://extensions, then restart the browser.",
         },
     },
     {
         step: 2,
         headline: "Install the Desktop App",
-        detail: "Now your OS joins the picture. CoolDesk sees every open window — VS Code, Figma, Terminal — and ties them to the right project.",
-        unlock: "Desktop app windows, per-window focus, and OS-level context connected to your browser workspaces.",
+        detail: "Your OS joins in. CoolDesk sees every open window — VS Code, Figma, Terminal — and ties each to the right project.",
         feature: "Desktop Bridge",
         icon: <AppWindow className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />,
         image: '/gif/write-notes-todo-detail.mp4',
@@ -50,8 +47,8 @@ const comparisons: Step[] = [
             { icon: <Sparkles className="w-4 h-4 text-pink-400" />, label: "Windows · Mac · Linux", desc: "Works across all platforms" },
         ],
         troubleshoot: {
-            problem: "App installed but the browser shows no running apps?",
-            fix: "Keep the desktop app running in the background and sign the app and extension into the same account — running apps only appear when both are connected.",
+            problem: "Browser shows no running apps?",
+            fix: "Keep the desktop app running and sign it into the same account as the extension. Apps appear only when both are connected.",
         },
     }
 ];
@@ -61,8 +58,7 @@ const finishItems: Step[] = [
     {
         step: 3,
         headline: "Create a Workspace — or Let AI Do It",
-        detail: "Start one yourself in seconds, or use AI SmartWorkspace (beta): it reads your open tabs, browser history, and chat threads — then clusters everything into project groups for you.",
-        unlock: "Your projects, organized without effort. Manual control when you want it. AI speed when you don't.",
+        detail: "Make one in seconds, or let AI SmartWorkspace (beta) read your tabs, history, and chats and group everything into projects for you.",
         feature: "AI SmartWorkspace",
         icon: <Bot className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />,
         image: '/gif/create-workspace.mp4',
@@ -71,15 +67,14 @@ const finishItems: Step[] = [
             { icon: <Bot className="w-4 h-4 text-pink-400" />, label: "AI Chat Hub", desc: "All your AI threads, one place" },
         ],
         troubleshoot: {
-            problem: "AI SmartWorkspace didn't group anything?",
-            fix: "It needs some history to learn from — browse a few sites, then re-run it. You can always create a workspace by hand in the meantime.",
+            problem: "AI didn't group anything?",
+            fix: "It needs history to learn from — browse a bit, then re-run. Or create a workspace by hand.",
         },
     },
     {
         step: 4,
         headline: "Spotlight — Now You Flow",
-        detail: "One keystroke. Every tab, note, file, bookmark, and desktop app — searchable from one bar. No hunting. No switching. Just find it and go.",
-        unlock: "The last piece. Everything's organized, everything's findable. This is what working without friction feels like.",
+        detail: "One keystroke. Every tab, note, file, bookmark, and desktop app — searchable from a single bar.",
         feature: "Spotlight Search",
         icon: <Search className="w-8 h-8 md:w-12 md:h-12 text-txt-accent" />,
         image: '/gif/spotlight.mp4',
@@ -88,8 +83,8 @@ const finishItems: Step[] = [
             { icon: <Zap className="w-4 h-4 text-yellow-400" />, label: "One Keystroke", desc: "No mouse. No friction." },
         ],
         troubleshoot: {
-            problem: "Spotlight won't open with the shortcut?",
-            fix: "Another app may have claimed the hotkey — rebind it in Settings → Shortcuts, and make sure the desktop app is running for OS-wide file and app search.",
+            problem: "Shortcut won't open it?",
+            fix: "Another app may own the hotkey — rebind it in Settings → Shortcuts. Keep the desktop app running for OS-wide search.",
         },
     }
 ];
@@ -341,7 +336,7 @@ const customizationFeatures = [
 
 export default function NavigationComparison() {
     return (
-        <section id="how-to-use" className="relative py-32 overflow-hidden bg-black/40">
+        <section id="how-to-use" className="relative pt-40 md:pt-52 pb-32 overflow-hidden bg-black/40">
             {/* Dot Grid Pattern */}
             <div className="absolute inset-0 opacity-50" style={{
                 backgroundImage: 'radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px)',
@@ -392,53 +387,39 @@ export default function NavigationComparison() {
                                                 </h3>
                                             </div>
 
-                                            <div className="space-y-6 pl-2 md:pl-4">
-                                                <div className="relative pl-6 border-l-2 border-white/10 py-1">
-                                                    <p className="body-md text-txt-muted/80 leading-relaxed">
-                                                        {item.detail}
-                                                    </p>
-                                                </div>
-
-                                                <div className="relative pl-6 border-l-2 border-btn-primary py-1">
-                                                    <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-btn-primary/20 flex items-center justify-center">
-                                                        <div className="w-1.5 h-1.5 rounded-full bg-btn-primary animate-pulse"></div>
-                                                    </div>
-                                                    <p className="heading-5 text-white leading-relaxed font-medium">
-                                                        {item.unlock}
-                                                    </p>
-                                                </div>
+                                            <div className="pl-2 md:pl-4">
+                                                <p className="body-md text-txt-muted/80 leading-relaxed">
+                                                    {item.detail}
+                                                </p>
                                             </div>
                                         </div>
 
-                                        {/* Feature pill + mini features */}
-                                        <div className="pl-2 md:pl-4 space-y-4">
-                                            <div className="inline-flex px-5 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
-                                                <span className="text-sm font-medium text-txt-secondary">
-                                                    {item.feature}
-                                                </span>
-                                            </div>
-                                            <div className="grid grid-cols-2 gap-3">
-                                                {item.miniFeatures.map((f, i) => (
-                                                    <div key={i} className="flex items-start gap-3 px-4 py-3 rounded-xl bg-white/[0.03] border border-white/8 backdrop-blur-sm">
-                                                        <div className="mt-0.5 shrink-0">{f.icon}</div>
-                                                        <div>
-                                                            <p className="text-xs font-semibold text-white/80 leading-tight">{f.label}</p>
-                                                            <p className="text-[11px] text-txt-muted mt-0.5 leading-tight">{f.desc}</p>
+                                        {/* What this step unlocks — compact pills */}
+                                        {powerGroup && (
+                                            <div className="pl-2 md:pl-4 space-y-3">
+                                                <p className="text-[11px] font-semibold text-txt-muted uppercase tracking-widest">
+                                                    {powerGroup.label}
+                                                </p>
+                                                <div className="grid sm:grid-cols-2 gap-2.5">
+                                                    {powerGroup.items.map((feature, fi) => (
+                                                        <div key={fi} className="px-3.5 py-2.5 rounded-xl bg-white/[0.04] backdrop-blur-sm">
+                                                            <p className="text-xs font-semibold text-white/80 leading-tight">{feature.title}</p>
                                                         </div>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
-
-                                        {/* Common problem + how to debug it */}
-                                        <div className="pl-2 md:pl-4">
-                                            <div className="flex items-start gap-2.5 px-4 py-3 rounded-xl bg-amber-500/[0.06] border border-amber-500/20">
-                                                <Wrench className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                                                <div>
-                                                    <p className="text-xs font-semibold text-amber-200/90 leading-snug">{item.troubleshoot.problem}</p>
-                                                    <p className="text-[11px] text-txt-muted mt-1 leading-relaxed">{item.troubleshoot.fix}</p>
+                                                    ))}
                                                 </div>
                                             </div>
+                                        )}
+
+                                        {/* Common problem + how to debug it (collapsed by default) */}
+                                        <div className="pl-2 md:pl-4">
+                                            <details className="group/ts rounded-xl bg-amber-500/[0.06] border border-amber-500/20 overflow-hidden">
+                                                <summary className="flex items-center gap-2.5 px-4 py-3 cursor-pointer list-none select-none">
+                                                    <Wrench className="w-4 h-4 text-amber-400 shrink-0" />
+                                                    <span className="text-xs font-semibold text-amber-200/90 leading-snug">{item.troubleshoot.problem}</span>
+                                                    <svg className="w-3.5 h-3.5 text-amber-400/70 ml-auto shrink-0 transition-transform group-open/ts:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                                                </summary>
+                                                <p className="text-[11px] text-txt-muted leading-relaxed px-4 pb-3 pl-[42px]">{item.troubleshoot.fix}</p>
+                                            </details>
                                         </div>
                                     </div>
 
@@ -469,35 +450,6 @@ export default function NavigationComparison() {
                                         </div>
                                     </div>
                                 </div>
-
-                                {/* This step's detailed feature cards, directly beneath it */}
-                                {powerGroup && (
-                                    <div className="mt-8 md:mt-10 max-w-4xl mx-auto">
-                                        <p className="text-xs font-semibold text-txt-muted uppercase tracking-widest mb-4 pl-1">
-                                            {powerGroup.label}
-                                        </p>
-                                        <div className={`grid grid-cols-1 gap-4 ${powerGroup.items.length === 3 ? 'sm:grid-cols-3' : 'sm:grid-cols-2'}`}>
-                                            {powerGroup.items.map((feature, fi) => (
-                                                <div
-                                                    key={fi}
-                                                    className="group relative bg-gradient-to-br from-zinc-900/80 to-zinc-950/80 backdrop-blur-xl border border-white/5 rounded-2xl p-5 hover:border-white/20 transition-all duration-500 overflow-hidden"
-                                                >
-                                                    <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
-                                                    <div className="mb-4">{feature.visual}</div>
-                                                    <div className="relative z-10 flex items-start gap-3">
-                                                        <div className={`p-2 rounded-xl bg-gradient-to-br ${feature.gradient} bg-opacity-20`}>
-                                                            <div className="text-white">{feature.icon}</div>
-                                                        </div>
-                                                        <div>
-                                                            <h4 className="heading-5 text-txt-primary mb-1">{feature.title}</h4>
-                                                            <p className="body-sm text-txt-secondary">{feature.description}</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
                             </div>
                         );
                     })}
@@ -506,19 +458,11 @@ export default function NavigationComparison() {
                 {/* Now you flow — create a workspace + Spotlight, together */}
                 <div className="max-w-6xl mx-auto mt-24 md:mt-32">
                     <div className="text-center mb-12">
-                        <div className="inline-block mb-4">
-                            <div className="px-4 py-2 rounded-full bg-gradient-to-r from-emerald-500/10 via-blue-500/10 to-cyan-500/10 border border-white/10">
-                                <span className="label text-gradient-accent flex items-center justify-center gap-2">
-                                    <Sparkles className="w-4 h-4" />
-                                    NOW YOU FLOW
-                                </span>
-                            </div>
-                        </div>
                         <h3 className="heading-2 text-txt-primary mb-4">
                             Create a workspace, then find anything
                         </h3>
                         <p className="body-lg text-txt-secondary max-w-2xl mx-auto">
-                            With both bridges connected, set up your projects and pull up anything across browser and desktop in one keystroke.
+                            Both bridges connected — set up projects and pull up anything across browser and desktop in one keystroke.
                         </p>
                     </div>
 
@@ -545,42 +489,26 @@ export default function NavigationComparison() {
 
                                 {/* Content */}
                                 <div className="p-6 space-y-5">
-                                    <div className="flex items-center gap-3">
-                                        <div className="p-3 rounded-2xl bg-white/5 border border-white/10 shadow-inner backdrop-blur-sm">
-                                            {item.icon}
-                                        </div>
-                                        <h4 className="heading-4 text-white font-semibold tracking-tight">{item.headline}</h4>
-                                    </div>
 
                                     <p className="body-md text-txt-muted/80 leading-relaxed">{item.detail}</p>
 
-                                    <div className="relative pl-6 border-l-2 border-btn-primary py-1">
-                                        <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-btn-primary/20 flex items-center justify-center">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-btn-primary animate-pulse"></div>
-                                        </div>
-                                        <p className="heading-5 text-white leading-relaxed font-medium">{item.unlock}</p>
-                                    </div>
-
-                                    <div className="grid grid-cols-2 gap-3">
+                                    <div className="grid grid-cols-2 gap-2.5">
                                         {item.miniFeatures.map((f, i) => (
-                                            <div key={i} className="flex items-start gap-3 px-4 py-3 rounded-xl bg-white/[0.03] border border-white/8 backdrop-blur-sm">
-                                                <div className="mt-0.5 shrink-0">{f.icon}</div>
-                                                <div>
-                                                    <p className="text-xs font-semibold text-white/80 leading-tight">{f.label}</p>
-                                                    <p className="text-[11px] text-txt-muted mt-0.5 leading-tight">{f.desc}</p>
-                                                </div>
+                                            <div key={i} className="px-3.5 py-2.5 rounded-xl bg-white/[0.04] backdrop-blur-sm">
+                                                <p className="text-xs font-semibold text-white/80 leading-tight">{f.label}</p>
                                             </div>
                                         ))}
                                     </div>
 
-                                    {/* Common problem + how to debug it */}
-                                    <div className="flex items-start gap-2.5 px-4 py-3 rounded-xl bg-amber-500/[0.06] border border-amber-500/20">
-                                        <Wrench className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                                        <div>
-                                            <p className="text-xs font-semibold text-amber-200/90 leading-snug">{item.troubleshoot.problem}</p>
-                                            <p className="text-[11px] text-txt-muted mt-1 leading-relaxed">{item.troubleshoot.fix}</p>
-                                        </div>
-                                    </div>
+                                    {/* Common problem + how to debug it (collapsed by default) */}
+                                    {/* <details className="group/ts rounded-xl bg-amber-500/[0.06] border border-amber-500/20 overflow-hidden">
+                                        <summary className="flex items-center gap-2.5 px-4 py-3 cursor-pointer list-none select-none">
+                                            <Wrench className="w-4 h-4 text-amber-400 shrink-0" />
+                                            <span className="text-xs font-semibold text-amber-200/90 leading-snug">{item.troubleshoot.problem}</span>
+                                            <svg className="w-3.5 h-3.5 text-amber-400/70 ml-auto shrink-0 transition-transform group-open/ts:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+                                        </summary>
+                                        <p className="text-[11px] text-txt-muted leading-relaxed px-4 pb-3 pl-[42px]">{item.troubleshoot.fix}</p>
+                                    </details> */}
                                 </div>
                             </div>
                         ))}
@@ -590,20 +518,11 @@ export default function NavigationComparison() {
                 {/* Make it yours — personalization & sync */}
                 <div className="max-w-5xl mx-auto mt-24 md:mt-32">
                     <div className="text-center mb-12">
-                        <div className="inline-block mb-4">
-                            <div className="px-4 py-2 rounded-full bg-gradient-to-r from-fuchsia-500/10 via-purple-500/10 to-blue-500/10 border border-white/10">
-                                <span className="label text-gradient-accent flex items-center justify-center gap-2">
-                                    <Sparkles className="w-4 h-4" />
-                                    MAKE IT YOURS
-                                </span>
-                            </div>
-                        </div>
                         <h3 className="heading-2 text-txt-primary mb-4">
                             Personalize &amp; sync
                         </h3>
                         <p className="body-lg text-txt-secondary max-w-2xl mx-auto">
-                            Pick a theme, set your wallpaper, and bring your own API keys —
-                            then keep it all in sync across every browser.
+                            Pick a theme, set a wallpaper, bring your own API keys — synced across every browser.
                         </p>
                     </div>
 
@@ -613,15 +532,10 @@ export default function NavigationComparison() {
                                 key={index}
                                 className="group relative bg-gradient-to-br from-zinc-900/80 to-zinc-950/80 backdrop-blur-xl border border-white/5 rounded-2xl p-5 hover:border-white/20 transition-all duration-500 overflow-hidden"
                             >
-                                <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
-                                <div className="mb-4">{feature.visual}</div>
+
                                 <div className="relative z-10 flex items-start gap-3">
-                                    <div className={`p-2 rounded-xl bg-gradient-to-br ${feature.gradient} bg-opacity-20`}>
-                                        <div className="text-white">{feature.icon}</div>
-                                    </div>
                                     <div>
                                         <h4 className="heading-5 text-txt-primary mb-1">{feature.title}</h4>
-                                        <p className="body-sm text-txt-secondary">{feature.description}</p>
                                     </div>
                                 </div>
                             </div>

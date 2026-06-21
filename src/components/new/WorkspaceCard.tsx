@@ -1,4 +1,5 @@
 import { FaCheck, FaGlobe, FaArrowRight, FaPlus, FaDesktop, FaTerminal } from 'react-icons/fa';
+import { useState } from 'react';
 import { ProjectWorkspace, badgeStyles, getToolType, toolTypeLabels, ToolType } from '@/config/workspaces';
 
 interface WorkspaceCardProps {
@@ -6,6 +7,40 @@ interface WorkspaceCardProps {
     selectionMode?: boolean;
     isSelected?: boolean;
     onSelect?: () => void;
+}
+
+// Derive a hostname from a tool's primary URL so we can pull its real favicon/logo.
+function getDomain(url?: string): string | null {
+    if (!url) return null;
+    try {
+        return new URL(url).hostname.replace(/^www\./, '');
+    } catch {
+        return null;
+    }
+}
+
+// Real logo with graceful fallback to the workspace emoji.
+function ToolIcon({ domain, emoji }: { domain: string | null; emoji?: string }) {
+    const [failed, setFailed] = useState(false);
+    const showLogo = domain && !failed;
+
+    return (
+        <div className="relative w-11 h-11 flex items-center justify-center rounded-xl flex-shrink-0
+                      bg-white/[0.06] ring-1 ring-inset ring-white/10 shadow-sm overflow-hidden
+                      transition-transform duration-200 group-hover:scale-[1.04]">
+            {showLogo ? (
+                <img
+                    src={`https://www.google.com/s2/favicons?domain=${domain}&sz=128`}
+                    alt=""
+                    loading="lazy"
+                    onError={() => setFailed(true)}
+                    className="w-6 h-6 rounded-md object-contain"
+                />
+            ) : (
+                <span className="text-2xl leading-none">{emoji}</span>
+            )}
+        </div>
+    );
 }
 
 // Icon per tool type for the small header chip
@@ -32,17 +67,20 @@ export default function WorkspaceCard({ workspace, selectionMode = false, isSele
         <article
             onClick={handleCardClick}
             className={`group relative h-full flex flex-col rounded-2xl p-5 overflow-hidden backdrop-blur-sm
-                     transition-all duration-200 ease-out
+                     transition-all duration-300 ease-out
+                     before:absolute before:inset-0 before:rounded-2xl before:p-px before:pointer-events-none before:transition-all before:duration-300
+                     before:[-webkit-mask:linear-gradient(#000_0_0)_content-box,linear-gradient(#000_0_0)] before:[mask:linear-gradient(#000_0_0)_content-box,linear-gradient(#000_0_0)]
+                     before:[-webkit-mask-composite:xor] before:[mask-composite:exclude]
                      ${selectionMode
                     ? isSelected
-                        ? 'bg-green-500/[0.08] border border-green-500/70 shadow-lg shadow-green-500/10 cursor-pointer'
-                        : 'bg-white/[0.03] border border-dashed border-white/15 hover:border-fuchsia-500/60 cursor-pointer'
-                    : 'bg-gradient-to-b from-white/[0.06] to-white/[0.015] border border-white/[0.08] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.07)] hover:border-white/20 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/40'
+                        ? 'bg-green-500/[0.08] border border-green-500/70 shadow-lg shadow-green-500/10 cursor-pointer before:[background:none]'
+                        : 'bg-white/[0.03] border border-dashed border-white/15 hover:border-fuchsia-500/60 cursor-pointer before:[background:none]'
+                    : 'bg-gradient-to-br from-white/[0.07] via-white/[0.02] to-white/[0.01] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] hover:-translate-y-1 hover:shadow-[0_18px_44px_-18px_rgba(168,85,247,0.45)] before:[background:linear-gradient(150deg,rgba(255,255,255,0.18),rgba(255,255,255,0.04)_38%,rgba(255,255,255,0.02))] hover:before:[background:linear-gradient(150deg,rgba(244,114,182,0.65),rgba(168,85,247,0.32)_45%,rgba(255,255,255,0.06))]'
                 }`}
         >
             {/* Soft hover glow */}
             {!selectionMode && (
-                <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-b from-fuchsia-500/[0.08] via-transparent to-transparent" />
+                <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[radial-gradient(120%_80%_at_50%_0%,rgba(217,70,239,0.12),transparent_60%)]" />
             )}
 
             {/* Header: icon + title + badge */}
@@ -57,19 +95,13 @@ export default function WorkspaceCard({ workspace, selectionMode = false, isSele
                     </div>
                 )}
 
-                {icon && (
-                    <div className="relative w-11 h-11 flex items-center justify-center rounded-xl flex-shrink-0
-                                  bg-white/[0.06] ring-1 ring-inset ring-white/10 shadow-sm
-                                  transition-transform duration-200 group-hover:scale-[1.04]">
-                        <span className="text-2xl leading-none">{icon}</span>
-                    </div>
-                )}
+                <ToolIcon domain={getDomain(urls.main || primaryUrl)} emoji={icon} />
 
                 <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
                         <h3 className="text-base font-semibold text-txt-primary truncate">{title}</h3>
                         {trending.badge && (
-                            <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${badgeStyles[trending.badge]}`}>
+                            <span className={`text-[9px] font-semibold uppercase tracking-[0.15em] flex-shrink-0 ${badgeStyles[trending.badge]}`}>
                                 {trending.badge}
                             </span>
                         )}

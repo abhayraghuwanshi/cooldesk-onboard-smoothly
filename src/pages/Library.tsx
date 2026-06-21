@@ -2,9 +2,52 @@ import Footer from "@/components/new/Footer";
 import Navbar from "@/components/new/Navbar";
 import WorkspaceSection from "@/components/new/WorkspaceSection";
 import SEO from "@/components/SEO";
+import { categoryLabels, workspaces } from "@/config/workspaces";
 import { useEffect } from 'react';
 
-export default function Search() {
+const LIBRARY_URL = "https://cool-desk.com/library";
+const TOOL_COUNT = workspaces.length;
+
+// Structured data so search engines & AI answers can understand this as a
+// curated software directory and surface the individual tools.
+const collectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Curated Tool Library",
+    description: `A hand-picked directory of ${TOOL_COUNT}+ developer, design, and AI tools, organized by build stage and launchable instantly from CoolDesk.`,
+    url: LIBRARY_URL,
+    isPartOf: { "@type": "WebSite", name: "CoolDesk", url: "https://cool-desk.com" },
+    mainEntity: {
+        "@type": "ItemList",
+        name: "Curated developer, design & AI tools",
+        numberOfItems: TOOL_COUNT,
+        itemListElement: workspaces.map((w, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            item: {
+                "@type": "SoftwareApplication",
+                name: w.title,
+                description: w.description,
+                applicationCategory: categoryLabels[w.category] ?? "Developer Tool",
+                operatingSystem: "Web, Windows, macOS, Linux",
+                ...(w.urls.main || w.urls.demo || w.urls.docs
+                    ? { url: w.urls.main || w.urls.demo || w.urls.docs }
+                    : {}),
+            },
+        })),
+    },
+};
+
+const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://cool-desk.com" },
+        { "@type": "ListItem", position: 2, name: "Curated Tool Library", item: LIBRARY_URL },
+    ],
+};
+
+export default function Library() {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -14,9 +57,10 @@ export default function Search() {
             {/* Background Glow Overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-600/10 pointer-events-none z-0" />
             <SEO
-                title="Curated Tool Library"
-                description="Explore a curated library of tools, apps, and workspaces — launch them instantly from CoolDesk."
-                canonical="https://cool-desk.com/search"
+                title={`Curated Tool Library — ${TOOL_COUNT}+ Developer, Design & AI Tools | CoolDesk`}
+                description={`Browse a curated directory of ${TOOL_COUNT}+ developer, design & AI tools — Radix, Tailwind, Vercel, Hugging Face and more. Filter by build stage and launch any of them instantly in CoolDesk.`}
+                canonical={LIBRARY_URL}
+                jsonLd={[collectionSchema, breadcrumbSchema]}
             />
             {/* Dot Grid Pattern */}
             <div className="absolute inset-0 pointer-events-none z-0" style={{
@@ -48,10 +92,15 @@ export default function Search() {
             <section className="relative z-10 pt-24 pb-12">
                 <div className="container mx-auto px-6">
                     {/* Title */}
-                    <div className="text-center mb-8 animate-fade-in">
+                    <div className="text-center mb-8 animate-fade-in max-w-2xl mx-auto">
                         <h1 className="text-2xl sm:text-3xl font-bold text-txt-primary">
                             Curated Tool Library
                         </h1>
+                        <p className="mt-3 text-sm sm:text-base text-txt-secondary leading-relaxed">
+                            A hand-picked directory of {TOOL_COUNT}+ developer, design, and AI tools — from
+                            Radix and Tailwind to Vercel and Hugging Face. Filter by build stage and launch
+                            any of them instantly in CoolDesk.
+                        </p>
                     </div>
 
                     {/* Content Area */}
