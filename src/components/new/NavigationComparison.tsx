@@ -1,4 +1,4 @@
-import { AppWindow, Bot, Chrome, Focus, Image as ImageIcon, Keyboard, KeyRound, Layers, MonitorUp, Palette, RefreshCw, Search, Sparkles, Target, Wrench, Zap } from 'lucide-react';
+import { AppWindow, Bot, Check, Chrome, Focus, HelpCircle, Image as ImageIcon, Keyboard, KeyRound, Layers, MonitorUp, Palette, RefreshCw, Search, Sparkles, Target, Zap } from 'lucide-react';
 import { ReactNode } from 'react';
 
 interface MiniFeature {
@@ -379,9 +379,6 @@ export default function NavigationComparison() {
                                                 <div className="flex-shrink-0 w-9 h-9 rounded-full bg-btn-primary/15 border border-btn-primary/30 flex items-center justify-center">
                                                     <span className="text-sm font-bold text-btn-primary">{item.step}</span>
                                                 </div>
-                                                <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 shadow-inner backdrop-blur-sm">
-                                                    {item.icon}
-                                                </div>
                                                 <h3 className="heading-3 text-white font-semibold tracking-tight">
                                                     {item.headline}
                                                 </h3>
@@ -400,10 +397,11 @@ export default function NavigationComparison() {
                                                 <p className="text-[11px] font-semibold text-txt-muted uppercase tracking-widest">
                                                     {powerGroup.label}
                                                 </p>
-                                                <div className="grid sm:grid-cols-2 gap-2.5">
+                                                <div className="grid sm:grid-cols-2 gap-x-5 gap-y-2">
                                                     {powerGroup.items.map((feature, fi) => (
-                                                        <div key={fi} className="px-3.5 py-2.5 rounded-xl bg-white/[0.04] backdrop-blur-sm">
-                                                            <p className="text-xs font-semibold text-white/80 leading-tight">{feature.title}</p>
+                                                        <div key={fi} className="flex items-center gap-2">
+                                                            <Check className="w-3.5 h-3.5 text-emerald-400/80 shrink-0" strokeWidth={2.5} />
+                                                            <p className="text-xs font-medium text-white/70 leading-tight">{feature.title}</p>
                                                         </div>
                                                     ))}
                                                 </div>
@@ -414,7 +412,7 @@ export default function NavigationComparison() {
                                         <div className="pl-2 md:pl-4">
                                             <details className="group/ts rounded-xl bg-amber-500/[0.06] border border-amber-500/20 overflow-hidden">
                                                 <summary className="flex items-center gap-2.5 px-4 py-3 cursor-pointer list-none select-none">
-                                                    <Wrench className="w-4 h-4 text-amber-400 shrink-0" />
+                                                    <HelpCircle className="w-4 h-4 text-amber-400 shrink-0" />
                                                     <span className="text-xs font-semibold text-amber-200/90 leading-snug">{item.troubleshoot.problem}</span>
                                                     <svg className="w-3.5 h-3.5 text-amber-400/70 ml-auto shrink-0 transition-transform group-open/ts:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
                                                 </summary>
@@ -492,14 +490,6 @@ export default function NavigationComparison() {
 
                                     <p className="body-md text-txt-muted/80 leading-relaxed">{item.detail}</p>
 
-                                    <div className="grid grid-cols-2 gap-2.5">
-                                        {item.miniFeatures.map((f, i) => (
-                                            <div key={i} className="px-3.5 py-2.5 rounded-xl bg-white/[0.04] backdrop-blur-sm">
-                                                <p className="text-xs font-semibold text-white/80 leading-tight">{f.label}</p>
-                                            </div>
-                                        ))}
-                                    </div>
-
                                     {/* Common problem + how to debug it (collapsed by default) */}
                                     {/* <details className="group/ts rounded-xl bg-amber-500/[0.06] border border-amber-500/20 overflow-hidden">
                                         <summary className="flex items-center gap-2.5 px-4 py-3 cursor-pointer list-none select-none">
@@ -533,10 +523,9 @@ export default function NavigationComparison() {
                                 className="group relative bg-gradient-to-br from-zinc-900/80 to-zinc-950/80 backdrop-blur-xl border border-white/5 rounded-2xl p-5 hover:border-white/20 transition-all duration-500 overflow-hidden"
                             >
 
-                                <div className="relative z-10 flex items-start gap-3">
-                                    <div>
-                                        <h4 className="heading-5 text-txt-primary mb-1">{feature.title}</h4>
-                                    </div>
+                                <div className="relative z-10">
+                                    <h4 className="heading-5 text-txt-primary mb-1">{feature.title}</h4>
+                                    <p className="text-sm text-txt-secondary leading-relaxed">{feature.description}</p>
                                 </div>
                             </div>
                         ))}

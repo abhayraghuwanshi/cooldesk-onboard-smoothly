@@ -107,7 +107,7 @@ export default function DownloadFeedback() {
 
   return (
     <div
-      className="mt-6 rounded-2xl border border-white/12 bg-white/[0.025] px-4 py-4 shadow-sm shadow-black/20 sm:px-5"
+      className="mt-6 rounded-2xl border border-white/[0.07] bg-gradient-to-b from-white/[0.045] to-white/[0.01] px-4 py-4 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] sm:px-5"
       data-gtm-form={FORM_NAME}
       data-gtm-location={FORM_LOCATION}
     >
@@ -136,7 +136,7 @@ export default function DownloadFeedback() {
                   data-gtm-action="select_reason"
                   data-gtm-form={FORM_NAME}
                   data-gtm-reason={reason}
-                  className="min-h-9 rounded-full border border-white/12 bg-white/[0.055] px-3.5 py-2 text-xs font-medium text-white/75 transition-colors hover:border-blue-300/35 hover:bg-white/[0.09] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300/60"
+                  className="min-h-9 rounded-full bg-white/[0.06] px-3.5 py-2 text-xs font-medium text-white/70 transition-colors hover:bg-white/[0.12] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300/50"
                 >
                   {reason}
                 </button>
@@ -148,7 +148,7 @@ export default function DownloadFeedback() {
                 data-gtm-action="open_other"
                 data-gtm-form={FORM_NAME}
                 data-gtm-reason="Other"
-                className="min-h-9 rounded-full border border-white/12 bg-white/[0.055] px-3.5 py-2 text-xs font-medium text-white/75 transition-colors hover:border-blue-300/35 hover:bg-white/[0.09] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300/60"
+                className="min-h-9 rounded-full bg-white/[0.06] px-3.5 py-2 text-xs font-medium text-white/70 transition-colors hover:bg-white/[0.12] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-300/50"
               >
                 Other
               </button>

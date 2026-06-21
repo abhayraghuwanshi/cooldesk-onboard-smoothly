@@ -1,6 +1,6 @@
+import { useSectionView } from "@/lib/analytics";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { useSectionView } from "@/lib/analytics";
 
 interface FAQItem {
     q: string;
@@ -94,14 +94,14 @@ export default function FAQ() {
                 {/* Left: FAQ Title */}
                 <div className="md:w-1/3 flex items-start md:items-center">
                     <div className="flex items-center gap-4">
-                        <img
+                        {/* <img
                             src="/help.png"
                             alt="Help"
                             className="w-16 h-16 md:w-20 md:h-20 object-contain"
                             width={200}
                             height={200}
                             loading="lazy"
-                        />
+                        /> */}
                         <h2 className="text-5xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300">
                             FAQs
                         </h2>

@@ -1,5 +1,5 @@
-import { Github } from 'lucide-react';
 import { GITHUB_REPO, site } from '@/config/site';
+import { Github } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -20,7 +20,7 @@ export default function Footer() {
               />
             </a>
             <p className="text-sm text-gray-500 max-w-xs leading-relaxed">
-              Browser tabs, desktop apps, links, and notes — grouped by project in one new tab.
+              Browser tabs, desktop apps, links, and notes — grouped by project in the app.
             </p>
           </div>
 

@@ -1,5 +1,4 @@
 import { useSectionView } from '@/lib/analytics';
-import { ArrowRight } from 'lucide-react';
 
 
 const POINTS = [
@@ -34,10 +33,10 @@ function Hero() {
 
                     <div className="flex-1 text-left">
                         <h1 className="text-4xl md:text-5xl font-black text-white mb-4 leading-tight">
-                            One calm surface for your workpop
+                            One calm surface for your work
                         </h1>
                         <p className="text-base md:text-lg text-white/60 max-w-md mb-8 leading-relaxed">
-                            CoolDesk groups your tabs, links, notes and running apps by project — in one new tab. The scattering stops, your screen comes back, and your focus stays put.
+                            CoolDesk groups your tabs, links, notes and running apps by project. The scattering stops, your screen comes back, and your focus stays put.
                         </p>
 
                         <div className="flex flex-wrap items-center gap-5 text-xs font-semibold text-white/40">
@@ -52,6 +51,12 @@ function Hero() {
                                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
                                 </svg>
                                 No Sign-in Required
+                            </span>
+                            <span className="flex items-center gap-1.5">
+                                <svg className="w-3.5 h-3.5 text-green-400" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                                </svg>
+                                100% Local
                             </span>
                         </div>
                     </div>
@@ -85,16 +90,6 @@ function Hero() {
                                 <p className="text-[13px] text-gray-400 leading-relaxed">{p.desc}</p>
                             </div>
                         ))}
-                    </div>
-
-                    <div className="mt-12 flex justify-end">
-                        <a
-                            href="#downloads"
-                            className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-400 hover:text-blue-300 transition-colors shrink-0 group"
-                        >
-                            Get CoolDesk free
-                            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                        </a>
                     </div>
                 </div>
             </div>
