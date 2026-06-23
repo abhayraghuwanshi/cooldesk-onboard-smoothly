@@ -123,7 +123,7 @@ function Downloads() {
 
           {/* Merged panel: stats + downloads + diagram */}
           <div className="rounded-2xl border border-white/15 overflow-hidden">
-            <div className="grid lg:grid-cols-2 lg:divide-x divide-white/15">
+            <div className="grid grid-cols-1 lg:grid-cols-2 lg:divide-x divide-white/15">
 
               {/* Stats column */}
               <div className="bg-white/[0.015]">
