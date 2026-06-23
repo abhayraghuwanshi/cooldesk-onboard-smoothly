@@ -157,7 +157,7 @@ function Downloads() {
                   data-gtm-platform="chrome"
                   data-gtm-version={VERSIONS.extension}
                   data-gtm-method="chrome_web_store"
-                  className="flex items-center gap-4 px-5 py-4 hover:bg-white/[0.04] transition-colors group border-b border-white/15"
+                  className="flex items-center gap-3 sm:gap-4 px-4 sm:px-5 py-4 hover:bg-white/[0.04] transition-colors group border-b border-white/15"
                 >
                   <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/15 flex items-center justify-center shrink-0">
                     <ExtensionIcon className="w-5 h-5 text-blue-400" />
@@ -199,7 +199,7 @@ function Downloads() {
                       data-gtm-platform="windows"
                       data-gtm-version={VERSIONS.windows}
                       data-gtm-method="direct_installer"
-                      className="flex items-center gap-4 px-5 py-4 hover:bg-white/[0.04] transition-colors group border-b border-white/15"
+                      className="flex items-center gap-3 sm:gap-4 px-4 sm:px-5 py-4 hover:bg-white/[0.04] transition-colors group border-b border-white/15"
                     >
                       <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/15 flex items-center justify-center shrink-0">
                         <WindowsIcon className="w-5 h-5 text-purple-400" />
@@ -223,14 +223,14 @@ function Downloads() {
                       data-gtm-platform="windows"
                       data-gtm-version={VERSIONS.windows}
                       data-gtm-method="winget"
-                      className="w-full flex items-center gap-4 px-5 py-4 hover:bg-white/[0.04] transition-colors group border-b border-white/15 text-left"
+                      className="w-full flex items-center gap-3 sm:gap-4 px-4 sm:px-5 py-4 hover:bg-white/[0.04] transition-colors group border-b border-white/15 text-left"
                     >
                       <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/15 flex items-center justify-center shrink-0">
                         <WingetIcon className="w-5 h-5 text-purple-400" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="heading-5">Windows <span className="text-txt-muted font-normal">via Winget</span></p>
-                        <p className="caption mt-0.5 font-mono">{WINGET_COMMAND}</p>
+                        <p className="caption mt-0.5 font-mono truncate">{WINGET_COMMAND}</p>
                       </div>
                       <span className="inline-flex items-center gap-1.5 text-sm font-medium text-txt-secondary group-hover:text-white transition-colors shrink-0">
                         {copied ? (
@@ -265,7 +265,7 @@ function Downloads() {
                       data-gtm-platform="macos"
                       data-gtm-version={VERSIONS.mac}
                       data-gtm-method="direct_dmg"
-                      className="flex items-center gap-4 px-5 py-4 hover:bg-white/[0.04] transition-colors group border-b border-white/15"
+                      className="flex items-center gap-3 sm:gap-4 px-4 sm:px-5 py-4 hover:bg-white/[0.04] transition-colors group border-b border-white/15"
                     >
                       <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/15 flex items-center justify-center shrink-0">
                         <MacIcon className="w-5 h-5 text-zinc-300" />
@@ -289,7 +289,7 @@ function Downloads() {
                       data-gtm-platform="macos"
                       data-gtm-version={VERSIONS.mac}
                       data-gtm-method="homebrew"
-                      className="w-full flex items-center gap-4 px-5 py-4 hover:bg-white/[0.04] transition-colors group border-b border-white/15 text-left"
+                      className="w-full flex items-center gap-3 sm:gap-4 px-4 sm:px-5 py-4 hover:bg-white/[0.04] transition-colors group border-b border-white/15 text-left"
                     >
                       <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/15 flex items-center justify-center shrink-0">
                         <WingetIcon className="w-5 h-5 text-zinc-300" />
@@ -315,7 +315,7 @@ function Downloads() {
 
                     {/* Linux — coming soon */}
                     <div
-                      className="flex items-center gap-4 px-5 py-4 opacity-40 select-none border-b border-white/15"
+                      className="flex items-center gap-3 sm:gap-4 px-4 sm:px-5 py-4 opacity-40 select-none border-b border-white/15"
                       data-gtm-element="download-unavailable"
                       data-gtm-section={DOWNLOADS_SECTION}
                       data-gtm-target="linux_installer"
