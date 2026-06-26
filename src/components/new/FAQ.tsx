@@ -10,35 +10,51 @@ interface FAQItem {
 const items: FAQItem[] = [
     {
         q: "What is CoolDesk?",
-        a: "CoolDesk is a browser extension and desktop app built for developers and builders who juggle multiple projects. Instead of scattering your work across browser tabs, VS Code, Slack, and a notes app, CoolDesk groups everything — tabs, links, notes, files, and running apps — under one project workspace in your new tab.",
+        a: "CoolDesk is a free browser extension and desktop app that organizes your browser tabs, desktop apps, links, and notes into project workspaces on your new tab page. It's built for developers and builders who juggle multiple projects, replacing scattered tabs and windows with one organized workspace you can search instantly.",
     },
     {
-        q: "How is it different from a regular tab manager?",
-        a: "Tab managers only handle tabs. CoolDesk organizes your entire OS and projects — tabs, running desktop apps, saved links, notes, files, and AI chat history — all grouped by project. It also has spotlight search across everything and an AI that automatically clusters your work into project groups.",
+        q: "How do I organize my browser tabs by project?",
+        a: "To organize browser tabs by project, install CoolDesk and group related tabs, links, notes, and apps into a named workspace. Each project gets its own workspace on your new tab page, so you can switch context instantly instead of digging through dozens of open tabs. CoolDesk can also auto-group tabs by domain or use AI to cluster them into projects for you.",
+    },
+    {
+        q: "Is CoolDesk a new tab extension?",
+        a: "Yes, CoolDesk replaces your browser's new tab page with a project dashboard. Instead of a blank page, every new tab shows your project workspaces, recent activity, notes, and a spotlight search bar so your work is one click away.",
+    },
+    {
+        q: "How is CoolDesk different from a regular tab manager?",
+        a: "Unlike tab managers that only handle browser tabs, CoolDesk organizes your entire workflow — tabs, running desktop apps, saved links, notes, and AI chat history — all grouped by project. It also adds spotlight search across everything and an AI that automatically clusters your work into project groups.",
+    },
+    {
+        q: "How do I search across all my tabs, apps, and notes at once?",
+        a: "Press Alt+K to open GlobalSpotlight, CoolDesk's universal search bar. It instantly searches across your open tabs, browsing history, bookmarks, notes, project workspaces, and running desktop apps from one place — so you never lose track of where something is.",
+    },
+    {
+        q: "Is CoolDesk free?",
+        a: "Yes, CoolDesk is completely free with no subscription and no paywalled features. You get every feature — project workspaces, spotlight search, and AI organization — at no cost.",
+    },
+    {
+        q: "Do I need an account or sign-in to use CoolDesk?",
+        a: "No account or sign-in is required. Install CoolDesk and start using it immediately — your data stays local in your browser, with nothing sent to external servers unless you opt into cloud AI using your own API key.",
+    },
+    {
+        q: "Where is my data stored, and is CoolDesk private?",
+        a: "All your data is stored locally in your browser's IndexedDB and never leaves your device. CoolDesk runs no servers that store your tabs, history, or notes — the only exceptions are optional features you turn on yourself, like cloud AI (with your own API key) or end-to-end encrypted team sharing.",
     },
     {
         q: "What is the AI SmartWorkspace?",
-        a: "SmartWorkspace is an AI feature that reads your browser history, open tabs, and AI chat history (from ChatGPT, Claude, etc.) and automatically groups them into project clusters. It's like having someone organize your digital desk for you.",
+        a: "AI SmartWorkspace reads your browser history, open tabs, and AI chat history (from ChatGPT, Claude, and others) and automatically groups them into project clusters. It organizes your digital workspace for you, running locally by default or with your own API key for cloud models — so no data leaves your device unless you choose.",
     },
     {
-        q: "Is it free to install?",
-        a: "Yes, completely free. No subscription, no paywalled features.",
+        q: "What does the CoolDesk desktop app add?",
+        a: "The desktop app adds per-window app focus and surfaces all your running apps alongside your browser tabs. When you have several VS Code windows open, CoolDesk shows each one with its project name so you can jump straight to the right window — something Spotlight or Raycast can't do, since they only show the app, not each window.",
     },
     {
-        q: "Do I need an account or sign-in?",
-        a: "No account or sign-in required. Install and start immediately. Your data stays local in your browser's IndexedDB.",
+        q: "Can I share a project workspace with my team?",
+        a: "Yes. CoolDesk's optional Spaces feature lets you share links, notes, and a shared project context with teammates. Sharing is peer-to-peer and end-to-end encrypted using a secret phrase — no account needed, and CoolDesk never stores your shared content on a server.",
     },
     {
-        q: "Where is my data stored?",
-        a: "Everything is stored locally in your browser's IndexedDB. Nothing is sent to external servers unless you use AI features that require an API key you provide.",
-    },
-    {
-        q: "Which browsers are supported?",
-        a: "Chrome, Brave, and Edge (all Chromium-based browsers). Firefox support is on the roadmap.",
-    },
-    {
-        q: "What does the desktop app add?",
-        a: "The desktop app unlocks per-window app focus. When you have multiple VS Code windows open, CoolDesk shows each one separately with its project name — so you click directly to the right window. Tools like Raycast or Spotlight only show the app, not each window. It also surfaces all your running apps alongside your browser tabs in one place.",
+        q: "Which browsers does CoolDesk support?",
+        a: "CoolDesk works on Chrome, Brave, Edge, and other Chromium-based browsers. Firefox support is on the roadmap.",
     },
 ];
 
@@ -141,7 +157,7 @@ export default function FAQ() {
                                         id={`faq-panel-${idx}`}
                                         role="region"
                                         aria-labelledby={`faq-header-${idx}`}
-                                        className={`px-6 transition-[max-height,opacity] duration-300 ease-out ${isOpen ? "max-h-64 opacity-100 pb-5" : "max-h-0 opacity-0 overflow-hidden"
+                                        className={`px-6 transition-[max-height,opacity] duration-300 ease-out ${isOpen ? "max-h-[32rem] opacity-100 pb-5" : "max-h-0 opacity-0 overflow-hidden"
                                             }`}
                                     >
                                         <p className="text-gray-400 text-sm md:text-base leading-relaxed">{item.a}</p>

@@ -22,6 +22,9 @@ const PolicyNav: React.FC = () => {
         { id: "how-we-use", label: "How We Use Your Data" },
         { id: "permissions", label: "Chrome Permissions" },
         { id: "desktop-app", label: "Windows Desktop App" },
+        { id: "ai-features", label: "AI Features (Your Own Key)" },
+        { id: "team-sharing", label: "Team Sharing & Spaces" },
+        { id: "app-analytics", label: "Anonymous Usage Analytics" },
         { id: "website-analytics", label: "Website Analytics" },
         { id: "security", label: "Data Security" },
         { id: "user-rights", label: "User Control & Rights" },
@@ -65,9 +68,9 @@ const PrivacyPolicyStatic: React.FC = () => {
                 <div className="flex-1 px-6 py-12 lg:px-16 max-w-3xl">
                     <header className="mb-12">
                         <h1 className="text-3xl font-bold text-gray-900 mb-2">Privacy Policy</h1>
-                        <p className="text-gray-500 text-sm">Last updated: April 2026</p>
+                        <p className="text-gray-500 text-sm">Last updated: June 2026</p>
                         <p className="mt-4 text-gray-600 text-sm bg-blue-50 border border-blue-100 rounded-lg px-4 py-3">
-                            This policy covers both the <strong>CoolDesk browser extension</strong> and the <strong>CoolDesk Windows desktop app</strong>. Website analytics are described separately in the <a href="#website-analytics" className="underline text-blue-600">Website Analytics</a> section.
+                            This policy covers both the <strong>CoolDesk browser extension</strong> and the <strong>CoolDesk Windows desktop app</strong>. Everything runs locally and <strong>no sign-up or account is required</strong>. Data only leaves your device in three opt-in or opt-out cases: an anonymous <a href="#app-analytics" className="underline text-blue-600">usage ping</a>, optional <a href="#ai-features" className="underline text-blue-600">cloud AI</a> using your own key, and <a href="#team-sharing" className="underline text-blue-600">Team Sharing</a> when you choose to share with others. Website traffic is covered separately under <a href="#website-analytics" className="underline text-blue-600">Website Analytics</a>.
                         </p>
                     </header>
 
@@ -76,7 +79,7 @@ const PrivacyPolicyStatic: React.FC = () => {
                             CoolDesk helps you organise browser tabs, desktop apps, links, and notes by project — all in one place. This policy explains what data we access, how it stays on your device, and your rights as a user.
                         </p>
                         <p className="font-medium text-gray-900">
-                            Core principle: your browsing data never leaves your device. CoolDesk does not operate servers that store your personal data.
+                            Core principle: your browsing data stays on your device by default, and CoolDesk does not operate servers that store your personal data. Anything only leaves your device in three cases you control: the opt-out anonymous usage ping, the optional cloud AI mode you turn on with your own key, and Team Sharing when you choose to share a Space with others — all described below.
                         </p>
                     </PolicySection>
 
@@ -88,9 +91,10 @@ const PrivacyPolicyStatic: React.FC = () => {
                             <li>Open tabs — to enable quick access and workspace grouping</li>
                             <li>Notes — text you explicitly save within the extension</li>
                             <li>Workspace configurations — project names, saved URLs, and preferences</li>
+                            <li>Page engagement signals — for pages you visit, the extension measures simple interaction metrics: time on page, scroll depth, and the <strong>number</strong> of clicks, key-presses, and form submissions, plus how often you return to a site. These are counts and event types only — it does <strong>not</strong> record the text you type, your form values, keystrokes, or page content. Used to rank and auto-categorise URLs so Spotlight and workspaces surface the sites that matter to you.</li>
                         </ul>
                         <p className="text-sm text-gray-500 mt-2">
-                            None of this data is transmitted to CoolDesk's servers or any third party.
+                            All of this is stored on your device (Chrome storage and, if you use the desktop app, mirrored to it locally on the same machine). None of it is transmitted to CoolDesk's servers or any third party.
                         </p>
                     </PolicySection>
 
@@ -100,8 +104,9 @@ const PrivacyPolicyStatic: React.FC = () => {
                             <li><strong>GlobalSpotlight (Alt+K)</strong> — searches your tabs, history, bookmarks, notes, and workspaces instantly</li>
                             <li><strong>Workspaces</strong> — groups your saved URLs and apps by project</li>
                             <li><strong>Smart Tab Management</strong> — auto-groups open tabs by domain or project</li>
+                            <li><strong>Smart ranking &amp; categorisation</strong> — uses the on-page engagement signals above to rank your most-used sites and auto-categorise URLs, so the most relevant results appear first</li>
                             <li><strong>Notes</strong> — quick capture on new tab, including voice dictation stored locally</li>
-                            <li><strong>AI SmartWorkspace</strong> — uses a local AI service to suggest project groupings from your activity; no data is sent to external AI providers</li>
+                            <li><strong>AI SmartWorkspace</strong> — suggests project groupings from your activity. It runs on a local AI model by default; an optional cloud mode uses an API key you provide (see <a href="#ai-features" className="underline text-blue-600">AI Features</a>)</li>
                         </ul>
                         <p className="text-sm text-gray-500 mt-2">All processing happens on your device.</p>
                     </PolicySection>
@@ -114,9 +119,10 @@ const PrivacyPolicyStatic: React.FC = () => {
                             <li><strong>bookmarks</strong> — read bookmarks for workspace organisation</li>
                             <li><strong>storage</strong> — save your workspaces, notes, and preferences locally</li>
                             <li><strong>newtab override</strong> — replace the new tab page with the CoolDesk dashboard</li>
+                            <li><strong>content scripts</strong> — a lightweight script runs on the web pages you visit to measure the on-page engagement signals described above (click/scroll/time counts). It reads interaction counts only — not page content, form values, or what you type — and never sends them off your device.</li>
                         </ul>
                         <p className="text-sm text-gray-500 mt-2">
-                            We do not request broad host permissions, all-URLs access, or any permission beyond what is necessary for described features.
+                            Aside from the engagement-measuring content script above, we do not request broad host permissions or use page access to read your page content. We request no permission beyond what is necessary for the described features.
                         </p>
                     </PolicySection>
 
@@ -124,13 +130,83 @@ const PrivacyPolicyStatic: React.FC = () => {
                         <p>
                             The optional CoolDesk Windows app (currently in beta) extends Spotlight search to include your <strong>running Windows applications</strong> (e.g. VS Code, Slack, Postman).
                         </p>
+                        <p className="font-medium text-gray-900">
+                            No account, sign-up, or login is required. The app runs entirely on your machine — your apps, windows, workspaces, and notes never leave your device.
+                        </p>
                         <ul className="list-disc ml-5 mt-2 space-y-1.5">
-                            <li>The app reads the list of currently running processes from the Windows OS</li>
-                            <li>This data is used only to surface running apps in the Spotlight overlay</li>
-                            <li>No process data is stored persistently or transmitted externally</li>
+                            <li>The app reads the list of currently running processes and open windows (including window titles) from the Windows OS</li>
+                            <li>It can derive the names and paths of <strong>project folders you currently have open</strong> — parsed from the window titles of code editors, terminals, and File Explorer (e.g. a VS Code or terminal path). It may check the folder on disk to resolve the project root, but it does <strong>not</strong> read your file contents or index your drive</li>
+                            <li>This information is used to surface running apps and open folders in Spotlight, to focus the window you pick, and — only if you choose — to save an app or folder into a workspace, which is stored locally</li>
+                            <li>App names, window titles, and folder paths are never sent to CoolDesk's servers. The one exception is if you enable cloud AI, in which case they may be sent to your chosen AI provider — see <a href="#ai-features" className="underline text-blue-600">AI Features</a></li>
                         </ul>
                         <p className="text-sm text-gray-500 mt-2">
-                            The Windows app is not required. The browser extension works fully without it.
+                            The Windows app is not required. The browser extension works fully without it. By default the only data it sends off your device is the anonymous usage ping described below — and that can be turned off. Optional cloud AI is the only other case where data leaves your device, and only when you enable it.
+                        </p>
+                    </PolicySection>
+
+                    <PolicySection id="ai-features" title="AI Features (Bring Your Own Key)">
+                        <p>
+                            CoolDesk's AI workspace suggestions can run in two modes, and you choose which:
+                        </p>
+                        <ul className="list-disc ml-5 mt-2 space-y-1.5">
+                            <li><strong>Local AI (default, fully private)</strong> — a model running locally on your machine. Nothing leaves your device.</li>
+                            <li><strong>Cloud AI (optional, your own key)</strong> — you connect your own OpenAI or Anthropic API key. CoolDesk does not provide, resell, or proxy an AI service; requests go directly from your device to the provider you chose, billed to your own account.</li>
+                        </ul>
+                        <p className="mt-3">When you use cloud AI:</p>
+                        <ul className="list-disc ml-5 mt-2 space-y-1.5">
+                            <li>The context needed for the suggestion — such as your workspace names, open tabs, recent history titles and URLs, running app and window titles, and open project folder names — is sent to your chosen provider to generate the response, and is then handled under <strong>that provider's privacy policy</strong> (<a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer" className="underline text-blue-600">OpenAI</a> / <a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener noreferrer" className="underline text-blue-600">Anthropic</a>).</li>
+                            <li>Your API key is stored locally and <strong>encrypted at rest</strong> (Windows DPAPI). It is never transmitted to CoolDesk.</li>
+                            <li>Cloud AI is off until you add a key. CoolDesk never sends your AI context to its own servers in either mode.</li>
+                        </ul>
+                    </PolicySection>
+
+                    <PolicySection id="team-sharing" title="Team Sharing & Spaces">
+                        <p>
+                            CoolDesk includes an optional <strong>Spaces</strong> feature for sharing links, notes, saved items, and a shared "space context" (a goal, today's focus, and notices) with people you choose. It is <strong>off until you create or join a Space</strong>, and no account or sign-up is required.
+                        </p>
+                        <p className="font-medium text-gray-900">
+                            A Space is opened with a <strong>shared secret phrase</strong>. That phrase is the key: on your device it is turned into a room ID and an encryption key — the phrase itself is never uploaded. Anyone who has the phrase can join the Space and read its contents, so treat it like a password and share it only with people you trust.
+                        </p>
+                        <p className="mt-3">How the data moves:</p>
+                        <ul className="list-disc ml-5 mt-2 space-y-1.5">
+                            <li><strong>Peer-to-peer &amp; end-to-end encrypted.</strong> Space data syncs directly between members' devices over WebRTC and is encrypted with the key derived from your secret phrase.</li>
+                            <li><strong>Signaling server.</strong> A lightweight signaling server helps members discover and connect to each other. It sees only the Space's connection ID — never your decrypted content.</li>
+                            <li><strong>Relay servers.</strong> To connect across firewalls and networks, WebRTC may route traffic through third-party STUN/TURN relays (e.g. Google STUN and Open Relay). Because the data is end-to-end encrypted, these relays only ever carry ciphertext.</li>
+                            <li><strong>No central store.</strong> CoolDesk does not operate a server that stores your Space content — it lives only on members' devices.</li>
+                        </ul>
+                        <p className="mt-3">What is shared inside a Space:</p>
+                        <ul className="list-disc ml-5 mt-2 space-y-1.5">
+                            <li>The items you add — links, notes, and saved data, including their titles, URLs, and tags</li>
+                            <li>The shared space context — goal, today's focus, notices, and the alert flag</li>
+                            <li>Your <strong>display name and colour</strong>, so members can see who's present. This is a name you set; no email or account is attached.</li>
+                        </ul>
+                        <p className="text-sm text-gray-500 mt-3">
+                            You stay in control: you can pause syncing for a Space at any time, and leaving a Space stops sharing your data with it. Only the data you put into a Space is shared — your personal tabs, history, and private workspaces are never shared unless you explicitly add them.
+                        </p>
+                    </PolicySection>
+
+                    <PolicySection id="app-analytics" title="Anonymous Usage Analytics">
+                        <p>
+                            To understand how many people use CoolDesk and which versions are active, the Windows app sends a <strong>once-daily anonymous heartbeat</strong> to our analytics endpoint. This same request doubles as the check for new app updates, so the app does not make a separate tracking call.
+                        </p>
+                        <p>The heartbeat contains only these non-identifying fields:</p>
+                        <ul className="list-disc ml-5 mt-2 space-y-1.5">
+                            <li><strong>Install ID</strong> — a random identifier generated on your device the first time the app runs (a UUID). It is not tied to your name, email, or any account, and is used only to avoid double-counting the same install.</li>
+                            <li><strong>Operating system</strong> — e.g. "windows"</li>
+                            <li><strong>App version</strong> — e.g. 1.4.0</li>
+                            <li><strong>Install source</strong> — how you installed the app (e.g. winget, GitHub)</li>
+                            <li><strong>Locale</strong> — your system language setting, e.g. "en-US"</li>
+                            <li><strong>Spotlight opens</strong> — a simple count of how many times you opened Spotlight that day</li>
+                        </ul>
+                        <p className="mt-3">We explicitly do <strong>not</strong> collect or store:</p>
+                        <ul className="list-disc ml-5 mt-2 space-y-1.5">
+                            <li>Your IP address (it is never logged or stored)</li>
+                            <li>Search queries, URLs, page contents, notes, or workspace data</li>
+                            <li>The names of your apps, windows, files, or any free-text content</li>
+                            <li>Any cross-site or advertising identifier</li>
+                        </ul>
+                        <p className="text-sm text-gray-500 mt-3">
+                            <strong>Opt out anytime:</strong> turn off usage analytics in the app's settings. With analytics disabled, the app skips the ping entirely and checks for updates directly from GitHub instead.
                         </p>
                     </PolicySection>
 
@@ -148,9 +224,9 @@ const PrivacyPolicyStatic: React.FC = () => {
                     <PolicySection id="security" title="Data Security">
                         <ul className="list-disc ml-5 mt-2 space-y-1.5">
                             <li>Extension data remains on your device — Chrome handles local storage encryption</li>
-                            <li>No external servers receive your browsing, tab, or workspace data</li>
+                            <li>No CoolDesk server receives your browsing, tab, or workspace data (the only off-device cases are the anonymous usage ping, optional cloud AI you enable with your own key, and Team Sharing — which is peer-to-peer and end-to-end encrypted, with no content stored on our servers)</li>
                             <li>Strict Content Security Policy prevents unauthorised network requests</li>
-                            <li>The extension does not inject scripts into third-party pages</li>
+                            <li>The only script the extension runs on third-party pages is the engagement-measuring content script described under Chrome Permissions; it reads interaction counts, not page content, and sends nothing off your device</li>
                         </ul>
                     </PolicySection>
 
@@ -183,11 +259,15 @@ const PrivacyPolicyStatic: React.FC = () => {
 
                     <PolicySection id="summary" title="Summary">
                         <ul className="list-disc ml-5 mt-2 space-y-1.5">
-                            <li>Extension and desktop app data stays on your device — never sent to our servers</li>
+                            <li>Everything runs locally — no account, sign-up, or login required</li>
+                            <li>Your browsing, tabs, notes, workspaces, and apps stay on your device — never sent to our servers</li>
                             <li>No tracking, ads, or third-party data sharing</li>
+                            <li>The desktop app sends only an anonymous daily usage ping (random ID, OS, version, locale, Spotlight count) — no IP, no content — and you can turn it off</li>
+                            <li>AI is optional: it runs locally by default, or with your own OpenAI/Anthropic key — CoolDesk never stores your key or proxies your data</li>
+                            <li>Team Sharing is optional and end-to-end encrypted: only data you put in a Space is shared, peer-to-peer with people who have your secret phrase — CoolDesk never stores your Space content</li>
                             <li>Chrome permissions used only for the features described above</li>
                             <li>Website uses Google Analytics (anonymous, opt-outable)</li>
-                            <li>You can delete all data at any time by uninstalling the extension</li>
+                            <li>You can delete all data at any time by uninstalling</li>
                         </ul>
                         <p className="mt-4 font-medium text-gray-800">
                             Your privacy is central to CoolDesk — productivity without compromise.
