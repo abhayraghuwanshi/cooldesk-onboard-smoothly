@@ -12,7 +12,7 @@ const DEMOS: Record<DemoKey, {
   chips: { icon: React.ReactNode; label: string }[];
 }> = {
   spotlight: {
-    tabLabel: 'Spotlight',
+    tabLabel: 'Find',
     tabIcon: <Search className="w-4 h-4" />,
     src: '/gif/spotlight.mp4',
     alt: 'CoolDesk Spotlight — searching across tabs, files, apps and workspaces from anywhere',
@@ -26,7 +26,7 @@ const DEMOS: Record<DemoKey, {
     ],
   },
   apps: {
-    tabLabel: 'App',
+    tabLabel: 'Launch',
     tabIcon: <AppWindow className="w-4 h-4" />,
     src: '/app-demo/app-demo.mp4',
     alt: 'CoolDesk — launching desktop apps straight from the new tab',
@@ -37,10 +37,10 @@ const DEMOS: Record<DemoKey, {
     ],
   },
   extension: {
-    tabLabel: 'Extension',
+    tabLabel: 'Switch',
     tabIcon: <Layers className="w-4 h-4" />,
     src: '/gif/extension.mp4',
-    alt: 'CoolDesk browser extension — tabs, links and notes grouped by project in the new tab',
+    alt: 'CoolDesk workspaces — switching projects with tabs, links and notes grouped in the new tab',
     chips: [
       { icon: <Layers className="w-3.5 h-3.5" />, label: 'Workspaces' },
       { icon: <LayoutGrid className="w-3.5 h-3.5" />, label: 'Tabs' },

@@ -69,6 +69,20 @@
     <priority>0.3</priority>
   </url>
 
+  <!-- Comparison pages -->
+  <url>
+    <loc>https://cool-desk.com/vs/raycast</loc>
+    <lastmod>2026-07-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cool-desk.com/vs/alfred</loc>
+    <lastmod>2026-07-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- Blog index -->
   <url>
     <loc>https://cool-desk.com/blog</loc>

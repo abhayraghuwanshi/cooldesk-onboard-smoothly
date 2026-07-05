@@ -20,6 +20,7 @@ import ReleasesPage from "./pages/Releases";
 import ResourcesPage from "./pages/Resources";
 import Library from "./pages/Library";
 import TermsPage from "./pages/terms";
+import VersusPage from "./pages/Versus";
 
 const queryClient = new QueryClient();
 
@@ -64,6 +65,7 @@ const App = () => (
             <Route path="/privacy-details" element={<PrivacyPolicyStatic />} />
             <Route path="/terms" element={<TermsPage />} />
             <Route path="/releases" element={<ReleasesPage />} />
+            <Route path="/vs/:slug" element={<VersusPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

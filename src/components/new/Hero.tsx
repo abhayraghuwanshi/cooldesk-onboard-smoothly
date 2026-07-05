@@ -7,8 +7,8 @@ const POINTS = [
         desc: 'One Alt+K spotlight across tabs, history, files, folders, apps and workspaces — reaching your whole machine, not just the active window.',
     },
     {
-        title: 'Organise',
-        desc: 'Group tabs, links, notes and running apps by project into one new-tab workspace — everything for a task in a single place.',
+        title: 'Auto-organise',
+        desc: 'Create a project and CoolDesk fills it in — it learns from what you actually do and groups your tabs, links, notes and apps by project, automatically and entirely on your device.',
     },
     {
         title: 'Share',

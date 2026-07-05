@@ -11,7 +11,7 @@ interface SEOProps {
 }
 
 const KEYWORDS =
-    'developer workspace, new tab page, browser extension, project workspace, spotlight search, tab management, free browser extension, no sign-in required, productivity dashboard, AI workspace';
+    'app launcher, app switcher, spotlight search, project workspace, context switching, universal search, tab manager, new tab page, raycast alternative, alfred alternative, launcher for windows, free browser extension, no sign-in required, productivity';
 const OG_IMAGE = 'https://cool-desk.com/og-cover.png';
 
 // Create-or-update a <meta> tag by its name/property attribute.
