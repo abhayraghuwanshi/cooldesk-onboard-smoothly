@@ -91,7 +91,7 @@ export default function SwitchingSurface() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="text-4xl md:text-5xl font-black text-white">
-              Open Source Spotlight
+              A launcher and Spotlight for your projects
             </h2>
 
 

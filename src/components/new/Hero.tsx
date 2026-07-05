@@ -33,10 +33,10 @@ function Hero() {
 
                     <div className="flex-1 text-left">
                         <h1 className="text-4xl md:text-5xl font-black text-white mb-4 leading-tight">
-                            One calm surface for your work
+                            Launchers open apps. CoolDesk opens your work.
                         </h1>
                         <p className="text-base md:text-lg text-white/60 max-w-md mb-8 leading-relaxed">
-                            CoolDesk groups your tabs, links, notes and running apps by project. The scattering stops, your screen comes back, and your focus stays put.
+                            CoolDesk knows what project you're on. Press Alt+K to find any tab, app, file or note — or switch projects and get everything back exactly where you left it. Across browser and desktop, on Windows and Mac.
                         </p>
 
                         <div className="flex flex-wrap items-center gap-5 text-xs font-semibold text-white/40">

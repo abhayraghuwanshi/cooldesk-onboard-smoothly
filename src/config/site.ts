@@ -64,9 +64,9 @@ const configs: Record<SiteId, SiteConfig> = {
     name: "CoolDesk",
     url: COOLDESK_URL,
     seo: {
-      title: "CoolDesk — Project Workspaces Across Your Browser & Desktop",
+      title: "CoolDesk — Launcher & Spotlight Search, Organized by Project",
       description:
-        "CoolDesk groups your tabs, desktop apps, links and notes by project — in one new tab. Free browser extension plus a desktop app with AI Spotlight across your native apps. No sign-in required.",
+        "CoolDesk is a launcher built around your projects. Find and open any tab, app, link or note in one keystroke, across browser and desktop. Free, no sign-in required.",
     },
     hero: {
       badge: "For builders and developers",
