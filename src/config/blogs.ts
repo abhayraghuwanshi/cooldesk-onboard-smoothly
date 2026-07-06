@@ -28,6 +28,7 @@ import browserAmnesiaContent from './blog-posts/browser-amnesia.md?raw';
 import costOfTabHoardingContent from './blog-posts/cost-of-tab-hoarding.md?raw';
 import newTabSeoContent from './blog-posts/new-tab-seo-guide.md?raw';
 import p2pBlogContent from './blog-posts/p2p-sharing-blog.md?raw';
+import raycastAlternativesContent from './blog-posts/raycast-alternatives-windows.md?raw';
 import searchGoogleAlgoContent from './blog-posts/search-google-algo.md?raw';
 import voiceNavBlogContent from './blog-posts/voice-navigation-blog.md?raw';
 
@@ -82,6 +83,7 @@ function parseBlogPost(content: string, slug: string, category: BlogCategory = '
 }
 
 export const blogPosts: BlogPost[] = [
+    parseBlogPost(raycastAlternativesContent, 'raycast-alternatives-windows', 'guides', 'Search'),
     parseBlogPost(newTabSeoContent, 'the-untapped-power-of-new-tab', 'productivity', 'Layout'),
     parseBlogPost(searchGoogleAlgoContent, 'universal-search-future-of-browsing', 'features', 'Search'),
     parseBlogPost(autosaveProductivityContent, 'magic-of-browser-autosave', 'productivity', 'Save'),

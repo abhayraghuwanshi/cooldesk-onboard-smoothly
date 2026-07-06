@@ -32,6 +32,7 @@ const comparisons: Record<string, Comparison> = {
         intro: [
             "Raycast and CoolDesk are both keyboard-first launchers: press a hotkey, type a few letters, jump. The difference is what they remember.",
             "Raycast is a command palette — stateless, endlessly extensible, superb at doing things fast. CoolDesk is built around your projects: it knows what you're working on, so one keystroke can bring a whole project back — tabs, apps, notes, everything where you left it.",
+            "Searching for a Raycast alternative on Windows? That gap is exactly why CoolDesk exists — the honest comparison below should tell you quickly whether it fits.",
         ],
         greatAt: [
             "A huge extension store — community plugins for almost any tool you use",
@@ -100,6 +101,7 @@ const comparisons: Record<string, Comparison> = {
         intro: [
             "Alfred has been the Mac power user's launcher for over a decade — fast, private, and endlessly automatable with Powerpack workflows.",
             "CoolDesk plays the same keyboard-first game with a different core idea: it's built around your projects. It groups tabs, apps, links and notes into workspaces, so one keystroke finds anything — or brings a whole project back. And it exists on Windows, where Alfred never has.",
+            "If you're hunting for an Alfred alternative that runs on Windows — or one that remembers what you're working on — the honest comparison below should tell you quickly whether CoolDesk fits.",
         ],
         greatAt: [
             "A battle-tested macOS launcher with a decade of polish",
