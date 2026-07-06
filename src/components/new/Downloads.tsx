@@ -1,7 +1,6 @@
 import { site } from "@/config/site";
 import { useLatestRelease } from "@/hooks/useLatestRelease";
 import React from "react";
-import DownloadFeedback from "./DownloadFeedback";
 import StatsSlideshow from "./StatsSlideshow";
 
 // Extension lives on the Chrome Web Store (versioned separately from the desktop app).
@@ -343,9 +342,6 @@ function Downloads() {
           <p className="caption text-center mt-5">
             {site.downloads.tip}
           </p>
-
-          {/* Why-not-downloading capture */}
-          <DownloadFeedback />
 
         </div>
       </div>
