@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Breathe — CoolDesk Widget</title>
+<link rel="stylesheet" href="/widgets/base.css">
+<style>
+  .orb {
+    width: 90px; height: 90px; border-radius: 50%;
+    border: 2px solid var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    transition: transform 3.8s ease-in-out;
+    transform: scale(0.6);
+  }
+  .orb.in { transform: scale(1); }
+</style>
+<script src="/widgets/cooldesk.js"></script>
+</head>
+<body>
+<main class="widget" style="align-items:center;justify-content:center;gap:14px">
+  <div class="orb" id="orb"></div>
+  <span class="label" id="phase">Box breathing · 4-4-4-4</span>
+  <button id="toggle">Start</button>
+</main>
+<script>
+  // Box breathing: inhale 4s, hold 4s, exhale 4s, hold 4s.
+  var PHASES = [["Breathe in", true], ["Hold", true], ["Breathe out", false], ["Hold", false]];
+  var running = false, step = 0, timer = null;
+  var orb = document.getElementById("orb"), phase = document.getElementById("phase");
+  function advance() {
+    var p = PHASES[step % 4];
+    phase.textContent = p[0];
+    orb.className = "orb" + (p[1] ? " in" : "");
+    step++;
+  }
+  document.getElementById("toggle").onclick = function () {
+    running = !running;
+    this.textContent = running ? "Stop" : "Start";
+    if (running) { step = 0; advance(); timer = setInterval(advance, 4000); }
+    else {
+      clearInterval(timer);
+      orb.className = "orb";
+      phase.textContent = "Box breathing · 4-4-4-4";
+    }
+  };
+</script>
+</body>
+</html>

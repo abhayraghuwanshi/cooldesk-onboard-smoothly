@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tab Pulse — CoolDesk Widget</title>
+<link rel="stylesheet" href="/widgets/base.css">
+<script src="/widgets/cooldesk.js"></script>
+</head>
+<body>
+<main class="widget">
+  <div class="row spread">
+    <span class="label">Tab pulse</span>
+    <span class="label" id="mode">Demo</span>
+  </div>
+  <div class="row" style="gap:18px">
+    <div class="stack" style="gap:2px">
+      <span class="big mono" id="open" style="font-size:30px">—</span>
+      <span class="label">Open tabs</span>
+    </div>
+    <div class="stack" style="gap:2px">
+      <span class="big mono" id="dupes" style="font-size:30px">—</span>
+      <span class="label">Duplicates</span>
+    </div>
+    <div class="stack" style="gap:2px">
+      <span class="big mono" id="oldest" style="font-size:30px">—</span>
+      <span class="label">Oldest tab</span>
+    </div>
+  </div>
+  <div class="stack grow" id="domains" style="gap:6px;justify-content:flex-end"></div>
+</main>
+<script>
+  // Live in CoolDesk via the bridge (tabs.stats); demo data on the public site.
+  var DEMO = {
+    open: 47, duplicates: 12, oldestDays: 3,
+    topDomains: [["github.com", 11], ["docs.google.com", 8], ["figma.com", 6], ["stackoverflow.com", 5]]
+  };
+  function render(s) {
+    document.getElementById("open").textContent = s.open;
+    document.getElementById("dupes").textContent = s.duplicates;
+    document.getElementById("oldest").textContent = s.oldestDays + "d";
+    var box = document.getElementById("domains");
+    box.innerHTML = "";
+    var max = s.topDomains[0][1];
+    s.topDomains.forEach(function (d) {
+      var el = document.createElement("div");
+      el.className = "row";
+      el.innerHTML = '<span class="muted" style="font-size:11px;width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' +
+        d[0] + '</span><div class="bar grow"><i style="width:' + (d[1] / max * 100) + '%"></i></div>' +
+        '<span class="mono muted" style="font-size:11px;width:18px;text-align:right">' + d[1] + "</span>";
+      box.appendChild(el);
+    });
+  }
+  cooldesk.onHost = function () {
+    document.getElementById("mode").textContent = "Live";
+    cooldesk.call("tabs.stats").then(render).catch(function () { render(DEMO); });
+  };
+  render(DEMO);
+</script>
+</body>
+</html>

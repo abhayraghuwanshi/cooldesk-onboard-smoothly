@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Streak — CoolDesk Widget</title>
+<link rel="stylesheet" href="/widgets/base.css">
+<script src="/widgets/cooldesk.js"></script>
+</head>
+<body>
+<main class="widget" style="justify-content:center;gap:10px">
+  <span class="label" id="title"></span>
+  <div class="row" style="align-items:baseline;gap:10px">
+    <span class="big mono" id="days" style="font-size:52px">0</span>
+    <span class="muted" style="font-size:14px">days</span>
+  </div>
+  <form class="row" id="form" style="gap:6px">
+    <input id="label" placeholder="Label" style="width:110px;font-size:11px;padding:4px 8px" maxlength="30">
+    <input id="date" type="date" style="font-size:11px;padding:4px 8px">
+    <button class="ghost">Set</button>
+  </form>
+</main>
+<script>
+  // ?since=YYYY-MM-DD&label=… or set inline (stored locally).
+  var state = cooldesk.store.get("streak", {
+    label: cooldesk.get("label", "Streak"),
+    since: cooldesk.get("since", new Date().toLocaleDateString("en-CA"))
+  });
+  if (cooldesk.params.get("since")) state.since = cooldesk.params.get("since");
+  if (cooldesk.params.get("label")) state.label = cooldesk.params.get("label");
+
+  function render() {
+    var start = new Date(state.since + "T00:00:00");
+    var days = Math.max(0, Math.floor((Date.now() - start) / 86400000));
+    document.getElementById("days").textContent = days;
+    document.getElementById("title").textContent = state.label + " · since " +
+      start.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  }
+  document.getElementById("form").onsubmit = function (e) {
+    e.preventDefault();
+    var label = document.getElementById("label").value.trim();
+    var date = document.getElementById("date").value;
+    if (label) state.label = label;
+    if (date) state.since = date;
+    cooldesk.store.set("streak", state);
+    render();
+  };
+  render();
+  setInterval(render, 60 * 60 * 1000);
+</script>
+</body>
+</html>

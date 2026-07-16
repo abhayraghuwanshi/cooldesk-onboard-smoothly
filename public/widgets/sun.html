@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sunrise & Sunset — CoolDesk Widget</title>
+<link rel="stylesheet" href="/widgets/base.css">
+<script src="/widgets/cooldesk.js"></script>
+</head>
+<body>
+<main class="widget" style="justify-content:center;gap:12px">
+  <span class="label" id="city">Sun</span>
+  <div class="row spread">
+    <div class="stack" style="gap:3px">
+      <span class="label">🌅 Sunrise</span>
+      <span class="big mono" id="rise" style="font-size:24px">--:--</span>
+    </div>
+    <div class="stack" style="gap:3px;align-items:flex-end">
+      <span class="label">Sunset 🌇</span>
+      <span class="big mono" id="set" style="font-size:24px">--:--</span>
+    </div>
+  </div>
+  <div class="bar"><i id="fill" style="width:0%"></i></div>
+  <span class="label" id="len"></span>
+</main>
+<script>
+  // ?lat=&lon=&city= — same params as the weather widget. Data: open-meteo.com.
+  var lat = cooldesk.get("lat", "19.076");
+  var lon = cooldesk.get("lon", "72.877");
+  document.getElementById("city").textContent = "Sun · " + cooldesk.get("city", "Mumbai");
+
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon +
+    "&daily=sunrise,sunset&timezone=auto&forecast_days=1")
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      var rise = new Date(d.daily.sunrise[0]);
+      var set = new Date(d.daily.sunset[0]);
+      var fmt = function (t) { return t.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }); };
+      document.getElementById("rise").textContent = fmt(rise);
+      document.getElementById("set").textContent = fmt(set);
+      var lenMs = set - rise;
+      document.getElementById("len").textContent =
+        "Daylight " + Math.floor(lenMs / 3600000) + "h " + Math.round(lenMs % 3600000 / 60000) + "m";
+      var pct = (Date.now() - rise) / lenMs * 100;
+      document.getElementById("fill").style.width = Math.max(0, Math.min(100, pct)) + "%";
+    })
+    .catch(function () { document.getElementById("len").textContent = "Offline"; });
+</script>
+</body>
+</html>

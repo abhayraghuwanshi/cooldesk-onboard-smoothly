@@ -27,6 +27,7 @@ Free — no plans, no sign-in, no tracking
 
 - [Home](https://cool-desk.com/)
 - [How to Use](https://cool-desk.com/how-to-use)
+- [Widget Store](https://cool-desk.com/widgets) — 39 free embeddable new-tab widgets: spotlight, project workspaces, session restore, daily focus, pomodoro, tasks, weather, habits, snippets, regex tester and more
 - [Blog](https://cool-desk.com/blog)
 - [Library of Curated Tools](https://cool-desk.com/library)
 - [Contact](https://cool-desk.com/contact)

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Crypto Ticker — CoolDesk Widget</title>
+<link rel="stylesheet" href="/widgets/base.css">
+<script src="/widgets/cooldesk.js"></script>
+</head>
+<body>
+<main class="widget">
+  <div class="row spread">
+    <span class="label">Crypto</span>
+    <span class="label" id="status"></span>
+  </div>
+  <div class="list stack" id="rows" style="gap:7px"></div>
+</main>
+<script>
+  // Prices: CoinGecko public API, no key. ?coins=bitcoin,ethereum,solana (CoinGecko ids)
+  var ids = cooldesk.get("coins", "bitcoin,ethereum,solana").split(",");
+  var SYMBOLS = { bitcoin: "BTC", ethereum: "ETH", solana: "SOL", dogecoin: "DOGE", cardano: "ADA", ripple: "XRP" };
+  var rows = document.getElementById("rows");
+  ids.forEach(function (id) {
+    var el = document.createElement("div");
+    el.className = "row spread";
+    el.innerHTML = '<span style="font-size:13px;font-weight:600">' + (SYMBOLS[id] || id.toUpperCase()) + "</span>" +
+      '<span class="grow"></span><span class="mono" data-chg style="font-size:11px"></span>' +
+      '<span class="big mono" data-price style="font-size:16px">—</span>';
+    rows.appendChild(el);
+  });
+  function load() {
+    fetch("https://api.coingecko.com/api/v3/simple/price?ids=" + ids.join(",") +
+      "&vs_currencies=usd&include_24hr_change=true")
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        var priceEls = rows.querySelectorAll("[data-price]");
+        var chgEls = rows.querySelectorAll("[data-chg]");
+        ids.forEach(function (id, i) {
+          var coin = d[id];
+          if (!coin) return;
+          priceEls[i].textContent = "$" + coin.usd.toLocaleString("en-US", { maximumFractionDigits: coin.usd < 10 ? 4 : 0 });
+          var chg = coin.usd_24h_change;
+          chgEls[i].textContent = (chg >= 0 ? "+" : "") + chg.toFixed(1) + "%";
+          chgEls[i].className = "mono " + (chg >= 0 ? "good" : "bad");
+        });
+        document.getElementById("status").textContent = "24h · USD";
+      })
+      .catch(function () { document.getElementById("status").textContent = "Offline"; });
+  }
+  load();
+  setInterval(load, 60000);
+</script>
+</body>
+</html>

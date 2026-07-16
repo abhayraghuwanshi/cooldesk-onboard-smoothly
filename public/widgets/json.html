@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JSON Formatter — CoolDesk Widget</title>
+<link rel="stylesheet" href="/widgets/base.css">
+<script src="/widgets/cooldesk.js"></script>
+</head>
+<body>
+<main class="widget">
+  <div class="row spread">
+    <span class="label">JSON formatter</span>
+    <span class="label" id="status"></span>
+  </div>
+  <textarea id="input" class="mono" placeholder='{"paste":"json here"}' style="resize:none;height:74px;font-size:12px"></textarea>
+  <div class="row">
+    <button class="primary" id="format">Format</button>
+    <button id="minify">Minify</button>
+    <span class="grow"></span>
+    <button class="ghost" id="copy">Copy result</button>
+  </div>
+  <textarea id="output" class="mono grow" readonly placeholder="→ result" style="resize:none;font-size:12px;line-height:1.5"></textarea>
+</main>
+<script>
+  // Runs entirely locally — nothing is uploaded anywhere.
+  var input = document.getElementById("input"), output = document.getElementById("output");
+  var status = document.getElementById("status");
+  function run(spacing) {
+    try {
+      var parsed = JSON.parse(input.value);
+      output.value = JSON.stringify(parsed, null, spacing);
+      status.textContent = "Valid ✓";
+      status.style.color = "var(--good)";
+    } catch (e) {
+      output.value = "";
+      status.textContent = String(e.message).slice(0, 48);
+      status.style.color = "var(--bad)";
+    }
+  }
+  document.getElementById("format").onclick = function () { run(2); };
+  document.getElementById("minify").onclick = function () { run(0); };
+  document.getElementById("copy").onclick = function () {
+    if (!output.value) return;
+    navigator.clipboard.writeText(output.value).then(function () {
+      status.textContent = "Copied ✓";
+      status.style.color = "var(--muted)";
+    });
+  };
+</script>
+</body>
+</html>

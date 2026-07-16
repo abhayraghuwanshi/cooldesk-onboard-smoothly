@@ -64,6 +64,7 @@ export default function Navbar() {
         { href: '/', label: 'Home' },
         { href: '/how-to-use', label: 'How to Use' },
         // { href: '/pricing', label: 'Pricing' },
+        { href: '/widgets', label: 'Widgets' },
         { href: '/library', label: 'Library' },
     ];
 

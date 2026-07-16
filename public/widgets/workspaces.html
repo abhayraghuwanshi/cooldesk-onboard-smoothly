@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Project Workspaces — CoolDesk Widget</title>
+<link rel="stylesheet" href="/widgets/base.css">
+<script src="/widgets/cooldesk.js"></script>
+<style>
+  .ws { display: flex; align-items: center; gap: 10px; padding: 9px 11px; border: 1px solid var(--faint); border-radius: 9px; cursor: pointer; transition: border-color .15s; }
+  .ws:hover { border-color: var(--accent); }
+  .ws.active { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, transparent); }
+  .dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<main class="widget">
+  <div class="row spread">
+    <span class="label">Workspaces</span>
+    <span class="label" id="mode">Demo</span>
+  </div>
+  <div class="list stack" id="rows" style="gap:6px"></div>
+</main>
+<script>
+  // Live in CoolDesk via the bridge (workspace.list / workspace.open);
+  // on the public site it shows demo data.
+  var DEMO = [
+    { id: "1", name: "Client — Acme", color: "#60a5fa", tabs: 14, apps: 3, last: "2h ago", active: true },
+    { id: "2", name: "Side Project", color: "#4ade80", tabs: 9, apps: 2, last: "yesterday" },
+    { id: "3", name: "Job Hunt", color: "#f472b6", tabs: 6, apps: 1, last: "3d ago" },
+    { id: "4", name: "Learning — Rust", color: "#fbbf24", tabs: 11, apps: 2, last: "1w ago" }
+  ];
+  function render(list) {
+    var box = document.getElementById("rows");
+    box.innerHTML = "";
+    list.forEach(function (w) {
+      var el = document.createElement("div");
+      el.className = "ws" + (w.active ? " active" : "");
+      el.innerHTML = '<span class="dot" style="background:' + w.color + '"></span>' +
+        '<div class="stack grow" style="gap:1px"><span style="font-size:13px;font-weight:600">' + w.name + "</span>" +
+        '<span class="muted" style="font-size:10px">' + w.tabs + " tabs · " + w.apps + " apps · " + w.last + "</span></div>" +
+        '<span class="label">Open ›</span>';
+      el.onclick = function () {
+        if (cooldesk.hosted) cooldesk.call("workspace.open", { id: w.id });
+        else { list.forEach(function (x) { x.active = false; }); w.active = true; render(list); }
+      };
+      box.appendChild(el);
+    });
+  }
+  cooldesk.onHost = function () {
+    document.getElementById("mode").textContent = "Live";
+    cooldesk.call("workspace.list").then(render).catch(function () { render(DEMO); });
+  };
+  render(DEMO);
+</script>
+</body>
+</html>
