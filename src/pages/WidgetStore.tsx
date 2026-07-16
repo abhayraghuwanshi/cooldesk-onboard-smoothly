@@ -28,16 +28,16 @@ const WIDGETS: Widget[] = [
     { id: "session", name: "Resume Session", desc: "Yesterday's working context — tabs, windows, apps — behind one button.", category: "CoolDesk", h: 230, powered: true },
     { id: "tab-stats", name: "Tab Pulse", desc: "Open tabs, duplicates, oldest tab and your top domains right now.", category: "CoolDesk", h: 250, powered: true },
     { id: "clock", name: "Clock", desc: "Big digital clock with date. Configurable timezone and 12/24h.", category: "Time & Focus", h: 150 },
-    { id: "focus", name: "Daily Focus", desc: "One main thing per day — type it, do it, check it off. Resets each morning.", category: "Time & Focus", h: 170 },
+    { id: "focus", name: "Daily Focus", desc: "One main thing per day — type it, do it, check it off. Resets each morning.", category: "Time & Focus", h: 170, sandbox: "allow-forms" },
     { id: "search", name: "Web Search", desc: "One bar for Google, DuckDuckGo, Bing, YouTube and GitHub.", category: "Productivity", h: 120, sandbox: "allow-popups allow-popups-to-escape-sandbox allow-forms" },
-    { id: "todo", name: "Tasks", desc: "Quick task list — add, check off, clear. Saves locally.", category: "Productivity", h: 260 },
+    { id: "todo", name: "Tasks", desc: "Quick task list — add, check off, clear. Saves locally.", category: "Productivity", h: 260, sandbox: "allow-forms" },
     { id: "weather", name: "Weather", desc: "Current conditions via Open-Meteo. Set your city with URL params.", category: "Data & Life", h: 160 },
     { id: "pomodoro", name: "Pomodoro", desc: "25/5 focus timer with sessions. Custom durations via params.", category: "Time & Focus", h: 230 },
     { id: "notes", name: "Scratchpad", desc: "A plain autosaving textarea. The simplest widget that earns its tile.", category: "Productivity", h: 240 },
     { id: "calendar", name: "Calendar", desc: "Month at a glance, Monday-start, today highlighted.", category: "Time & Focus", h: 280 },
     { id: "quick-links", name: "Quick Links", desc: "Your favorite sites as a tile grid. Add and remove inline.", category: "Productivity", h: 230, sandbox: "allow-popups allow-popups-to-escape-sandbox allow-forms" },
     { id: "world-clock", name: "World Clock", desc: "Five cities, one glance — with +1d/-1d day markers.", category: "Time & Focus", h: 210 },
-    { id: "habits", name: "Habit Tracker", desc: "Weekly dot grid per habit. Tap a day to mark it done.", category: "Productivity", h: 250 },
+    { id: "habits", name: "Habit Tracker", desc: "Weekly dot grid per habit. Tap a day to mark it done.", category: "Productivity", h: 250, sandbox: "allow-forms" },
     { id: "timer", name: "Timer & Stopwatch", desc: "Presets, custom minutes, and a stopwatch in one tile.", category: "Time & Focus", h: 250 },
     { id: "countdown", name: "Countdown", desc: "Days–hours–minutes–seconds to any date. ?to=&label=", category: "Time & Focus", h: 170 },
     { id: "quotes", name: "Quotes", desc: "A stable quote of the day; click for another.", category: "Data & Life", h: 190 },
@@ -49,23 +49,29 @@ const WIDGETS: Widget[] = [
     { id: "github", name: "GitHub Graph", desc: "Any user's contribution graph in a tile.", category: "Data & Life", h: 190, sandbox: "allow-forms" },
     { id: "breathe", name: "Breathe", desc: "Box breathing (4-4-4-4) with a slow animated orb.", category: "Data & Life", h: 260 },
     { id: "water", name: "Water Tracker", desc: "Glasses per day with a visual fill. Resets daily. ?goal=8", category: "Data & Life", h: 200 },
-    { id: "streak", name: "Streak Counter", desc: "Days since anything — a habit kept, a launch, a quit. ?since=&label=", category: "Data & Life", h: 200 },
+    { id: "streak", name: "Streak Counter", desc: "Days since anything — a habit kept, a launch, a quit. ?since=&label=", category: "Data & Life", h: 200, sandbox: "allow-forms" },
     { id: "moon", name: "Moon Phase", desc: "Tonight's phase, illumination and days to full — computed locally.", category: "Data & Life", h: 170 },
     { id: "sun", name: "Sunrise & Sunset", desc: "Today's sun times and daylight progress, via Open-Meteo.", category: "Data & Life", h: 200 },
     { id: "on-this-day", name: "On This Day", desc: "A historical event for today's date from Wikipedia. Click for more.", category: "Data & Life", h: 210 },
-    { id: "picker", name: "Decision Maker", desc: "Type options and let fate pick — plus coin flip and d6.", category: "Data & Life", h: 230 },
+    { id: "picker", name: "Decision Maker", desc: "Type options and let fate pick — plus coin flip and d6.", category: "Data & Life", h: 230, sandbox: "allow-forms" },
     { id: "password", name: "Password Generator", desc: "Strong passwords via crypto.getRandomValues. Never leaves the page.", category: "Dev Tools", h: 220 },
     { id: "palette", name: "Color Palette", desc: "Harmonized five-color palettes. Click any swatch to copy its hex.", category: "Dev Tools", h: 210 },
     { id: "json", name: "JSON Formatter", desc: "Paste, format or minify, copy. Fully local.", category: "Dev Tools", h: 320 },
     { id: "shortcuts", name: "Shortcut of the Day", desc: "One keyboard shortcut a day — VS Code, browser, Windows, CoolDesk.", category: "Productivity", h: 210 },
-    { id: "snippets", name: "Snippets", desc: "Your most-pasted text, one click to copy. Email, links, kaomoji.", category: "Productivity", h: 250 },
+    { id: "snippets", name: "Snippets", desc: "Your most-pasted text, one click to copy. Email, links, kaomoji.", category: "Productivity", h: 250, sandbox: "allow-forms" },
     { id: "year-dots", name: "Year in Dots", desc: "The whole year as a dot grid — days gone, today, days left.", category: "Time & Focus", h: 180 },
     { id: "wpm", name: "Typing Sprint", desc: "A 15-second typing test with best-score memory.", category: "Dev Tools", h: 230 },
     { id: "regex", name: "Regex Tester", desc: "Live pattern matching with highlighted results. Fully local.", category: "Dev Tools", h: 300 },
 ];
 
+const WIDGET_VERSION = "2";
+
+function widgetPath(id: string, theme: "dark" | "light") {
+    return `/widgets/${id}.html?theme=${theme}&v=${WIDGET_VERSION}`;
+}
+
 function widgetUrl(id: string, theme: "dark" | "light") {
-    return `https://cool-desk.com/widgets/${id}.html?theme=${theme}&v=1`;
+    return `https://cool-desk.com${widgetPath(id, theme)}`;
 }
 
 function WidgetCard({ widget, theme }: { widget: Widget; theme: "dark" | "light" }) {
@@ -81,7 +87,7 @@ function WidgetCard({ widget, theme }: { widget: Widget; theme: "dark" | "light"
     return (
         <div className="rounded-xl border border-white/10 bg-white/[0.03] overflow-hidden transition-colors hover:border-blue-400/30">
             <iframe
-                src={`/widgets/${widget.id}.html?theme=${theme}`}
+                src={widgetPath(widget.id, theme)}
                 title={`${widget.name} widget preview`}
                 loading="lazy"
                 sandbox={`allow-scripts allow-same-origin ${widget.sandbox ?? ""}`}
@@ -109,7 +115,7 @@ function WidgetCard({ widget, theme }: { widget: Widget; theme: "dark" | "light"
                         {copied ? "Copied ✓" : "Copy URL"}
                     </button>
                     <a
-                        href={`/widgets/${widget.id}.html?theme=${theme}`}
+                        href={widgetPath(widget.id, theme)}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="font-mono text-[10px] tracking-[0.14em] uppercase text-white/40 hover:text-white transition-colors px-1 py-1.5"
@@ -216,7 +222,7 @@ export default function WidgetStorePage() {
                             {
                                 n: "02",
                                 t: "Configure with params",
-                                d: "Static, non-sensitive config goes in the URL: ?theme=dark&tz=Asia/Kolkata&v=1. Params configure; they never carry data.",
+                                d: "Static, non-sensitive config goes in the URL: ?theme=dark&tz=Asia/Kolkata&v=2. Params configure; they never carry data.",
                             },
                             {
                                 n: "03",
@@ -233,7 +239,7 @@ export default function WidgetStorePage() {
                     </div>
                     <div className="mt-8 rounded-xl border border-white/10 bg-white/[0.03] p-5 overflow-x-auto">
                         <pre className="font-mono text-xs text-gray-400 leading-relaxed">{`<iframe
-  src="https://cool-desk.com/widgets/clock.html?theme=dark&v=1"
+  src="https://cool-desk.com/widgets/clock.html?theme=dark&v=2"
   sandbox="allow-scripts allow-same-origin"
   width="320" height="150" style="border:0;border-radius:12px">
 </iframe>`}</pre>
