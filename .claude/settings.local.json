@@ -9,7 +9,9 @@
       "Bash(npm run *)",
       "PowerShell(npx tsc --noEmit -p tsconfig.json 2>&1 | Select-Object -First 15)",
       "Bash(gzip -c dist/assets/index-*.css)",
-      "Bash(node -e ' *)"
+      "Bash(node -e ' *)",
+      "Bash(pip install *)",
+      "Bash(python -c \"import pypdf; print\\('ok'\\)\")"
     ]
   }
 }

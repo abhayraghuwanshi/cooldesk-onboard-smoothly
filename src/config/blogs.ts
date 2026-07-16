@@ -10,6 +10,8 @@ export interface BlogPost {
     tags: string[];
     icon?: string;
     slug: string;
+    /** When set, the blog card links to this route instead of /blog/:slug (e.g. /vs/ comparison pages). */
+    href?: string;
 }
 
 export type BlogCategory =
@@ -17,7 +19,8 @@ export type BlogCategory =
     | 'features'
     | 'tips'
     | 'updates'
-    | 'guides';
+    | 'guides'
+    | 'comparisons';
 
 // Import blog posts from markdown files
 // Import blog posts from markdown files
@@ -82,8 +85,51 @@ function parseBlogPost(content: string, slug: string, category: BlogCategory = '
     };
 }
 
+// Comparison pages (/vs/:slug) surfaced as blog cards. The card links to the
+// canonical /vs/ URL — there is no /blog/ version of these, to avoid duplicate content.
+function comparisonCard(slug: string, title: string, description: string, date: string): BlogPost {
+    return {
+        id: `vs-${slug}`,
+        slug: `vs-${slug}`,
+        href: `/vs/${slug}`,
+        title,
+        description,
+        content: '',
+        author: 'CoolDesk Team',
+        date,
+        readTime: '4 min read',
+        category: 'comparisons',
+        tags: ['comparison', 'alternatives'],
+        icon: 'ArrowLeftRight',
+    };
+}
+
 export const blogPosts: BlogPost[] = [
     parseBlogPost(raycastAlternativesContent, 'raycast-alternatives-windows', 'guides', 'Search'),
+    comparisonCard(
+        'workona',
+        'CoolDesk vs Workona — An Honest Comparison',
+        'Workona is the standard for browser workspaces — cloud-synced and team-ready. CoolDesk is a free, local-first project workspace that reaches beyond the browser to your apps, files and notes.',
+        '2026-07-16',
+    ),
+    comparisonCard(
+        'toby',
+        'CoolDesk vs Toby — An Honest Comparison',
+        'Toby is a beloved visual tab organizer. CoolDesk is a free, local-first project workspace that adds desktop apps, files, notes and spotlight search. An honest comparison of the two new tabs.',
+        '2026-07-16',
+    ),
+    comparisonCard(
+        'raycast',
+        'CoolDesk vs Raycast — An Honest Comparison',
+        'Raycast is a brilliant command palette. CoolDesk is a launcher built around your projects — it remembers what you\'re working on. An honest comparison for Windows and Mac.',
+        '2026-07-05',
+    ),
+    comparisonCard(
+        'alfred',
+        'CoolDesk vs Alfred — An Honest Comparison',
+        'Alfred is a Mac classic with powerful workflows. CoolDesk is a free launcher for Windows and Mac, built around your projects. An honest comparison — including when to pick Alfred.',
+        '2026-07-05',
+    ),
     parseBlogPost(newTabSeoContent, 'the-untapped-power-of-new-tab', 'productivity', 'Layout'),
     parseBlogPost(searchGoogleAlgoContent, 'universal-search-future-of-browsing', 'features', 'Search'),
     parseBlogPost(autosaveProductivityContent, 'magic-of-browser-autosave', 'productivity', 'Save'),
@@ -100,13 +146,15 @@ export const getCategoryLabel = (category: BlogCategory): string => {
         features: 'Features',
         tips: 'Tips & Tricks',
         updates: 'Updates',
-        guides: 'Guides'
+        guides: 'Guides',
+        comparisons: 'Comparisons'
     };
     return labels[category];
 };
 
 export const getBlogPostBySlug = (slug: string): BlogPost | undefined => {
-    return blogPosts.find(post => post.slug === slug);
+    // Entries with `href` are link-only cards (comparison pages) — they have no /blog/:slug page.
+    return blogPosts.find(post => post.slug === slug && !post.href);
 };
 
 export const getBlogsByCategory = (category: BlogCategory): BlogPost[] => {

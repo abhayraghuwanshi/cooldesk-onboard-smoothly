@@ -17,7 +17,6 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import PricingPage from "./pages/Pricing";
 import ReleasesPage from "./pages/Releases";
-import ResourcesPage from "./pages/Resources";
 import Library from "./pages/Library";
 import TermsPage from "./pages/terms";
 import VersusPage from "./pages/Versus";
@@ -54,7 +53,8 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/how-to-use" element={<HowToUse />} />
             <Route path="/pricing" element={<PricingPage />} />
-            <Route path="/resources" element={<ResourcesPage />} />
+            {/* /resources retired — links now live in the navbar Resources dropdown */}
+            <Route path="/resources" element={<Navigate to="/how-to-use" replace />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/library" element={<Library />} />

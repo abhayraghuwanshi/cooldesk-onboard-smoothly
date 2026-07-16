@@ -34,8 +34,9 @@ export default function Footer() {
             <ul className="space-y-2.5">
               {[
                 { label: 'How to Use', href: '/how-to-use' },
-                { label: 'Resources', href: '/resources' },
                 { label: 'FAQ', href: '/#faq' },
+                { label: 'CoolDesk vs Workona', href: '/vs/workona' },
+                { label: 'CoolDesk vs Toby', href: '/vs/toby' },
                 { label: 'CoolDesk vs Raycast', href: '/vs/raycast' },
                 { label: 'CoolDesk vs Alfred', href: '/vs/alfred' },
               ].map((link) => (

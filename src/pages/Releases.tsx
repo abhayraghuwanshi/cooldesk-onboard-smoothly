@@ -91,13 +91,13 @@ export default function ReleasesPage() {
                     {/* Header */}
                     <div className="text-center mb-16">
                         <Link
-                            to="/resources"
+                            to="/"
                             className="inline-flex items-center text-zinc-400 hover:text-white mb-6 transition-colors"
                         >
                             <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                             </svg>
-                            Back to Resources
+                            Back to Home
                         </Link>
                         <h1 className="text-4xl md:text-5xl font-black mb-4">
                             Release Notes

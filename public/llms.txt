@@ -30,3 +30,10 @@ Free — no plans, no sign-in, no tracking
 - [Blog](https://cool-desk.com/blog)
 - [Library of Curated Tools](https://cool-desk.com/library)
 - [Contact](https://cool-desk.com/contact)
+
+## Comparisons
+
+- [CoolDesk vs Workona](https://cool-desk.com/vs/workona) — cloud browser workspaces vs a free, local-first project workspace that includes desktop apps and files
+- [CoolDesk vs Toby](https://cool-desk.com/vs/toby) — visual tab collections vs project workspaces with spotlight search across tabs, apps and notes
+- [CoolDesk vs Raycast](https://cool-desk.com/vs/raycast) — a command palette vs a project-based launcher with browser-deep search
+- [CoolDesk vs Alfred](https://cool-desk.com/vs/alfred) — the Mac classic vs a free launcher for Windows and Mac built around projects

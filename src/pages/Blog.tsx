@@ -9,7 +9,7 @@ import { BlogCategory, blogPosts, getCategoryLabel } from '../config/blogs';
 export default function BlogPage() {
     const [selectedCategory, setSelectedCategory] = useState<BlogCategory | 'all'>('all');
 
-    const categories: (BlogCategory | 'all')[] = ['all', 'productivity', 'features', 'tips', 'guides', 'updates'];
+    const categories: (BlogCategory | 'all')[] = ['all', 'productivity', 'features', 'tips', 'guides', 'comparisons', 'updates'];
 
     const filteredPosts = blogPosts.filter(post => {
         return selectedCategory === 'all' || post.category === selectedCategory;
@@ -67,7 +67,7 @@ export default function BlogPage() {
                 {/* Featured Area */}
                 {selectedCategory === 'all' && featuredPost && (
                     <section className="mb-24 group cursor-pointer">
-                        <Link to={`/blog/${featuredPost.slug}`} className="block">
+                        <Link to={featuredPost.href ?? `/blog/${featuredPost.slug}`} className="block">
                             <div className="grid md:grid-cols-12 gap-8 items-center">
                                 <div className="md:col-span-8 space-y-4">
                                     <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-wider text-txt-muted mb-2">
@@ -104,7 +104,7 @@ export default function BlogPage() {
                         <div className="space-y-16">
                             {otherPosts.map((post) => (
                                 <article key={post.id} className="group relative grid grid-cols-[1fr,auto] gap-8 items-start border-b border-white/5 pb-16 last:border-0">
-                                    <Link to={`/blog/${post.slug}`} className="block space-y-3">
+                                    <Link to={post.href ?? `/blog/${post.slug}`} className="block space-y-3">
                                         <div className="flex items-center gap-2 text-xs font-medium text-txt-muted mb-1">
                                             <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center">
                                                 {(() => {

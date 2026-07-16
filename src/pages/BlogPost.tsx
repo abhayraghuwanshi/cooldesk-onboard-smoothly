@@ -244,7 +244,7 @@ export default function BlogPostPage() {
                             {relatedPosts.filter(p => p.id !== post.id).slice(0, 2).map((relatedPost) => (
                                 <Link
                                     key={relatedPost.id}
-                                    to={`/blog/${relatedPost.slug}`}
+                                    to={relatedPost.href ?? `/blog/${relatedPost.slug}`}
                                     className="group block space-y-4"
                                 >
                                     <div className="aspect-[16/9] bg-zinc-900 rounded-lg border border-white/10 flex items-center justify-center overflow-hidden relative">
