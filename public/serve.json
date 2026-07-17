@@ -1,6 +1,11 @@
 {
   "cleanUrls": false,
+  "directoryListing": false,
   "rewrites": [
+    {
+      "source": "/",
+      "destination": "/index.html"
+    },
     {
       "source": "/how-to-use",
       "destination": "/index.html"
