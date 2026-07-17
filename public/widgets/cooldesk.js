@@ -1,11 +1,16 @@
-// CoolDesk widget runtime (v1).
+// CoolDesk widget runtime (v2).
 // - Applies ?theme= from the query string (dark default).
 // - `cooldesk.get(key, fallback)` reads config params.
-// - `cooldesk.store` persists small state; falls back to memory when the iframe
-//   sandbox gives an opaque origin and localStorage throws.
+// - `cooldesk.store` persists small state; localStorage is the synchronous
+//   working copy (falls back to memory when the iframe sandbox gives an
+//   opaque origin and localStorage throws).
 // - Host bridge: the embedding app sends {type:'cooldesk:init'} with a
 //   MessagePort; widget identity is the port, never e.origin. Widgets on the
 //   public site simply run with no host (demo mode).
+// - v2: when hosted, every store.set is mirrored to the host ('store.set'),
+//   the full local state is pushed on connect ('store.backup'), and if the
+//   local copy is empty (site data was cleared) the widget restores itself
+//   from the host's snapshot and reloads once.
 (function () {
   var params = new URLSearchParams(location.search);
   document.documentElement.dataset.theme = params.get("theme") === "light" ? "light" : "dark";
@@ -13,8 +18,21 @@
   var pending = new Map();
   var seq = 0;
 
+  function readLocal() {
+    var out = {};
+    var n = 0;
+    try { n = localStorage.length; } catch (e) { return out; }
+    for (var i = 0; i < n; i++) {
+      try {
+        var k = localStorage.key(i);
+        if (k && k.indexOf("cd:") === 0) out[k.slice(3)] = JSON.parse(localStorage.getItem(k));
+      } catch (e) { /* skip unreadable key */ }
+    }
+    return out;
+  }
+
   window.cooldesk = {
-    version: 1,
+    version: 2,
     params: params,
     get: function (key, fallback) {
       var v = params.get(key);
@@ -48,6 +66,10 @@
         } catch (e) {
           this._mem[key] = value;
         }
+        // Write-through to the host's durable store (fire-and-forget).
+        if (window.cooldesk.hosted) {
+          window.cooldesk.call("store.set", { key: key, value: value }).catch(function () { });
+        }
       },
     },
   };
@@ -67,7 +89,29 @@
           else p.resolve(m.result);
         }
       };
-      port.postMessage({ id: 0, method: "ready", args: { version: 1 } });
+      port.postMessage({ id: 0, method: "ready", args: { version: 2 } });
+
+      // Durable-store sync: push local data up, or pull it back down when
+      // the local copy was wiped (e.g. the user cleared site data).
+      var local = readLocal();
+      if (Object.keys(local).length > 0) {
+        window.cooldesk.call("store.backup", { data: local }).catch(function () { });
+      } else {
+        window.cooldesk.call("store.snapshot", {}).then(function (data) {
+          if (!data || Object.keys(data).length === 0) return;
+          var restored = false;
+          try {
+            if (sessionStorage.getItem("cd:restored")) return; // one reload max
+            Object.keys(data).forEach(function (k) {
+              localStorage.setItem("cd:" + k, JSON.stringify(data[k]));
+            });
+            sessionStorage.setItem("cd:restored", "1");
+            restored = true;
+          } catch (e) { /* opaque origin: memory mode, nothing to restore into */ }
+          if (restored) location.reload();
+        }).catch(function () { });
+      }
+
       if (typeof window.cooldesk.onHost === "function") window.cooldesk.onHost();
     }
   });

@@ -64,7 +64,7 @@ const WIDGETS: Widget[] = [
     { id: "regex", name: "Regex Tester", desc: "Live pattern matching with highlighted results. Fully local.", category: "Dev Tools", h: 300 },
 ];
 
-const WIDGET_VERSION = "2";
+const WIDGET_VERSION = "3";
 
 function widgetPath(id: string, theme: "dark" | "light") {
     return `/widgets/${id}.html?theme=${theme}&v=${WIDGET_VERSION}`;
