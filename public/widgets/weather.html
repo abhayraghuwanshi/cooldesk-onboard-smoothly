@@ -33,20 +33,29 @@
     81: ["🌧️", "Showers"], 82: ["⛈️", "Heavy showers"], 95: ["⛈️", "Thunderstorm"], 96: ["⛈️", "Storm + hail"], 99: ["⛈️", "Storm + hail"]
   };
 
+  function render(c) {
+    var info = CODES[c.weather_code] || ["·", "—"];
+    document.getElementById("temp").textContent = Math.round(c.temperature_2m) + "°";
+    document.getElementById("icon").textContent = info[0];
+    document.getElementById("desc").textContent = info[1];
+    document.getElementById("wind").textContent = "wind " + Math.round(c.wind_speed_10m) + " km/h";
+  }
+
+  // Paint the last reading instantly (stale-while-revalidate), then refresh.
+  var cacheKey = "weather:" + lat + "," + lon;
+  var last = cooldesk.store.get(cacheKey, null);
+  if (last && last.current) render(last.current);
+
   function load() {
     fetch("https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon +
       "&current=temperature_2m,weather_code,wind_speed_10m")
       .then(function (r) { return r.json(); })
       .then(function (d) {
-        var c = d.current;
-        var info = CODES[c.weather_code] || ["·", "—"];
-        document.getElementById("temp").textContent = Math.round(c.temperature_2m) + "°";
-        document.getElementById("icon").textContent = info[0];
-        document.getElementById("desc").textContent = info[1];
-        document.getElementById("wind").textContent = "wind " + Math.round(c.wind_speed_10m) + " km/h";
+        render(d.current);
+        cooldesk.store.set(cacheKey, { current: d.current, at: Date.now() });
       })
       .catch(function () {
-        document.getElementById("desc").textContent = "Offline";
+        if (!last) document.getElementById("desc").textContent = "Offline";
       });
   }
   load();

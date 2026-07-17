@@ -28,24 +28,36 @@
       '<span class="big mono" data-price style="font-size:16px">—</span>';
     rows.appendChild(el);
   });
+  function render(d, stale) {
+    var priceEls = rows.querySelectorAll("[data-price]");
+    var chgEls = rows.querySelectorAll("[data-chg]");
+    ids.forEach(function (id, i) {
+      var coin = d[id];
+      if (!coin) return;
+      priceEls[i].textContent = "$" + coin.usd.toLocaleString("en-US", { maximumFractionDigits: coin.usd < 10 ? 4 : 0 });
+      var chg = coin.usd_24h_change;
+      chgEls[i].textContent = (chg >= 0 ? "+" : "") + chg.toFixed(1) + "%";
+      chgEls[i].className = "mono " + (chg >= 0 ? "good" : "bad");
+    });
+    document.getElementById("status").textContent = stale ? "updating…" : "24h · USD";
+  }
+
+  // Paint the last quotes instantly (stale-while-revalidate), then refresh.
+  var cacheKey = "crypto:" + ids.join(",");
+  var last = cooldesk.store.get(cacheKey, null);
+  if (last && last.data) render(last.data, true);
+
   function load() {
     fetch("https://api.coingecko.com/api/v3/simple/price?ids=" + ids.join(",") +
       "&vs_currencies=usd&include_24hr_change=true")
       .then(function (r) { return r.json(); })
       .then(function (d) {
-        var priceEls = rows.querySelectorAll("[data-price]");
-        var chgEls = rows.querySelectorAll("[data-chg]");
-        ids.forEach(function (id, i) {
-          var coin = d[id];
-          if (!coin) return;
-          priceEls[i].textContent = "$" + coin.usd.toLocaleString("en-US", { maximumFractionDigits: coin.usd < 10 ? 4 : 0 });
-          var chg = coin.usd_24h_change;
-          chgEls[i].textContent = (chg >= 0 ? "+" : "") + chg.toFixed(1) + "%";
-          chgEls[i].className = "mono " + (chg >= 0 ? "good" : "bad");
-        });
-        document.getElementById("status").textContent = "24h · USD";
+        render(d, false);
+        cooldesk.store.set(cacheKey, { data: d, at: Date.now() });
       })
-      .catch(function () { document.getElementById("status").textContent = "Offline"; });
+      .catch(function () {
+        if (!last) document.getElementById("status").textContent = "Offline";
+      });
   }
   load();
   setInterval(load, 60000);
