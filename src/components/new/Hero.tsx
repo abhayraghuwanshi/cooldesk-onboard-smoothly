@@ -14,6 +14,14 @@ const POINTS = [
         title: 'Share',
         desc: 'Publish a curated workspace and hand it over as a link — a ready-made set of tabs and resources anyone can open.',
     },
+    {
+        title: 'Project taskbar',
+        desc: 'Dock a workspace to the edge of your screen — its links and apps become a slim taskbar where one click opens anything, or brings it forward if it\'s already running.',
+    },
+    {
+        title: 'Widgets',
+        desc: 'Clocks, todos, focus timers, dev tools — pick widgets from the store and arrange them on your new tab, with live data from the desktop bridge.',
+    },
 ];
 
 function Hero() {

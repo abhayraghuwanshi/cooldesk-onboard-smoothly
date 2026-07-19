@@ -1,8 +1,43 @@
 import { GITHUB_REPO } from "@/config/site";
+import { useLatestRelease } from "@/hooks/useLatestRelease";
 
 const REDDIT_URL = "https://www.reddit.com/r/cooldesk/";
 
+/**
+ * Reduce a release-notes markdown body to a handful of plain-text bullet
+ * lines for the compact card. Our release notes use one `###` heading per
+ * feature, so those headings are the best one-line summary; bodies without
+ * subheadings fall back to their bullet/paragraph lines.
+ */
+function releaseHighlights(body: string, max = 4): string[] {
+    const clean = (line: string) =>
+        line
+            .replace(/^#{1,6}\s+/, '')
+            .replace(/^[-*+]\s+/, '')
+            .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+            .replace(/[`*_]/g, '')
+            .trim();
+
+    const lines = body.split(/\r?\n/).map((l) => l.trim());
+
+    // Feature headings (### and deeper — the top "What's new" heading is noise).
+    const headings = lines.filter((l) => /^#{3,6}\s/.test(l)).map(clean).filter(Boolean);
+    if (headings.length >= 2) return headings.slice(0, max);
+
+    return lines
+        .filter((l) => l && !/^#{1,6}\s/.test(l) && !l.startsWith('!['))
+        .map(clean)
+        .filter(Boolean)
+        .slice(0, max);
+}
+
 function StatsSlideshow() {
+    const release = useLatestRelease();
+    const highlights = releaseHighlights(release.notes);
+    const publishedDate = release.publishedAt
+        ? new Date(release.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+        : '';
+
     return (
         <div className="h-full min-h-[280px] flex flex-col">
             {/* Section header — mirrors the Browser/Desktop headers on the right */}
@@ -52,6 +87,43 @@ function StatsSlideshow() {
                 </span>
             </a>
 
+            {/* Latest release — pulled live from GitHub Releases */}
+            <a
+                href={release.releaseUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block px-5 py-4 hover:bg-white/[0.04] transition-colors group border-b border-white/15"
+            >
+                <div className="flex items-center gap-4">
+                    <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/15 flex items-center justify-center shrink-0">
+                        <TagIcon className="w-5 h-5 text-emerald-400" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                        <p className="heading-5">Latest release</p>
+                        <p className="caption mt-0.5 font-mono">
+                            v{release.version}
+                            {publishedDate && <span className="text-white/30"> · {publishedDate}</span>}
+                        </p>
+                    </div>
+                    <span className="inline-flex items-center gap-1.5 text-sm font-medium text-txt-secondary group-hover:text-white transition-colors shrink-0">
+                        Notes
+                        <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                        </svg>
+                    </span>
+                </div>
+                {highlights.length > 0 && (
+                    <ul className="mt-3 ml-[52px] space-y-1">
+                        {highlights.map((line) => (
+                            <li key={line} className="caption leading-relaxed flex gap-2">
+                                <span className="text-emerald-400/70 shrink-0">·</span>
+                                <span className="truncate">{line}</span>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </a>
+
             {/* Closing note fills the column and stays honest about what we are */}
             <div className="flex-1 flex items-end px-5 py-5">
                 <p className="caption leading-relaxed">
@@ -60,6 +132,15 @@ function StatsSlideshow() {
                 </p>
             </div>
         </div>
+    );
+}
+
+function TagIcon({ className }: { className?: string }) {
+    return (
+        <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 6h.008v.008H6V6Z" />
+        </svg>
     );
 }
 
