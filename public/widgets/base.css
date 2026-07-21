@@ -3,6 +3,12 @@
 
 :root {
   --bg: #0b0b0e;
+  /* Page surface every widget paints on. Kept separate from --bg (which is also
+     used as a foreground/inverted-text color, e.g. button.primary) and made a
+     translucent frosted panel so the card tone is uniform regardless of how much
+     the widget draws — a sparse widget (year-progress) no longer reads as flat
+     black next to a content-dense one (tasks/clock). */
+  --surface: rgba(24, 24, 30, 0.72);
   --fg: #fafafa;
   --muted: rgba(255, 255, 255, 0.45);
   --faint: rgba(255, 255, 255, 0.14);
@@ -14,6 +20,7 @@
 
 [data-theme="light"] {
   --bg: #f6f6f3;
+  --surface: rgba(248, 248, 245, 0.72);
   --fg: #141414;
   --muted: rgba(0, 0, 0, 0.5);
   --faint: rgba(0, 0, 0, 0.12);
@@ -27,11 +34,26 @@
 html, body { height: 100%; }
 
 body {
-  background: var(--bg);
+  background: var(--surface);
+  /* Frost the wallpaper behind the iframe so the translucent surface reads as a
+     glass panel rather than showing sharp wallpaper through the sparse widgets. */
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
   color: var(--fg);
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow: hidden;
+}
+
+/* Host-owned surface (?embed=host): the embedding app (e.g. the CoolDesk
+   dashboard) paints the card behind the iframe, so the widget itself stays
+   transparent and inherits whatever surface the host provides. This makes every
+   widget read as the *same* card regardless of how much it draws — the surface
+   no longer lives in this stylesheet. Standalone/store use keeps --surface. */
+html[data-embed="host"] body {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 .widget {

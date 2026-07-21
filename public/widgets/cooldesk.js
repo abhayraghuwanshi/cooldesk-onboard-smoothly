@@ -14,6 +14,11 @@
 (function () {
   var params = new URLSearchParams(location.search);
   document.documentElement.dataset.theme = params.get("theme") === "light" ? "light" : "dark";
+  // `?embed=host` lets the embedding app own the card surface: the widget body
+  // goes transparent (see base.css) so the host's tile shows through, instead of
+  // each widget painting its own — the surface then depends on *where* the widget
+  // is used. Standalone/store use omits it and keeps the self-contained surface.
+  if (params.get("embed") === "host") document.documentElement.dataset.embed = "host";
 
   var pending = new Map();
   var seq = 0;
