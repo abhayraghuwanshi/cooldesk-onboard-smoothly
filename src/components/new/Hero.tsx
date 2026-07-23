@@ -37,13 +37,13 @@ function Hero() {
             <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/3 via-transparent to-blue-500/3" />
 
             <div className="relative z-20 w-full container mx-auto px-6 pt-28 pb-16 md:py-24">
-                <div className="flex flex-col md:flex-row items-center gap-12 md:gap-16">
+                <div className="flex flex-col">
 
-                    <div className="flex-1 text-left">
-                        <h1 className="text-4xl md:text-5xl font-black text-white mb-4 leading-tight">
+                    <div className="max-w-3xl text-left">
+                        <h1 className="text-4xl md:text-6xl font-black text-white mb-5 leading-[1.05]">
                             Launchers open apps. CoolDesk opens your work.
                         </h1>
-                        <p className="text-base md:text-lg text-white/60 max-w-md mb-8 leading-relaxed">
+                        <p className="text-base md:text-lg text-white/60 max-w-2xl mb-8 leading-relaxed">
                             CoolDesk knows what project you're on. Press Alt+K to find any tab, app, file or note — or switch projects and get everything back exactly where you left it. Across browser and desktop, on Windows and Mac.
                         </p>
 
@@ -66,19 +66,6 @@ function Hero() {
                                 </svg>
                                 100% Local
                             </span>
-                        </div>
-                    </div>
-
-                    <div className="flex-1 flex justify-center md:justify-end">
-                        <div className="relative group w-full max-w-xl">
-                            <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/30 to-purple-600/30 rounded-[20px] blur-xl opacity-60 group-hover:opacity-100 transition-opacity duration-700" />
-                            <div className="relative rounded-[20px] overflow-hidden border border-white/10 shadow-2xl bg-[#0A0A0A]">
-                                <img
-                                    src="/cooldesk-new.png"
-                                    alt="CoolDesk Spotlight — search workspaces, tabs and apps from anywhere"
-                                    className="w-full h-auto"
-                                />
-                            </div>
                         </div>
                     </div>
 

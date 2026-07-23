@@ -1,0 +1,8 @@
+{
+  "todos": [
+    { "id": "t1", "title": "Keep Releases page (src/pages/Releases.tsx) in sync with the latest extension version", "status": "todo", "shared": true },
+    { "id": "t2", "title": "Fill out Widget Store content (src/pages/WidgetStore.tsx) — recently added, verify copy and data", "status": "todo", "shared": true },
+    { "id": "t3", "title": "Review SEO / brand performance follow-ups from the Semrush reports in repo root", "status": "todo", "shared": true },
+    { "id": "t4", "title": "Decide whether the newtab build mode (newtab.kazekit.com) ships or stays a placeholder", "status": "todo", "shared": true }
+  ]
+}

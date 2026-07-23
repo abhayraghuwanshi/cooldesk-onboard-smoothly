@@ -1,0 +1,10 @@
+{
+  "commands": [
+    { "id": "dev", "label": "Dev server (cool-desk.com)", "run": "npm run dev", "cwd": "." },
+    { "id": "build", "label": "Build cool-desk.com", "run": "npm run build:cooldesk", "cwd": "." },
+    { "id": "build-newtab", "label": "Build newtab site", "run": "npm run build:newtab", "cwd": "." },
+    { "id": "lint", "label": "Lint", "run": "npm run lint", "cwd": "." },
+    { "id": "preview", "label": "Preview build", "run": "npm run preview", "cwd": "." },
+    { "id": "indexnow", "label": "Submit URLs to IndexNow", "run": "npm run indexnow", "cwd": "." }
+  ]
+}
