@@ -19,6 +19,7 @@ import PricingPage from "./pages/Pricing";
 import ReleasesPage from "./pages/Releases";
 import Library from "./pages/Library";
 import TermsPage from "./pages/terms";
+import UninstallPage from "./pages/Uninstall";
 import VersusPage from "./pages/Versus";
 import WidgetStorePage from "./pages/WidgetStore";
 
@@ -68,6 +69,9 @@ const App = () => (
             <Route path="/releases" element={<ReleasesPage />} />
             <Route path="/vs/:slug" element={<VersusPage />} />
             <Route path="/widgets" element={<WidgetStorePage />} />
+            {/* Chrome opens this when the extension is removed
+                (setUninstallURL in the extension's background script). */}
+            <Route path="/uninstall" element={<UninstallPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

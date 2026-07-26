@@ -65,6 +65,10 @@
     {
       "source": "/widgets",
       "destination": "/index.html"
+    },
+    {
+      "source": "/uninstall",
+      "destination": "/index.html"
     }
   ],
   "headers": [

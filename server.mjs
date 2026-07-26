@@ -72,19 +72,45 @@ function pickAsset(release, platform) {
   return null;
 }
 
-function platformFrom(url, userAgent = '') {
+// Only ever an explicit choice. Server-side User-Agent sniffing is not an
+// option here: App Hosting's CDN doesn't pass a usable UA through to Cloud Run,
+// and a UA-dependent redirect can't be cached anyway — the first visitor's
+// platform would be served to everyone for max-age. /api/download without a
+// platform hands the decision to the browser instead (see PICKER_HTML).
+function platformFrom(url) {
   const explicit = (url.searchParams.get('platform') || '').toLowerCase();
-  if (explicit) {
-    if (['win', 'windows', 'win64', 'x64'].includes(explicit)) return 'windows';
-    if (['mac', 'macos', 'osx', 'darwin'].includes(explicit)) return 'mac';
-    if (explicit === 'linux') return 'linux';
-  }
-  const ua = userAgent.toLowerCase();
-  if (ua.includes('windows')) return 'windows';
-  if (ua.includes('mac os') || ua.includes('macintosh')) return 'mac';
-  if (ua.includes('linux')) return 'linux';
+  if (['win', 'windows', 'win64', 'x64'].includes(explicit)) return 'windows';
+  if (['mac', 'macos', 'osx', 'darwin'].includes(explicit)) return 'mac';
+  if (explicit === 'linux') return 'linux';
   return null;
 }
+
+// Client-side platform pick for a bare /api/download. Fully cacheable because
+// it's identical for everyone; the branch happens in the browser.
+const PICKER_HTML = `<!doctype html>
+<meta charset="utf-8">
+<title>Downloading CoolDesk…</title>
+<meta name="robots" content="noindex">
+<style>
+  body { font: 16px/1.5 system-ui, sans-serif; margin: 15vh auto; max-width: 32rem;
+         padding: 0 1.5rem; text-align: center; color: #111; }
+  a { color: #4f46e5; }
+  @media (prefers-color-scheme: dark) { body { background: #0b0b0f; color: #e5e7eb; } }
+</style>
+<p>Starting your CoolDesk download…</p>
+<p><a id="win" href="/api/download/windows">Windows</a> ·
+   <a id="mac" href="/api/download/mac">macOS</a> ·
+   <a href="/api/releases">All downloads</a></p>
+<script>
+  var p = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || '';
+  p = p.toLowerCase();
+  var target = p.indexOf('mac') > -1 ? 'mac'
+             : p.indexOf('linux') > -1 ? 'linux'
+             : p.indexOf('win') > -1 ? 'windows'
+             : '';
+  if (target) location.replace('/api/download/' + target);
+</script>
+`;
 
 // ------------------------------------------------------------------- responses
 
@@ -158,12 +184,20 @@ async function handleApi(req, res, url) {
     return true;
   }
 
-  // Stable download links: /api/download/windows, /api/download?platform=mac,
-  // or /api/download on its own (platform sniffed from the User-Agent).
+  // Stable download links: /api/download/windows or /api/download?platform=mac
+  // resolve to the versioned asset; a bare /api/download serves the picker,
+  // which redirects to one of those from the browser.
   const download = path.match(/^\/api\/download(?:\/([a-z]+))?$/);
   if (download) {
-    const platform = download[1] || platformFrom(url, req.headers['user-agent'] || '');
-    if (!platform) return redirect(res, RELEASES_PAGE), true;
+    const platform = download[1] || platformFrom(url);
+    if (!platform) {
+      res.writeHead(200, {
+        'Content-Type': 'text/html; charset=utf-8',
+        'Cache-Control': 'public, max-age=300',
+      });
+      res.end(PICKER_HTML);
+      return true;
+    }
     try {
       const asset = pickAsset(await getLatestRelease(), platform);
       redirect(res, asset ?? RELEASES_PAGE);
