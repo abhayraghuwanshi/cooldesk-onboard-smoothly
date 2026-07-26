@@ -20,6 +20,18 @@
   // is used. Standalone/store use omits it and keeps the self-contained surface.
   if (params.get("embed") === "host") document.documentElement.dataset.embed = "host";
 
+  // `?tint=RRGGBB` — the embedding board's per-widget accent. The card tints
+  // itself rather than the host tinting it from outside, because the host can't
+  // paint through an opaque iframe canvas. Also drives --accent so the widget's
+  // own marks (bars, links, focus rings) agree with the card.
+  var tint = (params.get("tint") || "").replace(/^#/, "");
+  if (/^(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(tint)) {
+    var root = document.documentElement.style;
+    root.setProperty("--tint", "#" + tint);
+    root.setProperty("--tint-strength", "22%");
+    root.setProperty("--accent", "#" + tint);
+  }
+
   var pending = new Map();
   var seq = 0;
 

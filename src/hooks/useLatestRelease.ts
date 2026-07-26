@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
 
 const REPO = 'abhayraghuwanshi/cooldesk-extension';
+// Our own cached proxy (server.mjs) — one GitHub call per 5 min for the whole
+// site instead of one per visitor, which also keeps us off the unauthenticated
+// rate limit. Falls back to the GitHub API directly, which is also the path
+// taken under `vite dev`, where /api/* isn't served.
+const RELEASE_PROXY = '/api/version';
 const LATEST_RELEASE_API = `https://api.github.com/repos/${REPO}/releases/latest`;
 
 export interface ReleaseInfo {
@@ -46,28 +51,45 @@ interface GitHubRelease {
     assets?: GitHubAsset[];
 }
 
+/** Extra fields /api/version adds on top of the GitHub release shape. */
+interface ProxyRelease {
+    notes?: string;
+    downloads?: { windows?: string | null; mac?: string | null; linux?: string | null };
+}
+
 // The hook is used by several components on the same page (downloads panel,
 // community panel) — share one request instead of hitting the API per mount.
 let releaseFetch: Promise<ReleaseInfo> | null = null;
 
+function parseRelease(data: GitHubRelease & Partial<ProxyRelease>): ReleaseInfo {
+    const version = String(data.tag_name ?? '').replace(/^v/, '') || FALLBACK.version;
+    // The proxy resolves the per-platform assets for us; the raw GitHub shape
+    // needs them picked out of the asset list.
+    const assets = data.assets ?? [];
+    const windows =
+        data.downloads?.windows ?? assets.find((a) => /x64-setup\.exe$/i.test(a.name))?.browser_download_url;
+    const mac = data.downloads?.mac ?? assets.find((a) => /aarch64\.dmg$/i.test(a.name))?.browser_download_url;
+    return {
+        version,
+        windows: windows ?? FALLBACK.windows,
+        mac: mac ?? FALLBACK.mac,
+        releaseUrl: data.html_url ?? FALLBACK.releaseUrl,
+        title: data.name ?? '',
+        notes: data.body ?? data.notes ?? '',
+        publishedAt: data.published_at ?? '',
+    };
+}
+
+function fetchJson(url: string, headers?: HeadersInit) {
+    return fetch(url, headers ? { headers } : undefined).then((r) =>
+        r.ok ? r.json() : Promise.reject(r.status),
+    );
+}
+
 function fetchLatestRelease(): Promise<ReleaseInfo> {
-    releaseFetch ??= fetch(LATEST_RELEASE_API, { headers: { Accept: 'application/vnd.github+json' } })
-        .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
-        .then((data: GitHubRelease) => {
-            const version = String(data.tag_name ?? '').replace(/^v/, '') || FALLBACK.version;
-            const assets = data.assets ?? [];
-            const windows = assets.find((a) => /x64-setup\.exe$/i.test(a.name))?.browser_download_url;
-            const mac = assets.find((a) => /aarch64\.dmg$/i.test(a.name))?.browser_download_url;
-            return {
-                version,
-                windows: windows ?? FALLBACK.windows,
-                mac: mac ?? FALLBACK.mac,
-                releaseUrl: data.html_url ?? FALLBACK.releaseUrl,
-                title: data.name ?? '',
-                notes: data.body ?? '',
-                publishedAt: data.published_at ?? '',
-            };
-        })
+    releaseFetch ??= fetchJson(RELEASE_PROXY)
+        .catch(() => fetchJson(LATEST_RELEASE_API, { Accept: 'application/vnd.github+json' }))
+        .then(parseRelease)
         .catch(() => FALLBACK);
     return releaseFetch;
 }
