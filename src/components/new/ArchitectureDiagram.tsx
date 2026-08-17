@@ -3,8 +3,10 @@ import React from "react";
 /**
  * "FIG. 1 — SPOTLIGHT ASSEMBLY" — the architecture as an engineering
  * drawing: hairline strokes, numbered callout balloons, dimension lines,
- * a parts schedule and a title block. Dashed outline = optional part,
- * per drafting convention. Lines draft themselves in when scrolled into view.
+ * a parts schedule and a title block. Both parts are drawn solid — the
+ * extension and desktop app are peers that sync directly with each other
+ * (127.0.0.1:4545, per src-tauri/src/sidecar/server.rs) as well as both
+ * feeding Spotlight. Lines draft themselves in when scrolled into view.
  */
 
 const INK = "rgba(255,255,255,0.55)"; // primary line work
@@ -44,8 +46,9 @@ function ArchitectureDiagram() {
           Two apps. One Spotlight.
         </h2>
         <p className="text-sm text-txt-secondary mt-2 max-w-md mx-auto">
-          The extension organises your browser. The desktop app brings native
-          windows in. <kbd className="font-mono text-xs text-white/80 border border-white/15 rounded px-1.5 py-0.5 mx-0.5">Alt&thinsp;+&thinsp;K</kbd> searches it all.
+          The extension organises your browser. The desktop app adds native
+          app search, the taskbar and the AI agent — synced locally, both ways.{' '}
+          <kbd className="font-mono text-xs text-white/80 border border-white/15 rounded px-1.5 py-0.5 mx-0.5">Alt&thinsp;+&thinsp;K</kbd> searches it all.
         </p>
       </div>
 
@@ -65,7 +68,7 @@ function ArchitectureDiagram() {
             viewBox="0 0 760 472"
             className="min-w-[600px] w-full h-auto font-mono"
             role="img"
-            aria-label="System assembly drawing: the browser extension (item 1) and the optional desktop app (item 2) both feed into Spotlight (item 3), opened with Alt+K"
+            aria-label="System assembly drawing: the browser extension (item 1) and the desktop app (item 2) sync with each other locally and both feed into Spotlight (item 3), opened with Alt+K"
           >
             <defs>
               <pattern id="bpHatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
@@ -102,16 +105,11 @@ function ArchitectureDiagram() {
               <text x="195" y="156" fontSize="9.5" letterSpacing="1" fill={INK_LABEL}>· BOOKMARKS</text>
             </g>
 
-            {/* ————— item 2: desktop app (dashed = optional) ————— */}
-            {/* dashed outline (= optional part) fades in — the draw-in CSS would
-                override its dash pattern, so it can't use data-draw */}
-            <rect x="440" y="50" width="250" height="140" fill="none" stroke={INK} strokeWidth="1.2" strokeDasharray="7 5" data-fade style={{ animationDelay: "0.15s" }} />
+            {/* ————— item 2: desktop app — solid outline, peer to item 1 ————— */}
+            <rect x="440" y="50" width="250" height="140" fill="none" stroke={INK} strokeWidth="1.2" data-draw pathLength={1} style={{ animationDelay: "0.15s" }} />
             <line x1="440" y1="84" x2="690" y2="84" stroke={INK_FAINT} strokeWidth="1" data-draw pathLength={1} style={{ animationDelay: "0.4s" }} />
             <text x="455" y="72" fontSize="11" letterSpacing="2" fill={INK_TEXT} data-fade style={{ animationDelay: "0.85s" }}>
               DESKTOP APP
-            </text>
-            <text x="600" y="72" fontSize="8.5" letterSpacing="1.5" fill={ACCENT} fillOpacity="0.8" data-fade style={{ animationDelay: "0.85s" }}>
-              (OPTIONAL)
             </text>
             <g data-fade style={{ animationDelay: "0.9s" }}>
               <rect x="455" y="102" width="8" height="8" fill="none" stroke={INK_LABEL} strokeWidth="1" />
@@ -125,6 +123,17 @@ function ArchitectureDiagram() {
               <circle cx="665" cy="154" r="2.5" fill={ACCENT} fillOpacity="0.7" />
               <text x="675" y="178" textAnchor="end" fontSize="7.5" letterSpacing="1" fill="rgba(255,255,255,0.35)">● = RUNNING</text>
             </g>
+
+            {/* ————— direct sync: extension ⇄ desktop app, both ways ————— */}
+            <line x1="322" y1="120" x2="438" y2="120" stroke={ACCENT} strokeOpacity="0.7" strokeWidth="1" strokeDasharray="3 3" data-draw pathLength={1} style={{ animationDelay: "0.6s" }} />
+            <path d="M322 120 l6 -3 v6 z" fill={ACCENT} fillOpacity="0.7" data-fade style={{ animationDelay: "0.7s" }} />
+            <path d="M438 120 l-6 -3 v6 z" fill={ACCENT} fillOpacity="0.7" data-fade style={{ animationDelay: "0.7s" }} />
+            <text x="380" y="112" textAnchor="middle" fontSize="7" letterSpacing="1" fill={ACCENT} fillOpacity="0.9" data-fade style={{ animationDelay: "0.75s" }}>
+              LOCAL SYNC
+            </text>
+            <text x="380" y="133" textAnchor="middle" fontSize="6.5" letterSpacing="0.5" fill={INK_LABEL} data-fade style={{ animationDelay: "0.8s" }}>
+              127.0.0.1:4545
+            </text>
 
             {/* ————— callout balloons ————— */}
             <circle cx="48" cy="34" r="11" fill="none" stroke={ACCENT} strokeOpacity="0.9" strokeWidth="1.2" data-draw pathLength={1} style={{ animationDelay: "1.05s" }} />
@@ -185,7 +194,7 @@ function ArchitectureDiagram() {
             {/* ————— general notes ————— */}
             <g data-fade style={{ animationDelay: "1.3s" }}>
               <text x="70" y="444" fontSize="8" letterSpacing="1" fill="rgba(255,255,255,0.35)">1. DO NOT SCALE DRAWING.</text>
-              <text x="70" y="458" fontSize="8" letterSpacing="1" fill="rgba(255,255,255,0.35)">2. DASHED OUTLINE = OPTIONAL PART.</text>
+              <text x="70" y="458" fontSize="8" letterSpacing="1" fill="rgba(255,255,255,0.35)">2. ITEMS 1+2 SYNC LOCALLY OVER PORT 4545.</text>
             </g>
           </svg>
         </div>
@@ -200,8 +209,8 @@ function ArchitectureDiagram() {
               <span className="px-2 sm:px-3 py-1.5">NOTES</span>
             </div>
             {[
-              ["1", "BROWSER EXTENSION", "WORKS STANDALONE"],
-              ["2", "DESKTOP APP", "OPTIONAL · WINDOWS / MACOS"],
+              ["1", "BROWSER EXTENSION", "TABS · NOTES · BOOKMARKS"],
+              ["2", "DESKTOP APP", "APP SEARCH · TASKBAR · AGENT"],
               ["3", "SPOTLIGHT — ALT+K", "SEARCHES ITEMS 1 + 2"],
             ].map(([item, part, notes]) => (
               <div key={item} className="grid grid-cols-[3rem_1fr_5.5rem] sm:grid-cols-[3.5rem_11rem_1fr] border-b border-white/10 last:border-b-0 md:last:border-b-0">

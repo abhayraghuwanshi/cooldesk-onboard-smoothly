@@ -272,6 +272,10 @@ function Downloads() {
                       <div className="flex-1 min-w-0">
                         <p className="heading-5">macOS</p>
                         <p className="caption mt-0.5">v{VERSIONS.mac} · Apple Silicon</p>
+                        <p className="text-[11px] text-amber-400/80 mt-1 leading-snug">
+                          Unsigned build — if macOS says it's damaged, open the
+                          "① RUN THIS FIRST" script inside the DMG (or use Homebrew below).
+                        </p>
                       </div>
                       <span className="inline-flex items-center gap-1.5 text-sm font-medium text-txt-secondary group-hover:text-white transition-colors shrink-0">
                         <DownloadIcon className="w-3.5 h-3.5" />
@@ -295,6 +299,7 @@ function Downloads() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="heading-5">macOS <span className="text-txt-muted font-normal">via Homebrew</span></p>
+                        <p className="caption mt-0.5 font-mono truncate">brew tap abhayraghuwanshi/cooldesk</p>
                         <p className="caption mt-0.5 font-mono truncate">brew install --cask cooldesk</p>
                       </div>
                       <span className="inline-flex items-center gap-1.5 text-sm font-medium text-txt-secondary group-hover:text-white transition-colors shrink-0">
