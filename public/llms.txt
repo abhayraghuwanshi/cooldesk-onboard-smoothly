@@ -27,7 +27,7 @@ Free — no plans, no sign-in, no tracking
 
 - [Home](https://cool-desk.com/)
 - [How to Use](https://cool-desk.com/how-to-use)
-- [Widget Store](https://cool-desk.com/widgets) — 39 free embeddable new-tab widgets: spotlight, project workspaces, session restore, daily focus, pomodoro, tasks, weather, habits, snippets, regex tester and more
+- [Widget Store](https://cool-desk.com/widgets) — free embeddable new-tab widgets: spotlight, project workspaces, session restore, daily focus, pomodoro, tasks, weather, habits, snippets, regex tester and more, plus support for adding your own custom widget
 - [Blog](https://cool-desk.com/blog)
 - [Library of Curated Tools](https://cool-desk.com/library)
 - [Contact](https://cool-desk.com/contact)
@@ -38,3 +38,6 @@ Free — no plans, no sign-in, no tracking
 - [CoolDesk vs Toby](https://cool-desk.com/vs/toby) — visual tab collections vs project workspaces with spotlight search across tabs, apps and notes
 - [CoolDesk vs Raycast](https://cool-desk.com/vs/raycast) — a command palette vs a project-based launcher with browser-deep search
 - [CoolDesk vs Alfred](https://cool-desk.com/vs/alfred) — the Mac classic vs a free launcher for Windows and Mac built around projects
+- [CoolDesk vs Spotlight](https://cool-desk.com/vs/spotlight) — macOS's built-in launcher vs a free, project-based launcher for Windows and Mac
+- [CoolDesk vs PowerToys Run](https://cool-desk.com/vs/powertoys) — Microsoft's free Windows launcher vs a free, project-based launcher for Windows and Mac
+- [CoolDesk vs Momentum](https://cool-desk.com/vs/momentum) — a beautiful daily new-tab dashboard vs a project workspace with tabs, apps, notes and spotlight search

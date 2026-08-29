@@ -1,5 +1,4 @@
 import * as LucideIcons from 'lucide-react';
-import { Helmet } from 'react-helmet-async';
 import ReactMarkdown from 'react-markdown';
 import { Link, useParams } from 'react-router-dom';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -71,12 +70,8 @@ export default function BlogPostPage() {
                 title={post.title}
                 description={post.description}
                 canonical={canonicalUrl}
+                jsonLd={jsonLd}
             />
-            <Helmet>
-                <script type="application/ld+json">
-                    {JSON.stringify(jsonLd)}
-                </script>
-            </Helmet>
 
             <Navbar />
 

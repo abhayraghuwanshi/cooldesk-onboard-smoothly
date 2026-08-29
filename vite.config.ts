@@ -17,6 +17,15 @@ export default defineConfig(({ mode }) => {
       host: "::",
       port: 8080,
     },
+    // react-router-dom has no "exports" map, so its /server subpath (used by
+    // scripts/prerender.tsx's StaticRouter) and its main entry can otherwise
+    // resolve to two separate module instances under vite-node's SSR
+    // pipeline — each with its own React context, which breaks useRoutes()
+    // ("may be used only in the context of a <Router>"). Forcing it through
+    // Vite's own resolver for SSR keeps it to one instance.
+    ssr: {
+      noExternal: ["react-router-dom"],
+    },
     build: {
       minify: 'terser',
       sourcemap: false,

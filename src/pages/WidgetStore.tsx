@@ -85,7 +85,7 @@ function WidgetCard({ widget, theme }: { widget: Widget; theme: "dark" | "light"
     };
 
     return (
-        <div className="rounded-xl border border-white/10 bg-white/[0.03] overflow-hidden transition-colors hover:border-blue-400/30">
+        <div className="w-[260px] shrink-0 snap-start rounded-xl border border-white/10 bg-white/[0.03] overflow-hidden transition-colors hover:border-blue-400/30">
             <iframe
                 src={widgetPath(widget.id, theme)}
                 title={`${widget.name} widget preview`}
@@ -95,15 +95,10 @@ function WidgetCard({ widget, theme }: { widget: Widget; theme: "dark" | "light"
                 style={{ height: widget.h }}
             />
             <div className="p-4">
-                <div className="flex items-baseline justify-between gap-3 mb-1">
-                    <h3 className="text-base font-bold">{widget.name}</h3>
-                    <span className="font-mono text-[10px] tracking-[0.18em] uppercase text-white/30 whitespace-nowrap">
-                        {widget.category}
-                    </span>
-                </div>
+                <h3 className="text-base font-bold mb-1">{widget.name}</h3>
                 {widget.powered && (
                     <p className="font-mono text-[10px] tracking-[0.14em] uppercase text-blue-300/70 mb-1.5">
-                        ⚡ demo here · live data inside CoolDesk
+                        ⚡ live inside CoolDesk
                     </p>
                 )}
                 <p className="text-sm text-gray-400 leading-relaxed mb-3">{widget.desc}</p>
@@ -128,11 +123,26 @@ function WidgetCard({ widget, theme }: { widget: Widget; theme: "dark" | "light"
     );
 }
 
-export default function WidgetStorePage() {
-    const [category, setCategory] = useState<WidgetCategory | "All">("All");
-    const [theme, setTheme] = useState<"dark" | "light">("dark");
+function CategoryRow({ category, widgets, theme }: { category: WidgetCategory; widgets: Widget[]; theme: "dark" | "light" }) {
+    return (
+        <section className="mb-12">
+            <div className="flex items-baseline justify-between mb-4">
+                <h2 className="text-lg font-bold">{category}</h2>
+                <span className="font-mono text-[10px] tracking-[0.18em] uppercase text-white/30 whitespace-nowrap">
+                    {widgets.length} widgets · scroll →
+                </span>
+            </div>
+            <div className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-3 -mx-6 px-6 [scrollbar-width:thin]">
+                {widgets.map((w) => (
+                    <WidgetCard key={w.id} widget={w} theme={theme} />
+                ))}
+            </div>
+        </section>
+    );
+}
 
-    const filtered = category === "All" ? WIDGETS : WIDGETS.filter((w) => w.category === category);
+export default function WidgetStorePage() {
+    const [theme, setTheme] = useState<"dark" | "light">("dark");
 
     const jsonLd = {
         "@context": "https://schema.org",
@@ -161,10 +171,10 @@ export default function WidgetStorePage() {
             <header className="relative z-10 border-b border-white/10 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:44px_44px]">
                 <div className="container mx-auto px-6 pt-32 pb-14 max-w-6xl">
                     <p className="font-mono text-[11px] tracking-[0.25em] text-white/35 uppercase mb-6">
-                        Widget store · v1 · {WIDGETS.length} widgets
+                        Widget store
                     </p>
                     <h1 className="text-4xl md:text-6xl font-black leading-tight tracking-tight mb-6">
-                        {WIDGETS.length} widgets,
+                        Widgets,
                         <br />
                         <span className="text-white/40">ready to embed.</span>
                     </h1>
@@ -177,22 +187,53 @@ export default function WidgetStorePage() {
             </header>
 
             <div className="relative z-10 container mx-auto px-6 pb-24 max-w-6xl">
-                {/* Filters */}
-                <div className="flex flex-wrap items-center gap-3 mt-10 mb-10">
-                    {(["All", ...CATEGORIES] as const).map((c) => (
-                        <button
-                            key={c}
-                            onClick={() => setCategory(c)}
-                            className={`font-mono text-[11px] tracking-[0.18em] uppercase rounded-full border px-4 py-2 transition-colors ${
-                                category === c
-                                    ? "border-white bg-white text-black"
-                                    : "border-white/15 text-white/50 hover:text-white hover:border-white/40"
-                            }`}
-                        >
-                            {c}
-                        </button>
-                    ))}
-                    <span className="flex-1" />
+                {/* Add a custom widget inside CoolDesk */}
+                <section className="mt-16">
+                    <p className="font-mono text-[11px] tracking-[0.25em] text-white/35 uppercase mb-3">For CoolDesk users</p>
+                    <h2 className="text-2xl md:text-3xl font-bold mb-8">Add your own widget on the widget screen</h2>
+                    <p className="text-sm text-gray-400 leading-relaxed max-w-2xl mb-8">
+                        Beyond the widgets below, CoolDesk lets you bring your own — no store submission,
+                        no build step. It lives entirely on your device.
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
+                        {[
+                            {
+                                n: "01",
+                                t: "Open the widget picker",
+                                d: 'On your new tab, click "+ Add widget", then select the Custom category and "+ Create your own widget".',
+                            },
+                            {
+                                n: "02",
+                                t: "Describe it to an AI",
+                                d: 'Click "Copy AI prompt" and paste it into any AI chat (Claude, ChatGPT, etc.), describing what the widget should show.',
+                            },
+                            {
+                                n: "03",
+                                t: "Paste the HTML back",
+                                d: 'The AI replies with one HTML file. Paste it into the box — or import a saved .html file — and give it a name and tile height.',
+                            },
+                            {
+                                n: "04",
+                                t: "Save & add to board",
+                                d: 'Click "Save & add to board". It shows up under Custom from then on — rename it, view its source, or delete it anytime.',
+                            },
+                        ].map((s) => (
+                            <div key={s.n} className="rounded-xl border border-white/10 bg-white/[0.03] p-6">
+                                <span className="font-mono text-3xl font-bold text-white/[0.08]">{s.n}</span>
+                                <h3 className="text-base font-bold mt-2 mb-2">{s.t}</h3>
+                                <p className="text-sm text-gray-400 leading-relaxed">{s.d}</p>
+                            </div>
+                        ))}
+                    </div>
+                    <p className="text-sm text-gray-400 leading-relaxed max-w-2xl mt-6">
+                        Custom widgets are stored on your device (not synced to cool-desk.com) and can read/write their own
+                        data through the same host bridge every built-in widget uses.
+                    </p>
+                </section>
+
+                {/* Theme toggle */}
+                <div className="flex items-center justify-between mt-10 mb-8">
+                    <p className="font-mono text-[11px] tracking-[0.25em] text-white/35 uppercase">Browse by category</p>
                     <button
                         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                         className="font-mono text-[11px] tracking-[0.18em] uppercase rounded-full border border-white/15 px-4 py-2 text-white/50 hover:text-white hover:border-white/40 transition-colors"
@@ -201,12 +242,15 @@ export default function WidgetStorePage() {
                     </button>
                 </div>
 
-                {/* Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {filtered.map((w) => (
-                        <WidgetCard key={`${w.id}-${theme}`} widget={w} theme={theme} />
-                    ))}
-                </div>
+                {/* Category rows — horizontal scroll keeps ~40 widgets from turning into one long vertical dump */}
+                {CATEGORIES.map((cat) => (
+                    <CategoryRow
+                        key={cat}
+                        category={cat}
+                        widgets={WIDGETS.filter((w) => w.category === cat)}
+                        theme={theme}
+                    />
+                ))}
 
                 {/* How it works */}
                 <section className="mt-24">

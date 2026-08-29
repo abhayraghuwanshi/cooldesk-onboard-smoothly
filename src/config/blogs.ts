@@ -27,13 +27,25 @@ export type BlogCategory =
 // Import blog posts from markdown files
 import aiIntegrationBlogContent from './blog-posts/ai-integration-browser-agents.md?raw';
 import autosaveProductivityContent from './blog-posts/autosave-productivity.md?raw';
+import bestNewTabExtensionsContent from './blog-posts/best-new-tab-extensions.md?raw';
+import bookmarksVsRecallContent from './blog-posts/bookmarks-vs-recall.md?raw';
 import browserAmnesiaContent from './blog-posts/browser-amnesia.md?raw';
+import chatLinkLifecycleContent from './blog-posts/chat-link-lifecycle.md?raw';
 import costOfTabHoardingContent from './blog-posts/cost-of-tab-hoarding.md?raw';
+import llmAiProductivityContent from './blog-posts/llm-ai-productivity.md?raw';
+import newTabLogicScrapperContent from './blog-posts/new-tab-logic-scrapper.md?raw';
 import newTabSeoContent from './blog-posts/new-tab-seo-guide.md?raw';
+import noHabitChangeContent from './blog-posts/no-habit-change-productivity.md?raw';
 import p2pBlogContent from './blog-posts/p2p-sharing-blog.md?raw';
+import productivityToolFailureContent from './blog-posts/productivity-tool-failure.md?raw';
 import raycastAlternativesContent from './blog-posts/raycast-alternatives-windows.md?raw';
+import saveForLaterFailContent from './blog-posts/save-for-later-fail.md?raw';
+import savingVsOwningContent from './blog-posts/saving-vs-owning.md?raw';
 import searchGoogleAlgoContent from './blog-posts/search-google-algo.md?raw';
+import semanticSearchHistoryContent from './blog-posts/semantic-search-llm-history.md?raw';
+import tabsToTracesContent from './blog-posts/tabs-to-traces.md?raw';
 import voiceNavBlogContent from './blog-posts/voice-navigation-blog.md?raw';
+import wastedNewTabContent from './blog-posts/wasted-new-tab.md?raw';
 
 // Parse markdown frontmatter and content
 function parseBlogPost(content: string, slug: string, category: BlogCategory = 'features', icon: string = 'FileText'): BlogPost {
@@ -137,7 +149,19 @@ export const blogPosts: BlogPost[] = [
     parseBlogPost(p2pBlogContent, 'p2p-collaboration-technical-deep-dive', 'features', 'Share2'),
     parseBlogPost(voiceNavBlogContent, 'voice-navigation-hands-free-browsing', 'features', 'Mic'),
     parseBlogPost(browserAmnesiaContent, 'fighting-browser-amnesia', 'productivity', 'CloudOff'),
-    parseBlogPost(costOfTabHoardingContent, 'the-hidden-cost-of-tab-hoarding', 'productivity', 'BarChart3')
+    parseBlogPost(costOfTabHoardingContent, 'the-hidden-cost-of-tab-hoarding', 'productivity', 'BarChart3'),
+    parseBlogPost(wastedNewTabContent, 'wasted-new-tab', 'productivity', 'Layout'),
+    parseBlogPost(newTabLogicScrapperContent, 'new-tab-content-scraper', 'features', 'Layout'),
+    parseBlogPost(bookmarksVsRecallContent, 'bookmarks-vs-recall', 'features', 'Search'),
+    parseBlogPost(savingVsOwningContent, 'saving-vs-owning', 'tips', 'BookOpen'),
+    parseBlogPost(tabsToTracesContent, 'tabs-to-traces', 'features', 'Route'),
+    parseBlogPost(chatLinkLifecycleContent, 'chat-link-lifecycle', 'tips', 'MessageSquare'),
+    parseBlogPost(semanticSearchHistoryContent, 'semantic-search-browser-history', 'features', 'Sparkles'),
+    parseBlogPost(productivityToolFailureContent, 'productivity-tool-failure', 'tips', 'RefreshCw'),
+    parseBlogPost(saveForLaterFailContent, 'save-for-later-fail', 'tips', 'Bookmark'),
+    parseBlogPost(noHabitChangeContent, 'no-habit-change-productivity', 'productivity', 'Zap'),
+    parseBlogPost(llmAiProductivityContent, 'llm-ai-productivity', 'features', 'Cpu'),
+    parseBlogPost(bestNewTabExtensionsContent, 'best-new-tab-extensions', 'guides', 'Layout'),
 ];
 
 export const getCategoryLabel = (category: BlogCategory): string => {

@@ -1,4 +1,5 @@
 import { useSectionView } from "@/lib/analytics";
+import { pushSsrJsonLd } from "@/lib/ssrHead";
 import { useEffect, useState } from "react";
 
 interface FAQItem {
@@ -68,6 +69,10 @@ const faqStructuredData = {
 export default function FAQ() {
     const [openIndex, setOpenIndex] = useState<number | null>(0);
     const sectionRef = useSectionView<HTMLDivElement>("faq");
+
+    // During the build-time prerender pass there's no DOM to inject into —
+    // hand it to the prerender script instead (see SEO.tsx / lib/ssrHead.ts).
+    pushSsrJsonLd(faqStructuredData);
 
     // Inject FAQPage JSON-LD imperatively — react-helmet-async silently fails
     // to apply tags in this app (see SEO.tsx).

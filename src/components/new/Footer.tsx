@@ -39,6 +39,9 @@ export default function Footer() {
                 { label: 'CoolDesk vs Toby', href: '/vs/toby' },
                 { label: 'CoolDesk vs Raycast', href: '/vs/raycast' },
                 { label: 'CoolDesk vs Alfred', href: '/vs/alfred' },
+                { label: 'CoolDesk vs Spotlight', href: '/vs/spotlight' },
+                { label: 'CoolDesk vs PowerToys', href: '/vs/powertoys' },
+                { label: 'CoolDesk vs Momentum', href: '/vs/momentum' },
               ].map((link) => (
                 <li key={link.href}>
                   <a

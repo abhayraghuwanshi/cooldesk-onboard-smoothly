@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { site } from '@/config/site';
+import { isSsr, ssrHead, ssrJsonLd } from '@/lib/ssrHead';
 
 interface SEOProps {
     title: string;
@@ -46,6 +47,16 @@ function upsertLink(rel: string, href?: string) {
  */
 export default function SEO({ title, description, canonical, noindex = false, jsonLd }: SEOProps) {
     const jsonLdKey = jsonLd ? JSON.stringify(jsonLd) : '';
+
+    // No DOM during the build-time prerender pass — hand the values to the
+    // prerender script instead of trying to upsert into a nonexistent `document`.
+    if (isSsr) {
+        ssrHead.current = { title, description, canonical, noindex };
+        if (jsonLd) {
+            const schemas = Array.isArray(jsonLd) ? jsonLd : [jsonLd];
+            ssrJsonLd.push(...schemas);
+        }
+    }
 
     useEffect(() => {
         if (title) document.title = title;

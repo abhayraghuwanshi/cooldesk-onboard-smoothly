@@ -23,7 +23,7 @@ interface Comparison {
     faq: { q: string; a: string }[];
 }
 
-const comparisons: Record<string, Comparison> = {
+export const comparisons: Record<string, Comparison> = {
     raycast: {
         name: "Raycast",
         title: "CoolDesk vs Raycast — An Honest Comparison",
@@ -296,6 +296,213 @@ const comparisons: Record<string, Comparison> = {
             {
                 q: "Does CoolDesk need an account like Toby?",
                 a: "No. CoolDesk works without any sign-in and stores everything locally on your device. Optional AI features run locally or with your own API key.",
+            },
+        ],
+    },
+    spotlight: {
+        name: "Spotlight",
+        title: "CoolDesk vs Spotlight — An Honest Comparison",
+        description:
+            "macOS Spotlight is built-in, fast and always there. CoolDesk is a free launcher for Windows and Mac that remembers your projects. An honest comparison — including when Spotlight is all you need.",
+        intro: [
+            "Spotlight (Cmd+Space) is the fastest thing on any Mac — instant, native, zero setup. Most Mac users never install anything else.",
+            "CoolDesk plays a different game: it's built around your projects. Spotlight finds a file or opens an app from a blank slate every time; CoolDesk groups tabs, apps, links and notes into workspaces, so one keystroke can bring back everything you were working on — and it does the same thing on Windows, where Spotlight doesn't exist.",
+            "Searching for a Spotlight alternative for Windows, or wondering whether you need more than what's already built into your Mac? The honest comparison below should make it quick.",
+        ],
+        greatAt: [
+            "Zero install, zero setup — it's already on every Mac",
+            "Instant app launch, file search, calculator and dictionary lookups",
+            "Deep, private on-device indexing tuned by Apple over 15+ years",
+            "Web and Siri Knowledge results for quick facts, right from the search bar",
+        ],
+        differences: [
+            {
+                title: "It remembers your projects",
+                desc: "Spotlight starts from zero every time — it has no idea what you were working on yesterday. CoolDesk groups tabs, apps, links and notes into workspaces you can bring back with one keystroke.",
+            },
+            {
+                title: "It searches inside your browser",
+                desc: "Spotlight barely touches your browser — no open tabs, no real history depth. CoolDesk's extension makes tabs, history and bookmarks first-class results across Chrome, Edge and Brave.",
+            },
+            {
+                title: "It exists on Windows too",
+                desc: "Spotlight is Mac-only. If you split time between a Mac and a Windows PC — or use Windows exclusively — CoolDesk gives you the same keystroke on both.",
+            },
+            {
+                title: "Still free, still local",
+                desc: "CoolDesk matches Spotlight's biggest strength — no account, everything on-device — while adding project workspaces and browser search on top.",
+            },
+        ],
+        table: [
+            { feature: "Platforms", them: "macOS only", us: "Windows + macOS" },
+            { feature: "Price", them: "Free (built-in)", us: "Free" },
+            { feature: "Setup", them: "None — built in", us: "One install" },
+            { feature: "Project workspaces", them: "—", us: "Core concept" },
+            { feature: "Browser tabs, history & bookmarks", them: "Minimal", us: "Built in" },
+            { feature: "App & file search", them: "Excellent, native", us: "Good, via OS APIs" },
+            { feature: "Calculator, dictionary, unit conversion", them: "Built in", us: "Not yet" },
+            { feature: "Your data", them: "Local", us: "100% local" },
+        ],
+        chooseThem: [
+            "You're Mac-only and just need to launch apps and find files fast — no extra install",
+            "You lean on Spotlight's calculator, dictionary and unit conversions throughout the day",
+            "You don't juggle multiple projects with distinct sets of tabs, apps and notes",
+        ],
+        chooseUs: [
+            "You want one keystroke to bring back a whole project — tabs, apps, notes — not just launch a single app",
+            "You want your browser tabs and history searchable, not just apps and files",
+            "You use Windows, or both Windows and Mac, and want the same launcher habit on each",
+        ],
+        faq: [
+            {
+                q: "Isn't Spotlight already enough for most people?",
+                a: "For pure app launching and file search, often yes — it's fast and it's free. CoolDesk is worth adding when you're juggling several projects and want tabs, apps, links and notes to come back together, or when you need the same launcher on Windows.",
+            },
+            {
+                q: "Can I use CoolDesk alongside Spotlight?",
+                a: "Yes — they don't conflict. Many Mac users keep Cmd+Space for quick app launches and file search, and use CoolDesk's spotlight for project switching and browser-deep search.",
+            },
+            {
+                q: "Is CoolDesk really free?",
+                a: "Yes. CoolDesk is free with no account and no subscription. Your data stays on your device; optional AI features run locally or with your own API key.",
+            },
+        ],
+    },
+    powertoys: {
+        name: "PowerToys",
+        title: "CoolDesk vs PowerToys Run — An Honest Comparison",
+        description:
+            "PowerToys Run is Microsoft's free, open-source launcher for Windows. CoolDesk is a free launcher built around your projects, for Windows and Mac. An honest comparison.",
+        intro: [
+            "PowerToys Run (Alt+Space) is the launcher inside Microsoft's free PowerToys utility suite — open source, plugin-based, and genuinely fast for launching apps and finding files on Windows.",
+            "CoolDesk starts from a different problem: not \"how do I launch an app fast\" but \"how do I get back to what I was doing.\" It groups tabs, apps, links and notes into project workspaces, and its browser extension makes tabs and history searchable — territory PowerToys Run doesn't cover. And it runs on macOS too, where PowerToys doesn't exist.",
+            "Deciding between the two, or wondering whether PowerToys Run already covers what you need? The honest comparison below should settle it quickly.",
+        ],
+        greatAt: [
+            "Free, open source, built and maintained by Microsoft",
+            "A genuinely useful plugin ecosystem — calculator, shell commands, registry, window walker, unit converter",
+            "Part of a bigger utility suite — FancyZones, PowerRename, Awake and more in one install",
+            "Lightweight and fast, with no cloud dependency at all",
+        ],
+        differences: [
+            {
+                title: "It remembers your projects",
+                desc: "PowerToys Run launches one thing at a time from a blank state. CoolDesk groups tabs, apps, links and notes into workspaces — switch projects and everything comes back where you left it.",
+            },
+            {
+                title: "It searches inside your browser",
+                desc: "PowerToys Run has no concept of browser tabs or history. CoolDesk's extension makes tabs, history and bookmarks first-class results across Chrome, Edge and Brave.",
+            },
+            {
+                title: "It exists on macOS too",
+                desc: "PowerToys is Windows-only, tied to the Win32 utility model. CoolDesk treats Windows and macOS as equally first-class.",
+            },
+            {
+                title: "One thing, done well",
+                desc: "PowerToys Run is one module in a suite of 10+ utilities — powerful, but general-purpose. CoolDesk is built specifically around project switching and browser-deep search.",
+            },
+        ],
+        table: [
+            { feature: "Platforms", them: "Windows only", us: "Windows + macOS" },
+            { feature: "Price", them: "Free, open source", us: "Free" },
+            { feature: "Setup", them: "One install (full PowerToys suite)", us: "One install" },
+            { feature: "Project workspaces", them: "—", us: "Core concept" },
+            { feature: "Browser tabs, history & bookmarks", them: "—", us: "Built in" },
+            { feature: "Plugin ecosystem", them: "Yes — community plugins", us: "—" },
+            { feature: "Other utilities bundled", them: "FancyZones, PowerRename, Awake & more", us: "—" },
+            { feature: "Your data", them: "Local", us: "100% local" },
+        ],
+        chooseThem: [
+            "You want a free, open-source Windows launcher with a strong plugin ecosystem",
+            "You already use (or want) the rest of the PowerToys suite — FancyZones, PowerRename and the rest",
+            "You don't need your browser tabs or multi-app projects to be searchable or grouped",
+        ],
+        chooseUs: [
+            "You juggle several projects and want tabs, apps, links and notes to come back together, one keystroke",
+            "You want your browser — tabs, history, bookmarks — searchable from the same bar",
+            "You want the same launcher on macOS as well as Windows",
+        ],
+        faq: [
+            {
+                q: "Can I use CoolDesk and PowerToys together?",
+                a: "Yes — they bind different hotkeys and solve different problems. Plenty of people keep PowerToys Run (and the rest of the suite) for quick launches and utilities, and use CoolDesk for project switching and browser-deep search.",
+            },
+            {
+                q: "Is CoolDesk open source like PowerToys?",
+                a: "CoolDesk isn't open source the way PowerToys is, but it shares the same local-first philosophy — everything stays on your device, no account required.",
+            },
+            {
+                q: "Does CoolDesk replace the rest of the PowerToys suite?",
+                a: "No — FancyZones, PowerRename and PowerToys' other utilities do jobs CoolDesk doesn't touch. CoolDesk specifically replaces the \"find and launch\" half (PowerToys Run) and adds project workspaces and browser search on top.",
+            },
+        ],
+    },
+    momentum: {
+        name: "Momentum",
+        title: "CoolDesk vs Momentum — An Honest Comparison",
+        description:
+            "Momentum turns your new tab into a beautiful daily dashboard. CoolDesk turns it into a project workspace with tabs, apps, notes and spotlight search. An honest comparison.",
+        intro: [
+            "Momentum owns the \"beautiful new tab\" category — a stunning photo backdrop, a daily greeting, one focus for today, and a to-do list. Millions of people start their day there.",
+            "CoolDesk starts from a different question: not \"how do I make my new tab calmer\" but \"how do I get back to what I was actually working on.\" It replaces the same blank tab with project workspaces — tabs, apps, links and notes grouped per project — plus a spotlight search that reaches your whole browser and desktop, not just today's to-do list.",
+            "Looking for a Momentum alternative with more project structure, or wondering if Momentum's simplicity is all you need? The honest comparison below should make it quick.",
+        ],
+        greatAt: [
+            "A genuinely beautiful, calming new tab — curated photography, daily quotes, a soft focus prompt",
+            "A dead-simple daily to-do and \"main focus\" habit that keeps you centered",
+            "Mac and mobile companions, so the same dashboard follows you everywhere",
+            "A mature product with years of polish and a large, loyal daily-use audience",
+        ],
+        differences: [
+            {
+                title: "Projects, not just today",
+                desc: "Momentum resets to a blank focus every day. CoolDesk groups tabs, apps, links and notes into workspaces you return to — a project doesn't reset, it waits exactly where you left it.",
+            },
+            {
+                title: "It searches, not just displays",
+                desc: "Momentum is a dashboard you look at. CoolDesk is also a spotlight search across open tabs, history, bookmarks, notes and running apps — press one key and jump, rather than click through a widget.",
+            },
+            {
+                title: "Desktop apps and files too",
+                desc: "Momentum lives entirely in the browser. CoolDesk's desktop app brings native apps and files into the same project and the same search bar.",
+            },
+            {
+                title: "Free, not subscription-gated",
+                desc: "Momentum's richer features — recurring to-dos, integrations, more themes — sit behind Momentum Plus. CoolDesk's workspaces, spotlight search and AI organization are free.",
+            },
+        ],
+        table: [
+            { feature: "Platforms", them: "Chrome, Firefox, Edge + Mac app", us: "Windows + macOS" },
+            { feature: "Price", them: "Free · Momentum Plus subscription for more", us: "Free" },
+            { feature: "Core idea", them: "A beautiful daily dashboard", us: "Project workspaces across tabs, apps, notes & files" },
+            { feature: "Project workspaces", them: "—", us: "Core concept" },
+            { feature: "Spotlight / launcher search", them: "—", us: "Built in" },
+            { feature: "Desktop apps & files", them: "—", us: "Searchable & launchable via desktop app" },
+            { feature: "To-do & daily focus", them: "Built in", us: "Notes widget (not a dedicated to-do list)" },
+            { feature: "Your data", them: "Momentum cloud (for Plus sync)", us: "100% local" },
+        ],
+        chooseThem: [
+            "You want your new tab to feel calm and beautiful more than to be a workspace",
+            "A single daily to-do and \"main focus\" prompt is the habit you actually want",
+            "You're happy paying for Momentum Plus for themes, integrations and cross-device sync",
+        ],
+        chooseUs: [
+            "You juggle several projects and want each one's tabs, apps and notes to come back together",
+            "You want to search — not just look at — your new tab: tabs, history, apps, notes, one bar",
+            "You want it free, local, and working the same on Windows and Mac",
+        ],
+        faq: [
+            {
+                q: "Can I use CoolDesk and Momentum together?",
+                a: "Not really — both replace your new tab, so you end up picking one home base. You can try CoolDesk without uninstalling Momentum first, but only one can own the new tab page at a time.",
+            },
+            {
+                q: "Is CoolDesk as visually calm as Momentum?",
+                a: "CoolDesk optimizes for a different feeling — organized rather than serene. If a photo backdrop and daily quote matter more to you than project structure, Momentum's aesthetic is hard to beat.",
+            },
+            {
+                q: "Is CoolDesk really free?",
+                a: "Yes. CoolDesk is free with no account and no subscription. Your data stays on your device; optional AI features run locally or with your own API key.",
             },
         ],
     },

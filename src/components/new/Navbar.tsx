@@ -44,6 +44,9 @@ const resourceGroups: ResourceGroup[] = [
             { href: '/vs/toby', label: 'vs Toby' },
             { href: '/vs/raycast', label: 'vs Raycast' },
             { href: '/vs/alfred', label: 'vs Alfred' },
+            { href: '/vs/spotlight', label: 'vs Spotlight' },
+            { href: '/vs/powertoys', label: 'vs PowerToys' },
+            { href: '/vs/momentum', label: 'vs Momentum' },
         ],
     },
     {
