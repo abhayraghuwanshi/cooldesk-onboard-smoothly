@@ -1,0 +1,443 @@
+/*
+ * Partial copy of the app's Spotlight styles, for the homepage demo.
+ * Source: cooldesk-extension/src/features/spotlight/GlobalSpotlight.css
+ * (container, search box, result rows + type colours, footer).
+ * Everything is scoped under .cd-spotlight so it can't leak into the site.
+ * If Spotlight is restyled in the app, copy the changed values over here.
+ */
+
+.cd-spotlight .spotlight-container {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  background: rgb(22, 22, 26);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 12px;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.3),
+    0 16px 48px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: 'Inter', 'Inter Tight', 'Segoe UI Variable Display', 'Segoe UI', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 13px;
+  line-height: 1;
+  text-align: left;
+}
+
+/* Search input */
+.cd-spotlight .spotlight-search-box {
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+}
+
+.cd-spotlight .spotlight-prompt {
+  font-weight: 500;
+  font-size: 18px;
+  color: #8b5cf6;
+  user-select: none;
+  opacity: 0.9;
+}
+
+.cd-spotlight .spotlight-scope-badge {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #a78bfa;
+  background: rgba(139, 92, 246, 0.15);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  padding: 3px 7px;
+  border-radius: 5px;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.cd-spotlight .spotlight-input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 16px;
+  font-family: inherit;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  caret-color: #8b5cf6;
+}
+
+.cd-spotlight .spotlight-input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* Results — fixed height here (not in the app) so the demo doesn't jump as it types */
+.cd-spotlight .spotlight-results {
+  height: 292px;
+  overflow: hidden;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.cd-spotlight .spotlight-empty {
+  padding: 40px 12px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.cd-spotlight .result-item {
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.1s;
+  border-left: 2px solid transparent;
+}
+
+.cd-spotlight .result-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.cd-spotlight .result-item.selected {
+  background: rgba(139, 92, 246, 0.12);
+  border-left-color: #8b5cf6;
+}
+
+.cd-spotlight .result-icon {
+  width: 28px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.cd-spotlight .result-icon svg {
+  width: 15px;
+  height: 15px;
+}
+
+.cd-spotlight .result-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.cd-spotlight .result-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.92);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.cd-spotlight .result-desc {
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.38);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+.cd-spotlight .result-badge {
+  font-size: 9.5px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+  min-width: 52px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.cd-spotlight .result-hint {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cd-spotlight .badge-running {
+  background: rgba(34, 197, 94, 0.12) !important;
+  color: #4ade80 !important;
+}
+
+/* Result type colours */
+.cd-spotlight .result-item.result-app { border-left-color: rgba(99, 102, 241, 0.5); }
+.cd-spotlight .result-item.result-app.selected { border-left-color: #6366f1; }
+.cd-spotlight .result-item.result-app .result-icon { color: #818cf8; }
+.cd-spotlight .result-item.result-app .result-badge { background: rgba(99, 102, 241, 0.15); color: #818cf8; }
+
+.cd-spotlight .result-item.result-tab { border-left-color: rgba(139, 92, 246, 0.5); }
+.cd-spotlight .result-item.result-tab.selected { border-left-color: #8b5cf6; }
+.cd-spotlight .result-item.result-tab .result-icon { color: #a78bfa; }
+.cd-spotlight .result-item.result-tab .result-badge { background: rgba(139, 92, 246, 0.15); color: #a78bfa; }
+
+.cd-spotlight .result-item.result-workspace { border-left-color: rgba(6, 182, 212, 0.5); }
+.cd-spotlight .result-item.result-workspace.selected { border-left-color: #06b6d4; }
+.cd-spotlight .result-item.result-workspace .result-icon { color: #22d3ee; }
+
+.cd-spotlight .result-item.result-note { border-left-color: rgba(16, 185, 129, 0.5); }
+.cd-spotlight .result-item.result-note.selected { border-left-color: #10b981; }
+
+.cd-spotlight .result-item.result-folder { border-left-color: rgba(250, 204, 21, 0.5); }
+.cd-spotlight .result-item.result-folder.selected { border-left-color: #facc15; }
+.cd-spotlight .result-item.result-folder .result-icon { color: #facc15; background: rgba(250, 204, 21, 0.12); }
+.cd-spotlight .result-item.result-folder .result-badge { background: rgba(250, 204, 21, 0.15); color: #facc15; }
+
+.cd-spotlight .result-item.result-file { border-left-color: rgba(148, 163, 184, 0.35); }
+.cd-spotlight .result-item.result-file.selected { border-left-color: #94a3b8; }
+.cd-spotlight .result-item.result-file .result-icon { color: #94a3b8; }
+.cd-spotlight .result-item.result-file .result-badge { background: rgba(148, 163, 184, 0.12); color: #94a3b8; }
+
+.cd-spotlight .result-item.result-command-new-workspace { border-left-color: rgba(74, 222, 128, 0.5); }
+.cd-spotlight .result-item.result-command-new-workspace.selected { border-left-color: #4ade80; }
+.cd-spotlight .result-item.result-command-new-workspace .result-icon { color: #4ade80; background: rgba(74, 222, 128, 0.14); }
+.cd-spotlight .result-item.result-command-new-workspace .result-badge { background: rgba(74, 222, 128, 0.18); color: #4ade80; }
+
+.cd-spotlight .result-item.result-command-agent { border-left-color: rgba(236, 72, 153, 0.5); }
+.cd-spotlight .result-item.result-command-agent.selected { border-left-color: #ec4899; }
+.cd-spotlight .result-item.result-command-agent .result-icon { color: #f472b6; background: rgba(236, 72, 153, 0.14); }
+.cd-spotlight .result-item.result-command-agent .result-badge { background: rgba(236, 72, 153, 0.18); color: #f472b6; }
+
+.cd-spotlight .result-item.result-command-u { border-left-color: rgba(139, 92, 246, 0.5); }
+.cd-spotlight .result-item.result-command-u.selected { border-left-color: #8b5cf6; }
+.cd-spotlight .result-item.result-command-u .result-icon { color: #a78bfa; background: rgba(139, 92, 246, 0.12); }
+.cd-spotlight .result-item.result-command-u .result-badge { background: rgba(139, 92, 246, 0.15); color: #a78bfa; }
+
+.cd-spotlight .result-item.result-command-a { border-left-color: rgba(99, 102, 241, 0.5); }
+.cd-spotlight .result-item.result-command-a.selected { border-left-color: #6366f1; }
+.cd-spotlight .result-item.result-command-a .result-icon { color: #818cf8; background: rgba(99, 102, 241, 0.12); }
+.cd-spotlight .result-item.result-command-a .result-badge { background: rgba(99, 102, 241, 0.15); color: #818cf8; }
+
+.cd-spotlight .result-item.result-command-f { border-left-color: rgba(250, 204, 21, 0.5); }
+.cd-spotlight .result-item.result-command-f.selected { border-left-color: #facc15; }
+.cd-spotlight .result-item.result-command-f .result-icon { color: #facc15; background: rgba(250, 204, 21, 0.12); }
+.cd-spotlight .result-item.result-command-f .result-badge { background: rgba(250, 204, 21, 0.15); color: #facc15; }
+
+/* Quick Look preview — GlobalSpotlight.css (.has-preview, .preview-pane)
+   + PreviewPane.css (header, meta, code, Prism token palette).
+   The app widens the panel to 960px while previewing; the demo keeps a
+   fixed width instead so the hero doesn't jump. */
+.cd-spotlight .spotlight-results-row {
+  display: flex;
+  min-height: 0;
+}
+
+.cd-spotlight .spotlight-results-row .spotlight-results {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.cd-spotlight .spotlight-results-row.has-preview .spotlight-results {
+  flex: 0 0 260px;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cd-spotlight .spotlight-results-row.has-preview .result-item {
+  padding: 7px 10px;
+  gap: 8px;
+}
+
+.cd-spotlight .spotlight-results-row.has-preview .result-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.cd-spotlight .spotlight-results-row.has-preview .result-icon svg {
+  width: 13px;
+  height: 13px;
+}
+
+.cd-spotlight .spotlight-results-row.has-preview .result-desc,
+.cd-spotlight .spotlight-results-row.has-preview .result-badge,
+.cd-spotlight .spotlight-results-row.has-preview .result-hint {
+  display: none;
+}
+
+.cd-spotlight .spotlight-results-row.has-preview .result-content {
+  gap: 0;
+}
+
+.cd-spotlight .preview-pane {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  flex: 1;
+  height: 292px;
+  background: rgba(255, 255, 255, 0.015);
+  animation: cdPreviewFadeIn 0.15s ease-out;
+}
+
+@keyframes cdPreviewFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.cd-spotlight .preview-pane-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+}
+
+.cd-spotlight .preview-pane-header-icon {
+  width: 13px;
+  height: 13px;
+  color: rgba(255, 255, 255, 0.35);
+  flex-shrink: 0;
+}
+
+.cd-spotlight .preview-pane-header-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.cd-spotlight .preview-pane-title {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.92);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cd-spotlight .preview-pane-path {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 1px;
+  font-family: 'SF Mono', 'Cascadia Code', Consolas, monospace;
+}
+
+.cd-spotlight .preview-pane-footer-meta {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  font-size: 10.5px;
+  color: rgba(255, 255, 255, 0.32);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cd-spotlight .preview-pane-code-wrap {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  overflow: hidden;
+  font-family: 'SF Mono', 'Cascadia Code', Consolas, 'Fira Code', monospace;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.cd-spotlight .preview-pane-gutter {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 12px 0;
+  text-align: right;
+  user-select: none;
+  color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.015);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cd-spotlight .preview-pane-gutter span {
+  padding: 0 10px;
+  white-space: pre;
+}
+
+.cd-spotlight .preview-pane-code {
+  flex: 1;
+  margin: 0;
+  padding: 12px 16px;
+  white-space: pre;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.cd-spotlight .preview-pane-code .token.comment { color: rgba(255, 255, 255, 0.32); font-style: italic; }
+.cd-spotlight .preview-pane-code .token.punctuation { color: rgba(255, 255, 255, 0.5); }
+.cd-spotlight .preview-pane-code .token.number,
+.cd-spotlight .preview-pane-code .token.boolean,
+.cd-spotlight .preview-pane-code .token.property { color: #d19a66; }
+.cd-spotlight .preview-pane-code .token.string { color: #98c379; }
+.cd-spotlight .preview-pane-code .token.operator,
+.cd-spotlight .preview-pane-code .token.url { color: #56b6c2; }
+.cd-spotlight .preview-pane-code .token.keyword { color: #c678dd; }
+.cd-spotlight .preview-pane-code .token.function,
+.cd-spotlight .preview-pane-code .token.class-name { color: #61afef; }
+.cd-spotlight .preview-pane-code .token.bold { font-weight: 600; }
+
+@media (max-width: 640px) {
+  .cd-spotlight .preview-pane { display: none; }
+  .cd-spotlight .spotlight-results-row.has-preview .spotlight-results { flex: 1 1 auto; border-right: none; }
+}
+
+/* Footer */
+.cd-spotlight .spotlight-footer {
+  padding: 8px 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  gap: 16px;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 11px;
+  height: 32px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.cd-spotlight .shortcut-hint {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.cd-spotlight .shortcut-key {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2px 5px;
+  border-radius: 3px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 10px;
+  min-width: 18px;
+  text-align: center;
+}
+
+@media (max-width: 520px) {
+  .cd-spotlight .result-badge { display: none; }
+  .cd-spotlight .shortcut-hint.hide-sm { display: none; }
+}

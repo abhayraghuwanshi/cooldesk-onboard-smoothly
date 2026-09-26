@@ -1,0 +1,1267 @@
+/*
+ * Partial copy of the app's workspace detail view, for the homepage demo.
+ * Source: cooldesk-extension/src/styles/cooldesk.css — the compact card in
+ * full view (.cooldesk-workspace-card.compact.full-view.panel-open: icon stack,
+ * labelled icon rows, open markers) and .workspace-context-panel (Status,
+ * Next Up todos, Notes). Extracted in cascade order, scoped under .cd-ws,
+ * app CSS variables inlined as their fallback values.
+ */
+
+.cd-ws { font-family: 'Inter', 'Inter Tight', 'Segoe UI', system-ui, sans-serif; text-align: left; color: #e2e8f0; }
+
+.cd-ws .cooldesk-workspace-card {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.cd-ws .letter-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.cd-ws .cooldesk-workspace-card.compact {
+  height: auto;
+  max-height: none;
+  padding: 10px 16px;
+  min-height: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.cd-ws .cooldesk-workspace-card.compact .compact-card-inner {
+  width: 100%;
+}
+
+.cd-ws .cooldesk-workspace-card.compact:hover {
+  transform: translateY(0);
+}
+
+.cd-ws .cooldesk-workspace-card.compact {
+  height: auto;
+  max-height: none;
+  padding: 0;
+  min-height: auto;
+  overflow: visible;
+}
+
+.cd-ws .compact-card-inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  width: 100%;
+  min-width: 0;
+}
+
+.cd-ws .compact-workspace-icon {
+  width: 64px;
+  height: 64px;
+  min-width: 64px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  flex-shrink: 0;
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.cd-ws .compact-workspace-icon::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 60%);
+  pointer-events: none;
+}
+
+.cd-ws .compact-workspace-icon.blue {
+  background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 50%, #2563EB 100%);
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.cd-ws .compact-workspace-icon.purple {
+  background: linear-gradient(135deg, #A78BFA 0%, #8B5CF6 50%, #7C3AED 100%);
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.cd-ws .compact-workspace-icon.orange {
+  background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 50%, #D97706 100%);
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.cd-ws .compact-workspace-icon.green {
+  background: linear-gradient(135deg, #34D399 0%, #10B981 50%, #059669 100%);
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.cd-ws .compact-workspace-icon.brown {
+  background: linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%);
+  box-shadow: 0 8px 24px rgba(217, 119, 6, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.cd-ws .cooldesk-workspace-card.compact:hover .compact-workspace-icon {
+  transform: scale(1.05) rotate(-2deg);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+.cd-ws .compact-workspace-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.cd-ws .compact-workspace-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.75);
+  text-align: center;
+  max-width: 80px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.cd-ws .compact-workspace-icon.folder-collage {
+  background: rgba(15, 23, 42, 0.6);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.cd-ws .workspace-folder-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  width: 100%;
+  height: 100%;
+  padding: 7px;
+  gap: 3px;
+  box-sizing: border-box;
+}
+
+.cd-ws .folder-grid-cell {
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.12);
+  position: relative;
+}
+
+.cd-ws .folder-grid-cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 3px;
+}
+
+.cd-ws .folder-grid-letter {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  font-weight: 700;
+  color: white;
+  border-radius: 3px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.cd-ws .folder-grid-empty {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.cd-ws .compact-icons-scroll {
+  flex: 1;
+  min-width: 0;
+  overflow: auto;
+  min-height: 44px;
+  max-height: 200px;
+  border-radius: 6px;
+}
+
+.cd-ws .compact-icons-container {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 4px 8px 4px 24px;
+  min-width: 0;
+}
+
+.cd-ws .cooldesk-workspace-card.compact.panel-open {
+  display: block;
+  overflow-y: auto !important;
+}
+
+.cd-ws .cooldesk-workspace-card.compact.panel-open .compact-card-inner {
+  flex: none; 
+}
+
+.cd-ws .cooldesk-workspace-card.compact.panel-open .compact-icons-scroll {
+  overflow: visible;
+  max-height: none;
+}
+
+.cd-ws .cooldesk-workspace-card.compact.panel-open .workspace-context-panel {
+  flex: none;
+  height: auto;
+  overflow: visible;
+}
+
+.cd-ws .compact-icons-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 6px 8px 6px 24px;
+  min-width: 0;
+}
+
+.cd-ws .compact-icons-row {
+  --row-accent: #94a3b8;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.cd-ws .compact-icons-row-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--row-accent);
+  padding-left: 2px;
+}
+
+.cd-ws .compact-icons-row-label > svg {
+  font-size: 9px;
+  opacity: 0.95;
+  filter: drop-shadow(0 0 4px var(--row-accent));
+}
+
+.cd-ws .compact-icons-row-count {
+  font-size: 9px;
+  font-weight: 600;
+  padding: 0 6px;
+  border-radius: 999px;
+  color: var(--row-accent);
+  background: color-mix(in srgb, var(--row-accent) 14%, transparent);
+  border: 1px solid color-mix(in srgb, var(--row-accent) 25%, transparent);
+  letter-spacing: 0.05em;
+}
+
+.cd-ws .compact-icons-row .compact-icons-container {
+  padding: 0;
+  gap: 10px;
+}
+
+.cd-ws .compact-icons-row + .compact-icons-row {
+  padding-top: 10px;
+  border-top: 1px dashed rgba(148, 163, 184, 0.08);
+}
+
+.cd-ws .compact-url-icon.is-labeled {
+  width: auto !important;
+  height: auto !important;
+  min-width: 0;
+  max-width: 220px;
+  padding: 5px 12px 5px 6px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 9px;
+}
+
+.cd-ws .compact-url-icon.is-labeled:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+}
+
+.cd-ws .compact-url-icon.is-labeled img, .cd-ws .compact-url-icon.is-labeled .letter-avatar {
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.cd-ws .compact-url-icon.is-labeled .letter-avatar {
+  font-size: 11px;
+}
+
+.cd-ws .compact-url-icon.is-labeled > svg {
+  flex-shrink: 0;
+  width: auto !important;
+}
+
+.cd-ws .compact-icon-label {
+  flex: 1;
+  min-width: 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: #e2e8f0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.3;
+  letter-spacing: 0.005em;
+}
+
+.cd-ws .compact-url-icon {
+  position: relative;
+  height: calc(48px * 1.5) !important;
+  width: calc(48px * 1.5) !important;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cd-ws .compact-url-icon:hover {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: rgba(59, 130, 246, 0.4);
+  transform: translateY(-2px) scale(1.1);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+}
+
+.cd-ws .compact-url-icon.is-open:not(.is-labeled) {
+  position: relative;
+}
+
+.cd-ws .compact-url-icon.is-open:not(.is-labeled)::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #c4b5fd;
+  box-shadow: 0 0 7px 1.5px rgba(196, 181, 253, 0.9);
+}
+
+.cd-ws .compact-url-icon img {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 4px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.cd-ws .compact-url-icon:hover img {
+  transform: scale(1.15);
+}
+
+.cd-ws .compact-app-icon {
+  border: 1px solid rgba(139, 92, 246, 0.3) !important;
+  background: rgba(139, 92, 246, 0.08) !important;
+}
+
+.cd-ws .compact-app-icon:hover {
+  border-color: rgba(139, 92, 246, 0.55) !important;
+  background: rgba(139, 92, 246, 0.15) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+}
+
+.cd-ws .compact-app-icon img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.cd-ws .workspace-detail-view {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  --detail-gutter: 18px;
+}
+
+.cd-ws .workspace-detail-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  padding: 8px 14px;
+  background: rgba(30, 41, 59, 0.5);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  border-radius: 10px;
+  color: #94A3B8;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.cd-ws .workspace-detail-back:hover {
+  color: #E5E7EB;
+}
+
+.cd-ws .cooldesk-workspace-card.compact.full-view {
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.cd-ws .cooldesk-workspace-card.compact.full-view .compact-icons-scroll {
+  max-height: none;
+  overflow: visible;
+}
+
+.cd-ws .cooldesk-workspace-card.compact.full-view .compact-icons-container {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+}
+
+.cd-ws .cooldesk-workspace-card.compact.full-view .compact-url-icon.is-labeled {
+  width: 100% !important;
+  max-width: none;
+  border-radius: 12px;
+  padding: 7px 12px 7px 8px;
+}
+
+.cd-ws .cooldesk-workspace-card.compact.full-view .compact-card-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    "title btn"
+    "icons icons";
+  gap: 8px 10px;
+  padding: 12px 18px;
+}
+
+.cd-ws .cooldesk-workspace-card.compact.full-view .compact-workspace-stack {
+  grid-area: title;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  justify-self: start;
+}
+
+.cd-ws .cooldesk-workspace-card.compact.full-view .compact-expand-btn {
+  grid-area: btn;
+  align-self: center;
+  margin-left: 0;
+}
+
+.cd-ws .cooldesk-workspace-card.compact.full-view .compact-icons-scroll {
+  grid-area: icons;
+  width: 100%;
+}
+
+.cd-ws .cooldesk-workspace-card.compact.full-view .compact-icons-rows {
+  padding: 6px 0;
+}
+
+.cd-ws .cooldesk-workspace-card.compact.full-view .compact-icons-container {
+  padding: 4px 0;
+}
+
+.cd-ws .workspace-detail-view .workspace-context-panel {
+  flex: none;
+  height: auto;
+  overflow: visible;
+  padding: 16px 18px 18px;
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  border-radius: 14px;
+  background:
+    radial-gradient(120% 80% at 0% 0%, rgba(96, 165, 250, 0.07), transparent 55%),
+    radial-gradient(80% 60% at 100% 100%, rgba(167, 139, 250, 0.06), transparent 60%),
+    linear-gradient(180deg, #161c2b 0%, #10141f 100%);
+}
+
+.cd-ws .workspace-detail-view .wcp-grid {
+  grid-template-columns: 1fr;
+  gap: 14px;
+  height: auto;
+}
+
+.cd-ws .workspace-detail-view .wcp-rail {
+  overflow: visible;
+  padding-right: 0;
+}
+
+.cd-ws .workspace-detail-view .wcp-notes-list {
+  min-height: 0;
+}
+
+.cd-ws .workspace-detail-view .wcp-status-seg {
+  flex-direction: row;
+}
+
+.cd-ws .workspace-detail-view .wcp-notes-col {
+  padding-left: 0;
+  margin-top: 6px;
+  padding-top: 18px;
+  border-left: none;
+  border-top: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.cd-ws .compact-expand-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  align-self: center;
+  margin-left: auto;
+  position: relative;
+  z-index: 3;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  color: #94a3b8;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.cd-ws .compact-expand-btn:hover {
+  background: rgba(139, 92, 246, 0.16);
+  border-color: rgba(139, 92, 246, 0.5);
+  color: #c4b5fd;
+}
+
+.cd-ws .compact-expand-btn.is-open {
+  background: rgba(139, 92, 246, 0.18);
+  border-color: rgba(139, 92, 246, 0.5);
+  color: #c4b5fd;
+}
+
+.cd-ws .workspace-context-panel {
+  width: 100%;
+  box-sizing: border-box;
+  align-self: stretch;
+  flex: 1 1 0;
+  min-height: 0;
+  overflow: hidden;
+  padding: 16px 18px 18px;
+  background:
+    radial-gradient(120% 80% at 0% 0%, rgba(96, 165, 250, 0.07), transparent 55%),
+    radial-gradient(80% 60% at 100% 100%, rgba(167, 139, 250, 0.06), transparent 60%),
+    linear-gradient(180deg, #161c2b 0%, #10141f 100%);
+  animation: wcp-in 260ms cubic-bezier(.2,.8,.2,1);
+}
+
+.cd-ws .wcp-grid {
+  display: grid;
+  grid-template-columns: minmax(220px, 300px) 1fr;
+  gap: 22px;
+  height: 100%;
+  min-height: 0;
+}
+
+.cd-ws .wcp-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.cd-ws .wcp-notes-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  min-height: 0;
+  padding-left: 22px;
+  border-left: 1px solid rgba(148, 163, 184, 0.08);
+}
+
+.cd-ws .wcp-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.cd-ws .wcp-section-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding-bottom: 2px;
+}
+
+.cd-ws .wcp-section-bar {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 7px color-mix(in srgb, currentColor 60%, transparent);
+  opacity: 0.95;
+  flex-shrink: 0;
+}
+
+.cd-ws .wcp-section-head[data-accent="status"] { color: #60a5fa; }
+
+.cd-ws .wcp-section-head[data-accent="todos"] { color: #f59e0b; }
+
+.cd-ws .wcp-section-head[data-accent="notes"] { color: #a78bfa; }
+
+.cd-ws .wcp-section-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #cbd5e1;
+  margin: 0;
+}
+
+.cd-ws .wcp-section-count {
+  font-size: 10px;
+  font-weight: 600;
+  color: currentColor;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: color-mix(in srgb, currentColor 14%, transparent);
+  border: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+}
+
+.cd-ws .cooldesk-workspace-card.compact.panel-open {
+  flex-direction: column; 
+  align-items: stretch; 
+}
+
+.cd-ws .cooldesk-workspace-card.compact.panel-open:not(.full-view) .compact-card-inner {
+  flex: 0 0 auto;
+  align-items: flex-start; 
+  max-height: 320px;       
+}
+
+.cd-ws .cooldesk-workspace-card.compact.panel-open:not(.full-view) .compact-icons-scroll {
+  max-height: 300px;
+}
+
+@keyframes wcp-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.cd-ws .wcp-status-seg {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 11px;
+  background: rgba(8, 11, 22, 0.42);
+  border: 1px solid rgba(148, 163, 184, 0.08);
+}
+
+.cd-ws .wcp-status-pill {
+  --seg-color: #94a3b8;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 0;
+  padding: 7px 8px;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #cbd5e1;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+}
+
+.cd-ws .wcp-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+  opacity: 0.55;
+  transition: opacity 160ms ease, box-shadow 160ms ease;
+}
+
+.cd-ws .wcp-status-pill-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.cd-ws .wcp-status-pill:hover {
+  color: #e2e8f0;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.cd-ws .wcp-status-pill:hover .wcp-status-dot { opacity: 0.85; }
+
+.cd-ws .wcp-status-pill.is-active {
+  color: var(--seg-color);
+  background: color-mix(in srgb, var(--seg-color) 14%, transparent);
+  border-color: color-mix(in srgb, var(--seg-color) 32%, transparent);
+}
+
+.cd-ws .wcp-status-pill.is-active .wcp-status-dot {
+  opacity: 1;
+  box-shadow: 0 0 8px color-mix(in srgb, var(--seg-color) 70%, transparent);
+}
+
+.cd-ws .wcp-todos { display: flex; flex-direction: column; gap: 1px; }
+
+.cd-ws .wcp-todo-cat { display: flex; flex-direction: column; gap: 1px; }
+
+.cd-ws .wcp-todo-cat + .wcp-todo-cat { margin-top: 9px; }
+
+.cd-ws .wcp-todo-cat-head {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(148, 163, 184, 0.7);
+  padding: 0 6px 3px;
+}
+
+.cd-ws .wcp-todo-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 6px 6px 8px;
+  border-radius: 8px;
+  transition: background 140ms ease;
+}
+
+.cd-ws .wcp-todo-row:hover { background: rgba(255, 255, 255, 0.025); }
+
+.cd-ws .wcp-todo-check {
+  width: 17px;
+  height: 17px;
+  border-radius: 5px;
+  border: 1.5px solid rgba(148, 163, 184, 0.32);
+  background: transparent;
+  color: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0;
+  transition: background 200ms ease, border-color 200ms ease, box-shadow 240ms ease;
+}
+
+.cd-ws .wcp-todo-check svg {
+  display: block;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 180ms ease, transform 240ms cubic-bezier(.2, 1.4, .4, 1);
+}
+
+.cd-ws .wcp-todo-row.is-done .wcp-todo-check {
+  background: linear-gradient(135deg, #34d399, #10b981);
+  border-color: transparent;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.32);
+}
+
+.cd-ws .wcp-todo-row.is-done .wcp-todo-check svg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.cd-ws .wcp-todo-text {
+  flex: 1;
+  font-size: 12.5px;
+  color: #e2e8f0;
+  line-height: 1.35;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 160ms ease;
+}
+
+.cd-ws .wcp-todo-row.is-done .wcp-todo-text {
+  text-decoration: line-through;
+  text-decoration-color: rgba(100, 116, 139, 0.55);
+  color: #64748b;
+}
+
+.cd-ws .wcp-todo-del {
+  background: transparent;
+  border: none;
+  color: #64748b;
+  font-size: 17px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+  opacity: 0;
+  transition: opacity 120ms ease, color 120ms ease;
+  flex-shrink: 0;
+}
+
+.cd-ws .wcp-todo-row:hover .wcp-todo-del { opacity: 1; }
+
+.cd-ws .wcp-todo-del:hover { color: #f87171; }
+
+.cd-ws .wcp-todos-empty {
+  font-size: 11.5px;
+  color: rgba(148, 163, 184, 0.55);
+  padding: 4px 4px 0;
+  font-style: italic;
+}
+
+.cd-ws .wcp-todo-add {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(148, 163, 184, 0.08);
+}
+
+.cd-ws .wcp-todo-input {
+  flex: 1;
+  background: rgba(8, 11, 22, 0.5);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 7px;
+  padding: 7px 10px;
+  color: #e2e8f0;
+  font-family: inherit;
+  font-size: 12px;
+  outline: none;
+  transition: border-color 160ms ease, background 160ms ease;
+}
+
+.cd-ws .wcp-todo-input::placeholder { color: rgba(148, 163, 184, 0.45); }
+
+.cd-ws .wcp-todo-input:focus {
+  border-color: rgba(245, 158, 11, 0.5);
+  background: rgba(8, 11, 22, 0.65);
+}
+
+.cd-ws .wcp-todo-add-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.28);
+  border-radius: 7px;
+  color: #f59e0b;
+  font-size: 11px;
+  cursor: pointer;
+  transition: background 140ms ease, transform 140ms ease;
+}
+
+.cd-ws .wcp-todo-add-btn:hover:not(:disabled) {
+  background: rgba(245, 158, 11, 0.24);
+  transform: translateY(-1px);
+}
+
+.cd-ws .wcp-todo-add-btn:disabled { opacity: 0.3; cursor: default; }
+
+.cd-ws .wcp-notes-actions {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cd-ws .wcp-notes-new-btn {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px 4px 8px;
+  border-radius: 7px;
+  background: color-mix(in srgb, #a78bfa 10%, transparent);
+  border: 1px solid color-mix(in srgb, #a78bfa 22%, transparent);
+  color: #c4b5fd;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.cd-ws .wcp-notes-new-btn:hover {
+  background: color-mix(in srgb, #a78bfa 20%, transparent);
+  border-color: color-mix(in srgb, #a78bfa 45%, transparent);
+  color: #ddd6fe;
+  transform: translateY(-1px);
+}
+
+.cd-ws .wcp-notes-new-btn > svg { font-size: 9px; opacity: 0.9; }
+
+.cd-ws .wcp-notes-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  align-content: start;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.cd-ws .wcp-notes-list > .wcp-notes-empty {
+  grid-column: 1 / -1;
+}
+
+.cd-ws .wcp-notes-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 32px 16px;
+  width: 100%;
+  background: transparent;
+  border: 1px dashed rgba(167, 139, 250, 0.18);
+  border-radius: 12px;
+  color: rgba(148, 163, 184, 0.7);
+  font-family: inherit;
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 200ms ease, color 200ms ease, background 200ms ease;
+}
+
+.cd-ws .wcp-notes-empty:hover {
+  border-color: rgba(167, 139, 250, 0.4);
+  color: #d8b4fe;
+  background: radial-gradient(120% 100% at 50% 0%, rgba(167, 139, 250, 0.08), transparent 70%);
+}
+
+.cd-ws .wcp-notes-empty-glyph {
+  font-family: 'ui-serif', Georgia, serif;
+  font-style: italic;
+  font-size: 28px;
+  color: rgba(167, 139, 250, 0.55);
+  line-height: 1;
+}
+
+.cd-ws .wcp-notes-empty-text { letter-spacing: 0.01em; }
+
+.cd-ws .wcp-note-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 11px 13px;
+  background:
+    radial-gradient(180% 100% at 0% 0%, rgba(167, 139, 250, 0.05), transparent 55%),
+    linear-gradient(165deg, rgba(28, 36, 56, 0.55) 0%, rgba(12, 18, 32, 0.45) 100%);
+  border: 1px solid rgba(148, 163, 184, 0.08);
+  border-radius: 11px;
+  cursor: pointer;
+  text-align: left;
+  overflow: hidden;
+  outline: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    0 1px 2px rgba(0, 0, 0, 0.18);
+  transition:
+    background 220ms ease,
+    border-color 220ms ease,
+    transform 220ms ease,
+    box-shadow 260ms ease;
+}
+
+.cd-ws .wcp-note-card:hover {
+  background:
+    radial-gradient(180% 100% at 0% 0%, rgba(167, 139, 250, 0.1), transparent 60%),
+    linear-gradient(165deg, rgba(38, 48, 72, 0.68) 0%, rgba(18, 26, 44, 0.6) 100%);
+  border-color: rgba(167, 139, 250, 0.24);
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 8px 22px rgba(0, 0, 0, 0.28);
+}
+
+.cd-ws .wcp-note-card-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  min-width: 0;
+}
+
+.cd-ws .wcp-note-card-title {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 650;
+  color: #f8fafc;
+  letter-spacing: -0.012em;
+  line-height: 1.25;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.cd-ws .wcp-note-card-age {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(148, 163, 184, 0.5);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+  padding-top: 1px;
+}
+
+.cd-ws .wcp-note-card-preview {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 12px;
+  color: rgba(203, 213, 225, 0.7);
+  line-height: 1.5;
+  min-width: 0;
+  word-break: break-word;
+}
+
+.cd-ws .wcp-note-card-actions {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.cd-ws .wcp-note-card-pin, .cd-ws .wcp-note-card-del {
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 5px;
+  color: rgba(148, 163, 184, 0.4);
+  font-size: 10px;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 160ms ease, transform 160ms ease, color 140ms ease, background 140ms ease;
+}
+
+.cd-ws .wcp-note-card:hover .wcp-note-card-pin, .cd-ws .wcp-note-card:hover .wcp-note-card-del {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.cd-ws .wcp-note-card-pin.is-pinned {
+  opacity: 1;
+  transform: scale(1) rotate(-20deg);
+  color: #fbbf24;
+}
+
+.cd-ws .wcp-note-card-pin:hover {
+  color: #fde047;
+  background: rgba(251, 191, 36, 0.12);
+}
+
+.cd-ws .wcp-note-card-pin.is-pinned:hover {
+  transform: scale(1) rotate(0deg);
+  background: rgba(251, 191, 36, 0.18);
+}
+
+.cd-ws .wcp-note-card-del:hover {
+  color: #fca5a5;
+  background: rgba(248, 113, 113, 0.1);
+}
+
+.cd-ws .wcp-note-card.is-pinned {
+  background:
+    radial-gradient(180% 100% at 100% 0%, rgba(251, 191, 36, 0.08), transparent 50%),
+    radial-gradient(180% 100% at 0% 0%, rgba(167, 139, 250, 0.05), transparent 55%),
+    linear-gradient(165deg, rgba(28, 36, 56, 0.55) 0%, rgba(12, 18, 32, 0.45) 100%);
+  border-color: rgba(251, 191, 36, 0.16);
+}
+
+.cd-ws .wcp-note-card.is-pinned:hover {
+  background:
+    radial-gradient(180% 100% at 100% 0%, rgba(251, 191, 36, 0.14), transparent 55%),
+    radial-gradient(180% 100% at 0% 0%, rgba(167, 139, 250, 0.1), transparent 60%),
+    linear-gradient(165deg, rgba(38, 48, 72, 0.68) 0%, rgba(18, 26, 44, 0.6) 100%);
+  border-color: rgba(251, 191, 36, 0.3);
+}
+
+.cd-ws .wcp-note-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  min-height: 0;
+}
+
+.cd-ws .wcp-note-title {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+  border-radius: 0;
+  padding: 2px 0 8px;
+  color: #f8fafc;
+  font-family: inherit;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.012em;
+  outline: none;
+  transition: border-color 200ms ease;
+}
+
+.cd-ws .wcp-note-title::placeholder {
+  color: rgba(148, 163, 184, 0.4);
+  font-style: italic;
+  font-weight: 500;
+}
+
+.cd-ws .wcp-note-title:focus { border-bottom-color: rgba(167, 139, 250, 0.55); }
+
+/* Open / running marker — the app declares this in a shared selector with
+   the grid-card chips (cooldesk.css, ".compact-url-icon.is-labeled.is-open"),
+   which the extraction filter skipped, so it's restated here verbatim. */
+.cd-ws .compact-url-icon.is-labeled.is-open {
+  position: relative;
+}
+
+.cd-ws .compact-url-icon.is-labeled.is-open::before {
+  content: '';
+  position: absolute;
+  left: -1px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  border-radius: 0 2px 2px 0;
+  background: #c4b5fd;
+  box-shadow: 0 0 6px rgba(196, 181, 253, 0.8);
+}
+
+/* ── Demo-only overrides (not in the app) ─────────────────────────────────
+   The app's detail view is a single column sized for the sidebar. On the
+   homepage it sits in a wide row, so the card and the context panel go
+   side by side instead of stacked. lucide SVGs also need explicit sizes
+   where the app sized FontAwesome glyphs with font-size. */
+.cd-ws .workspace-detail-view {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  align-items: start;
+}
+
+.cd-ws .workspace-detail-back { grid-column: 1 / -1; }
+
+.cd-ws .compact-icons-row-label > svg { width: 11px; height: 11px; }
+
+@media (max-width: 767px) {
+  .cd-ws .workspace-detail-view { grid-template-columns: 1fr; }
+}
+
+/* ── Demo-only: Apple-style glass over a wallpaper ────────────────────────
+   In the app these surfaces sit over the user's wallpaper with a blur
+   (glass-bg + backdrop-filter). The demo supplies a wallpaper and pushes the
+   glass further — lighter tint, stronger blur + saturation, hairline border
+   and a top highlight — so the frosting is visible. */
+.cd-ws-wallpaper {
+  position: relative;
+  isolation: isolate;
+  /* Neutral graphite with soft white light — no colour, just something for
+     the frost to diffuse */
+  background:
+    radial-gradient(40% 50% at 20% 15%, rgba(255, 255, 255, 0.16), transparent 70%),
+    radial-gradient(35% 45% at 85% 20%, rgba(255, 255, 255, 0.1), transparent 70%),
+    radial-gradient(45% 50% at 60% 95%, rgba(255, 255, 255, 0.08), transparent 70%),
+    linear-gradient(160deg, #1c1d22 0%, #121317 55%, #0c0d10 100%);
+}
+
+/* Soft top vignette so light text keeps its contrast over bright spots */
+.cd-ws-wallpaper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(120% 100% at 50% 0%, transparent 40%, rgba(2, 6, 23, 0.45) 100%);
+}
+
+.cd-ws .cooldesk-workspace-card,
+.cd-ws .workspace-detail-view .workspace-context-panel,
+.cd-ws .workspace-detail-back {
+  /* Whitish frosted glass */
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.07) 100%);
+  backdrop-filter: blur(30px) saturate(120%);
+  -webkit-backdrop-filter: blur(30px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 24px 60px -18px rgba(0, 0, 0, 0.55);
+}
+
+.cd-ws .cooldesk-workspace-card,
+.cd-ws .workspace-detail-view .workspace-context-panel { border-radius: 18px; }
+
+.cd-ws .workspace-detail-back { border-radius: 12px; color: rgba(255, 255, 255, 0.85); }
+
+/* Inner rows and inputs: a thinner layer of the same glass */
+.cd-ws .compact-url-icon.is-labeled:not(.compact-app-icon),
+.cd-ws .wcp-note-card,
+.cd-ws .wcp-todo-input,
+.cd-ws .wcp-status-seg {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Keep secondary text readable on the lighter glass */
+.cd-ws .compact-icons-row-label { filter: brightness(1.25); }
+.cd-ws .wcp-todo-row.is-done .wcp-todo-text { color: rgba(226, 232, 240, 0.45); }
+
+.cd-ws .compact-url-icon.is-labeled:not(.compact-app-icon):hover,
+.cd-ws .wcp-note-card:hover { background: rgba(255, 255, 255, 0.12); }

@@ -3,8 +3,7 @@ import React from "react";
 /**
  * Projects walkthrough — answers "how much setup will this cost me?" with a
  * numbered, screenshot-based walkthrough of the real app: describe the
- * project, CoolDesk groups the tabs, then it's a project in the new tab and
- * one search away in Spotlight.
+ * project, then CoolDesk groups the tabs into it.
  */
 
 const STEPS = [
@@ -22,13 +21,6 @@ const STEPS = [
     image: "/workspace-view.png",
     alt: "CoolDesk new tab showing tabs automatically grouped into projects like AI, Entertainment and Productivity",
   },
-  {
-    tag: "03",
-    title: "Find it in Spotlight",
-    body: "Alt + K from anywhere — every project, tab and app is one search away, and one click reopens the whole thing.",
-    image: "/spotlight.png",
-    alt: "CoolDesk Spotlight search showing apps, tabs and workspaces in one search bar",
-  },
 ];
 
 function ProjectsSlide() {
@@ -38,15 +30,15 @@ function ProjectsSlide() {
     <div>
       <div className="text-center max-w-2xl mx-auto mb-12">
         <p className="text-[10px] font-mono font-medium text-txt-muted uppercase tracking-[0.25em] mb-3">
-          Project workspaces
+          01 · Set it up once
         </p>
         <h2 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
-          How a project comes together
+          Tell it what you're working on. It does the filing.
         </h2>
         <p className="text-sm text-txt-secondary mt-3">
-          The catch with every organiser is the filing it demands. CoolDesk
-          skips it — describe the project, let it group what belongs there,
-          and it's in Spotlight from then on.
+          Every organiser wants you to do the sorting. CoolDesk doesn't —
+          describe the project and it gathers what belongs there, then keeps
+          learning from how you actually work.
         </p>
       </div>
 

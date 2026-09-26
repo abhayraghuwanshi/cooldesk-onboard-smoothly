@@ -3,8 +3,7 @@ import { useLatestRelease } from "@/hooks/useLatestRelease";
 import React from "react";
 import StatsSlideshow from "./StatsSlideshow";
 
-// Extension lives on the Chrome Web Store (versioned separately from the desktop app).
-const EXTENSION_VERSION = "1.0.0";
+// Extension lives on the Chrome Web Store and auto-updates there, so no version is shown.
 const EXTENSION_LINK = "https://chromewebstore.google.com/detail/cooldesk/ioggffobciopdddacpclplkeodllhjko";
 
 const WINGET_COMMAND = "winget install CoolDesk.CoolDesk";
@@ -12,7 +11,7 @@ const BREW_COMMAND =
   "brew tap abhayraghuwanshi/cooldesk https://github.com/abhayraghuwanshi/cooldesk-extension\nbrew install --cask cooldesk";
 const DOWNLOADS_SECTION = "downloads_section";
 
-type DownloadTarget = "browser_extension" | "windows_installer" | "winget_command" | "macos_installer" | "brew_command";
+type DownloadTarget = "browser_extension" | "windows_installer" | "winget_command" | "macos_installer" | "brew_command" | "linux_installer";
 
 type DownloadTrackingParams = {
   action: string;
@@ -53,8 +52,8 @@ function Downloads() {
 
   // Desktop version + installer links come live from GitHub Releases; extension is static.
   const release = useLatestRelease();
-  const VERSIONS = { extension: EXTENSION_VERSION, windows: release.version, mac: release.version };
-  const DOWNLOAD_LINKS = { extension: EXTENSION_LINK, windows: release.windows, mac: release.mac };
+  const VERSIONS = { extension: "store", windows: release.version, mac: release.version };
+  const DOWNLOAD_LINKS = { extension: EXTENSION_LINK, windows: release.windows, mac: release.mac, linux: release.linux };
 
   React.useEffect(() => {
     trackDownloadEvent("downloads_section_view", {
@@ -163,7 +162,7 @@ function Downloads() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="heading-5">Browser Extension</p>
-                    <p className="caption mt-0.5">v{VERSIONS.extension} · Chrome, Edge, Brave</p>
+                    <p className="caption mt-0.5">Chrome, Edge, Brave</p>
                   </div>
                   <span className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-400 group-hover:text-blue-300 transition-colors shrink-0">
                     Add to Chrome
@@ -317,24 +316,38 @@ function Downloads() {
                       </span>
                     </button>
 
-                    {/* Linux — coming soon */}
-                    <div
-                      className="flex items-center gap-3 sm:gap-4 px-4 sm:px-5 py-4 opacity-40 select-none border-b border-white/15"
-                      data-gtm-element="download-unavailable"
+                    <a
+                      href={DOWNLOAD_LINKS.linux}
+                      download
+                      onClick={() =>
+                        trackDownloadClick({
+                          download_target: "linux_installer",
+                          download_platform: "linux",
+                          download_version: VERSIONS.windows,
+                          download_method: "direct_appimage",
+                        })
+                      }
+                      data-gtm-element="download-cta"
+                      data-gtm-action="click"
                       data-gtm-section={DOWNLOADS_SECTION}
                       data-gtm-target="linux_installer"
                       data-gtm-platform="linux"
-                      data-gtm-status="coming_soon"
+                      data-gtm-version={VERSIONS.windows}
+                      data-gtm-method="direct_appimage"
+                      className="flex items-center gap-3 sm:gap-4 px-4 sm:px-5 py-4 hover:bg-white/[0.04] transition-colors group border-b border-white/15"
                     >
                       <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/15 flex items-center justify-center shrink-0">
-                        <LinuxIcon className="w-5 h-5 text-zinc-400" />
+                        <LinuxIcon className="w-5 h-5 text-zinc-300" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="heading-5">Linux</p>
-                        <p className="caption mt-0.5">Coming soon</p>
+                        <p className="caption mt-0.5">v{VERSIONS.windows} · AppImage (.deb/.rpm on GitHub)</p>
                       </div>
-                      <span className="caption border border-white/15 rounded-md px-2.5 py-1 shrink-0">Soon</span>
-                    </div>
+                      <span className="inline-flex items-center gap-1.5 text-sm font-medium text-txt-secondary group-hover:text-white transition-colors shrink-0">
+                        <DownloadIcon className="w-3.5 h-3.5" />
+                        Download
+                      </span>
+                    </a>
                   </>
                 )}
 

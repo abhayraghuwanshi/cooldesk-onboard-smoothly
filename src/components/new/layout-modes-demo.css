@@ -1,0 +1,443 @@
+/*
+ * Homepage demo of the app's three layouts (useLayoutSwitch.js: full → side → bar).
+ * The desktop is laid out at a real 960×600 and scaled to fit, so sizes match
+ * the app. Borrowed from cooldesk-extension/src/styles:
+ *   dockbar.css            — bottom bar (.dockbar-shelf, chip, items, active dot)
+ *   dock-see-through.css   — sidebar "Notification Center" tiles (no panel,
+ *                            near-solid cards floating on the desktop)
+ * Scoped under .cd-lm.
+ */
+
+.cd-lm { font-family: 'Inter', 'Inter Tight', -apple-system, 'Segoe UI', system-ui, sans-serif; user-select: none; }
+
+.cd-lm-stage { position: relative; width: 100%; overflow: hidden; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.8); }
+
+.cd-lm-desktop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 960px;
+  height: 600px;
+  transform-origin: top left;
+  overflow: hidden;
+  background:
+    radial-gradient(40% 50% at 20% 15%, rgba(255, 255, 255, 0.14), transparent 70%),
+    radial-gradient(35% 45% at 85% 25%, rgba(255, 255, 255, 0.09), transparent 70%),
+    radial-gradient(45% 50% at 55% 100%, rgba(255, 255, 255, 0.07), transparent 70%),
+    linear-gradient(160deg, #24252b 0%, #16171c 55%, #0e0f12 100%);
+}
+
+/* Menu bar */
+.cd-lm-menubar {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 0 14px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(20, 20, 24, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 30;
+}
+
+.cd-lm-menubar b { font-weight: 700; }
+.cd-lm-menubar .cd-lm-menubar-right { margin-left: auto; color: rgba(255, 255, 255, 0.7); }
+
+/* Shared motion */
+.cd-lm-anim { transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+.cd-lm.reduced .cd-lm-anim,
+.cd-lm.reduced .cd-lm-anim * { transition: none !important; }
+
+/* Editor window (VS Code-ish) */
+.cd-lm-editor {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background: #1e1f24;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.6);
+  z-index: 5;
+}
+
+.cd-lm-titlebar {
+  height: 30px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 12px;
+  background: #26272d;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 11.5px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.cd-lm-dot { width: 11px; height: 11px; border-radius: 50%; }
+.cd-lm-titlebar span.title { flex: 1; text-align: center; margin-right: 50px; }
+
+.cd-lm-editor-body { flex: 1; display: flex; min-height: 0; }
+
+.cd-lm-explorer {
+  width: 170px;
+  flex-shrink: 0;
+  padding: 10px 8px;
+  background: #1a1b20;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.cd-lm-explorer .head { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255, 255, 255, 0.35); padding: 0 6px 8px; }
+.cd-lm-explorer .row { display: flex; align-items: center; gap: 7px; padding: 4px 6px; border-radius: 5px; white-space: nowrap; }
+.cd-lm-explorer .row.active { background: rgba(255, 255, 255, 0.07); color: #fff; }
+.cd-lm-explorer .row svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+.cd-lm-code {
+  flex: 1;
+  min-width: 0;
+  padding: 14px 18px;
+  font-family: 'SF Mono', 'Cascadia Code', Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.82);
+  white-space: pre;
+  overflow: hidden;
+}
+
+.cd-lm-code .ln { display: inline-block; width: 22px; margin-right: 16px; text-align: right; color: rgba(255, 255, 255, 0.22); }
+.cd-lm-code .k { color: #c678dd; }
+.cd-lm-code .s { color: #98c379; }
+.cd-lm-code .f { color: #61afef; }
+.cd-lm-code .n { color: #d19a66; }
+.cd-lm-code .c { color: rgba(255, 255, 255, 0.32); font-style: italic; }
+.cd-lm-code .t { color: #e06c75; }
+
+/* ── Full window ───────────────────────────────────────────── */
+.cd-lm-full {
+  position: absolute;
+  inset: 36px 16px 16px 16px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background:
+    radial-gradient(50% 60% at 15% 10%, rgba(255, 255, 255, 0.1), transparent 70%),
+    linear-gradient(160deg, rgba(38, 39, 46, 0.96), rgba(22, 23, 28, 0.97));
+  box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.7);
+}
+
+.cd-lm-full.is-hidden { opacity: 0; transform: scale(0.96); pointer-events: none; }
+
+.cd-lm-full-top { display: flex; align-items: center; gap: 12px; }
+
+.cd-lm-search {
+  flex: 1;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 13px;
+}
+
+.cd-lm-search .prompt { color: #8b5cf6; font-size: 16px; }
+.cd-lm-search kbd { margin-left: auto; font-family: inherit; font-size: 11px; padding: 2px 6px; border-radius: 5px; background: rgba(255, 255, 255, 0.08); color: rgba(255, 255, 255, 0.55); }
+
+.cd-lm-full-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr 1fr 230px; gap: 12px; align-items: start; }
+
+.cd-lm-glass {
+  border-radius: 14px;
+  padding: 14px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.05));
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 12px 30px -14px rgba(0, 0, 0, 0.6);
+}
+
+.cd-lm-ws-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+
+.cd-lm-ws-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  padding: 5px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  background: rgba(15, 23, 42, 0.6);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.cd-lm-ws-icon i { border-radius: 3px; font-style: normal; font-size: 8px; font-weight: 700; color: #fff; display: flex; align-items: center; justify-content: center; }
+.cd-lm-ws-name { font-size: 14px; font-weight: 600; color: #fff; }
+.cd-lm-ws-sub { font-size: 11px; color: rgba(255, 255, 255, 0.5); margin-top: 2px; }
+
+.cd-lm-row { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 9px; font-size: 12px; color: rgba(255, 255, 255, 0.85); }
+.cd-lm-row + .cd-lm-row { margin-top: 4px; }
+.cd-lm-row.plate { background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.08); }
+.cd-lm-row .open { margin-left: auto; width: 6px; height: 6px; border-radius: 50%; background: #c4b5fd; box-shadow: 0 0 6px rgba(196, 181, 253, 0.85); }
+
+.cd-lm-letter { width: 20px; height: 20px; border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #fff; }
+
+.cd-lm-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255, 255, 255, 0.45); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.cd-lm-label .bar { width: 6px; height: 6px; border-radius: 50%; }
+
+.cd-lm-todo { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255, 255, 255, 0.85); padding: 5px 0; }
+.cd-lm-todo .box { width: 14px; height: 14px; border-radius: 4px; border: 1.5px solid rgba(255, 255, 255, 0.3); flex-shrink: 0; }
+.cd-lm-todo.done { color: rgba(255, 255, 255, 0.4); text-decoration: line-through; }
+.cd-lm-todo.done .box { background: #22c55e; border-color: #22c55e; }
+
+.cd-lm-focus { text-align: center; }
+.cd-lm-focus .time { font-family: 'SF Mono', Consolas, monospace; font-size: 30px; font-weight: 700; color: #fff; margin: 6px 0 10px; }
+.cd-lm-focus .track { height: 5px; border-radius: 99px; background: rgba(255, 255, 255, 0.1); overflow: hidden; }
+.cd-lm-focus .track i { display: block; height: 100%; width: 38%; background: #8b5cf6; border-radius: 99px; }
+
+/* ── Sidebar: Notification Center tiles (dock-see-through.css) ─ */
+.cd-lm-side {
+  position: absolute;
+  top: 38px;
+  right: 14px;
+  bottom: 14px;
+  width: 270px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.cd-lm-side-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  padding: 2px 4px 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.85), 0 0 10px rgba(0, 0, 0, 0.55);
+}
+
+.cd-lm-tile {
+  background: rgba(34, 34, 38, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  padding: 12px;
+}
+
+.cd-lm-side > * { transition: opacity 0.45s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+.cd-lm-side.is-hidden > * { opacity: 0; transform: translateX(28px); }
+.cd-lm-side:not(.is-hidden) > * { pointer-events: auto; }
+
+/* ── Bottom bar: dockbar.css ───────────────────────────────── */
+.cd-lm-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 18px;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  transition: opacity 0.45s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cd-lm-bar.is-hidden { opacity: 0; transform: translateY(24px); pointer-events: none; }
+
+.cd-lm .dockbar-shelf {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 2px 9px;
+  border-radius: 21px;
+  background: linear-gradient(180deg, rgba(38, 36, 44, 0.72), rgba(20, 19, 24, 0.82));
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.13) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.2) inset,
+    0 20px 44px -16px rgba(0, 0, 0, 0.62),
+    0 5px 14px rgba(0, 0, 0, 0.3);
+}
+
+.cd-lm .dockbar-ws-chip {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 44px;
+  padding: 0 13px 0 7px;
+  border: 1px solid rgba(167, 139, 250, 0.28);
+  border-radius: 999px;
+  background: linear-gradient(150deg, rgba(139, 92, 246, 0.28), rgba(139, 92, 246, 0.08));
+  color: #fff;
+}
+
+.cd-lm .dockbar-ws-logo { width: 30px; height: 30px; object-fit: contain; border-radius: 8px; }
+.cd-lm .dockbar-ws-name { font-size: 12px; font-weight: 600; letter-spacing: 0.01em; white-space: nowrap; }
+
+.cd-lm .dockbar-sep {
+  width: 1px;
+  height: 26px;
+  margin: 0 1px;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.16), transparent);
+}
+
+.cd-lm .dockbar-items { display: flex; align-items: center; gap: 5px; padding: 7px 2px; }
+
+.cd-lm .dockbar-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 13px;
+  background: rgba(255, 255, 255, 0.045);
+  transition: transform 0.16s cubic-bezier(0.22, 1, 0.36, 1), background 0.15s ease;
+}
+
+.cd-lm .dockbar-item:hover { background: rgba(255, 255, 255, 0.1); transform: scale(1.12); }
+
+.cd-lm .dockbar-item.is-active::after {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #c4b5fd;
+  box-shadow: 0 0 5px rgba(196, 181, 253, 0.85);
+}
+
+.cd-lm .dockbar-letter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.cd-lm .dockbar-app-glyph { width: 20px; height: 20px; color: rgba(255, 255, 255, 0.82); filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35)); }
+
+.cd-lm .dockbar-ctrl {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.cd-lm .dockbar-ctrl svg { width: 15px; height: 15px; }
+
+/* ── Segmented control ─────────────────────────────────────── */
+.cd-lm-seg {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: min(380px, 100%);
+  margin: 18px auto 0;
+  padding: 3px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cd-lm-seg-thumb {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc((100% - 6px) / 3);
+  border-radius: 9px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.1));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 4px 12px rgba(0, 0, 0, 0.35);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cd-lm-seg button {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 32px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.2s ease;
+}
+
+.cd-lm-seg button[aria-selected='true'] { color: #fff; }
+.cd-lm-seg button svg { width: 14px; height: 14px; }
+
+.cd-lm-hint { margin-top: 10px; text-align: center; font-size: 11px; color: rgba(255, 255, 255, 0.4); }
+.cd-lm-hint kbd { font-family: 'SF Mono', Consolas, monospace; color: rgba(255, 255, 255, 0.7); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 5px; padding: 1px 5px; }
+
+/* ── Drawer handle (handle.html) + hover reveal ─────────────────
+   In the app the sidebar and bar are overlays: a slim handle sits at the
+   screen edge, hovering it slides the panel in over whatever is open, and
+   leaving collapses it again. Nothing underneath reflows. */
+.cd-lm-handle {
+  position: absolute;
+  z-index: 12;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.cd-lm-handle.right { top: 234px; right: 0; width: 22px; height: 132px; }
+.cd-lm-handle.bottom { left: 414px; bottom: 0; width: 132px; height: 22px; }
+.cd-lm-handle.is-hidden { opacity: 0; pointer-events: none; }
+
+.cd-lm-grip {
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.42);
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.35), 0 1px 4px rgba(0, 0, 0, 0.35);
+  transition: width 0.18s cubic-bezier(0.22, 1, 0.36, 1), height 0.18s cubic-bezier(0.22, 1, 0.36, 1), background 0.18s ease;
+}
+
+.cd-lm-handle.right .cd-lm-grip { width: 5px; height: 44px; }
+.cd-lm-handle.bottom .cd-lm-grip { width: 44px; height: 5px; }
+.cd-lm-handle.right.is-hot .cd-lm-grip { height: 64px; background: #a78bfa; }
+.cd-lm-handle.bottom.is-hot .cd-lm-grip { width: 64px; background: #a78bfa; }
+
+/* Overlay panels sit above the editor; give the tiles a touch more lift */
+.cd-lm-side { z-index: 14; }
+.cd-lm-bar { z-index: 14; }
+.cd-lm-side .cd-lm-tile { box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 16px 40px -12px rgba(0, 0, 0, 0.6); }
+
+/* Demo pointer */
+.cd-lm-cursor {
+  position: absolute;
+  z-index: 40;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.5));
+  transition: left 0.75s cubic-bezier(0.45, 0, 0.2, 1), top 0.75s cubic-bezier(0.45, 0, 0.2, 1), opacity 0.3s ease;
+}
+
+.cd-lm.reduced .cd-lm-cursor,
+.cd-lm.reduced .cd-lm-side > *,
+.cd-lm.reduced .cd-lm-bar { transition: none !important; }

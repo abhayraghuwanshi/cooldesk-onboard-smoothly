@@ -43,12 +43,13 @@ function ArchitectureDiagram() {
           Fig. 1 — how the pieces fit
         </p>
         <h2 className="font-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
-          Two apps. One Spotlight.
+          Your browser and your desktop, finally on the same page
         </h2>
         <p className="text-sm text-txt-secondary mt-2 max-w-md mx-auto">
-          The extension organises your browser. The desktop app adds native
-          app search, the taskbar and the AI agent — synced locally, both ways.{' '}
-          <kbd className="font-mono text-xs text-white/80 border border-white/15 rounded px-1.5 py-0.5 mx-0.5">Alt&thinsp;+&thinsp;K</kbd> searches it all.
+          The extension knows your tabs. The desktop app knows your windows,
+          apps and files. They talk to each other on your machine — nothing
+          leaves it — so{' '}
+          <kbd className="font-mono text-xs text-white/80 border border-white/15 rounded px-1.5 py-0.5 mx-0.5">Alt&thinsp;+&thinsp;K</kbd> sees your whole working day.
         </p>
       </div>
 

@@ -10,31 +10,19 @@ interface FAQItem {
 const items: FAQItem[] = [
     {
         q: "What is CoolDesk?",
-        a: "CoolDesk is a free launcher for Windows and Mac. Press Alt+K to find and open anything — tabs, apps, files, notes — and keep everything grouped by project. No sign-in needed.",
+        a: "A free launcher for Windows, macOS and Linux that groups your tabs, apps and notes by project. Press Alt+K to find anything. No sign-in needed.",
     },
     {
-        q: "How is CoolDesk different from Raycast, Alfred or a tab manager?",
-        a: "Launchers open apps fast, but they forget what you're working on — every search starts from zero. Tab managers only handle browser tabs. CoolDesk does the fast-open part and remembers your projects: switch projects and your tabs, apps and notes come back exactly where you left them. In short: launchers open apps, CoolDesk opens your work.",
+        q: "How is it different from Raycast or a tab manager?",
+        a: "Launchers open apps; tab managers handle tabs. CoolDesk does both and remembers which project they belong to.",
     },
     {
-        q: "What is a project workspace?",
-        a: "A workspace is everything one project needs in one place — its tabs, links, notes and apps. Your new tab shows your workspaces, so switching projects takes one click. CoolDesk's AI can also group your open tabs into projects for you.",
-    },
-    {
-        q: "How do I find things fast?",
-        a: "Press Alt+K anywhere. One search covers your open tabs, history, bookmarks, notes, files and running apps — type a few letters and jump straight there.",
+        q: "Do I need the desktop app?",
+        a: "No. The extension works alone on your new tab. The desktop app adds the global Alt+K shortcut and search across native apps, windows and files.",
     },
     {
         q: "Is my data private?",
-        a: "Yes. Everything stays on your device — CoolDesk has no servers storing your tabs, history or notes. Optional extras like cloud AI only run if you turn them on, using your own API key.",
-    },
-    {
-        q: "What does the desktop app add?",
-        a: "The browser extension works on its own. The desktop app extends search to your whole machine — desktop apps, files and individual windows. If you have three VS Code windows open, it shows each one by project, so you jump to the right window.",
-    },
-    {
-        q: "Can I share a workspace with my team?",
-        a: "Yes. Share a workspace as a link — its tabs, links and notes included. Sharing is end-to-end encrypted and needs no account.",
+        a: "Your data stays on your device. Only an anonymous usage ping (can be turned off), cloud AI with your own key, and Team sync send anything out.",
     },
 ];
 
@@ -86,7 +74,7 @@ export default function FAQ() {
     }, []);
 
     return (
-        <div ref={sectionRef} id="faq" className="relative mx-auto max-w-6xl px-6 py-16 scroll-mt-20">
+        <div ref={sectionRef} id="faq" className="relative py-16 scroll-mt-20">
             <div className="flex flex-col md:flex-row gap-12">
                 {/* Left: FAQ Title + compatibility at a glance */}
                 <div className="md:w-1/3 flex flex-col justify-center">
@@ -99,7 +87,7 @@ export default function FAQ() {
                             Works on
                         </p>
                         <div className="flex flex-wrap gap-2">
-                            {["Windows", "macOS", "Chrome", "Edge", "Brave"].map((name) => (
+                            {["Windows", "macOS", "Linux", "Chrome", "Edge", "Brave"].map((name) => (
                                 <span
                                     key={name}
                                     className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-gray-300"

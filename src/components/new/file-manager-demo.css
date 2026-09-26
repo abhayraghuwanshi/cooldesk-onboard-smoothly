@@ -1,0 +1,449 @@
+/*
+ * Partial copy of the app's file manager styles, for the homepage demo.
+ * Source: cooldesk-extension/src/styles/fileManager.css
+ * (window, toolbar, crumbs, filter, project bar, sidebar, list, status, preview column).
+ * The app's CSS variables are inlined as their fallback values.
+ * Scoped under .cd-fm. The preview pane itself reuses spotlight-demo.css.
+ */
+
+.cd-fm .fm-window {
+  width: 100%;
+  height: 460px;
+  display: flex;
+  flex-direction: column;
+  background: #121218;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  color: #e5e7eb;
+  font-family: 'Inter', 'Inter Tight', 'Segoe UI', system-ui, sans-serif;
+  font-size: 12px;
+  line-height: 1.3;
+  text-align: left;
+}
+
+/* Toolbar */
+.cd-fm .fm-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: #1a1a24;
+  flex-shrink: 0;
+}
+
+.cd-fm .fm-nav,
+.cd-fm .fm-toolbar-actions {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.cd-fm .fm-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #9ca3af;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+  flex-shrink: 0;
+}
+
+.cd-fm .fm-icon-btn svg { width: 13px; height: 13px; }
+
+.cd-fm .fm-icon-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e5e7eb;
+}
+
+.cd-fm .fm-icon-btn:disabled { opacity: 0.3; cursor: default; }
+.cd-fm .fm-icon-btn.active { background: rgba(255, 255, 255, 0.1); color: #e5e7eb; }
+.cd-fm .fm-icon-btn.pinned { color: #8b5cf6; }
+.cd-fm .fm-icon-btn.fm-close:hover { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+
+.cd-fm .fm-crumbs {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  padding: 0 4px;
+}
+
+.cd-fm .fm-crumb-wrap { display: inline-flex; align-items: center; flex-shrink: 0; }
+
+.cd-fm .fm-crumb {
+  background: transparent;
+  border: none;
+  padding: 3px 6px;
+  border-radius: 6px;
+  color: #9ca3af;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.cd-fm .fm-crumb:hover { background: rgba(255, 255, 255, 0.1); color: #e5e7eb; }
+.cd-fm .fm-crumb.current { color: #e5e7eb; font-weight: 600; cursor: default; }
+.cd-fm .fm-crumb.current:hover { background: transparent; }
+
+.cd-fm .fm-crumb-chev {
+  color: #6b7280;
+  font-size: 8px;
+  padding: 3px 2px;
+  opacity: 0.6;
+}
+
+.cd-fm .fm-search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 8px;
+  height: 28px;
+  width: 170px;
+  border-radius: 7px;
+  background: #242430;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+}
+
+.cd-fm .fm-search:focus-within { border-color: rgba(139, 92, 246, 0.4); }
+.cd-fm .fm-search-icon { width: 11px; height: 11px; color: #6b7280; flex-shrink: 0; }
+
+.cd-fm .fm-search input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #e5e7eb;
+  font-size: 12px;
+  font-family: inherit;
+}
+
+.cd-fm .fm-search input::placeholder { color: #6b7280; }
+
+/* Project bar */
+.cd-fm .fm-project-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  flex-shrink: 0;
+  /* As in the app: scrolls sideways when the chips don't fit, no scrollbar */
+  overflow-x: auto;
+  scrollbar-width: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.15) 0%, transparent 55%), #1a1a24;
+}
+
+.cd-fm .fm-project-bar::-webkit-scrollbar { display: none; }
+
+.cd-fm .fm-project-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  padding: 4px 10px;
+  border-radius: 99px;
+  border: 1px solid rgba(139, 92, 246, 0.35);
+  background: rgba(139, 92, 246, 0.12);
+  color: #e5e7eb;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.cd-fm .fm-project-name:hover { background: rgba(139, 92, 246, 0.22); }
+
+.cd-fm .fm-project-group {
+  display: flex;
+  gap: 6px;
+  padding-left: 8px;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.cd-fm .fm-cmd-chip,
+.cd-fm .fm-res-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px;
+  border-radius: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #242430;
+  color: #9ca3af;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.cd-fm .fm-cmd-chip svg,
+.cd-fm .fm-res-chip svg { width: 10px; height: 10px; }
+
+.cd-fm .fm-cmd-chip:hover {
+  background: rgba(74, 222, 128, 0.14);
+  border-color: rgba(74, 222, 128, 0.35);
+  color: #4ade80;
+}
+
+.cd-fm .fm-cmd-chip.ran {
+  background: rgba(74, 222, 128, 0.2);
+  border-color: rgba(74, 222, 128, 0.5);
+  color: #4ade80;
+}
+
+.cd-fm .fm-res-chip:hover { background: rgba(255, 255, 255, 0.1); color: #e5e7eb; }
+.cd-fm .fm-res-chip.current { background: rgba(139, 92, 246, 0.15); border-color: rgba(139, 92, 246, 0.35); color: #e5e7eb; }
+.cd-fm .fm-res-chip svg { color: #facc15; }
+
+.cd-fm .fm-svc-chip {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #242430;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.cd-fm .fm-svc-chip.live { border-color: rgba(74, 222, 128, 0.35); background: rgba(74, 222, 128, 0.1); }
+
+.cd-fm .fm-svc-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px;
+  color: #9ca3af;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.cd-fm .fm-svc-chip.live .fm-svc-open { color: #4ade80; }
+
+.cd-fm .fm-svc-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: #6b7280;
+}
+
+.cd-fm .fm-svc-chip.live .fm-svc-dot { background: #22c55e; box-shadow: 0 0 6px #22c55e; }
+.cd-fm .fm-svc-port { opacity: 0.7; font-variant-numeric: tabular-nums; }
+
+.cd-fm .fm-todo-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+  padding: 3px 9px;
+  border-radius: 99px;
+  background: rgba(251, 191, 36, 0.12);
+  color: #fbbf24;
+  font-size: 10px;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.cd-fm .fm-todo-count svg { width: 10px; height: 10px; }
+
+/* Body */
+.cd-fm .fm-body { flex: 1; min-height: 0; display: flex; }
+
+.cd-fm .fm-sidebar {
+  width: 176px;
+  flex-shrink: 0;
+  padding: 10px 8px;
+  overflow: hidden;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  background: #1a1a24;
+}
+
+.cd-fm .fm-side-section + .fm-side-section { margin-top: 14px; }
+
+.cd-fm .fm-side-title {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  color: #6b7280;
+  padding: 0 8px 6px;
+}
+
+.cd-fm .fm-side-linked .fm-side-title { display: flex; align-items: center; gap: 5px; color: #8b5cf6; }
+.cd-fm .fm-side-title-icon { width: 9px; height: 9px; opacity: 0.9; }
+
+.cd-fm .fm-side-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 6px 8px;
+  border: none;
+  background: transparent;
+  border-radius: 7px;
+  color: #9ca3af;
+  font-size: 12px;
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.cd-fm .fm-side-item:hover { background: rgba(255, 255, 255, 0.1); color: #e5e7eb; }
+.cd-fm .fm-side-item.active { background: rgba(139, 92, 246, 0.15); color: #e5e7eb; font-weight: 600; }
+.cd-fm .fm-side-icon { width: 12px; height: 12px; opacity: 0.75; flex-shrink: 0; }
+.cd-fm .fm-side-linked .fm-side-icon { color: #8b5cf6; opacity: 0.9; }
+.cd-fm .fm-side-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+
+.cd-fm .fm-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+.cd-fm .fm-col-heads,
+.cd-fm .fm-row {
+  display: grid;
+  grid-template-columns: 1fr 110px 64px;
+  align-items: center;
+  gap: 8px;
+}
+
+.cd-fm .fm-col-heads {
+  padding: 6px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  flex-shrink: 0;
+}
+
+.cd-fm .fm-col-head {
+  color: #6b7280;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.cd-fm .fm-col-head.active { color: #9ca3af; }
+
+.cd-fm .fm-col-date,
+.cd-fm .fm-col-size { font-size: 11px; color: #6b7280; white-space: nowrap; }
+
+.cd-fm .fm-col-size { text-align: right; }
+
+.cd-fm .fm-list { flex: 1; overflow: hidden; padding: 4px 6px 8px; }
+
+.cd-fm .fm-row {
+  padding: 5px 6px;
+  border-radius: 7px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.cd-fm .fm-row.active {
+  background: rgba(139, 92, 246, 0.15);
+  box-shadow: inset 2px 0 0 #8b5cf6;
+}
+
+.cd-fm .fm-row .fm-col-name { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.cd-fm .fm-row-icon { width: 13px; height: 13px; flex-shrink: 0; }
+
+.cd-fm .fm-row-name {
+  font-size: 12px;
+  color: #e5e7eb;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cd-fm .fm-row-count {
+  flex-shrink: 0;
+  padding: 1px 6px;
+  border-radius: 99px;
+  background: rgba(148, 163, 184, 0.14);
+  color: #6b7280;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.cd-fm .fm-item.hidden-entry .fm-row-name { opacity: 0.62; font-style: italic; }
+.cd-fm .fm-item.hidden-entry .fm-row-icon { opacity: 0.55; }
+
+.cd-fm .fm-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  background: #1a1a24;
+  font-size: 10px;
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.cd-fm .fm-status-sel { color: #9ca3af; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.cd-fm .fm-status-hint { display: flex; align-items: center; gap: 5px; margin-left: auto; white-space: nowrap; }
+
+.cd-fm .fm-status-hint kbd {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: #242430;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: inherit;
+  font-size: 10px;
+  color: #9ca3af;
+}
+
+/* Preview column — wraps the shared .preview-pane */
+.cd-fm .fm-preview-resize { width: 5px; flex-shrink: 0; background: rgba(255, 255, 255, 0.06); }
+
+.cd-fm .fm-preview {
+  width: 340px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: #1a1a24;
+}
+
+.cd-fm .fm-preview .preview-pane { height: auto; }
+
+.cd-fm .fm-preview-empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  font-size: 11px;
+}
+
+/* Same collapse order as the app: sidebar first, then the preview. */
+@media (max-width: 900px) {
+  .cd-fm .fm-sidebar { display: none; }
+}
+
+@media (max-width: 640px) {
+  .cd-fm .fm-preview,
+  .cd-fm .fm-preview-resize,
+  .cd-fm .fm-search,
+  .cd-fm .fm-status-hint,
+  .cd-fm .fm-col-date { display: none; }
+  .cd-fm .fm-col-heads,
+  .cd-fm .fm-row { grid-template-columns: 1fr 64px; }
+  /* Give the breadcrumb room: keep only Close from the actions, drop Forward */
+  .cd-fm .fm-toolbar-actions .fm-icon-btn:not(.fm-close),
+  .cd-fm .fm-nav .fm-icon-btn:nth-child(2) { display: none; }
+  .cd-fm .fm-crumb { padding: 3px 4px; }
+}

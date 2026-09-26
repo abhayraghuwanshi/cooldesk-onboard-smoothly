@@ -1,73 +1,21 @@
-import { trackEvent, useSectionView } from '@/lib/analytics';
-import { FileText, Folder, Globe, History, Layers, LayoutGrid, Link2, Search, StickyNote } from 'lucide-react';
-import React from 'react';
+import { useSectionView } from '@/lib/analytics';
+import { FileText, Folder, Globe, History, LayoutGrid, StickyNote } from 'lucide-react';
 
-type DemoKey = 'spotlight' | 'extension';
-
-const DEMOS: Record<DemoKey, {
-  tabLabel: string;
-  tabIcon: React.ReactNode;
-  src: string;
-  alt: string;
-  chips: { icon: React.ReactNode; label: string }[];
-}> = {
-  spotlight: {
-    tabLabel: 'Find',
-    tabIcon: <Search className="w-4 h-4" />,
-    src: '/gif/spotlight.mp4',
-    alt: 'CoolDesk Spotlight — searching across tabs, files, apps and workspaces from anywhere',
-    chips: [
-      { icon: <Globe className="w-3.5 h-3.5" />, label: 'Every browser' },
-      { icon: <LayoutGrid className="w-3.5 h-3.5" />, label: 'Tabs' },
-      { icon: <FileText className="w-3.5 h-3.5" />, label: 'Files' },
-      { icon: <Folder className="w-3.5 h-3.5" />, label: 'Folders' },
-      { icon: <History className="w-3.5 h-3.5" />, label: 'History' },
-      { icon: <StickyNote className="w-3.5 h-3.5" />, label: 'Notes' },
-    ],
-  },
-  extension: {
-    tabLabel: 'Switch',
-    tabIcon: <Layers className="w-4 h-4" />,
-    src: '/gif/extension.mp4',
-    alt: 'CoolDesk workspaces — switching projects with tabs, links and notes grouped in the new tab',
-    chips: [
-      { icon: <Layers className="w-3.5 h-3.5" />, label: 'Workspaces' },
-      { icon: <LayoutGrid className="w-3.5 h-3.5" />, label: 'Tabs' },
-      { icon: <Link2 className="w-3.5 h-3.5" />, label: 'Links' },
-      { icon: <StickyNote className="w-3.5 h-3.5" />, label: 'Notes' },
-    ],
-  },
+const DEMO = {
+  src: '/gif/spotlight.mp4',
+  alt: 'CoolDesk Spotlight — searching across tabs, files, apps and workspaces from anywhere',
+  chips: [
+    { icon: <Globe className="w-3.5 h-3.5" />, label: 'Every browser' },
+    { icon: <LayoutGrid className="w-3.5 h-3.5" />, label: 'Tabs' },
+    { icon: <FileText className="w-3.5 h-3.5" />, label: 'Files' },
+    { icon: <Folder className="w-3.5 h-3.5" />, label: 'Folders' },
+    { icon: <History className="w-3.5 h-3.5" />, label: 'History' },
+    { icon: <StickyNote className="w-3.5 h-3.5" />, label: 'Notes' },
+  ],
 };
 
-const SHOWCASE_SECTION = "showcase_section";
-
-function trackShowcaseCtaClick() {
-  trackEvent("showcase_cta_click", {
-    section: SHOWCASE_SECTION,
-    action: "click",
-    cta_label: "get_cooldesk_free",
-    cta_target: "downloads_section",
-  });
-}
-
-function trackShowcaseDemoSwitch(demo: DemoKey) {
-  trackEvent("showcase_demo_switch", {
-    section: SHOWCASE_SECTION,
-    action: "switch",
-    demo,
-  });
-}
-
 export default function SwitchingSurface() {
-  const [active, setActive] = React.useState<DemoKey>('spotlight');
-  const demo = DEMOS[active];
   const sectionRef = useSectionView<HTMLElement>('spotlight');
-
-  function selectDemo(key: DemoKey) {
-    if (key === active) return;
-    setActive(key);
-    trackShowcaseDemoSwitch(key);
-  }
 
   return (
     <section ref={sectionRef} className="relative overflow-hidden py-24 md:py-32">
@@ -79,31 +27,15 @@ export default function SwitchingSurface() {
       <div className="relative z-10 container mx-auto px-6">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10">
+            <p className="text-[10px] font-mono font-medium text-white/40 uppercase tracking-[0.25em] mb-3">
+              03 · Switch in a keystroke
+            </p>
             <h2 className="text-4xl md:text-5xl font-black text-white">
-              A launcher and Spotlight for your projects
+              Alt+K. You're back.
             </h2>
-
-
-          </div>
-
-          {/* Toggle */}
-          <div className="flex justify-center mb-8">
-            <div className="inline-flex items-center gap-1 rounded-full border border-white/15 bg-white/[0.04] p-1">
-              {(Object.keys(DEMOS) as DemoKey[]).map((key) => (
-                <button
-                  key={key}
-                  onClick={() => selectDemo(key)}
-                  aria-pressed={active === key}
-                  className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium transition-all ${active === key
-                    ? 'bg-white/10 text-white shadow-sm'
-                    : 'text-white/50 hover:text-white/80'
-                    }`}
-                >
-                  {DEMOS[key].tabIcon}
-                  {DEMOS[key].tabLabel}
-                </button>
-              ))}
-            </div>
+            <p className="mt-4 text-base md:text-lg text-white/60 max-w-2xl mx-auto leading-relaxed">
+              Wherever you are, even with the app closed, one shortcut finds the tab, the app window, the file or the note you need, and brings it forward instead of opening a duplicate.
+            </p>
           </div>
 
           {/* Demo — screen recording */}
@@ -111,21 +43,20 @@ export default function SwitchingSurface() {
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/30 to-purple-600/30 rounded-[20px] blur-xl opacity-60 group-hover:opacity-100 transition-opacity duration-700" />
             <div className="relative rounded-[20px] overflow-hidden border border-white/10 shadow-2xl bg-[#0A0A0A]">
               <video
-                key={demo.src}
-                src={demo.src}
+                src={DEMO.src}
                 autoPlay
                 muted
                 loop
                 playsInline
-                aria-label={demo.alt}
+                aria-label={DEMO.alt}
                 className="w-full h-auto"
               />
             </div>
           </div>
 
-          {/* What the active demo does — compact chips */}
+          {/* What the demo does — compact chips */}
           <div className="mt-6 flex flex-wrap justify-center gap-2">
-            {demo.chips.map((chip) => (
+            {DEMO.chips.map((chip) => (
               <span
                 key={chip.label}
                 className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-medium text-white/60"
