@@ -70,6 +70,7 @@ const staticRoutes = [
     "/releases",
     "/widgets",
     "/uninstall",
+    "/vs",
 ];
 
 const comparisonRoutes = Object.keys(comparisons).map((slug) => `/vs/${slug}`);

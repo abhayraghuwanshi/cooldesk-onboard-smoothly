@@ -1,7 +1,8 @@
 import Footer from "@/components/new/Footer";
 import Navbar from "@/components/new/Navbar";
 import SEO from "@/components/SEO";
-import { useParams } from "react-router-dom";
+import { relatedComparisons } from "@/config/comparisonGroups";
+import { Link, useParams } from "react-router-dom";
 import NotFound from "./NotFound";
 
 interface ComparisonRow {
@@ -506,6 +507,349 @@ export const comparisons: Record<string, Comparison> = {
             },
         ],
     },
+    "flow-launcher": {
+        name: "Flow Launcher",
+        title: "CoolDesk vs Flow Launcher — An Honest Comparison",
+        description:
+            "Flow Launcher is a fast, free, open-source launcher for Windows. CoolDesk is a free launcher built around your projects, with browser tabs as first-class results. An honest comparison.",
+        intro: [
+            "Flow Launcher is one of the best things to happen to Windows power users: a free, open-source Alt+Space launcher that finds apps and files instantly and grows with plugins.",
+            "CoolDesk shares the keyboard-first idea but adds memory. It knows which tabs, apps, notes and files belong to which project, so a search can bring a whole project back — not just one app.",
+            "Looking for a Flow Launcher alternative, or wondering whether to run both? The comparison below keeps it short and honest.",
+        ],
+        greatAt: [
+            "Fast, lightweight and fully open source",
+            "A large plugin library — calculators, web searches, system commands and more",
+            "Lightning-fast file search through its Everything integration",
+            "Deep customisation: themes, hotkeys, and plugins in several languages",
+        ],
+        differences: [
+            {
+                title: "It remembers your projects",
+                desc: "Flow Launcher is stateless — every search starts fresh. CoolDesk groups tabs, apps, links and notes into project workspaces, so switching projects brings everything back where you left it.",
+            },
+            {
+                title: "Your browser is inside the search",
+                desc: "CoolDesk's extension makes open tabs, history and bookmarks first-class results across Chrome, Edge and Brave, and jumps to the exact tab instead of opening a duplicate.",
+            },
+            {
+                title: "Windows, macOS and Linux",
+                desc: "Flow Launcher is Windows-only. CoolDesk runs on Windows, macOS and Linux, so the same habit works on every machine you use.",
+            },
+            {
+                title: "Ways to keep a project in view",
+                desc: "Beyond the search bar, CoolDesk shows a project as a sidebar, a dock at the screen edge or a full-screen workspace with notes and todos.",
+            },
+        ],
+        table: [
+            { feature: "Platforms", them: "Windows", us: "Windows, macOS, Linux" },
+            { feature: "Price", them: "Free, open source", us: "Free" },
+            { feature: "Project workspaces", them: "—", us: "Core concept" },
+            { feature: "Open browser tabs as results", them: "Via plugins", us: "Built in, jumps to the exact tab" },
+            { feature: "File search", them: "Excellent (Everything)", us: "Built in" },
+            { feature: "Plugin ecosystem", them: "Large", us: "—" },
+            { feature: "Notes & todos per project", them: "—", us: "Built in" },
+            { feature: "Account required", them: "Never", us: "Never" },
+        ],
+        chooseThem: [
+            "You only use Windows and want a lean, open-source launcher",
+            "You rely on specific plugins, or want to write your own",
+            "You mostly search apps and files, not browser tabs",
+        ],
+        chooseUs: [
+            "You switch between several projects a day and want each one to come back complete",
+            "Half your work lives in browser tabs and you want them in the same search as your apps",
+            "You work across Windows and Mac (or Linux) and want one tool on all of them",
+        ],
+        faq: [
+            {
+                q: "Can I run CoolDesk and Flow Launcher together?",
+                a: "Yes. Give them different hotkeys — for example Flow Launcher on Alt+Space and CoolDesk on Alt+K. Many people keep Flow for plugins and quick commands, and use CoolDesk for projects and browser tabs.",
+            },
+            {
+                q: "Is CoolDesk open source like Flow Launcher?",
+                a: "CoolDesk's source is public on GitHub under the Apache 2.0 license. It's free with no account, and everything stays on your device.",
+            },
+            {
+                q: "Which is faster?",
+                a: "Both open instantly. Flow Launcher is a little leaner because it does less; CoolDesk also indexes your tabs, workspaces and notes so it can search them together.",
+            },
+        ],
+    },
+    arc: {
+        name: "Arc",
+        title: "CoolDesk vs Arc Browser Spaces — An Honest Comparison",
+        description:
+            "Arc's Spaces made project-based browsing popular. CoolDesk brings project workspaces to the browser you already use — plus your desktop apps, files and notes. An honest comparison.",
+        intro: [
+            "Arc changed how many people think about a browser. Spaces, a vertical sidebar and profiles made it natural to keep work, side projects and personal browsing apart.",
+            "CoolDesk takes the same idea — one space per project — and removes two limits. You don't have to switch browsers: it works with Chrome, Edge and Brave. And a project isn't only tabs: CoolDesk also holds the apps, files and notes that go with it.",
+            "If you loved Arc's Spaces but want them outside Arc — or are looking for an Arc alternative now that The Browser Company has shifted its focus to Dia — here's the honest comparison.",
+        ],
+        greatAt: [
+            "Beautiful design and a genuinely new take on the browser",
+            "Spaces and profiles that keep contexts cleanly separated",
+            "A vertical tab sidebar with pinned and auto-archiving tabs",
+            "Split view, Boosts and Little Arc for quick lookups",
+        ],
+        differences: [
+            {
+                title: "Keep your browser",
+                desc: "Arc's Spaces only exist inside Arc. CoolDesk is an extension plus a desktop app, so your project workspaces work in Chrome, Edge or Brave — with your existing extensions, logins and bookmarks.",
+            },
+            {
+                title: "Projects beyond the browser",
+                desc: "An Arc Space holds tabs. A CoolDesk workspace also holds the desktop apps, folders, files and notes a project needs, and opens or focuses them in one click.",
+            },
+            {
+                title: "One search for everything",
+                desc: "Press Alt+K from any app to search tabs, history, bookmarks, running apps, files and notes together — not only what's open in one browser window.",
+            },
+            {
+                title: "Actively developed",
+                desc: "The Browser Company has said its focus is now its new browser, Dia. CoolDesk ships regular releases — see the release notes.",
+            },
+        ],
+        table: [
+            { feature: "What it is", them: "A browser", us: "Extension + desktop app for your current browser" },
+            { feature: "Works with Chrome, Edge, Brave", them: "— (replaces them)", us: "Yes" },
+            { feature: "Project spaces", them: "Spaces (tabs only)", us: "Workspaces (tabs, apps, files, notes)" },
+            { feature: "Desktop apps & files", them: "—", us: "Built in" },
+            { feature: "System-wide search hotkey", them: "—", us: "Alt+K from any app" },
+            { feature: "Platforms", them: "macOS, Windows", us: "Windows, macOS, Linux" },
+            { feature: "Account required", them: "Yes", us: "Never" },
+            { feature: "Price", them: "Free", us: "Free" },
+        ],
+        chooseThem: [
+            "You want a whole new browser experience, not an add-on",
+            "Split view, Boosts and Arc's design are what you love",
+            "Your projects live entirely in web tabs",
+        ],
+        chooseUs: [
+            "You want Arc-style project spaces without leaving Chrome, Edge or Brave",
+            "Your projects include apps, folders and notes, not just tabs",
+            "You want one hotkey that finds anything on your machine, with no account",
+        ],
+        faq: [
+            {
+                q: "Is CoolDesk a good Arc alternative?",
+                a: "If what you miss is Spaces — separate, organised contexts per project — yes. CoolDesk gives you project workspaces in the browser you already use. It isn't a browser itself, so it doesn't replace Arc's sidebar or split view.",
+            },
+            {
+                q: "Can I move my Arc Spaces into CoolDesk?",
+                a: "Open a Space's tabs in Chrome, Edge or Brave and ask CoolDesk to group them — its AI sorts open tabs into projects for you, so you don't have to rebuild each one by hand.",
+            },
+            {
+                q: "Does CoolDesk need an account?",
+                a: "No. CoolDesk is free, needs no sign-in, and keeps everything on your device.",
+            },
+        ],
+    },
+    onetab: {
+        name: "OneTab",
+        title: "CoolDesk vs OneTab — An Honest Comparison",
+        description:
+            "OneTab collapses your tabs into a list to save memory. CoolDesk organises them into project workspaces you can search and reopen — along with your apps and notes. An honest comparison.",
+        intro: [
+            "OneTab does one thing and does it well: one click turns a window full of tabs into a tidy list, freeing memory and clearing your head.",
+            "CoolDesk solves the next problem — finding and reusing those tabs later. Instead of one long list, your tabs are grouped by project, searchable with Alt+K, and reopen together with the apps and notes that belong to the same work.",
+            "If your OneTab list has grown into hundreds of forgotten links, this comparison is for you.",
+        ],
+        greatAt: [
+            "One click to collapse every tab and free up memory",
+            "Dead simple — nothing to learn",
+            "Share a tab list as a web page",
+            "Works in Chrome, Edge and Firefox",
+        ],
+        differences: [
+            {
+                title: "Organised by project, not by date",
+                desc: "OneTab saves tabs in the order you dumped them. CoolDesk groups them into projects — and its AI can do the sorting for you — so a year of saved tabs stays usable.",
+            },
+            {
+                title: "Searchable in one keystroke",
+                desc: "Press Alt+K to find any saved or open tab, plus your history, bookmarks, notes and apps, instead of scrolling a long list.",
+            },
+            {
+                title: "Reopen the whole context",
+                desc: "Open a project and its tabs come back with the desktop apps, files and notes that go with it.",
+            },
+            {
+                title: "Also free and local",
+                desc: "Like OneTab, CoolDesk is free and keeps your data on your device. Sharing a workspace as a link is end-to-end encrypted.",
+            },
+        ],
+        table: [
+            { feature: "Core idea", them: "Collapse tabs into a list", us: "Project workspaces you search and reopen" },
+            { feature: "Organisation", them: "By save date", us: "By project, AI-assisted" },
+            { feature: "Search saved tabs", them: "Browser find on the list", us: "Alt+K across tabs, history, notes & apps" },
+            { feature: "Desktop apps & notes", them: "—", us: "Built in" },
+            { feature: "Frees tab memory", them: "Yes, core feature", us: "Close a project's tabs and reopen them later" },
+            { feature: "Browsers", them: "Chrome, Edge, Firefox", us: "Chrome, Edge, Brave" },
+            { feature: "Price", them: "Free", us: "Free" },
+        ],
+        chooseThem: [
+            "You just want to clear your tab bar and save memory in one click",
+            "You use Firefox",
+            "You don't need tabs organised or searchable later",
+        ],
+        chooseUs: [
+            "Your saved-tab list has become a graveyard you never go back to",
+            "You want to find a saved tab in seconds, not scroll for it",
+            "You want tabs grouped with the apps and notes of the same project",
+        ],
+        faq: [
+            {
+                q: "Can CoolDesk replace OneTab?",
+                a: "For most people, yes: save a project's tabs, close them, and reopen them together later. If the one-click memory saver is all you use, OneTab is simpler.",
+            },
+            {
+                q: "Can I import my OneTab list?",
+                a: "Open the links from OneTab and let CoolDesk group your open tabs into projects — it sorts them automatically.",
+            },
+            {
+                q: "Is my data private?",
+                a: "Yes. CoolDesk has no account and stores everything on your device.",
+            },
+        ],
+    },
+    "session-buddy": {
+        name: "Session Buddy",
+        title: "CoolDesk vs Session Buddy — An Honest Comparison",
+        description:
+            "Session Buddy saves and restores browser sessions. CoolDesk saves whole projects — tabs, apps, files and notes — and finds any of them with one keystroke. An honest comparison.",
+        intro: [
+            "Session Buddy has rescued countless people from a crashed browser. It saves your open windows and tabs as sessions you can search and restore any time.",
+            "CoolDesk thinks in projects instead of sessions. Rather than snapshots of whatever was open, you get a workspace per project that holds its tabs, apps, files and notes, and one search that covers all of them.",
+            "If you're choosing between saving sessions and organising projects, here's the honest comparison.",
+        ],
+        greatAt: [
+            "Reliable session saving and crash recovery",
+            "Search across saved sessions",
+            "Export sessions in several formats",
+            "Lightweight and focused",
+        ],
+        differences: [
+            {
+                title: "Projects, not snapshots",
+                desc: "A session is whatever happened to be open. A CoolDesk workspace is a project you shape over time — and its AI can group your open tabs into projects for you.",
+            },
+            {
+                title: "More than the browser",
+                desc: "CoolDesk's desktop app brings running apps, folders and files into the same workspace and the same search.",
+            },
+            {
+                title: "Search from anywhere",
+                desc: "Alt+K works from any app, not just a browser tab, and jumps to an already-open tab or window instead of opening a copy.",
+            },
+            {
+                title: "Keep it in view",
+                desc: "Show a project as a sidebar, a dock at the screen edge or full screen, with notes and todos alongside its tabs.",
+            },
+        ],
+        table: [
+            { feature: "Core idea", them: "Save & restore sessions", us: "Project workspaces" },
+            { feature: "Crash recovery", them: "Core feature", us: "Reopen any saved workspace" },
+            { feature: "Search", them: "Saved sessions", us: "Tabs, history, bookmarks, apps, files & notes" },
+            { feature: "Desktop apps & files", them: "—", us: "Built in" },
+            { feature: "Notes & todos", them: "—", us: "Per project" },
+            { feature: "Account required", them: "Never", us: "Never" },
+            { feature: "Price", them: "Free", us: "Free" },
+        ],
+        chooseThem: [
+            "Crash recovery and session backups are all you need",
+            "You like keeping dated snapshots of your windows",
+            "You want the lightest possible tool",
+        ],
+        chooseUs: [
+            "You want your tabs organised by project, not by when you saved them",
+            "Your work spans apps and files as well as tabs",
+            "You want one hotkey to find anything, from any app",
+        ],
+        faq: [
+            {
+                q: "Can I use CoolDesk and Session Buddy together?",
+                a: "Yes. They don't conflict — Session Buddy as a safety net for sessions, CoolDesk for organising and switching projects.",
+            },
+            {
+                q: "Does CoolDesk restore tabs after a crash?",
+                a: "Each workspace keeps its saved tabs and links, so you reopen the whole project in one click. It isn't an automatic session snapshot tool, though.",
+            },
+            {
+                q: "Is CoolDesk free?",
+                a: "Yes — free, no account, and your data stays on your device.",
+            },
+        ],
+    },
+    "chrome-tab-groups": {
+        name: "Chrome Tab Groups",
+        title: "CoolDesk vs Chrome Tab Groups — An Honest Comparison",
+        description:
+            "Chrome's tab groups are the easy way to tidy a tab bar. CoolDesk turns groups into project workspaces with your apps, notes and one-keystroke search. An honest comparison.",
+        intro: [
+            "Tab groups are built into Chrome, and for good reason: name a group, give it a colour, collapse it, and your tab bar is suddenly readable.",
+            "CoolDesk picks up where groups stop. Groups live in one browser window and only hold tabs. A CoolDesk workspace holds a project's tabs, apps, files and notes, and you can find any of it from anywhere with Alt+K.",
+            "If your tab groups keep multiplying and you still can't find anything, the comparison below should help.",
+        ],
+        greatAt: [
+            "Built into Chrome — nothing to install",
+            "Names and colours make a busy tab bar readable",
+            "Collapse a group to hide it until you need it",
+            "Saved groups sync across devices through your Google account",
+        ],
+        differences: [
+            {
+                title: "Groups built for you",
+                desc: "CoolDesk's AI sorts your open tabs into projects automatically, so you don't have to drag tabs into groups one by one.",
+            },
+            {
+                title: "Beyond one browser",
+                desc: "Tab groups stay inside Chrome. CoolDesk works across Chrome, Edge and Brave, and adds your desktop apps, folders and files to the same project.",
+            },
+            {
+                title: "Search every group at once",
+                desc: "Alt+K searches open tabs, history, bookmarks, notes and apps together, then jumps straight to the right tab or window.",
+            },
+            {
+                title: "Notes and todos with the tabs",
+                desc: "Each workspace keeps notes, todos and status next to its links, so the plan lives with the work.",
+            },
+        ],
+        table: [
+            { feature: "Built into the browser", them: "Yes (Chrome)", us: "Extension + optional desktop app" },
+            { feature: "Grouping", them: "Manual", us: "Automatic, AI-assisted" },
+            { feature: "Browsers", them: "Chrome", us: "Chrome, Edge, Brave" },
+            { feature: "Desktop apps & files", them: "—", us: "Built in" },
+            { feature: "Search across groups", them: "Chrome tab search", us: "Alt+K across tabs, history, notes & apps" },
+            { feature: "Notes & todos", them: "—", us: "Per project" },
+            { feature: "Sync", them: "Via Google account", us: "Local; share a workspace as an encrypted link" },
+            { feature: "Price", them: "Free", us: "Free" },
+        ],
+        chooseThem: [
+            "You want zero setup and nothing extra to install",
+            "Your projects are only tabs, in one browser",
+            "You rely on Google sync to see saved groups on every device",
+        ],
+        chooseUs: [
+            "You have too many groups and still can't find the tab you need",
+            "You'd like tabs grouped for you instead of dragging them by hand",
+            "Your projects include apps, files and notes too",
+        ],
+        faq: [
+            {
+                q: "Does CoolDesk work with Chrome tab groups?",
+                a: "Yes. CoolDesk runs alongside tab groups, and its spotlight understands them, so you can keep using groups inside a window and use workspaces to switch between whole projects.",
+            },
+            {
+                q: "Is CoolDesk better than tab groups for lots of tabs?",
+                a: "If you have dozens of groups, yes: automatic grouping and one search across everything scale much better than scanning a tab bar.",
+            },
+            {
+                q: "Do I need the desktop app?",
+                a: "No. The extension works on its own. The desktop app adds your desktop apps, files and the system-wide Alt+K search.",
+            },
+        ],
+    },
 };
 
 /** Renders a table cell value; dims the "don't have it" dash. */
@@ -535,6 +879,17 @@ export default function VersusPage() {
         })),
     };
 
+    const breadcrumbJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://cool-desk.com/" },
+            { "@type": "ListItem", position: 2, name: "Compare", item: "https://cool-desk.com/vs" },
+            { "@type": "ListItem", position: 3, name: `CoolDesk vs ${comparison.name}`, item: canonical },
+        ],
+    };
+    const related = relatedComparisons(slug!);
+
     const reveal = (i: number) => ({
         animationDelay: `${0.08 * i}s`,
         animationFillMode: "backwards" as const,
@@ -546,7 +901,7 @@ export default function VersusPage() {
                 title={comparison.title}
                 description={comparison.description}
                 canonical={canonical}
-                jsonLd={faqJsonLd}
+                jsonLd={[faqJsonLd, breadcrumbJsonLd]}
             />
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-600/10 pointer-events-none z-0" />
             <Navbar />
@@ -554,9 +909,11 @@ export default function VersusPage() {
             {/* ── Fight-card hero ─────────────────────────────────── */}
             <header className="relative z-10 border-b border-white/10 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:44px_44px]">
                 <div className="container mx-auto px-6 pt-32 pb-14 max-w-4xl">
-                    <p className="font-mono text-[11px] tracking-[0.25em] text-white/35 uppercase mb-8 animate-slide-up" style={reveal(0)}>
-                        Head-to-head · cool-desk.com
-                    </p>
+                    <nav aria-label="Breadcrumb" className="font-mono text-[11px] tracking-[0.25em] text-white/35 uppercase mb-8 animate-slide-up" style={reveal(0)}>
+                        <Link to="/vs" className="hover:text-white/70 transition-colors">Compare</Link>
+                        <span aria-hidden="true" className="mx-2">/</span>
+                        Head-to-head
+                    </nav>
 
                     <h1 className="animate-slide-up" style={reveal(1)}>
                         <span className="block text-5xl md:text-7xl font-black leading-none tracking-tight">
@@ -703,6 +1060,27 @@ export default function VersusPage() {
                             <p className="text-sm text-gray-400 leading-relaxed max-w-2xl">{item.a}</p>
                         </div>
                     ))}
+                </section>
+
+                {/* ── More comparisons ────────────────────────────── */}
+                <section className="mt-20">
+                    <p className="font-mono text-[11px] tracking-[0.25em] text-white/35 uppercase mb-3">Keep comparing</p>
+                    <h2 className="text-2xl md:text-3xl font-bold mb-8">Other tools people compare</h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {related.map((s) => (
+                            <Link
+                                key={s}
+                                to={`/vs/${s}`}
+                                className="group rounded-xl border border-white/10 bg-white/[0.03] px-5 py-4 text-sm font-semibold transition-colors hover:border-blue-400/30 hover:bg-white/[0.05]"
+                            >
+                                CoolDesk vs {comparisons[s].name}
+                                <span aria-hidden="true" className="ml-2 text-white/30 transition-colors group-hover:text-blue-300">→</span>
+                            </Link>
+                        ))}
+                    </div>
+                    <Link to="/vs" className="mt-5 inline-block text-sm text-gray-500 hover:text-white transition-colors">
+                        See all comparisons →
+                    </Link>
                 </section>
 
                 {/* ── CTA ─────────────────────────────────────────── */}

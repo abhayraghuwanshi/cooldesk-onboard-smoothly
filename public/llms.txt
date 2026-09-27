@@ -40,6 +40,7 @@ Free — no plans, no sign-in.
 
 ## Comparisons
 
+- [All comparisons](https://cool-desk.com/vs) — every CoolDesk comparison, grouped into launchers, tab managers and new tab pages
 - [CoolDesk vs Workona](https://cool-desk.com/vs/workona) — cloud browser workspaces vs a free, local-first project workspace that includes desktop apps and files
 - [CoolDesk vs Toby](https://cool-desk.com/vs/toby) — visual tab collections vs project workspaces with spotlight search across tabs, apps and notes
 - [CoolDesk vs Raycast](https://cool-desk.com/vs/raycast) — a command palette vs a project-based launcher with browser-deep search
@@ -47,3 +48,8 @@ Free — no plans, no sign-in.
 - [CoolDesk vs Spotlight](https://cool-desk.com/vs/spotlight) — macOS's built-in launcher vs a free, project-based launcher for Windows, macOS and Linux
 - [CoolDesk vs PowerToys Run](https://cool-desk.com/vs/powertoys) — Microsoft's free Windows launcher vs a free, project-based launcher for Windows, macOS and Linux
 - [CoolDesk vs Momentum](https://cool-desk.com/vs/momentum) — a beautiful daily new-tab dashboard vs a project workspace with tabs, apps, notes and spotlight search
+- [CoolDesk vs Flow Launcher](https://cool-desk.com/vs/flow-launcher) — the free open-source Windows launcher vs a free, project-based launcher for Windows, macOS and Linux with browser tabs built in
+- [CoolDesk vs Arc](https://cool-desk.com/vs/arc) — Arc's browser Spaces vs project workspaces in the browser you already use, plus your apps, files and notes
+- [CoolDesk vs OneTab](https://cool-desk.com/vs/onetab) — collapsing tabs into a list vs project workspaces you can search and reopen
+- [CoolDesk vs Session Buddy](https://cool-desk.com/vs/session-buddy) — saving browser sessions vs saving whole projects — tabs, apps, files and notes
+- [CoolDesk vs Chrome Tab Groups](https://cool-desk.com/vs/chrome-tab-groups) — Chrome's built-in tab groups vs AI-grouped project workspaces with one-keystroke search

@@ -1,84 +1,40 @@
 import Footer from '@/components/new/Footer';
 import Navbar from '@/components/new/Navbar';
 import SEO from '@/components/SEO';
+import { RELEASES_REPO, releaseUrl, releases } from '@/config/releases';
 import { Link } from 'react-router-dom';
 
-interface Release {
-    version: string;
-    date?: string;
-    features: string[];
-    isMajor?: boolean;
+function formatDate(iso: string) {
+    return new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        timeZone: 'UTC',
+    });
 }
 
-const releases: Release[] = [
-    {
-        version: '1.0.3',
-        features: [
-            'Notes and UI improvement',
-            'Add workspace from store',
-            'Teams sync fixes and signaling server improvement'
-        ]
-    },
-    {
-        version: '1.0.2',
-        features: [
-            'Workspace creation bug fixed',
-            'Bug fixes and minor enhancements'
-        ]
-    },
-    {
-        version: '1.0.1',
-        features: [
-            'Team Screen UI fixes - fixes for create, invite and join team',
-            'Speed and memory improvement',
-            'Workspace Shell UI improvement with on hover expansion since it covers some screen size'
-        ]
-    },
-    {
-        version: '1.0.0',
-        features: [
-            'UI revamp with significant improvement from last release',
-            'New Team UI',
-            'Spatial navigation horizontal based',
-            'Button available on every page to highlight on page, sticky notes and voice control start'
-        ],
-        isMajor: true
-    },
-    {
-        version: '0.0.3',
-        features: [
-            'Layout and bug fixes',
-            'Wallpaper support',
-            'UI fixes'
-        ]
-    },
-    {
-        version: '0.0.2',
-        features: [
-            'Horizontal layout with drag and drop section',
-            'Bug fix and UI improvement',
-            'Voice command fixes'
-        ]
-    },
-    {
-        version: '0.0.1',
-        features: [
-            'Notes',
-            'Workspace categorization',
-            'Search and activity track',
-            'Favorite',
-            'Voice navigation',
-            'Horizontal layout'
-        ]
-    }
-];
+function NoteList({ label, items, accent }: { label: string; items: string[]; accent: string }) {
+    return (
+        <div className="mt-4">
+            <p className={`text-xs font-semibold uppercase tracking-[0.14em] mb-2 ${accent}`}>{label}</p>
+            <ul className="space-y-2">
+                {items.map((item) => (
+                    <li key={item} className="flex items-start gap-3 text-zinc-300 text-sm leading-relaxed">
+                        <span className={`mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0 bg-current ${accent}`} />
+                        <span>{item}</span>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+}
 
 export default function ReleasesPage() {
     return (
         <main className="min-h-screen text-white scroll-smooth">
             <SEO
                 title="CoolDesk Release Notes — Updates & New Features"
-                description="Track every CoolDesk update: new features, improvements and bug fixes across each version — from workspace creation to Spotlight search and team sync."
+                description="Every CoolDesk release — new features and fixes for the desktop app and browser extension, from the first desktop release to Linux support."
                 canonical="https://cool-desk.com/releases"
             />
             {/* Background Glow Overlay */}
@@ -128,7 +84,7 @@ export default function ReleasesPage() {
                                             : 'border-zinc-800 hover:border-zinc-700'
                                         }`}>
                                         {/* Version Header */}
-                                        <div className="flex items-center gap-3 mb-4">
+                                        <div className="flex flex-wrap items-center gap-3">
                                             <span className={`text-2xl font-bold ${release.isMajor ? 'text-blue-400' : 'text-white'
                                                 }`}>
                                                 v{release.version}
@@ -143,30 +99,42 @@ export default function ReleasesPage() {
                                                     Latest
                                                 </span>
                                             )}
+                                            <time dateTime={release.date} className="text-sm text-zinc-500 sm:ml-auto">
+                                                {formatDate(release.date)}
+                                            </time>
                                         </div>
+                                        {release.summary && (
+                                            <p className="mt-2 text-zinc-400">{release.summary}</p>
+                                        )}
 
-                                        {/* Features List */}
-                                        <ul className="space-y-2">
-                                            {release.features.map((feature, featureIndex) => (
-                                                <li key={featureIndex} className="flex items-start gap-3 text-zinc-300">
-                                                    <svg className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                                    </svg>
-                                                    <span>{feature}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
+                                        {release.added && <NoteList label="Added" items={release.added} accent="text-blue-400" />}
+                                        {release.fixed && <NoteList label="Fixed" items={release.fixed} accent="text-emerald-400" />}
+
+                                        <a
+                                            href={releaseUrl(release)}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="mt-5 inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-white transition-colors"
+                                        >
+                                            Downloads &amp; full notes on GitHub
+                                            <span aria-hidden="true">→</span>
+                                        </a>
                                     </div>
                                 </div>
                             ))}
                         </div>
                     </div>
 
-                    {/* Coming Soon Note */}
+                    {/* All releases */}
                     <div className="mt-16 text-center">
-                        <p className="text-zinc-500 text-sm">
-                            More updates coming soon. Stay tuned!
-                        </p>
+                        <a
+                            href={`${RELEASES_REPO}/releases`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-zinc-500 hover:text-white text-sm transition-colors"
+                        >
+                            See all releases on GitHub →
+                        </a>
                     </div>
                 </div>
             </section>

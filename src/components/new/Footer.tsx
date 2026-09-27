@@ -42,6 +42,12 @@ export default function Footer() {
                 { label: 'CoolDesk vs Spotlight', href: '/vs/spotlight' },
                 { label: 'CoolDesk vs PowerToys', href: '/vs/powertoys' },
                 { label: 'CoolDesk vs Momentum', href: '/vs/momentum' },
+                { label: 'CoolDesk vs Flow Launcher', href: '/vs/flow-launcher' },
+                { label: 'CoolDesk vs Arc', href: '/vs/arc' },
+                { label: 'CoolDesk vs OneTab', href: '/vs/onetab' },
+                { label: 'CoolDesk vs Session Buddy', href: '/vs/session-buddy' },
+                { label: 'CoolDesk vs Chrome Tab Groups', href: '/vs/chrome-tab-groups' },
+                { label: 'All comparisons', href: '/vs' },
               ].map((link) => (
                 <li key={link.href}>
                   <a

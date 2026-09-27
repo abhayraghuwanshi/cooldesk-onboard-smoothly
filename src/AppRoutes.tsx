@@ -12,6 +12,7 @@ import ReleasesPage from "./pages/Releases";
 import Library from "./pages/Library";
 import TermsPage from "./pages/terms";
 import UninstallPage from "./pages/Uninstall";
+import ComparePage from "./pages/Compare";
 import VersusPage from "./pages/Versus";
 import WidgetStorePage from "./pages/WidgetStore";
 
@@ -50,6 +51,7 @@ export default function AppRoutes() {
             <Route path="/privacy-details" element={<PrivacyPolicyStatic />} />
             <Route path="/terms" element={<TermsPage />} />
             <Route path="/releases" element={<ReleasesPage />} />
+            <Route path="/vs" element={<ComparePage />} />
             <Route path="/vs/:slug" element={<VersusPage />} />
             <Route path="/widgets" element={<WidgetStorePage />} />
             {/* Chrome opens this when the extension is removed

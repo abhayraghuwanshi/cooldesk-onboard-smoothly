@@ -47,6 +47,9 @@ const resourceGroups: ResourceGroup[] = [
             { href: '/vs/spotlight', label: 'vs Spotlight' },
             { href: '/vs/powertoys', label: 'vs PowerToys' },
             { href: '/vs/momentum', label: 'vs Momentum' },
+            { href: '/vs/arc', label: 'vs Arc' },
+            { href: '/vs/flow-launcher', label: 'vs Flow Launcher' },
+            { href: '/vs', label: 'All comparisons →' },
         ],
     },
     {

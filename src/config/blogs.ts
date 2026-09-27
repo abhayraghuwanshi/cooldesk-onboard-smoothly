@@ -119,6 +119,36 @@ function comparisonCard(slug: string, title: string, description: string, date: 
 export const blogPosts: BlogPost[] = [
     parseBlogPost(raycastAlternativesContent, 'raycast-alternatives-windows', 'guides', 'Search'),
     comparisonCard(
+        'arc',
+        'CoolDesk vs Arc Browser Spaces — An Honest Comparison',
+        'Arc\'s Spaces made project-based browsing popular. CoolDesk brings project workspaces to the browser you already use — plus your desktop apps, files and notes. An honest comparison.',
+        '2026-09-27',
+    ),
+    comparisonCard(
+        'flow-launcher',
+        'CoolDesk vs Flow Launcher — An Honest Comparison',
+        'Flow Launcher is a fast, free, open-source launcher for Windows. CoolDesk is a free launcher built around your projects, with browser tabs as first-class results. An honest comparison.',
+        '2026-09-27',
+    ),
+    comparisonCard(
+        'chrome-tab-groups',
+        'CoolDesk vs Chrome Tab Groups — An Honest Comparison',
+        'Chrome\'s tab groups are the easy way to tidy a tab bar. CoolDesk turns groups into project workspaces with your apps, notes and one-keystroke search. An honest comparison.',
+        '2026-09-27',
+    ),
+    comparisonCard(
+        'onetab',
+        'CoolDesk vs OneTab — An Honest Comparison',
+        'OneTab collapses your tabs into a list to save memory. CoolDesk organises them into project workspaces you can search and reopen — along with your apps and notes. An honest comparison.',
+        '2026-09-27',
+    ),
+    comparisonCard(
+        'session-buddy',
+        'CoolDesk vs Session Buddy — An Honest Comparison',
+        'Session Buddy saves and restores browser sessions. CoolDesk saves whole projects — tabs, apps, files and notes — and finds any of them with one keystroke. An honest comparison.',
+        '2026-09-27',
+    ),
+    comparisonCard(
         'workona',
         'CoolDesk vs Workona — An Honest Comparison',
         'Workona is the standard for browser workspaces — cloud-synced and team-ready. CoolDesk is a free, local-first project workspace that reaches beyond the browser to your apps, files and notes.',
