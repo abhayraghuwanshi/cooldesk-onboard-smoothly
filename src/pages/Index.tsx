@@ -3,13 +3,30 @@ import FAQ from "@/components/new/FAQ";
 import Footer from "@/components/new/Footer";
 import Hero from "@/components/new/Hero";
 import HowItWorks from "@/components/new/HowItWorks";
+import HowToUseSection from "@/components/new/HowToUseSection";
 import Navbar from '@/components/new/Navbar';
 import SEO from "@/components/SEO";
 import { site } from "@/config/site";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
-// Kept deliberately short: hero, the four-step walkthrough, download, FAQ.
-// Deeper docs live on /how-to-use.
+// Hero, the five-step walkthrough, how to use (videos + shortcuts),
+// download (with "which one do I need?"), FAQ.
+// /how-to-use redirects to #how-to-use here.
 const Index = () => {
+  const { hash } = useLocation();
+
+  // Arriving from another page (or the /how-to-use redirect) with a hash: the
+  // browser's own jump happens before these sections exist, so do it once
+  // they've rendered.
+  useEffect(() => {
+    if (!hash) return;
+    const t = window.setTimeout(() => {
+      document.getElementById(hash.slice(1))?.scrollIntoView({ block: "start" });
+    }, 60);
+    return () => window.clearTimeout(t);
+  }, [hash]);
+
   return (
     <>
 
@@ -27,8 +44,12 @@ const Index = () => {
           <Hero />
         </section>
 
-        <section id="how-it-works" className="relative z-10 pt-12 pb-20">
+        <section id="how-it-works" className="relative z-10 pt-8 pb-20">
           <HowItWorks />
+        </section>
+
+        <section id="how-to-use" className="relative z-10 pt-8 pb-24 scroll-mt-20">
+          <HowToUseSection />
         </section>
 
         <section id="downloads" className="relative z-10">

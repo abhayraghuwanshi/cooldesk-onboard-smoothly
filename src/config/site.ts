@@ -18,6 +18,8 @@ const CHROME_STORE =
 // Public source for the CoolDesk extension/app.
 const GITHUB_REPO = "https://github.com/abhayraghuwanshi/cooldesk-extension";
 
+const REDDIT_URL = "https://www.reddit.com/r/cooldesk/";
+
 const COOLDESK_URL = "https://cool-desk.com";
 // TODO: newtab product not deployed yet — placeholder domain until launch.
 const NEWTAB_URL = "https://newtab.kazekit.com";
@@ -64,15 +66,15 @@ const configs: Record<SiteId, SiteConfig> = {
     name: "CoolDesk",
     url: COOLDESK_URL,
     seo: {
-      title: "CoolDesk — Launcher & Spotlight Search, Organized by Project",
+      title: "CoolDesk: Organize Tabs, Apps & Files by Project (Free)",
       description:
-        "CoolDesk is a launcher built around your projects. Find and open any tab, app, link or note in one keystroke, across browser and desktop. Free, no sign-in required.",
+        "Free launcher and new-tab extension that groups your tabs, apps, files and notes by project. Press Alt+K to jump back into any project. Windows, macOS & Linux.",
     },
     hero: {
-      badge: "For builders and developers",
-      headlineLead: "One bar. Full screen.",
-      headlineAccent: "Everything where it belongs.",
-      sub: "Summon one spotlight from anywhere. Your projects, tabs, apps and notes — full screen, no wasted pixels, all in their place.",
+      badge: "Free & open source",
+      headlineLead: "Tabs, apps and files,",
+      headlineAccent: "organized by project.",
+      sub: "CoolDesk is a free project launcher for Windows, macOS and Linux, with a new-tab extension for Chrome, Edge and Brave. It keeps your browser tabs, desktop apps, files and notes organized by project, and Alt+K jumps back into any of them.",
     },
     cta: {
       label: "Get Started",
@@ -81,9 +83,9 @@ const configs: Record<SiteId, SiteConfig> = {
     downloads: {
       heading: "Download CoolDesk",
       blurb:
-        "The extension handles tabs. The desktop app adds AI Spotlight across your native apps.",
+        "The extension is your new tab. The desktop app is the launcher: Spotlight, projects and files.",
       desktop: true,
-      tip: "The extension works standalone — the desktop app is optional, for Spotlight across native apps.",
+      tip: "Start with either one. Install both and they connect on your machine, so Spotlight can reach your browser tabs.",
     },
     crossPromo: {
       text: "Just want the browser new tab?",
@@ -126,4 +128,4 @@ const configs: Record<SiteId, SiteConfig> = {
 
 export const site = configs[SITE_ID];
 
-export { CHROME_STORE, GITHUB_REPO };
+export { CHROME_STORE, GITHUB_REPO, REDDIT_URL };

@@ -4,6 +4,7 @@ import SEO from "@/components/SEO";
 import "@/styles/globals.css";
 import { useForm, ValidationError } from '@formspree/react';
 import { useState } from "react";
+import { REDDIT_URL } from "@/config/site";
 
 const inquiries = [
     { value: "bug", label: "🐞 Report a Bug", placeholder: "Describe the bug you encountered..." },
@@ -110,7 +111,7 @@ export default function Contact() {
                             </svg>
                             <span className="text-gray-300">Direct email available</span>
                         </div>
-                        <a href="https://www.reddit.com/r/cooldesk/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-colors">
+                        <a href={REDDIT_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-6 py-3 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-colors">
                             <svg className="w-5 h-5 text-orange-500" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.056 1.597.04.21.065.422.065.641 0 2.454-2.822 4.444-6.301 4.444-3.481 0-6.301-1.99-6.301-4.444 0-.21.022-.411.059-.614a1.745 1.745 0 0 1-1.026-1.583c0-.968.786-1.754 1.754-1.754.463 0 .883.181 1.196.471 1.201-.856 2.875-1.42 4.72-1.48L11.83 5.43c-.022-.113.064-.219.176-.219l2.766.583c.123-.62.673-1.051 1.238-1.051zm-7.9 7.425c-.689 0-1.25.56-1.25 1.25 0 .689.561 1.249 1.25 1.249.689 0 1.249-.56 1.249-1.249s-.56-1.25-1.249-1.25zm5.78 0c-.689 0-1.25.56-1.25 1.25 0 .689.561 1.249 1.25 1.249.689 0 1.249-.56 1.249-1.249s-.56-1.25-1.249-1.25zm-3.61 3.391c-.401 0-.726.326-.726.726 0 .401.325.727.726.727.401 0 .727-.326.727-.727 0-.4-.326-.726-.727-.726z"></path>
                             </svg>

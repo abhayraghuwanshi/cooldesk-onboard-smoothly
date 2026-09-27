@@ -23,7 +23,7 @@ The active site is exposed to the app as `import.meta.env.VITE_SITE`.
 
 ## Layout
 
-- `src/pages/` — one file per route: Index, Pricing, HowToUse, Library, Gallery, Blog,
+- `src/pages/` — one file per route: Index (includes How to Use at `#how-to-use`), Pricing, Library, Gallery, Blog,
   Releases, WidgetStore, Versus, Founder, Contact, terms, NotFound.
 - `src/components/` — shared UI (`ui/`, `new/`, `privacy/`, `SEO.tsx`).
 - `src/config/` — site content as data: `site.ts`, `blogs.ts`, `blog-posts/`, `profiles.ts`,

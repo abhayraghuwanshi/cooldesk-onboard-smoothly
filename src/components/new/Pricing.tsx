@@ -1,3 +1,4 @@
+import { CHROME_STORE } from "@/config/site";
 export default function Pricing() {
     return (
         <section id="pricing" className="h-screen bg-black relative overflow-hidden flex items-center justify-center">
@@ -36,7 +37,7 @@ export default function Pricing() {
                     {/* Call to Action */}
                     <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-fade-in-up-4">
                         <a
-                            href="https://chromewebstore.google.com/detail/cooldesk/ioggffobciopdddacpclplkeodllhjko"
+                            href={CHROME_STORE}
                             className="px-8 py-4 text-lg font-bold rounded-full
                                      bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500
                                      hover:from-blue-400 hover:via-purple-400 hover:to-pink-400

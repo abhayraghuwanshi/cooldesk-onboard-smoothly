@@ -1,21 +1,25 @@
 {
   "cleanUrls": false,
   "directoryListing": false,
+  "redirects": [
+    {
+      "source": "/how-to-use",
+      "destination": "/#how-to-use",
+      "type": 301
+    },
+    {
+      "source": "/resources",
+      "destination": "/#how-to-use",
+      "type": 301
+    }
+  ],
   "rewrites": [
     {
       "source": "/",
       "destination": "/index.html"
     },
     {
-      "source": "/how-to-use",
-      "destination": "/index.html"
-    },
-    {
       "source": "/pricing",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/resources",
       "destination": "/index.html"
     },
     {

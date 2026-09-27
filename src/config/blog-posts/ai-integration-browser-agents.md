@@ -27,4 +27,4 @@ Imagine an agent that monitors your open tabs and says, "It looks like you're re
 
 This isn't science fiction; it's the direction of modern browser architecture. AI integration is about more than just chat; it's about building a partner that understands your digital world.
 
-Join us on the journey to build the first agentic browser. [Explore our features](https://cool-desk.com/how-to-use) and see how we're integrating the future.
+Join us on the journey to build the first agentic browser. [Explore our features](https://cool-desk.com/#how-to-use) and see how we're integrating the future.

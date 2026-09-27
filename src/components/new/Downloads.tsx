@@ -1,14 +1,15 @@
-import { site } from "@/config/site";
+import { CHROME_STORE, GITHUB_REPO, site } from "@/config/site";
 import { useLatestRelease } from "@/hooks/useLatestRelease";
 import React from "react";
 import StatsSlideshow from "./StatsSlideshow";
+import WhichOne from "./WhichOne";
 
 // Extension lives on the Chrome Web Store and auto-updates there, so no version is shown.
-const EXTENSION_LINK = "https://chromewebstore.google.com/detail/cooldesk/ioggffobciopdddacpclplkeodllhjko";
+const EXTENSION_LINK = CHROME_STORE;
 
 const WINGET_COMMAND = "winget install CoolDesk.CoolDesk";
 const BREW_COMMAND =
-  "brew tap abhayraghuwanshi/cooldesk https://github.com/abhayraghuwanshi/cooldesk-extension\nbrew install --cask cooldesk";
+  `brew tap abhayraghuwanshi/cooldesk ${GITHUB_REPO}\nbrew install --cask cooldesk`;
 const DOWNLOADS_SECTION = "downloads_section";
 
 type DownloadTarget = "browser_extension" | "windows_installer" | "winget_command" | "macos_installer" | "brew_command" | "linux_installer";
@@ -118,6 +119,8 @@ function Downloads() {
               {site.downloads.blurb}
             </p>
           </div>
+
+          {site.downloads.desktop && <WhichOne />}
 
           {/* Merged panel: stats + downloads + diagram */}
           <div className="rounded-2xl border border-white/15 overflow-hidden">

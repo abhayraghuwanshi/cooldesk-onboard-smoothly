@@ -2,7 +2,9 @@ import { CHROME_STORE } from '@/config/site';
 import { useLatestRelease } from '@/hooks/useLatestRelease';
 import { trackEvent, useSectionView } from '@/lib/analytics';
 import { ArrowRight } from 'lucide-react';
-import SpotlightHero, { Keycap } from './SpotlightHero';
+import { Keycap } from './Keycap';
+import SpotlightHero from './SpotlightHero';
+import NetworkBackdrop from './NetworkBackdrop';
 
 function trackHeroCta(label: string, target: string) {
     trackEvent('hero_cta_click', {
@@ -24,13 +26,10 @@ function Hero() {
             {/* Backdrop: black, a soft top light and a faint grid that fades out */}
             <div className="absolute inset-0 -z-10 bg-black" />
             <div className="absolute inset-x-0 top-0 h-[640px] -z-10 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(56,189,248,0.16),transparent_70%)]" />
-            <div
-                className="absolute inset-0 -z-10 opacity-[0.35] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_30%,black,transparent_75%)]"
-                style={{
-                    backgroundImage:
-                        'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)',
-                    backgroundSize: '56px 56px',
-                }}
+            {/* Live network of how the pieces connect. The mask clears the middle
+                for the headline and fades out before the search demo. */}
+            <NetworkBackdrop
+                className="absolute inset-x-0 top-0 -z-10 w-full h-[780px] [mask-image:radial-gradient(ellipse_36%_40%_at_50%_44%,transparent_0%,transparent_40%,black_100%),linear-gradient(to_bottom,black_60%,transparent_100%)] [mask-composite:intersect] [-webkit-mask-composite:source-in]"
             />
 
             <div className="container mx-auto px-6 pt-32 pb-12 md:pt-40 md:pb-16">
@@ -45,15 +44,18 @@ function Hero() {
                     </a>
 
                     <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-[1.02] max-w-4xl">
-                        Pick up any project
+                        Tabs, apps and files,
                         <br />
                         <span className="bg-gradient-to-b from-white to-white/45 bg-clip-text text-transparent">
-                            exactly where you left it.
+                            organized by project.
                         </span>
                     </h1>
 
-                    <p className="mt-6 text-base md:text-lg text-white/55 max-w-xl leading-relaxed">
-                        A launcher that knows your projects. Tabs, apps, files and notes, one keystroke away.
+                    {/* Leads with the one-sentence definition used in the meta description,
+                        JSON-LD and llms.txt, so search and AI answers quote it consistently. */}
+                    <p className="mt-6 text-base md:text-lg text-white/55 max-w-2xl leading-relaxed">
+                        CoolDesk is a free project launcher for Windows, macOS and Linux, with a new-tab extension
+                        for Chrome, Edge and Brave. Press Alt+K to pick up any project right where you were.
                     </p>
 
                     <div className="mt-9 flex flex-col sm:flex-row items-center gap-3">
@@ -80,7 +82,7 @@ function Hero() {
                         Press
                         <Keycap>Alt</Keycap>
                         <Keycap>K</Keycap>
-                        from anywhere
+                        anywhere, with the desktop app
                     </div>
 
                     <SpotlightHero />

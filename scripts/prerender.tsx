@@ -59,7 +59,6 @@ function replaceTag(html: string, pattern: RegExp, replacement: string) {
 // and the catch-all NotFound, which have nothing worth prerendering).
 const staticRoutes = [
     "/",
-    "/how-to-use",
     "/pricing",
     "/blog",
     "/library",

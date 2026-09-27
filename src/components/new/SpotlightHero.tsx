@@ -2,6 +2,7 @@ import {
     AppWindow, Bot, Code2, File, FileCode, Folder, FolderPlus, Globe, LayoutGrid, StickyNote, Terminal,
 } from 'lucide-react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { prefersReducedMotion } from '@/lib/motion';
 import './spotlight-demo.css';
 
 /**
@@ -206,15 +207,6 @@ export function PreviewPane({ item }: { item: Item }) {
     );
 }
 
-/** Physical-looking key, used by the hero and the How-it-works steps. */
-export const Keycap = ({ children, size = 'md' }: { children: React.ReactNode; size?: 'sm' | 'md' }) => (
-    <kbd
-        className={`inline-flex items-center justify-center rounded-lg border border-white/15 bg-gradient-to-b from-[#2b2f37] to-[#1a1d23] font-sans font-semibold text-white shadow-[inset_0_-2px_0_rgba(0,0,0,0.5),0_1px_0_rgba(255,255,255,0.06)_inset,0_4px_12px_rgba(0,0,0,0.4)] ${size === 'md' ? 'min-w-[2.25rem] h-9 px-2.5 text-sm' : 'min-w-[1.5rem] h-6 px-1.5 text-[11px]'}`}
-    >
-        {children}
-    </kbd>
-);
-
 function ResultRow({ item, selected, onHover }: { item: Item; selected: boolean; onHover: () => void }) {
     const typeClass = item.type === 'command' ? COMMAND_TYPE_CLASSES[item.commandId!] ?? 'link' : item.type;
     const desc = item.type === 'app'
@@ -286,7 +278,7 @@ export default function SpotlightHero({ script = SCRIPT, glow = true }: Spotligh
     // Auto-typing demo: type → hold → erase → next. Stops once the visitor takes over.
     useEffect(() => {
         if (userActive || !visible) return;
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        if (prefersReducedMotion()) {
             setQuery(script[0]);
             return;
         }

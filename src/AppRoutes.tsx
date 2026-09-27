@@ -5,7 +5,6 @@ import BlogPage from "./pages/Blog";
 import Contact from "./pages/Contact";
 import FounderPage from "./pages/Founder";
 import GalleryPage from "./pages/Gallery";
-import HowToUse from "./pages/HowToUse";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import PricingPage from "./pages/Pricing";
@@ -29,10 +28,11 @@ export default function AppRoutes() {
     return (
         <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/how-to-use" element={<HowToUse />} />
+            {/* How to Use now lives on the homepage (#how-to-use) */}
+            <Route path="/how-to-use" element={<Navigate to="/#how-to-use" replace />} />
             <Route path="/pricing" element={<PricingPage />} />
             {/* /resources retired — links now live in the navbar Resources dropdown */}
-            <Route path="/resources" element={<Navigate to="/how-to-use" replace />} />
+            <Route path="/resources" element={<Navigate to="/#how-to-use" replace />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route
                 path="/blog/:slug"

@@ -1,32 +1,38 @@
 # CoolDesk
 
-> New Tab Workspace & AI Spotlight for Developers — Free, No Sign-in Required
+> Tabs, apps and files, organized by project. Free, open source, no sign-in.
 
-CoolDesk is a free browser extension and Windows desktop app that replaces your new tab with a project-based workspace. Group browser tabs, desktop apps, links, notes, and files by project — all in one place. No accounts required.
+CoolDesk is a free project launcher for Windows, macOS and Linux, with a new-tab extension for Chrome, Edge and Brave. It keeps your browser tabs, desktop apps, files and notes organized by project, and Alt+K jumps back into any of them.
 
-## Key Features
+It is meant as a layer on top of the tools you already use (VS Code, GitHub, Figma, Linear, Notion, Slack…), not a replacement for them: each project gathers the links, apps, folders and notes it needs, and one shortcut takes you back to it.
 
-- **GlobalSpotlight (Alt+K)** — Raycast-style overlay that searches open tabs, browser history, bookmarks, notes, workspaces, and running Windows apps instantly
-- **Project Workspaces** — Save URLs with title/favicon and open all at once; sorted by recent activity
-- **Smart Tab Management** — Auto-group by domain, focus mode, task-first view using Chrome native tab groups
-- **Running Windows Apps** — Desktop app surfaces live Windows processes (VS Code, Slack, etc.) in Spotlight results
-- **Notes Widget** — Quick note capture on new tab with voice dictation
-- **AI SmartWorkspace** — Groups tabs, history and app activity by project using local AI
-- **New Tab Override** — Replaces Chrome/Edge/Brave new tab with a productivity dashboard
+## Two pieces
 
-## Supported Platforms
+### Desktop app (Windows, macOS, Linux)
 
-- Browser extension: Chrome, Edge, Brave
-- Desktop app: Windows (unlocks running apps feature in Spotlight)
+- **Spotlight (Alt+K, changeable)** — one search across browser tabs, history, bookmarks, desktop apps, files and notes; picks an already-open tab or window instead of opening a duplicate
+- **Slash commands** — `/new-workspace` creates a project, `/agent` hands a task to a local AI CLI (Claude Code, opencode, Codex), `/u` `/a` `/f` scope search to tabs, apps or files
+- **Projects** — each project holds its links, editors, apps, folders and files, plus a status (Active / Planning / On Hold), a Next Up todo list and notes; anything already open is marked
+- **File manager** — browse project folders, preview code, run project scripts, see which dev servers are up
+- **Layouts** — full window, a sidebar or a bottom bar; sidebar and bar tuck away to a screen-edge handle and slide in over your work on hover (Ctrl/Cmd+Shift+D to switch)
+
+### Browser extension (Chrome, Edge, Brave)
+
+- **New tab dashboard** — widgets, favorites, a resume card, your open tabs and what's playing, over a wallpaper
+- **Works with the desktop app** — sends your open tabs to the desktop app over a local connection (127.0.0.1:4545), so Spotlight can find them and jump straight to one
+
+## Privacy
+
+Local-first: data stays on your device. The only things that leave it are an optional anonymous usage ping (can be turned off), cloud AI if you turn it on with your own key, and Team sync when you choose to share.
 
 ## Pricing
 
-Free — no plans, no sign-in, no tracking
+Free — no plans, no sign-in.
 
 ## Navigation
 
 - [Home](https://cool-desk.com/)
-- [How to Use](https://cool-desk.com/how-to-use)
+- [How to Use](https://cool-desk.com/#how-to-use)
 - [Widget Store](https://cool-desk.com/widgets) — free embeddable new-tab widgets: spotlight, project workspaces, session restore, daily focus, pomodoro, tasks, weather, habits, snippets, regex tester and more, plus support for adding your own custom widget
 - [Blog](https://cool-desk.com/blog)
 - [Library of Curated Tools](https://cool-desk.com/library)
@@ -37,7 +43,7 @@ Free — no plans, no sign-in, no tracking
 - [CoolDesk vs Workona](https://cool-desk.com/vs/workona) — cloud browser workspaces vs a free, local-first project workspace that includes desktop apps and files
 - [CoolDesk vs Toby](https://cool-desk.com/vs/toby) — visual tab collections vs project workspaces with spotlight search across tabs, apps and notes
 - [CoolDesk vs Raycast](https://cool-desk.com/vs/raycast) — a command palette vs a project-based launcher with browser-deep search
-- [CoolDesk vs Alfred](https://cool-desk.com/vs/alfred) — the Mac classic vs a free launcher for Windows and Mac built around projects
-- [CoolDesk vs Spotlight](https://cool-desk.com/vs/spotlight) — macOS's built-in launcher vs a free, project-based launcher for Windows and Mac
-- [CoolDesk vs PowerToys Run](https://cool-desk.com/vs/powertoys) — Microsoft's free Windows launcher vs a free, project-based launcher for Windows and Mac
+- [CoolDesk vs Alfred](https://cool-desk.com/vs/alfred) — the Mac classic vs a free launcher for Windows, macOS and Linux built around projects
+- [CoolDesk vs Spotlight](https://cool-desk.com/vs/spotlight) — macOS's built-in launcher vs a free, project-based launcher for Windows, macOS and Linux
+- [CoolDesk vs PowerToys Run](https://cool-desk.com/vs/powertoys) — Microsoft's free Windows launcher vs a free, project-based launcher for Windows, macOS and Linux
 - [CoolDesk vs Momentum](https://cool-desk.com/vs/momentum) — a beautiful daily new-tab dashboard vs a project workspace with tabs, apps, notes and spotlight search

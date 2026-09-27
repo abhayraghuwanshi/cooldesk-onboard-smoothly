@@ -26,4 +26,4 @@ In the age of cloud-everything, owning your data is a superpower. By combining a
 
 The goal of Cooldesk isn't just to manage tabs—it's to eliminate the "friction of finding." By using intelligent new tab logic and automated scraping, we're building a tool that remembers everything so you don't have to.
 
-Ready to reclaim your new tab? Check out our [latest features](https://cool-desk.com/how-to-use) and see the scraper in action.
+Ready to reclaim your new tab? Check out our [latest features](https://cool-desk.com/#how-to-use) and see the scraper in action.

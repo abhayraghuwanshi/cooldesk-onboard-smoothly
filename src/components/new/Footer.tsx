@@ -33,7 +33,7 @@ export default function Footer() {
             </p>
             <ul className="space-y-2.5">
               {[
-                { label: 'How to Use', href: '/how-to-use' },
+                { label: 'How to Use', href: '/#how-to-use' },
                 { label: 'FAQ', href: '/#faq' },
                 { label: 'CoolDesk vs Workona', href: '/vs/workona' },
                 { label: 'CoolDesk vs Toby', href: '/vs/toby' },

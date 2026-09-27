@@ -1206,62 +1206,55 @@
   .cd-ws .workspace-detail-view { grid-template-columns: 1fr; }
 }
 
-/* ── Demo-only: Apple-style glass over a wallpaper ────────────────────────
-   In the app these surfaces sit over the user's wallpaper with a blur
-   (glass-bg + backdrop-filter). The demo supplies a wallpaper and pushes the
-   glass further — lighter tint, stronger blur + saturation, hairline border
-   and a top highlight — so the frosting is visible. */
+/* ── Demo-only: minimal surfaces ──────────────────────────────────────────
+   Flat, neutral and quiet: one dark background, solid panels with hairline
+   borders, no blur, gradients or glows. The only colour left is the app's
+   own (status, open markers, favicons). */
 .cd-ws-wallpaper {
   position: relative;
-  isolation: isolate;
-  /* Neutral graphite with soft white light — no colour, just something for
-     the frost to diffuse */
-  background:
-    radial-gradient(40% 50% at 20% 15%, rgba(255, 255, 255, 0.16), transparent 70%),
-    radial-gradient(35% 45% at 85% 20%, rgba(255, 255, 255, 0.1), transparent 70%),
-    radial-gradient(45% 50% at 60% 95%, rgba(255, 255, 255, 0.08), transparent 70%),
-    linear-gradient(160deg, #1c1d22 0%, #121317 55%, #0c0d10 100%);
-}
-
-/* Soft top vignette so light text keeps its contrast over bright spots */
-.cd-ws-wallpaper::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: radial-gradient(120% 100% at 50% 0%, transparent 40%, rgba(2, 6, 23, 0.45) 100%);
+  background: #0b0c0f;
 }
 
 .cd-ws .cooldesk-workspace-card,
 .cd-ws .workspace-detail-view .workspace-context-panel,
 .cd-ws .workspace-detail-back {
-  /* Whitish frosted glass */
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.07) 100%);
-  backdrop-filter: blur(30px) saturate(120%);
-  -webkit-backdrop-filter: blur(30px) saturate(120%);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.3),
-    0 24px 60px -18px rgba(0, 0, 0, 0.55);
+  background: #121317;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: none;
 }
 
 .cd-ws .cooldesk-workspace-card,
-.cd-ws .workspace-detail-view .workspace-context-panel { border-radius: 18px; }
+.cd-ws .workspace-detail-view .workspace-context-panel { border-radius: 14px; }
 
-.cd-ws .workspace-detail-back { border-radius: 12px; color: rgba(255, 255, 255, 0.85); }
+.cd-ws .workspace-detail-back { border-radius: 10px; color: rgba(255, 255, 255, 0.8); }
 
-/* Inner rows and inputs: a thinner layer of the same glass */
+/* The context panel ships its own tinted gradient — flatten it */
+.cd-ws .workspace-context-panel { background-image: none; }
+
+/* Inner rows, cards and inputs: barely lifted from the panel */
 .cd-ws .compact-url-icon.is-labeled:not(.compact-app-icon),
 .cd-ws .wcp-note-card,
-.cd-ws .wcp-todo-input,
-.cd-ws .wcp-status-seg {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(255, 255, 255, 0.1);
+.cd-ws .wcp-todo-input {
+  background: rgba(255, 255, 255, 0.025);
+  border-color: rgba(255, 255, 255, 0.07);
+  box-shadow: none;
 }
 
-/* Keep secondary text readable on the lighter glass */
-.cd-ws .compact-icons-row-label { filter: brightness(1.25); }
-.cd-ws .wcp-todo-row.is-done .wcp-todo-text { color: rgba(226, 232, 240, 0.45); }
+.cd-ws .wcp-status-seg {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.07);
+}
+
+.cd-ws .compact-icons-row + .compact-icons-row { border-top: 1px solid rgba(255, 255, 255, 0.05); }
+
+/* The folder-collage icon keeps its favicons but drops the glossy shading */
+.cd-ws .compact-workspace-icon { box-shadow: none; }
+.cd-ws .compact-workspace-icon::after { display: none; }
+
+.cd-ws .compact-icons-row-label > svg { filter: none; }
+.cd-ws .wcp-todo-row.is-done .wcp-todo-text { color: rgba(226, 232, 240, 0.4); }
 
 .cd-ws .compact-url-icon.is-labeled:not(.compact-app-icon):hover,
-.cd-ws .wcp-note-card:hover { background: rgba(255, 255, 255, 0.12); }
+.cd-ws .wcp-note-card:hover { background: rgba(255, 255, 255, 0.05); }

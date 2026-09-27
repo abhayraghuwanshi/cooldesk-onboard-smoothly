@@ -211,14 +211,14 @@ export default function PreviewGallery() {
                         <div className="w-full aspect-video bg-black/40">
                             {previews[openIndex].type === "image" ? (
                                 <img
-                                    src={(previews[openIndex] as Extract<BentoPreviewItem, { type: "image" }>).src}
-                                    alt={(previews[openIndex] as Extract<BentoPreviewItem, { type: "image" }>).alt}
+                                    src={(previews[openIndex] as Extract<PreviewItem, { type: "image" }>).src}
+                                    alt={(previews[openIndex] as Extract<PreviewItem, { type: "image" }>).alt}
                                     className="w-full h-full object-contain"
                                 />
                             ) : (
                                 <video
-                                    src={(previews[openIndex] as Extract<BentoPreviewItem, { type: "video" }>).src}
-                                    poster={(previews[openIndex] as Extract<BentoPreviewItem, { type: "video" }>).poster}
+                                    src={(previews[openIndex] as Extract<PreviewItem, { type: "video" }>).src}
+                                    poster={(previews[openIndex] as Extract<PreviewItem, { type: "video" }>).poster}
                                     className="w-full h-full object-contain bg-black"
                                     controls
                                     autoPlay

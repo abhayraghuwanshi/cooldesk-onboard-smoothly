@@ -31,7 +31,7 @@ const resourceGroups: ResourceGroup[] = [
     {
         label: 'Docs',
         links: [
-            { href: '/how-to-use', label: 'Getting Started' },
+            { href: '/#how-to-use', label: 'Getting Started', isAnchor: true },
             { href: '/releases', label: 'Release Notes' },
             { href: '/blog', label: 'Blog' },
             { href: '/#faq', label: 'FAQ', isAnchor: true },
@@ -65,7 +65,7 @@ export default function Navbar() {
 
     const links: NavLink[] = [
         { href: '/', label: 'Home' },
-        { href: '/how-to-use', label: 'How to Use' },
+        { href: '/#how-to-use', label: 'How to Use', isAnchor: true },
         // { href: '/pricing', label: 'Pricing' },
         { href: '/widgets', label: 'Widgets' },
         { href: '/library', label: 'Library' },

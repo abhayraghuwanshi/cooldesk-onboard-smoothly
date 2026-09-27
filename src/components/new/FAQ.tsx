@@ -10,7 +10,7 @@ interface FAQItem {
 const items: FAQItem[] = [
     {
         q: "What is CoolDesk?",
-        a: "A free launcher for Windows, macOS and Linux that groups your tabs, apps and notes by project. Press Alt+K to find anything. No sign-in needed.",
+        a: "Two free pieces that work together: a desktop launcher for Windows, macOS and Linux (press Alt+K to find anything, grouped by project), and a browser extension that turns your new tab into a dashboard. No sign-in needed.",
     },
     {
         q: "How is it different from Raycast or a tab manager?",
@@ -18,7 +18,7 @@ const items: FAQItem[] = [
     },
     {
         q: "Do I need the desktop app?",
-        a: "No. The extension works alone on your new tab. The desktop app adds the global Alt+K shortcut and search across native apps, windows and files.",
+        a: "It depends what you want. The extension turns your new tab into a dashboard: widgets, favorites, your open tabs and what's playing. Spotlight, projects, the file manager and the layouts are in the desktop app. Install both and Spotlight can find your browser tabs and jump straight to them.",
     },
     {
         q: "Is my data private?",

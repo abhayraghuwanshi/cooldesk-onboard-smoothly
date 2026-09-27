@@ -32,7 +32,7 @@ export const resources: Resource[] = [
         id: 'getting-started',
         title: 'Getting Started',
         description: 'Learn the basics and set up CoolDesk in minutes',
-        url: '/how-to-use',
+        url: '/#how-to-use',
         category: 'docs',
         icon: <Rocket className="w-6 h-6" />
     },

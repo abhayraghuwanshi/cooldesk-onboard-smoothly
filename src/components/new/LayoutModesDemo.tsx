@@ -3,60 +3,56 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import './layout-modes-demo.css';
 
 /**
- * The app's three layouts (useLayoutSwitch.js: full → side → bar) on a small
- * desktop. The desktop is built at a real 960×600 and scaled to the column,
- * so the dock, tiles and text keep their true proportions.
+ * The app's three layouts (useLayoutSwitch.js: full → side → bar) as three
+ * still previews, each with a line of plain text. No animation.
+ * Each desktop is drawn at a real 960×600 and scaled to its card, so the dock,
+ * tiles and text keep their true proportions.
  *
  *   Full window — the CoolDesk window over everything
- *   Sidebar     — Notification Center style: separate tiles floating on the
- *                 desktop, no panel (dock-see-through.css)
- *   Bottom bar  — the dock shelf (dockbar.css)
+ *   Sidebar     — Notification Center style tiles on the desktop (dock-see-through.css)
+ *   Dock        — the dock shelf along the bottom (dockbar.css)
  *
- * Sidebar and bar are drawers, as in the app (lib.rs "drawer" mode): a slim
- * handle waits at the screen edge, hovering it slides the panel in OVER the
- * open windows (nothing reflows), and leaving collapses it again.
- *
- * Auto-plays while on screen: a pointer moves to the handle, the panel opens,
- * the pointer leaves. Picking a segment or hovering a handle takes over.
- * Reduced motion: no autoplay, no transitions.
+ * Sidebar and dock are drawers in the app (lib.rs "drawer" mode): they tuck
+ * away to a handle at the screen edge and slide in over your work on hover.
  */
 
 type Layout = 'full' | 'side' | 'bar';
 
-const ORDER: Layout[] = ['full', 'side', 'bar'];
 const DESK_W = 960;
 const DESK_H = 600;
 
 // useLayoutEffect in the browser (no flash at the wrong scale), useEffect during prerender.
 const useIsoLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
-const TABS: { key: Layout; label: string; icon: typeof Maximize2 }[] = [
-    { key: 'full', label: 'Full window', icon: Maximize2 },
-    { key: 'side', label: 'Sidebar', icon: PanelRight },
-    { key: 'bar', label: 'Bottom bar', icon: PanelBottom },
-];
-
 // Editor window geometry per layout (px inside the 960×600 desktop). The
-// drawers overlay it, so sidebar and bar leave it full size.
-const EDITOR_OPEN: React.CSSProperties = { top: 38, left: 14, width: 932, height: 548, opacity: 1, transform: 'scale(1)' };
+// drawers overlay it, so sidebar and dock leave it full size.
+const EDITOR_OPEN: React.CSSProperties = { top: 38, left: 14, width: 932, height: 548 };
 const EDITOR: Record<Layout, React.CSSProperties> = {
-    full: { top: 46, left: 40, width: 880, height: 520, opacity: 0.5, transform: 'scale(0.97)' },
+    full: { top: 46, left: 40, width: 880, height: 520, opacity: 0.5 },
     side: EDITOR_OPEN,
     bar: EDITOR_OPEN,
 };
 
-// Where the pointer rests, and the centre of each edge handle.
-const REST = { x: 560, y: 330 };
-const HANDLE_AT: Record<'side' | 'bar', { x: number; y: number }> = {
-    side: { x: 949, y: 300 },
-    bar: { x: 480, y: 589 },
-};
-
-const Pointer = ({ x, y, shown }: { x: number; y: number; shown: boolean }) => (
-    <svg className="cd-lm-cursor" style={{ left: x - 3, top: y - 2, opacity: shown ? 1 : 0 }} viewBox="0 0 20 20" aria-hidden="true">
-        <path d="M3 2l12.5 9.2-5.6.7 3.3 6.3-2.4 1.2-3.2-6.4L3.6 17z" fill="#fff" stroke="#000" strokeWidth="1.1" strokeLinejoin="round" />
-    </svg>
-);
+const LAYOUTS: { key: Layout; title: string; icon: typeof Maximize2; text: string }[] = [
+    {
+        key: 'full',
+        title: 'Full window',
+        icon: Maximize2,
+        text: 'Your whole workspace on one screen: every project, what’s next and a focus timer.',
+    },
+    {
+        key: 'side',
+        title: 'Sidebar',
+        icon: PanelRight,
+        text: 'Your project beside your work. It tucks away to a thin handle on the screen edge; hover it to bring it back.',
+    },
+    {
+        key: 'bar',
+        title: 'Dock',
+        icon: PanelBottom,
+        text: 'A slim bar of the project’s links and apps along the bottom. A dot marks what’s already open.',
+    },
+];
 
 const LINKS = [
     { label: 'localhost:5173', letter: 'L', bg: '#10b981', open: true },
@@ -96,25 +92,13 @@ const CODE: React.ReactNode[] = [
     <>{'}'}</>,
 ];
 
-function usePrefersReducedMotion() {
-    const [reduced, setReduced] = useState(false);
-    useEffect(() => {
-        const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-        setReduced(mq.matches);
-        const on = (e: MediaQueryListEvent) => setReduced(e.matches);
-        mq.addEventListener('change', on);
-        return () => mq.removeEventListener('change', on);
-    }, []);
-    return reduced;
-}
-
 const Letter = ({ letter, bg, size = 20 }: { letter: string; bg: string; size?: number }) => (
     <span className="cd-lm-letter" style={{ background: bg, width: size, height: size }}>{letter}</span>
 );
 
 function EditorWindow({ layout }: { layout: Layout }) {
     return (
-        <div className="cd-lm-editor cd-lm-anim" style={EDITOR[layout]}>
+        <div className="cd-lm-editor" style={EDITOR[layout]}>
             <div className="cd-lm-titlebar">
                 <span className="cd-lm-dot" style={{ background: '#ff5f57' }} />
                 <span className="cd-lm-dot" style={{ background: '#febc2e' }} />
@@ -143,7 +127,7 @@ function EditorWindow({ layout }: { layout: Layout }) {
 
 function FullWindow({ shown }: { shown: boolean }) {
     return (
-        <div className={`cd-lm-full cd-lm-anim${shown ? '' : ' is-hidden'}`}>
+        <div className={`cd-lm-full${shown ? '' : ' is-hidden'}`}>
             <div className="cd-lm-full-top">
                 <div className="cd-lm-search"><span className="prompt">{'>'}</span>Search tabs, apps, files… or type /<kbd>Alt K</kbd></div>
             </div>
@@ -187,25 +171,23 @@ function FullWindow({ shown }: { shown: boolean }) {
     );
 }
 
-function SidebarTiles({ shown, reduced }: { shown: boolean; reduced: boolean }) {
-    // Staggered like Notification Center cards sliding in.
-    const delay = (i: number) => (reduced ? undefined : { transitionDelay: shown ? `${120 + i * 70}ms` : '0ms' });
+function SidebarTiles({ shown }: { shown: boolean }) {
     return (
         <div className={`cd-lm-side${shown ? '' : ' is-hidden'}`}>
-            <div className="cd-lm-side-title" style={delay(0)}>my-app</div>
-            <div className="cd-lm-tile" style={delay(1)}>
+            <div className="cd-lm-side-title">my-app</div>
+            <div className="cd-lm-tile">
                 <div className="cd-lm-label"><span className="bar" style={{ background: '#60a5fa' }} />Links</div>
                 {LINKS.map((l) => (
                     <div key={l.label} className="cd-lm-row"><Letter letter={l.letter} bg={l.bg} />{l.label}{l.open && <span className="open" />}</div>
                 ))}
             </div>
-            <div className="cd-lm-tile" style={delay(2)}>
+            <div className="cd-lm-tile">
                 <div className="cd-lm-label"><span className="bar" style={{ background: '#8b5cf6' }} />Apps</div>
                 {APPS.map((a) => (
                     <div key={a.label} className="cd-lm-row"><a.icon style={{ width: 16, height: 16, color: a.color }} />{a.label}{a.open && <span className="open" />}</div>
                 ))}
             </div>
-            <div className="cd-lm-tile" style={delay(3)}>
+            <div className="cd-lm-tile">
                 <div className="cd-lm-label"><span className="bar" style={{ background: '#f59e0b' }} />Next up</div>
                 {TODOS.map((t) => <div key={t.text} className={`cd-lm-todo${t.done ? ' done' : ''}`}><span className="box" />{t.text}</div>)}
             </div>
@@ -241,19 +223,11 @@ function DockBar({ shown }: { shown: boolean }) {
     );
 }
 
-export default function LayoutModesDemo() {
-    const [layout, setLayout] = useState<Layout>('full');
-    const [revealed, setRevealed] = useState(false);
-    const [hot, setHot] = useState(false);
-    const [pointer, setPointer] = useState({ ...REST, shown: false });
-    const [userPicked, setUserPicked] = useState(false);
-    const [visible, setVisible] = useState(false);
-    const [scale, setScale] = useState(0.56);
-    const reduced = usePrefersReducedMotion();
+/** One still desktop in the given layout, scaled to its container. */
+function LayoutPreview({ layout }: { layout: Layout }) {
+    const [scale, setScale] = useState(0.4);
     const stageRef = useRef<HTMLDivElement>(null);
-    const collapseTimer = useRef<number | null>(null);
 
-    // Scale the 960×600 desktop to the column width.
     useIsoLayoutEffect(() => {
         const el = stageRef.current;
         if (!el) return;
@@ -265,152 +239,40 @@ export default function LayoutModesDemo() {
         return () => ro.disconnect();
     }, []);
 
-    useEffect(() => {
-        const el = stageRef.current;
-        if (!el || typeof IntersectionObserver === 'undefined') { setVisible(true); return; }
-        const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { threshold: 0.4 });
-        io.observe(el);
-        return () => io.disconnect();
-    }, []);
-
-    // Autoplay: full window, then each drawer opened by a pointer on its handle.
-    useEffect(() => {
-        if (userPicked || reduced || !visible) return;
-        let cancelled = false;
-        const timers: number[] = [];
-        const wait = (ms: number) => new Promise<void>((r) => timers.push(window.setTimeout(r, ms)));
-
-        (async () => {
-            let i = ORDER.indexOf(layout);
-            while (!cancelled) {
-                const mode = ORDER[i % ORDER.length];
-                setLayout(mode);
-                setRevealed(false);
-                setHot(false);
-                if (mode === 'full') {
-                    setPointer({ ...REST, shown: false });
-                    await wait(3000);
-                } else {
-                    setPointer({ ...REST, shown: true });
-                    await wait(900);
-                    if (cancelled) break;
-                    setPointer({ ...HANDLE_AT[mode], shown: true });
-                    await wait(800);
-                    if (cancelled) break;
-                    setHot(true);
-                    await wait(220);
-                    if (cancelled) break;
-                    setRevealed(true);
-                    await wait(2400);
-                    if (cancelled) break;
-                    setPointer({ ...REST, shown: true });
-                    await wait(450);
-                    if (cancelled) break;
-                    setHot(false);
-                    setRevealed(false);
-                    await wait(1000);
-                }
-                i++;
-            }
-        })();
-
-        return () => {
-            cancelled = true;
-            timers.forEach(clearTimeout);
-        };
-        // `layout` only seeds where the loop starts; re-running on every step would restart it.
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [userPicked, reduced, visible]);
-
-    const takeOver = () => {
-        setUserPicked(true);
-        setPointer((p) => ({ ...p, shown: false }));
-    };
-
-    const pick = (next: Layout) => {
-        takeOver();
-        setLayout(next);
-        // Picking a drawer opens it so it's visible straight away.
-        setRevealed(next !== 'full');
-        setHot(false);
-    };
-
-    // Real drawer behaviour: hover the handle to open, leave the panel to close.
-    const openDrawer = () => {
-        takeOver();
-        if (collapseTimer.current) window.clearTimeout(collapseTimer.current);
-        setHot(true);
-        setRevealed(true);
-    };
-    const keepOpen = () => {
-        if (collapseTimer.current) window.clearTimeout(collapseTimer.current);
-    };
-    const scheduleCollapse = () => {
-        if (!userPicked) return;
-        if (collapseTimer.current) window.clearTimeout(collapseTimer.current);
-        collapseTimer.current = window.setTimeout(() => { setRevealed(false); setHot(false); }, 450);
-    };
-    useEffect(() => () => { if (collapseTimer.current) window.clearTimeout(collapseTimer.current); }, []);
-
-    const index = ORDER.indexOf(layout);
-    const drawer = layout === 'full' ? null : layout;
-
     return (
-        <div className={`cd-lm${reduced ? ' reduced' : ''}`}>
-            <div ref={stageRef} className="cd-lm-stage" style={{ height: DESK_H * scale }}>
-                <div className="cd-lm-desktop" style={{ transform: `scale(${scale})` }}>
-                    <div className="cd-lm-menubar">
-                        <b>Code</b><span>File</span><span>Edit</span><span>View</span><span>Go</span>
-                        <span className="cd-lm-menubar-right">Wed 10:42</span>
-                    </div>
-                    <EditorWindow layout={layout} />
-                    <FullWindow shown={layout === 'full'} />
-
-                    {/* Edge handles — hover to open, like the app */}
-                    <div
-                        className={`cd-lm-handle right${drawer === 'side' && !revealed ? '' : ' is-hidden'}${hot && drawer === 'side' ? ' is-hot' : ''}`}
-                        onMouseEnter={openDrawer}
-                        title="Open CoolDesk"
-                    >
-                        <span className="cd-lm-grip" />
-                    </div>
-                    <div
-                        className={`cd-lm-handle bottom${drawer === 'bar' && !revealed ? '' : ' is-hidden'}${hot && drawer === 'bar' ? ' is-hot' : ''}`}
-                        onMouseEnter={openDrawer}
-                        title="Open CoolDesk"
-                    >
-                        <span className="cd-lm-grip" />
-                    </div>
-
-                    <div onMouseEnter={keepOpen} onMouseLeave={scheduleCollapse}>
-                        <SidebarTiles shown={drawer === 'side' && revealed} reduced={reduced} />
-                        <DockBar shown={drawer === 'bar' && revealed} />
-                    </div>
-
-                    <Pointer x={pointer.x} y={pointer.y} shown={pointer.shown && !reduced} />
+        <div ref={stageRef} className="cd-lm-stage" style={{ height: DESK_H * scale }} aria-hidden="true">
+            <div className="cd-lm-desktop" style={{ transform: `scale(${scale})` }}>
+                <div className="cd-lm-menubar">
+                    <b>Code</b><span>File</span><span>Edit</span><span>View</span><span>Go</span>
+                    <span className="cd-lm-menubar-right">Wed 10:42</span>
                 </div>
+                <EditorWindow layout={layout} />
+                <FullWindow shown={layout === 'full'} />
+                <SidebarTiles shown={layout === 'side'} />
+                <DockBar shown={layout === 'bar'} />
             </div>
+        </div>
+    );
+}
 
-            <div className="cd-lm-seg" role="tablist" aria-label="CoolDesk layouts">
-                <span className="cd-lm-seg-thumb" style={{ transform: `translateX(${index * 100}%)` }} />
-                {TABS.map((t) => (
-                    <button
-                        key={t.key}
-                        type="button"
-                        role="tab"
-                        aria-selected={layout === t.key}
-                        onClick={() => pick(t.key)}
-                    >
-                        <t.icon />
-                        {t.label}
-                    </button>
+export default function LayoutModesDemo() {
+    return (
+        <div className="cd-lm cd-lm-static">
+            <div className="grid md:grid-cols-3 gap-5">
+                {LAYOUTS.map((l) => (
+                    <figure key={l.key} className="m-0">
+                        <LayoutPreview layout={l.key} />
+                        <figcaption className="mt-4">
+                            <p className="flex items-center gap-2 text-base font-semibold text-white">
+                                <l.icon className="w-4 h-4 text-white/60" strokeWidth={1.9} />
+                                {l.title}
+                            </p>
+                            <p className="mt-1.5 text-sm leading-relaxed text-white/55">{l.text}</p>
+                        </figcaption>
+                    </figure>
                 ))}
             </div>
-            <p className="cd-lm-hint">
-                {drawer
-                    ? <>Sidebar and bar tuck away to a handle at the screen edge. Hover it to slide CoolDesk over your work.</>
-                    : <>Switch anytime with <kbd>Ctrl+Shift+D</kbd></>}
-            </p>
+            <p className="cd-lm-hint">Switch anytime with <kbd>Ctrl+Shift+D</kbd> in the desktop app.</p>
         </div>
     );
 }

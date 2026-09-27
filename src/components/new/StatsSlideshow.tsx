@@ -1,7 +1,6 @@
-import { GITHUB_REPO } from "@/config/site";
+import { GITHUB_REPO, REDDIT_URL } from "@/config/site";
 import { useLatestRelease } from "@/hooks/useLatestRelease";
 
-const REDDIT_URL = "https://www.reddit.com/r/cooldesk/";
 
 /**
  * Reduce a release-notes markdown body to a handful of plain-text bullet
