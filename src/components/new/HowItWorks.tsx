@@ -4,7 +4,6 @@ import {
 } from 'lucide-react';
 import React from 'react';
 import CreateProjectDemo from './CreateProjectDemo';
-import FileManagerDemo from './FileManagerDemo';
 import LayoutModesDemo from './LayoutModesDemo';
 import { Keycap } from './Keycap';
 import SpotlightHero from './SpotlightHero';
@@ -12,9 +11,10 @@ import WorkspaceCardDemo from './WorkspaceCardDemo';
 
 /**
  * Homepage walkthrough: the four things a new user needs to understand,
- * each one line of copy plus a picture. The workspace card and file manager
- * are partial copies of the app's own components (WorkspaceCardDemo,
- * FileManagerDemo); commands and layouts mirror useSlashCommands.js and
+ * each one line of copy plus a picture. The project wizard and workspace card
+ * are partial copies of the app's own components (CreateProjectDemo,
+ * WorkspaceCardDemo); the file manager demo (FileManagerDemo) is kept but not
+ * shown. Commands and layouts mirror useSlashCommands.js and
  * useLayoutSwitch.js — keep them in sync. Videos + shortcuts follow in #how-to-use.
  */
 
@@ -107,23 +107,17 @@ const STEPS: { key: React.ReactNode; title: string; desc: string; Visual: () => 
         Visual: LayoutModesDemo,
         accent: '52, 211, 153',
     },
-    {
-        key: <FolderOpen className="w-4 h-4" strokeWidth={1.75} />,
-        title: 'A file manager built in',
-        desc: 'CoolDesk has its own file manager. Open a project’s folder to browse its files and preview code without opening an editor. The project’s scripts (like dev or build) are one click away, and a green chip shows when its dev server is running. Try it below.',
-        Visual: FileManagerDemo,
-        accent: '251, 191, 36',
-    },
 ];
 
 const EXTRAS = [
     { icon: Sparkles, label: 'AI groups your tabs by project' },
+    { icon: FolderOpen, label: 'Built-in file manager' },
     { icon: StickyNote, label: 'Notes & todos per project' },
     { icon: LayoutGrid, label: 'New-tab widgets' },
     { icon: Share2, label: 'Team sync' },
 ];
 
-const RAIL = 'linear-gradient(to bottom, rgba(226,232,240,0.45), rgba(56,189,248,0.5) 22%, rgba(167,139,250,0.45) 45%, rgba(52,211,153,0.45) 70%, rgba(251,191,36,0.55))';
+const RAIL = 'linear-gradient(to bottom, rgba(226,232,240,0.45), rgba(56,189,248,0.5) 33%, rgba(167,139,250,0.45) 66%, rgba(52,211,153,0.5))';
 
 /**
  * The demo's frame: a thin gradient bezel with a soft glow in the step's accent.
@@ -159,7 +153,8 @@ export default function HowItWorks() {
     const sectionRef = useSectionView<HTMLElement>('how_it_works');
 
     return (
-        <section ref={sectionRef} className="relative text-white isolate">
+        <section ref={sectionRef} className="relative text-white isolate overflow-x-clip">
+            {/* overflow-x-clip: the demos' glows reach past their frames and would widen the page on phones */}
             {/* Backdrop: a light beam where the section starts, and a dot grid that fades at both ends */}
             <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
                 <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
@@ -175,7 +170,7 @@ export default function HowItWorks() {
                     <div>
                         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/40 mb-2">How it works</p>
                         <h2 className="font-display text-4xl md:text-6xl font-bold tracking-tight">
-                            Five things <span className="bg-gradient-to-b from-white to-white/45 bg-clip-text text-transparent">to know</span>
+                            Four things <span className="bg-gradient-to-b from-white to-white/45 bg-clip-text text-transparent">to know</span>
                         </h2>
                         <p className="mt-3 text-white/50 text-base">Everything below lives in the desktop app.</p>
                     </div>

@@ -8,9 +8,18 @@ import WhichOne from "./WhichOne";
 const EXTENSION_LINK = CHROME_STORE;
 
 const WINGET_COMMAND = "winget install CoolDesk.CoolDesk";
-const BREW_COMMAND =
-  `brew tap abhayraghuwanshi/cooldesk ${GITHUB_REPO}\nbrew install --cask cooldesk`;
+// Homebrew 6 requires trusting third-party taps (docs.brew.sh/Tap-Trust): tap,
+// trust just this cask, install. The tap needs its URL because the repo isn't
+// named homebrew-cooldesk. The cask's postflight clears macOS quarantine, since
+// the build isn't notarized yet (Casks/cooldesk.rb in cooldesk-extension).
+const BREW_COMMAND = [
+  `brew tap abhayraghuwanshi/cooldesk \\\n  ${GITHUB_REPO}`,
+  "brew trust --cask abhayraghuwanshi/cooldesk/cooldesk",
+  "brew install --cask cooldesk",
+].join("\n");
 const DOWNLOADS_SECTION = "downloads_section";
+
+type Os = "windows" | "mac" | "linux";
 
 type DownloadTarget = "browser_extension" | "windows_installer" | "winget_command" | "macos_installer" | "brew_command" | "linux_installer";
 
@@ -47,57 +56,82 @@ function trackDownloadEvent(eventName: string, params: DownloadTrackingParams) {
   }
 }
 
+function detectOs(): Os {
+  const ua = typeof navigator === "undefined" ? "" : navigator.userAgent;
+  if (/Mac/i.test(ua) && !/iPhone|iPad/i.test(ua)) return "mac";
+  if (/Linux/i.test(ua) && !/Android/i.test(ua)) return "linux";
+  return "windows";
+}
+
+const OS_TABS: { key: Os; label: string; Icon: (p: { className?: string }) => React.ReactElement }[] = [
+  { key: "windows", label: "Windows", Icon: WindowsIcon },
+  { key: "mac", label: "macOS", Icon: MacIcon },
+  { key: "linux", label: "Linux", Icon: LinuxIcon },
+];
+
+/** A command with a Copy button. */
+function CommandBox({ command, copied, onCopy }: { command: string; copied: boolean; onCopy: () => void }) {
+  return (
+    <div className="mt-2 flex items-start gap-2 rounded-lg border border-white/10 bg-black/40 pl-3 pr-1.5 py-1.5">
+      <code className="flex-1 min-w-0 py-1 font-mono text-[12.5px] leading-relaxed text-white/85 whitespace-pre-wrap [overflow-wrap:anywhere]">{command}</code>
+      <button
+        type="button"
+        onClick={onCopy}
+        className="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs font-medium text-txt-secondary hover:text-white hover:bg-white/[0.06] transition-colors shrink-0"
+      >
+        {copied ? (
+          <>
+            <CheckIcon className="w-3.5 h-3.5 text-green-400" />
+            <span className="text-green-400">Copied</span>
+          </>
+        ) : (
+          <>
+            <CopyIcon className="w-3.5 h-3.5" />
+            Copy
+          </>
+        )}
+      </button>
+    </div>
+  );
+}
+
 function Downloads() {
-  const [copied, setCopied] = React.useState(false);
-  const [brewCopied, setBrewCopied] = React.useState(false);
+  const [os, setOs] = React.useState<Os>("windows"); // prerendered as Windows, corrected on mount
+  const [copied, setCopied] = React.useState<string | null>(null);
 
   // Desktop version + installer links come live from GitHub Releases; extension is static.
   const release = useLatestRelease();
-  const VERSIONS = { extension: "store", windows: release.version, mac: release.version };
-  const DOWNLOAD_LINKS = { extension: EXTENSION_LINK, windows: release.windows, mac: release.mac, linux: release.linux };
+  const version = release.version;
 
   React.useEffect(() => {
-    trackDownloadEvent("downloads_section_view", {
-      action: "view",
-    });
+    setOs(detectOs());
+    trackDownloadEvent("downloads_section_view", { action: "view" });
   }, []);
 
   function trackDownloadClick(params: Omit<DownloadTrackingParams, "action">) {
-    trackDownloadEvent("download_cta_click", {
-      action: "click",
-      ...params,
-    });
+    trackDownloadEvent("download_cta_click", { action: "click", ...params });
   }
 
-  function copyWinget() {
-    trackDownloadEvent("download_winget_copy", {
+  function copy(command: string, target: DownloadTarget, platform: string, method: string) {
+    trackDownloadEvent("download_command_copy", {
       action: "copy",
-      download_target: "winget_command",
-      download_platform: "windows",
-      download_version: VERSIONS.windows,
-      download_method: "winget",
+      download_target: target,
+      download_platform: platform,
+      download_version: version,
+      download_method: method,
     });
-
-    navigator.clipboard.writeText(WINGET_COMMAND).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
-  }
-
-  function copyBrew() {
-    trackDownloadEvent("download_brew_copy", {
-      action: "copy",
-      download_target: "brew_command",
-      download_platform: "macos",
-      download_version: VERSIONS.mac,
-      download_method: "homebrew",
-    });
-
-    navigator.clipboard.writeText(BREW_COMMAND).then(() => {
-      setBrewCopied(true);
-      setTimeout(() => setBrewCopied(false), 2000);
+    navigator.clipboard.writeText(command).then(() => {
+      setCopied(command);
+      setTimeout(() => setCopied((c) => (c === command ? null : c)), 2000);
     });
   }
+
+  const primary: Record<Os, { href: string; label: string; detail: string; target: DownloadTarget; method: string }> = {
+    windows: { href: release.windows, label: "Download for Windows", detail: `v${version} · x64 installer (.exe)`, target: "windows_installer", method: "direct_installer" },
+    mac: { href: release.mac, label: "Download for macOS", detail: `v${version} · Apple Silicon (.dmg)`, target: "macos_installer", method: "direct_dmg" },
+    linux: { href: release.linux, label: "Download for Linux", detail: `v${version} · AppImage, runs on any distro`, target: "linux_installer", method: "direct_appimage" },
+  };
+  const p = primary[os];
 
   return (
     <section
@@ -112,7 +146,7 @@ function Downloads() {
             <div className="flex items-baseline gap-3 mb-2">
               <h2 className="heading-2">{site.downloads.heading}</h2>
               {site.downloads.desktop && (
-                <span className="text-sm text-txt-muted font-mono">v{VERSIONS.windows}</span>
+                <span className="text-sm text-txt-muted font-mono">v{version}</span>
               )}
             </div>
             <p className="body-lg">
@@ -120,34 +154,112 @@ function Downloads() {
             </p>
           </div>
 
-          {site.downloads.desktop && <WhichOne />}
-
-          {/* Merged panel: stats + downloads + diagram */}
+          {/* Merged panel: community + latest release | downloads, then "which one" across both */}
           <div className="rounded-2xl border border-white/15 overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-2 lg:divide-x divide-white/15">
 
-              {/* Stats column */}
-              <div className="bg-white/[0.015]">
+              {/* Community column */}
+              <div className="bg-white/[0.015] order-2 lg:order-1">
                 <StatsSlideshow />
               </div>
 
               {/* Download column */}
-              <div>
+              <div className="order-1 lg:order-2">
+
+                {site.downloads.desktop && (
+                  <>
+                    <div className="px-5 py-2.5 bg-white/[0.03] border-b border-white/15">
+                      <p className="label">Desktop app</p>
+                    </div>
+
+                    <div className="p-5 border-b border-white/15">
+                      {/* OS picker — preselected from the visitor's system */}
+                      <div role="tablist" aria-label="Operating system" className="grid grid-cols-3 gap-1 p-1 rounded-xl bg-white/[0.04] border border-white/10">
+                        {OS_TABS.map(({ key, label, Icon }) => (
+                          <button
+                            key={key}
+                            type="button"
+                            role="tab"
+                            aria-selected={os === key}
+                            onClick={() => {
+                              setOs(key);
+                              trackDownloadEvent("download_os_select", { action: "select", download_platform: key });
+                            }}
+                            className={`inline-flex items-center justify-center gap-2 rounded-lg py-2 text-sm font-semibold transition-colors ${os === key ? "bg-white/[0.12] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]" : "text-white/50 hover:text-white/80"}`}
+                          >
+                            <Icon className="w-4 h-4" />
+                            {label}
+                          </button>
+                        ))}
+                      </div>
+
+                      {/* Main download */}
+                      <a
+                        href={p.href}
+                        download
+                        onClick={() => trackDownloadClick({ download_target: p.target, download_platform: os, download_version: version, download_method: p.method })}
+                        data-gtm-element="download-cta"
+                        data-gtm-action="click"
+                        data-gtm-section={DOWNLOADS_SECTION}
+                        data-gtm-target={p.target}
+                        data-gtm-platform={os}
+                        data-gtm-version={version}
+                        data-gtm-method={p.method}
+                        className="group mt-4 flex items-center justify-between gap-4 rounded-xl bg-white px-5 py-3.5 text-black transition-transform hover:-translate-y-px shadow-[0_8px_30px_rgba(56,189,248,0.18)]"
+                      >
+                        <span className="min-w-0">
+                          <span className="block text-[15px] font-semibold">{p.label}</span>
+                          <span className="block text-xs text-black/55 mt-0.5 truncate">{p.detail}</span>
+                        </span>
+                        <DownloadIcon className="w-5 h-5 shrink-0" />
+                      </a>
+
+                      {/* One secondary option per OS */}
+                      <div className="mt-4">
+                        {os === "windows" && (
+                          <>
+                            <p className="caption">Or install with winget</p>
+                            <CommandBox command={WINGET_COMMAND} copied={copied === WINGET_COMMAND} onCopy={() => copy(WINGET_COMMAND, "winget_command", "windows", "winget")} />
+                          </>
+                        )}
+                        {os === "mac" && (
+                          <>
+                            <p className="caption">Or install with Homebrew (tap, trust, install)</p>
+                            <CommandBox command={BREW_COMMAND} copied={copied === BREW_COMMAND} onCopy={() => copy(BREW_COMMAND, "brew_command", "macos", "homebrew")} />
+                            <p className="caption leading-relaxed mt-3">
+                              <span className="text-amber-300/90 font-medium">Not notarized yet.</span> Using the DMG and macOS
+                              says the app is damaged? Open “① RUN THIS FIRST” inside the DMG.
+                            </p>
+                          </>
+                        )}
+                        {os === "linux" && (
+                          <p className="caption">
+                            Or get a package:{" "}
+                            <a href={release.deb} download onClick={() => trackDownloadClick({ download_target: "linux_installer", download_platform: "linux", download_version: version, download_method: "deb" })} className="text-white/80 underline decoration-white/30 underline-offset-2 hover:text-white">.deb</a>
+                            <span className="text-white/30"> (Debian, Ubuntu) · </span>
+                            <a href={release.rpm} download onClick={() => trackDownloadClick({ download_target: "linux_installer", download_platform: "linux", download_version: version, download_method: "rpm" })} className="text-white/80 underline decoration-white/30 underline-offset-2 hover:text-white">.rpm</a>
+                            <span className="text-white/30"> (Fedora, RHEL)</span>
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </>
+                )}
 
                 {/* Browser section */}
                 <div className="px-5 py-2.5 bg-white/[0.03] border-b border-white/15">
-                  <p className="label">Browser</p>
+                  <p className="label">Browser extension</p>
                 </div>
 
                 <a
-                  href={DOWNLOAD_LINKS.extension}
+                  href={EXTENSION_LINK}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() =>
                     trackDownloadClick({
                       download_target: "browser_extension",
                       download_platform: "chrome",
-                      download_version: VERSIONS.extension,
+                      download_version: "store",
                       download_method: "chrome_web_store",
                     })
                   }
@@ -156,16 +268,16 @@ function Downloads() {
                   data-gtm-section={DOWNLOADS_SECTION}
                   data-gtm-target="browser_extension"
                   data-gtm-platform="chrome"
-                  data-gtm-version={VERSIONS.extension}
+                  data-gtm-version="store"
                   data-gtm-method="chrome_web_store"
-                  className="flex items-center gap-3 sm:gap-4 px-4 sm:px-5 py-4 hover:bg-white/[0.04] transition-colors group border-b border-white/15"
+                  className="flex items-center gap-3 sm:gap-4 px-4 sm:px-5 py-4 hover:bg-white/[0.04] transition-colors group"
                 >
                   <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/15 flex items-center justify-center shrink-0">
                     <ExtensionIcon className="w-5 h-5 text-blue-400" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="heading-5">Browser Extension</p>
-                    <p className="caption mt-0.5">Chrome, Edge, Brave</p>
+                    <p className="heading-5">New tab extension</p>
+                    <p className="caption mt-0.5">Chrome, Edge, Brave · updates itself</p>
                   </div>
                   <span className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-400 group-hover:text-blue-300 transition-colors shrink-0">
                     Add to Chrome
@@ -175,188 +287,12 @@ function Downloads() {
                   </span>
                 </a>
 
-                {site.downloads.desktop && (
-                  <>
-                    {/* Desktop section */}
-                    <div className="px-5 py-2.5 bg-white/[0.03] border-b border-white/15">
-                      <p className="label">Desktop</p>
-                    </div>
-
-                    <a
-                      href={DOWNLOAD_LINKS.windows}
-                      download
-                      onClick={() =>
-                        trackDownloadClick({
-                          download_target: "windows_installer",
-                          download_platform: "windows",
-                          download_version: VERSIONS.windows,
-                          download_method: "direct_installer",
-                        })
-                      }
-                      data-gtm-element="download-cta"
-                      data-gtm-action="click"
-                      data-gtm-section={DOWNLOADS_SECTION}
-                      data-gtm-target="windows_installer"
-                      data-gtm-platform="windows"
-                      data-gtm-version={VERSIONS.windows}
-                      data-gtm-method="direct_installer"
-                      className="flex items-center gap-3 sm:gap-4 px-4 sm:px-5 py-4 hover:bg-white/[0.04] transition-colors group border-b border-white/15"
-                    >
-                      <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/15 flex items-center justify-center shrink-0">
-                        <WindowsIcon className="w-5 h-5 text-purple-400" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="heading-5">Windows</p>
-                        <p className="caption mt-0.5">v{VERSIONS.windows} · x64</p>
-                      </div>
-                      <span className="inline-flex items-center gap-1.5 text-sm font-medium text-txt-secondary group-hover:text-white transition-colors shrink-0">
-                        <DownloadIcon className="w-3.5 h-3.5" />
-                        Download
-                      </span>
-                    </a>
-
-                    <button
-                      onClick={copyWinget}
-                      data-gtm-element="download-copy"
-                      data-gtm-action="copy"
-                      data-gtm-section={DOWNLOADS_SECTION}
-                      data-gtm-target="winget_command"
-                      data-gtm-platform="windows"
-                      data-gtm-version={VERSIONS.windows}
-                      data-gtm-method="winget"
-                      className="w-full flex items-center gap-3 sm:gap-4 px-4 sm:px-5 py-4 hover:bg-white/[0.04] transition-colors group border-b border-white/15 text-left"
-                    >
-                      <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/15 flex items-center justify-center shrink-0">
-                        <WingetIcon className="w-5 h-5 text-purple-400" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="heading-5">Windows <span className="text-txt-muted font-normal">via Winget</span></p>
-                        <p className="caption mt-0.5 font-mono truncate">{WINGET_COMMAND}</p>
-                      </div>
-                      <span className="inline-flex items-center gap-1.5 text-sm font-medium text-txt-secondary group-hover:text-white transition-colors shrink-0">
-                        {copied ? (
-                          <>
-                            <CheckIcon className="w-3.5 h-3.5 text-green-400" />
-                            <span className="text-green-400">Copied</span>
-                          </>
-                        ) : (
-                          <>
-                            <CopyIcon className="w-3.5 h-3.5" />
-                            Copy
-                          </>
-                        )}
-                      </span>
-                    </button>
-
-                    <a
-                      href={DOWNLOAD_LINKS.mac}
-                      download
-                      onClick={() =>
-                        trackDownloadClick({
-                          download_target: "macos_installer",
-                          download_platform: "macos",
-                          download_version: VERSIONS.mac,
-                          download_method: "direct_dmg",
-                        })
-                      }
-                      data-gtm-element="download-cta"
-                      data-gtm-action="click"
-                      data-gtm-section={DOWNLOADS_SECTION}
-                      data-gtm-target="macos_installer"
-                      data-gtm-platform="macos"
-                      data-gtm-version={VERSIONS.mac}
-                      data-gtm-method="direct_dmg"
-                      className="flex items-center gap-3 sm:gap-4 px-4 sm:px-5 py-4 hover:bg-white/[0.04] transition-colors group border-b border-white/15"
-                    >
-                      <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/15 flex items-center justify-center shrink-0">
-                        <MacIcon className="w-5 h-5 text-zinc-300" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="heading-5">macOS</p>
-                        <p className="caption mt-0.5">v{VERSIONS.mac} · Apple Silicon</p>
-                        <p className="text-[11px] text-amber-400/80 mt-1 leading-snug">
-                          Unsigned build — if macOS says it's damaged, open the
-                          "① RUN THIS FIRST" script inside the DMG (or use Homebrew below).
-                        </p>
-                      </div>
-                      <span className="inline-flex items-center gap-1.5 text-sm font-medium text-txt-secondary group-hover:text-white transition-colors shrink-0">
-                        <DownloadIcon className="w-3.5 h-3.5" />
-                        Download
-                      </span>
-                    </a>
-
-                    <button
-                      onClick={copyBrew}
-                      data-gtm-element="download-copy"
-                      data-gtm-action="copy"
-                      data-gtm-section={DOWNLOADS_SECTION}
-                      data-gtm-target="brew_command"
-                      data-gtm-platform="macos"
-                      data-gtm-version={VERSIONS.mac}
-                      data-gtm-method="homebrew"
-                      className="w-full flex items-center gap-3 sm:gap-4 px-4 sm:px-5 py-4 hover:bg-white/[0.04] transition-colors group border-b border-white/15 text-left"
-                    >
-                      <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/15 flex items-center justify-center shrink-0">
-                        <WingetIcon className="w-5 h-5 text-zinc-300" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="heading-5">macOS <span className="text-txt-muted font-normal">via Homebrew</span></p>
-                        <p className="caption mt-0.5 font-mono truncate">brew tap abhayraghuwanshi/cooldesk</p>
-                        <p className="caption mt-0.5 font-mono truncate">brew install --cask cooldesk</p>
-                      </div>
-                      <span className="inline-flex items-center gap-1.5 text-sm font-medium text-txt-secondary group-hover:text-white transition-colors shrink-0">
-                        {brewCopied ? (
-                          <>
-                            <CheckIcon className="w-3.5 h-3.5 text-green-400" />
-                            <span className="text-green-400">Copied</span>
-                          </>
-                        ) : (
-                          <>
-                            <CopyIcon className="w-3.5 h-3.5" />
-                            Copy
-                          </>
-                        )}
-                      </span>
-                    </button>
-
-                    <a
-                      href={DOWNLOAD_LINKS.linux}
-                      download
-                      onClick={() =>
-                        trackDownloadClick({
-                          download_target: "linux_installer",
-                          download_platform: "linux",
-                          download_version: VERSIONS.windows,
-                          download_method: "direct_appimage",
-                        })
-                      }
-                      data-gtm-element="download-cta"
-                      data-gtm-action="click"
-                      data-gtm-section={DOWNLOADS_SECTION}
-                      data-gtm-target="linux_installer"
-                      data-gtm-platform="linux"
-                      data-gtm-version={VERSIONS.windows}
-                      data-gtm-method="direct_appimage"
-                      className="flex items-center gap-3 sm:gap-4 px-4 sm:px-5 py-4 hover:bg-white/[0.04] transition-colors group border-b border-white/15"
-                    >
-                      <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/15 flex items-center justify-center shrink-0">
-                        <LinuxIcon className="w-5 h-5 text-zinc-300" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="heading-5">Linux</p>
-                        <p className="caption mt-0.5">v{VERSIONS.windows} · AppImage (.deb/.rpm on GitHub)</p>
-                      </div>
-                      <span className="inline-flex items-center gap-1.5 text-sm font-medium text-txt-secondary group-hover:text-white transition-colors shrink-0">
-                        <DownloadIcon className="w-3.5 h-3.5" />
-                        Download
-                      </span>
-                    </a>
-                  </>
-                )}
-
               </div>
 
             </div>
+
+            {/* Full width under both columns: extension vs app vs both */}
+            {site.downloads.desktop && <WhichOne />}
           </div>
 
           {/* Tip */}
@@ -406,14 +342,6 @@ function DownloadIcon({ className }: { className?: string }) {
   return (
     <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-    </svg>
-  );
-}
-
-function WingetIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
     </svg>
   );
 }

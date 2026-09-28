@@ -17,6 +17,9 @@ export interface ReleaseInfo {
     mac: string;
     /** Direct download URL for the Linux build (.AppImage), or the release page. */
     linux: string;
+    /** Direct .deb / .rpm URLs, or the release page when not found. */
+    deb: string;
+    rpm: string;
     /** Link to the release page on GitHub (tag page as fallback). */
     releaseUrl: string;
     /** Release title, e.g. "CoolDesk v1.6.0". Empty until the fetch resolves. */
@@ -34,6 +37,8 @@ const FALLBACK: ReleaseInfo = {
     windows: `https://github.com/${REPO}/releases/download/v1.3.0/CoolDesk_1.3.0_x64-setup.exe`,
     mac: `https://github.com/${REPO}/releases/download/v1.3.0/CoolDesk_1.3.0_aarch64.dmg`,
     linux: `https://github.com/${REPO}/releases/latest`,
+    deb: `https://github.com/${REPO}/releases/latest`,
+    rpm: `https://github.com/${REPO}/releases/latest`,
     releaseUrl: `https://github.com/${REPO}/releases/latest`,
     title: '',
     notes: '',
@@ -79,6 +84,8 @@ function parseRelease(data: GitHubRelease & Partial<ProxyRelease>): ReleaseInfo 
         windows: windows ?? FALLBACK.windows,
         mac: mac ?? FALLBACK.mac,
         linux: linux ?? data.html_url ?? FALLBACK.linux,
+        deb: assets.find((a) => /\.deb$/i.test(a.name))?.browser_download_url ?? data.html_url ?? FALLBACK.deb,
+        rpm: assets.find((a) => /\.rpm$/i.test(a.name))?.browser_download_url ?? data.html_url ?? FALLBACK.rpm,
         releaseUrl: data.html_url ?? FALLBACK.releaseUrl,
         title: data.name ?? '',
         notes: data.body ?? data.notes ?? '',

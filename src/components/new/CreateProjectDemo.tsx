@@ -13,12 +13,12 @@ import './spotlight-demo.css';
 
 function Panel({ query, placeholder, children }: { query?: string; placeholder: string; children: React.ReactNode }) {
     return (
-        <div className="cd-spotlight h-full" aria-hidden="true">
-            <div className="spotlight-container h-full" style={{ maxWidth: 'none' }}>
+        <div className="cd-spotlight xl:h-full" aria-hidden="true">
+            <div className="spotlight-container xl:h-full" style={{ maxWidth: 'none' }}>
                 <div className="spotlight-search-box">
                     <span className="spotlight-prompt">{'>'}</span>
                     <span className="spotlight-mode-badge">New workspace</span>
-                    <span className="spotlight-input truncate" style={{ lineHeight: 1.3, color: query ? undefined : 'rgba(255, 255, 255, 0.3)' }}>
+                    <span className="spotlight-input truncate" style={{ fontSize: 14, lineHeight: 1.3, color: query ? undefined : 'rgba(255, 255, 255, 0.3)' }}>
                         {query || placeholder}
                     </span>
                 </div>
@@ -103,10 +103,11 @@ const STEPS: { n: string; title: string; text: string; panel: React.ReactNode }[
 export default function CreateProjectDemo() {
     return (
         <div className="rounded-2xl border border-white/10 bg-[#0b0c0f] p-4 sm:p-6">
-            <div className="grid md:grid-cols-3 gap-5">
+            <div className="grid xl:grid-cols-3 gap-5">
                 {STEPS.map((s) => (
                     <figure key={s.n} className="m-0 flex flex-col">
-                        <div className="h-[196px]">{s.panel}</div>
+                        {/* Equal heights side by side; stacked, each panel fits its content */}
+                        <div className="xl:h-[228px]">{s.panel}</div>
                         <figcaption className="mt-4">
                             <p className="flex items-center gap-2 text-base font-semibold text-white">
                                 <span className="inline-flex items-center justify-center w-5 h-5 rounded-full border border-white/15 text-[11px] font-mono text-white/70">{s.n}</span>
@@ -119,7 +120,7 @@ export default function CreateProjectDemo() {
             </div>
             {/* Or let the AI do it. /agent returns a proposal you Apply or Discard
                 (parts/AgentPanel.jsx); "group by project" is SmartWorkspace. */}
-            <div className="mt-6 pt-5 border-t border-white/[0.07] grid md:grid-cols-2 gap-4 text-sm text-white/55">
+            <div className="mt-6 pt-5 border-t border-white/[0.07] grid lg:grid-cols-2 gap-4 text-sm text-white/55">
                 <p className="flex items-start gap-2.5">
                     <Bot className="w-4 h-4 mt-0.5 shrink-0 text-white/40" strokeWidth={1.75} />
                     <span>

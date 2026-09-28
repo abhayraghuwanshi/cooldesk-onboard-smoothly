@@ -10,7 +10,7 @@ import { site } from "@/config/site";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-// Hero, the five-step walkthrough, how to use (videos + shortcuts),
+// Hero, the four-step walkthrough, how to use (videos + shortcuts),
 // download (with "which one do I need?"), FAQ.
 // /how-to-use redirects to #how-to-use here.
 const Index = () => {
