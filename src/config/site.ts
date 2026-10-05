@@ -68,13 +68,13 @@ const configs: Record<SiteId, SiteConfig> = {
     seo: {
       title: "CoolDesk: Organize Tabs, Apps & Files by Project (Free)",
       description:
-        "Free launcher and new-tab extension that groups your tabs, apps, files and notes by project. Press Alt+K to jump back into any project. Windows, macOS & Linux.",
+        "Free launcher and new-tab extension that keeps your tabs, apps, files and notes in spaces, one for each project. Press Alt+K to jump back into any space. Windows, macOS & Linux.",
     },
     hero: {
       badge: "Free & open source",
-      headlineLead: "Tabs, apps and files,",
-      headlineAccent: "organized by project.",
-      sub: "CoolDesk is a free project launcher for Windows, macOS and Linux, with a new-tab extension for Chrome, Edge and Brave. It keeps your browser tabs, desktop apps, files and notes organized by project, and Alt+K jumps back into any of them.",
+      headlineLead: "Don't open apps.",
+      headlineAccent: "Open spaces.",
+      sub: "CoolDesk is a free launcher for Windows, macOS and Linux, with a new-tab extension for Chrome, Edge and Brave. It keeps your browser tabs, desktop apps, files and notes in spaces, one for each project, and Alt+K jumps back into any of them.",
     },
     cta: {
       label: "Get Started",
@@ -83,7 +83,7 @@ const configs: Record<SiteId, SiteConfig> = {
     downloads: {
       heading: "Download CoolDesk",
       blurb:
-        "The extension is your new tab. The desktop app is the launcher: Spotlight, projects and files.",
+        "The extension is your new tab. The desktop app is the launcher: Spotlight, spaces and files.",
       desktop: true,
       tip: "Start with either one. Install both and they connect on your machine, so Spotlight can reach your browser tabs.",
     },
@@ -98,15 +98,15 @@ const configs: Record<SiteId, SiteConfig> = {
     name: "CoolDesk New Tab",
     url: NEWTAB_URL,
     seo: {
-      title: "CoolDesk New Tab — A Project Workspace for Your Browser",
+      title: "CoolDesk New Tab — Organize Your Tabs into Spaces",
       description:
-        "Replace your new tab with a project workspace. Group browser tabs, links and notes by project, with AI Spotlight search. Free Chrome extension — no sign-in required.",
+        "Replace your new tab with spaces: browser tabs, links and notes grouped by project, with AI Spotlight search. Free Chrome extension — no sign-in required.",
     },
     hero: {
       badge: "Free browser extension",
       headlineLead: "Your new tab.",
       headlineAccent: "Reimagined.",
-      sub: "Group your browser tabs, links, and notes by project — right in your new tab. Built for people who juggle projects all day.",
+      sub: "Keep your browser tabs, links and notes in spaces, one for each project, right in your new tab. Built for people who juggle projects all day.",
     },
     cta: {
       label: "Add to Chrome",

@@ -147,7 +147,7 @@
   <!-- Blog index -->
   <url>
     <loc>https://cool-desk.com/blog</loc>
-    <lastmod>2026-04-26</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -155,127 +155,37 @@
   <!-- Blog posts — only slugs that exist in blogs.ts -->
   <url>
     <loc>https://cool-desk.com/blog/raycast-alternatives-windows</loc>
-    <lastmod>2026-07-05</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cool-desk.com/blog/the-untapped-power-of-new-tab</loc>
-    <lastmod>2026-01-31</lastmod>
+    <loc>https://cool-desk.com/blog/search-tabs-and-apps-one-shortcut</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cool-desk.com/blog/universal-search-future-of-browsing</loc>
-    <lastmod>2026-01-31</lastmod>
+    <loc>https://cool-desk.com/blog/organize-browser-tabs-by-project</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cool-desk.com/blog/magic-of-browser-autosave</loc>
-    <lastmod>2026-01-31</lastmod>
+    <loc>https://cool-desk.com/blog/developer-context-switching-setup</loc>
+    <lastmod>2026-10-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://cool-desk.com/blog/browser-as-agentic-os-ai-integration</loc>
-    <lastmod>2026-01-31</lastmod>
+    <loc>https://cool-desk.com/blog/best-dock-apps-windows</loc>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://cool-desk.com/blog/p2p-collaboration-technical-deep-dive</loc>
-    <lastmod>2026-01-31</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://cool-desk.com/blog/voice-navigation-hands-free-browsing</loc>
-    <lastmod>2026-01-31</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://cool-desk.com/blog/fighting-browser-amnesia</loc>
-    <lastmod>2026-01-31</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://cool-desk.com/blog/the-hidden-cost-of-tab-hoarding</loc>
-    <lastmod>2026-01-31</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://cool-desk.com/blog/wasted-new-tab</loc>
-    <lastmod>2026-08-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://cool-desk.com/blog/new-tab-content-scraper</loc>
-    <lastmod>2026-08-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://cool-desk.com/blog/bookmarks-vs-recall</loc>
-    <lastmod>2026-08-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://cool-desk.com/blog/saving-vs-owning</loc>
-    <lastmod>2026-08-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://cool-desk.com/blog/tabs-to-traces</loc>
-    <lastmod>2026-08-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://cool-desk.com/blog/chat-link-lifecycle</loc>
-    <lastmod>2026-08-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://cool-desk.com/blog/semantic-search-browser-history</loc>
-    <lastmod>2026-08-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://cool-desk.com/blog/productivity-tool-failure</loc>
-    <lastmod>2026-08-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://cool-desk.com/blog/save-for-later-fail</loc>
-    <lastmod>2026-08-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://cool-desk.com/blog/no-habit-change-productivity</loc>
-    <lastmod>2026-08-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://cool-desk.com/blog/llm-ai-productivity</loc>
-    <lastmod>2026-08-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://cool-desk.com/blog/best-new-tab-extensions</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

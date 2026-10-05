@@ -5,6 +5,8 @@ export interface BlogPost {
     content: string;
     author: string;
     date: string;
+    /** Last meaningful content refresh (YYYY-MM-DD). Shown as "Updated" and sent as dateModified. */
+    updated?: string;
     readTime: string;
     category: BlogCategory;
     tags: string[];
@@ -22,33 +24,19 @@ export type BlogCategory =
     | 'guides'
     | 'comparisons';
 
-// Import blog posts from markdown files
-// Import blog posts from markdown files
-// Import blog posts from markdown files
-import aiIntegrationBlogContent from './blog-posts/ai-integration-browser-agents.md?raw';
-import autosaveProductivityContent from './blog-posts/autosave-productivity.md?raw';
+// Import blog posts from markdown files.
+// Removed posts are 301-redirected in public/serve.json — add a redirect there when retiring one.
+import bestDockAppsContent from './blog-posts/best-dock-apps-windows.md?raw';
+import developerContextSwitchingContent from './blog-posts/developer-context-switching-setup.md?raw';
+import organizeTabsByProjectContent from './blog-posts/organize-browser-tabs-by-project.md?raw';
+import searchTabsAndAppsContent from './blog-posts/search-tabs-and-apps-one-shortcut.md?raw';
 import bestNewTabExtensionsContent from './blog-posts/best-new-tab-extensions.md?raw';
-import bookmarksVsRecallContent from './blog-posts/bookmarks-vs-recall.md?raw';
-import browserAmnesiaContent from './blog-posts/browser-amnesia.md?raw';
-import chatLinkLifecycleContent from './blog-posts/chat-link-lifecycle.md?raw';
-import costOfTabHoardingContent from './blog-posts/cost-of-tab-hoarding.md?raw';
-import llmAiProductivityContent from './blog-posts/llm-ai-productivity.md?raw';
-import newTabLogicScrapperContent from './blog-posts/new-tab-logic-scrapper.md?raw';
-import newTabSeoContent from './blog-posts/new-tab-seo-guide.md?raw';
-import noHabitChangeContent from './blog-posts/no-habit-change-productivity.md?raw';
-import p2pBlogContent from './blog-posts/p2p-sharing-blog.md?raw';
-import productivityToolFailureContent from './blog-posts/productivity-tool-failure.md?raw';
 import raycastAlternativesContent from './blog-posts/raycast-alternatives-windows.md?raw';
-import saveForLaterFailContent from './blog-posts/save-for-later-fail.md?raw';
-import savingVsOwningContent from './blog-posts/saving-vs-owning.md?raw';
-import searchGoogleAlgoContent from './blog-posts/search-google-algo.md?raw';
-import semanticSearchHistoryContent from './blog-posts/semantic-search-llm-history.md?raw';
-import tabsToTracesContent from './blog-posts/tabs-to-traces.md?raw';
-import voiceNavBlogContent from './blog-posts/voice-navigation-blog.md?raw';
-import wastedNewTabContent from './blog-posts/wasted-new-tab.md?raw';
 
 // Parse markdown frontmatter and content
-function parseBlogPost(content: string, slug: string, category: BlogCategory = 'features', icon: string = 'FileText'): BlogPost {
+// `date` is the real publish date (YYYY-MM-DD) — never derive it from the build time,
+// or every deploy tells search engines the post was published today.
+function parseBlogPost(content: string, slug: string, category: BlogCategory, icon: string, date: string, updated?: string): BlogPost {
     const lines = content.split('\n');
     let title = '';
     let firstHeading = '';
@@ -89,7 +77,8 @@ function parseBlogPost(content: string, slug: string, category: BlogCategory = '
         description: description || 'Read more...',
         content: content,
         author: 'CoolDesk Team',
-        date: new Date().toISOString().split('T')[0],
+        date,
+        updated,
         readTime: Math.ceil(content.split(' ').length / 200) + ' min read',
         category: category,
         tags: tags.length > 0 ? tags : ['productivity', 'browser'], // Fallback tags
@@ -117,7 +106,11 @@ function comparisonCard(slug: string, title: string, description: string, date: 
 }
 
 export const blogPosts: BlogPost[] = [
-    parseBlogPost(raycastAlternativesContent, 'raycast-alternatives-windows', 'guides', 'Search'),
+    parseBlogPost(raycastAlternativesContent, 'raycast-alternatives-windows', 'guides', 'Search', '2026-07-06', '2026-10-04'),
+    parseBlogPost(searchTabsAndAppsContent, 'search-tabs-and-apps-one-shortcut', 'tips', 'SearchCode', '2026-10-05'),
+    parseBlogPost(organizeTabsByProjectContent, 'organize-browser-tabs-by-project', 'tips', 'FolderKanban', '2026-10-05'),
+    parseBlogPost(developerContextSwitchingContent, 'developer-context-switching-setup', 'guides', 'Code', '2026-10-05'),
+    parseBlogPost(bestDockAppsContent, 'best-dock-apps-windows', 'guides', 'PanelBottom', '2026-10-04'),
     comparisonCard(
         'arc',
         'CoolDesk vs Arc Browser Spaces — An Honest Comparison',
@@ -172,26 +165,7 @@ export const blogPosts: BlogPost[] = [
         'Alfred is a Mac classic with powerful workflows. CoolDesk is a free launcher for Windows and Mac, built around your projects. An honest comparison — including when to pick Alfred.',
         '2026-07-05',
     ),
-    parseBlogPost(newTabSeoContent, 'the-untapped-power-of-new-tab', 'productivity', 'Layout'),
-    parseBlogPost(searchGoogleAlgoContent, 'universal-search-future-of-browsing', 'features', 'Search'),
-    parseBlogPost(autosaveProductivityContent, 'magic-of-browser-autosave', 'productivity', 'Save'),
-    parseBlogPost(aiIntegrationBlogContent, 'browser-as-agentic-os-ai-integration', 'updates', 'Brain'),
-    parseBlogPost(p2pBlogContent, 'p2p-collaboration-technical-deep-dive', 'features', 'Share2'),
-    parseBlogPost(voiceNavBlogContent, 'voice-navigation-hands-free-browsing', 'features', 'Mic'),
-    parseBlogPost(browserAmnesiaContent, 'fighting-browser-amnesia', 'productivity', 'CloudOff'),
-    parseBlogPost(costOfTabHoardingContent, 'the-hidden-cost-of-tab-hoarding', 'productivity', 'BarChart3'),
-    parseBlogPost(wastedNewTabContent, 'wasted-new-tab', 'productivity', 'Layout'),
-    parseBlogPost(newTabLogicScrapperContent, 'new-tab-content-scraper', 'features', 'Layout'),
-    parseBlogPost(bookmarksVsRecallContent, 'bookmarks-vs-recall', 'features', 'Search'),
-    parseBlogPost(savingVsOwningContent, 'saving-vs-owning', 'tips', 'BookOpen'),
-    parseBlogPost(tabsToTracesContent, 'tabs-to-traces', 'features', 'Route'),
-    parseBlogPost(chatLinkLifecycleContent, 'chat-link-lifecycle', 'tips', 'MessageSquare'),
-    parseBlogPost(semanticSearchHistoryContent, 'semantic-search-browser-history', 'features', 'Sparkles'),
-    parseBlogPost(productivityToolFailureContent, 'productivity-tool-failure', 'tips', 'RefreshCw'),
-    parseBlogPost(saveForLaterFailContent, 'save-for-later-fail', 'tips', 'Bookmark'),
-    parseBlogPost(noHabitChangeContent, 'no-habit-change-productivity', 'productivity', 'Zap'),
-    parseBlogPost(llmAiProductivityContent, 'llm-ai-productivity', 'features', 'Cpu'),
-    parseBlogPost(bestNewTabExtensionsContent, 'best-new-tab-extensions', 'guides', 'Layout'),
+    parseBlogPost(bestNewTabExtensionsContent, 'best-new-tab-extensions', 'guides', 'Layout', '2026-08-29', '2026-10-04'),
 ];
 
 export const getCategoryLabel = (category: BlogCategory): string => {

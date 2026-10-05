@@ -1,19 +1,19 @@
 # CoolDesk
 
-> Tabs, apps and files, organized by project. Free, open source, no sign-in.
+> Don't open apps. Open spaces. Tabs, apps and files grouped into a space for each project. Free, open source, no sign-in.
 
-CoolDesk is a free project launcher for Windows, macOS and Linux, with a new-tab extension for Chrome, Edge and Brave. It keeps your browser tabs, desktop apps, files and notes organized by project, and Alt+K jumps back into any of them.
+CoolDesk is a free launcher for Windows, macOS and Linux, with a new-tab extension for Chrome, Edge and Brave. It keeps your browser tabs, desktop apps, files and notes in spaces, one for each project, and Alt+K jumps back into any of them.
 
-It is meant as a layer on top of the tools you already use (VS Code, GitHub, Figma, Linear, Notion, Slack…), not a replacement for them: each project gathers the links, apps, folders and notes it needs, and one shortcut takes you back to it.
+It is meant as a layer on top of the tools you already use (VS Code, GitHub, Figma, Linear, Notion, Slack…), not a replacement for them: each project gets a space that gathers the links, apps, folders and notes it needs, and one shortcut takes you back to it.
 
 ## Two pieces
 
 ### Desktop app (Windows, macOS, Linux)
 
 - **Spotlight (Alt+K, changeable)** — one search across browser tabs, history, bookmarks, desktop apps, files and notes; picks an already-open tab or window instead of opening a duplicate
-- **Slash commands** — `/new-workspace` creates a project, `/agent` hands a task to a local AI CLI (Claude Code, opencode, Codex), `/u` `/a` `/f` scope search to tabs, apps or files
-- **Projects** — each project holds its links, editors, apps, folders and files, plus a status (Active / Planning / On Hold), a Next Up todo list and notes; anything already open is marked
-- **File manager** — browse project folders, preview code, run project scripts, see which dev servers are up
+- **Slash commands** — `/new-workspace` creates a space, `/agent` hands a task to a local AI CLI (Claude Code, opencode, Codex), `/u` `/a` `/f` scope search to tabs, apps or files
+- **Spaces** — one per project, each holding its links, editors, apps, folders and files, plus a status (Active / Planning / On Hold), a Next Up todo list and notes; anything already open is marked
+- **File manager** — browse a space's folders, preview code, run project scripts, see which dev servers are up
 - **Layouts** — full window, a sidebar or a bottom bar; sidebar and bar tuck away to a screen-edge handle and slide in over your work on hover (Ctrl/Cmd+Shift+D to switch)
 
 ### Browser extension (Chrome, Edge, Brave)

@@ -22,7 +22,7 @@ const OPTIONS = [
         icon: Monitor,
         name: 'Just the desktop app',
         where: 'Windows, macOS, Linux',
-        text: 'Spotlight on Alt+K, projects, the file manager, layouts and the AI agent.',
+        text: 'Spotlight on Alt+K, spaces, the file manager, layouts and the AI agent.',
     },
     {
         icon: Sparkles,

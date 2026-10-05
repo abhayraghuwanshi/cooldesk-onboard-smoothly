@@ -1,8 +1,11 @@
 import Downloads from "@/components/new/Downloads";
+import DockShowcase from "@/components/new/DockShowcase";
+import WorkspaceShowcase from "@/components/new/WorkspaceShowcase";
+import FileManagerShowcase from "@/components/new/FileManagerShowcase";
+import NewTabShowcase from "@/components/new/NewTabShowcase";
 import FAQ from "@/components/new/FAQ";
 import Footer from "@/components/new/Footer";
 import Hero from "@/components/new/Hero";
-import HowItWorks from "@/components/new/HowItWorks";
 import HowToUseSection from "@/components/new/HowToUseSection";
 import Navbar from '@/components/new/Navbar';
 import SEO from "@/components/SEO";
@@ -44,8 +47,20 @@ const Index = () => {
           <Hero />
         </section>
 
-        <section id="how-it-works" className="relative z-10 pt-8 pb-20">
-          <HowItWorks />
+        <section id="workspace" className="relative z-10 pt-16 pb-24 scroll-mt-20">
+          <WorkspaceShowcase />
+        </section>
+
+        <section id="layouts" className="relative z-10 pb-24 scroll-mt-20">
+          <DockShowcase />
+        </section>
+
+        <section id="file-manager" className="relative z-10 pb-24 scroll-mt-20">
+          <FileManagerShowcase />
+        </section>
+
+        <section id="new-tab" className="relative z-10 pb-24 scroll-mt-20">
+          <NewTabShowcase />
         </section>
 
         <section id="how-to-use" className="relative z-10 pt-8 pb-24 scroll-mt-20">

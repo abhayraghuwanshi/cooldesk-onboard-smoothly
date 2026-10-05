@@ -47,6 +47,7 @@ export default function BlogPostPage() {
             "name": post.author
         },
         "datePublished": post.date,
+        "dateModified": post.updated ?? post.date,
         "url": canonicalUrl,
         "mainEntityOfPage": {
             "@type": "WebPage",
@@ -90,7 +91,9 @@ export default function BlogPostPage() {
                     <div className="flex items-center gap-3 text-sm font-medium text-blue-400 mb-6 uppercase tracking-wider">
                         <span>{getCategoryLabel(post.category)}</span>
                         <span className="text-zinc-600">•</span>
-                        <span className="text-zinc-400">{formatDate(post.date)}</span>
+                        <span className="text-zinc-400">
+                            {post.updated ? `Updated ${formatDate(post.updated)}` : formatDate(post.date)}
+                        </span>
                     </div>
 
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-8 leading-tight">

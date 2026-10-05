@@ -22,7 +22,7 @@ export default function Footer() {
               />
             </a>
             <p className="text-sm text-gray-500 max-w-xs leading-relaxed">
-              Browser tabs, desktop apps, links, and notes — grouped by project in the app.
+              Browser tabs, desktop apps, links, and notes — kept in spaces in the app.
             </p>
           </div>
 

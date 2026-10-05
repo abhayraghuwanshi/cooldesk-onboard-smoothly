@@ -11,6 +11,101 @@
       "source": "/resources",
       "destination": "/#how-to-use",
       "type": 301
+    },
+    {
+      "source": "/blog/the-untapped-power-of-new-tab",
+      "destination": "/blog/best-new-tab-extensions",
+      "type": 301
+    },
+    {
+      "source": "/blog/wasted-new-tab",
+      "destination": "/blog/best-new-tab-extensions",
+      "type": 301
+    },
+    {
+      "source": "/blog/new-tab-content-scraper",
+      "destination": "/blog/best-new-tab-extensions",
+      "type": 301
+    },
+    {
+      "source": "/blog/universal-search-future-of-browsing",
+      "destination": "/blog/raycast-alternatives-windows",
+      "type": 301
+    },
+    {
+      "source": "/blog/semantic-search-browser-history",
+      "destination": "/blog/raycast-alternatives-windows",
+      "type": 301
+    },
+    {
+      "source": "/blog/the-hidden-cost-of-tab-hoarding",
+      "destination": "/vs/onetab",
+      "type": 301
+    },
+    {
+      "source": "/blog/bookmarks-vs-recall",
+      "destination": "/vs/onetab",
+      "type": 301
+    },
+    {
+      "source": "/blog/saving-vs-owning",
+      "destination": "/vs/onetab",
+      "type": 301
+    },
+    {
+      "source": "/blog/magic-of-browser-autosave",
+      "destination": "/vs/session-buddy",
+      "type": 301
+    },
+    {
+      "source": "/blog/fighting-browser-amnesia",
+      "destination": "/vs/session-buddy",
+      "type": 301
+    },
+    {
+      "source": "/blog/tabs-to-traces",
+      "destination": "/vs/session-buddy",
+      "type": 301
+    },
+    {
+      "source": "/blog/save-for-later-fail",
+      "destination": "/vs/session-buddy",
+      "type": 301
+    },
+    {
+      "source": "/blog/voice-navigation-hands-free-browsing",
+      "destination": "/blog",
+      "type": 301
+    },
+    {
+      "source": "/blog/browser-as-agentic-os-ai-integration",
+      "destination": "/blog",
+      "type": 301
+    },
+    {
+      "source": "/blog/chat-link-lifecycle",
+      "destination": "/blog",
+      "type": 301
+    },
+    {
+      "source": "/blog/productivity-tool-failure",
+      "destination": "/blog",
+      "type": 301
+    },
+    {
+      "source": "/blog/no-habit-change-productivity",
+      "destination": "/blog",
+      "type": 301
+    },
+    {
+      "source": "/blog/llm-ai-productivity",
+      "destination": "/blog",
+      "type": 301
+    },
+    {
+      "source": "/blog/p2p-collaboration-technical-deep-dive",
+      "destination": "/blog",
+      "type": 301
     }
   ],
   "rewrites": [
