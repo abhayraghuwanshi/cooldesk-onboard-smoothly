@@ -69,7 +69,7 @@ export default function LiveDemos() {
                         Live copies of the app’s own screens. Type, click and explore. Nothing to install.
                     </p>
 
-                    <div role="tablist" aria-label="Live demos" className="mt-8 inline-flex rounded-full border border-white/10 p-1">
+                    <div role="tablist" aria-label="Live demos" className="mt-8 inline-flex gap-1 rounded-full border border-white/10 bg-white/[0.03] p-1">
                         {DEMOS.map((d) => (
                             <button
                                 key={d.key}
@@ -79,7 +79,7 @@ export default function LiveDemos() {
                                 aria-selected={active === d.key}
                                 aria-controls={`${tabsId}-panel-${d.key}`}
                                 onClick={() => choose(d.key)}
-                                className={`rounded-full px-4 py-1.5 text-sm font-semibold transition-colors duration-200 ${active === d.key ? 'bg-white text-black' : 'text-white/60 hover:text-white'}`}
+                                className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors duration-200 ${active === d.key ? 'bg-white/[0.12] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]' : 'text-white/50 hover:text-white/80'}`}
                             >
                                 {d.label}
                             </button>

@@ -1,7 +1,6 @@
 import Downloads from "@/components/new/Downloads";
-import DockShowcase from "@/components/new/DockShowcase";
 import WorkspaceShowcase from "@/components/new/WorkspaceShowcase";
-import FileManagerShowcase from "@/components/new/FileManagerShowcase";
+import SpotlightShowcase from "@/components/new/SpotlightShowcase";
 import NewTabShowcase from "@/components/new/NewTabShowcase";
 import FAQ from "@/components/new/FAQ";
 import Footer from "@/components/new/Footer";
@@ -13,8 +12,8 @@ import { site } from "@/config/site";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-// Hero, the four-step walkthrough, how to use (videos + shortcuts),
-// download (with "which one do I need?"), FAQ.
+// Hero, space, Spotlight, browser extension, download (with "which one do I
+// need?"), FAQ, then the videos (Watch and learn).
 // /how-to-use redirects to #how-to-use here.
 const Index = () => {
   const { hash } = useLocation();
@@ -47,34 +46,30 @@ const Index = () => {
           <Hero />
         </section>
 
-        <section id="workspace" className="relative z-10 pt-16 pb-24 scroll-mt-20">
+        <section id="workspace" className="relative z-10 py-16 md:py-24 scroll-mt-20">
           <WorkspaceShowcase />
         </section>
 
-        <section id="layouts" className="relative z-10 pb-24 scroll-mt-20">
-          <DockShowcase />
+        <section id="spotlight" className="relative z-10 py-16 md:py-24 scroll-mt-20">
+          <SpotlightShowcase />
         </section>
 
-        <section id="file-manager" className="relative z-10 pb-24 scroll-mt-20">
-          <FileManagerShowcase />
-        </section>
-
-        <section id="new-tab" className="relative z-10 pb-24 scroll-mt-20">
+        <section id="new-tab" className="relative z-10 py-16 md:py-24 scroll-mt-20">
           <NewTabShowcase />
         </section>
 
-        <section id="how-to-use" className="relative z-10 pt-8 pb-24 scroll-mt-20">
-          <HowToUseSection />
-        </section>
-
-        <section id="downloads" className="relative z-10">
+        <section id="downloads" className="relative z-10 scroll-mt-20">
           <Downloads />
         </section>
 
-        <section className="relative z-10 pb-16">
+        <section className="relative z-10 pt-12 md:pt-20">
           <div className="container mx-auto px-6 relative z-10">
             <FAQ />
           </div>
+        </section>
+
+        <section id="how-to-use" className="relative z-10 py-16 md:py-24 scroll-mt-20">
+          <HowToUseSection />
         </section>
 
         <Footer />

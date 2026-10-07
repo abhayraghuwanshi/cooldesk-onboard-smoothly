@@ -717,6 +717,28 @@ All colors MUST be HSL.
     animation-delay: 2s;
   }
 
+  /* Hero sparkles: a soft pop in and out, and a gentle bob for the space cards */
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.25; transform: scale(0.6) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1) rotate(45deg); }
+  }
+
+  @keyframes bob {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(1.5deg); }
+  }
+
+  /* Under the hood: a message travelling along a lane */
+  @keyframes uth-travel {
+    from { left: 0%; }
+    to { left: calc(100% - 0.75rem); }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .animate-twinkle { animation: twinkle 3.2s ease-in-out infinite; }
+    .animate-bob { animation: bob 6s ease-in-out infinite; }
+  }
+
   /* Fade In Up Animation */
   @keyframes fadeInUp {
     from {

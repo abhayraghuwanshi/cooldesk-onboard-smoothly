@@ -269,7 +269,7 @@ export default function HowItWorks() {
 
                     <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
                         <span className="text-sm text-white/45">Whose day?</span>
-                        <div role="radiogroup" aria-label="Choose a profile" className="grid grid-cols-2 w-full sm:w-auto sm:inline-flex rounded-2xl sm:rounded-full border border-white/10 p-1">
+                        <div role="radiogroup" aria-label="Choose a profile" className="grid grid-cols-2 w-full sm:w-auto sm:inline-flex gap-1 rounded-2xl sm:rounded-full border border-white/10 bg-white/[0.03] p-1">
                             {PROFILES.map((p) => (
                                 <button
                                     key={p.key}
@@ -277,7 +277,7 @@ export default function HowItWorks() {
                                     role="radio"
                                     aria-checked={profile === p.key}
                                     onClick={() => choose(p.key)}
-                                    className={`rounded-full px-4 py-1.5 text-sm font-semibold transition-colors duration-200 ${profile === p.key ? 'bg-white text-black' : 'text-white/60 hover:text-white'}`}
+                                    className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors duration-200 ${profile === p.key ? 'bg-white/[0.12] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]' : 'text-white/50 hover:text-white/80'}`}
                                 >
                                     {p.label}
                                 </button>

@@ -9,12 +9,12 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import PricingPage from "./pages/Pricing";
 import ReleasesPage from "./pages/Releases";
-import Library from "./pages/Library";
 import TermsPage from "./pages/terms";
 import UninstallPage from "./pages/Uninstall";
 import ComparePage from "./pages/Compare";
 import VersusPage from "./pages/Versus";
 import WidgetStorePage from "./pages/WidgetStore";
+import UnderTheHoodPage from "./pages/UnderTheHood";
 
 // react-markdown + remark-gfm + react-syntax-highlighter (for code blocks in
 // post content) are only needed on this one page, and together they're the
@@ -43,9 +43,11 @@ export default function AppRoutes() {
                     </Suspense>
                 }
             />
-            <Route path="/library" element={<Library />} />
-            <Route path="/search" element={<Navigate to="/library" replace />} />
+            {/* The tool library is hidden for now (src/pages/Library.tsx is kept). */}
+            <Route path="/library" element={<Navigate to="/" replace />} />
+            <Route path="/search" element={<Navigate to="/" replace />} />
             <Route path="/founder" element={<FounderPage />} />
+            <Route path="/under-the-hood" element={<UnderTheHoodPage />} />
             <Route path="/gallery" element={<GalleryPage />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy-details" element={<PrivacyPolicyStatic />} />

@@ -1,11 +1,8 @@
 import { CHROME_STORE } from '@/config/site';
-import { useLatestRelease } from '@/hooks/useLatestRelease';
 import { trackEvent, useSectionView } from '@/lib/analytics';
 import { ArrowRight } from 'lucide-react';
 import React from 'react';
-import { Keycap } from './Keycap';
-import SpotlightHero from './SpotlightHero';
-import NetworkBackdrop from './NetworkBackdrop';
+import HeroBackdrop from './HeroBackdrop';
 
 function trackHeroCta(label: string, target: string) {
     trackEvent('hero_cta_click', {
@@ -16,7 +13,6 @@ function trackHeroCta(label: string, target: string) {
     });
 }
 
-const PLATFORMS = ['Windows', 'macOS', 'Linux', 'Chrome', 'Edge', 'Brave'];
 
 /**
  * Each word fades up from dim, one after another (`offset` continues the count
@@ -44,30 +40,13 @@ function RevealWords({ text, offset = 0, bright = [] }: { text: string; offset?:
 
 function Hero() {
     const sectionRef = useSectionView<HTMLElement>('hero');
-    const release = useLatestRelease();
 
     return (
         <section ref={sectionRef} id="home" className="relative text-white overflow-hidden isolate z-20 scroll-mt-20">
-            {/* Backdrop: black, a soft top light and a faint grid that fades out */}
-            <div className="absolute inset-0 -z-10 bg-black" />
-            <div className="absolute inset-x-0 top-0 h-[640px] -z-10 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(56,189,248,0.16),transparent_70%)]" />
-            {/* Live network of how the pieces connect. The mask clears the middle
-                for the headline and fades out before the search demo. */}
-            <NetworkBackdrop
-                className="absolute inset-x-0 top-0 -z-10 w-full h-[780px] [mask-image:radial-gradient(ellipse_34%_36%_at_50%_42%,transparent_0%,transparent_55%,black_85%),linear-gradient(to_bottom,black_60%,transparent_100%)] [mask-composite:intersect] [-webkit-mask-composite:source-in]"
-            />
+            <HeroBackdrop />
 
-            <div className="container mx-auto px-6 pt-32 pb-12 md:pt-40 md:pb-16">
-                <div className="flex flex-col items-center text-center">
-                    <a
-                        href="/releases"
-                        className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] pl-1.5 pr-3 py-1 text-xs text-white/60 hover:text-white hover:border-white/20 transition-colors mb-8"
-                    >
-                        <span className="rounded-full bg-sky-400/15 text-sky-300 px-2 py-0.5 font-semibold">v{release.version}</span>
-                        Free &amp; open source
-                        <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
-                    </a>
-
+            <div className="container mx-auto flex min-h-[min(92vh,900px)] items-center px-6 pt-32 pb-24 md:pt-36 md:pb-32">
+                <div className="flex w-full flex-col items-center text-center">
                     {/* Words light up in order on load: the same reveal the day's
                         headings use on scroll. Pure CSS, so it runs on the
                         prerendered HTML without waiting for JS. */}
@@ -79,12 +58,10 @@ function Hero() {
                         </span>
                     </h1>
 
-                    {/* Leads with the one-sentence definition used in the meta description,
-                        JSON-LD and llms.txt, so search and AI answers quote it consistently. */}
-                    <p className="mt-6 text-base md:text-lg text-white/55 max-w-2xl leading-relaxed">
-                        CoolDesk groups your tabs, apps and files into spaces, one for each project. Press Alt+K anywhere
-                        and you’re back in. Free for Windows, macOS and Linux, with a new-tab extension for Chrome, Edge
-                        and Brave.
+                    {/* Kept short on purpose: the full definition (platforms, free,
+                        Alt+K) lives in the meta description, JSON-LD and llms.txt. */}
+                    <p className="mt-6 text-base md:text-lg text-white/55 max-w-xl leading-relaxed">
+                        Your tabs, apps and files, grouped by project.
                     </p>
 
                     <div className="mt-9 flex flex-col sm:flex-row items-center gap-3">
@@ -105,25 +82,6 @@ function Hero() {
                         >
                             Add to Chrome
                         </a>
-                    </div>
-
-                    <div className="mt-16 md:mt-20 mb-6 flex items-center gap-2.5 text-sm text-white/50">
-                        Press
-                        <Keycap>Alt</Keycap>
-                        <Keycap>K</Keycap>
-                        anywhere, with the desktop app
-                    </div>
-
-                    <SpotlightHero />
-
-                    <div className="mt-12 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-medium text-white/35">
-                        <span className="text-white/25">Works on</span>
-                        {PLATFORMS.map((p) => (
-                            <span key={p}>{p}</span>
-                        ))}
-                        <span className="text-white/25">·</span>
-                        <span>No sign-in</span>
-                        <span>Local-first</span>
                     </div>
                 </div>
             </div>

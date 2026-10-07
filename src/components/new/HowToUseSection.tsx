@@ -1,121 +1,136 @@
-import { useSectionView } from '@/lib/analytics';
-import { Play } from 'lucide-react';
-import { useState } from 'react';
+import { trackEvent, useSectionView } from '@/lib/analytics';
+import { ChevronLeft, ChevronRight, Play } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 import { VIDEOS, thumb } from '@/config/videos';
 
 /**
- * Homepage "How to use" (#how-to-use — the navbar/footer link and the target
- * of the old /how-to-use route): the walkthrough videos as a playlist.
+ * Homepage "Watch and learn" (#how-to-use — the navbar/footer link and the
+ * target of the old /how-to-use route): the walkthrough videos as a row of
+ * cards that scrolls sideways. A card plays in place when clicked; "View all"
+ * opens them all as one playlist on YouTube.
  */
 
-/** Embed that starts at `index` and carries on through the rest of the list. */
-function embedUrl(index: number) {
-    const rest = VIDEOS.slice(index + 1).map((v) => v.id).join(',');
-    return `https://www.youtube-nocookie.com/embed/${VIDEOS[index].id}?autoplay=1&rel=0${rest ? `&playlist=${rest}` : ''}`;
-}
+const embedUrl = (id: string) => `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+const ALL_ON_YOUTUBE = `https://www.youtube.com/watch_videos?video_ids=${VIDEOS.map((v) => v.id).join(',')}`;
 
-function Playlist() {
-    const [current, setCurrent] = useState(0);
-    const [playing, setPlaying] = useState(false);
-    const video = VIDEOS[current];
-
-    const choose = (i: number) => {
-        setCurrent(i);
-        setPlaying(true);
-    };
-
+function VideoCard({ v, playing, onPlay }: { v: (typeof VIDEOS)[number]; playing: boolean; onPlay: () => void }) {
     return (
-        <div className="grid lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] gap-4">
-            {/* Player */}
-            <div className="relative rounded-2xl border border-white/10 bg-[#0a0a0c] overflow-hidden shadow-2xl">
-                <div className="relative aspect-video">
-                    {playing ? (
-                        <iframe
-                            key={current}
-                            className="absolute inset-0 w-full h-full"
-                            src={embedUrl(current)}
-                            title={video.title}
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
+        <li className="w-[85%] shrink-0 snap-start sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)]">
+            <div className="relative aspect-video overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0c]">
+                {playing ? (
+                    <iframe
+                        className="absolute inset-0 h-full w-full"
+                        src={embedUrl(v.id)}
+                        title={v.title}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                    />
+                ) : (
+                    <button type="button" onClick={onPlay} aria-label={`Play video: ${v.title}`} className="group absolute inset-0 h-full w-full">
+                        <img
+                            src={thumb(v.id)}
+                            alt=""
+                            loading="lazy"
+                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                         />
-                    ) : (
-                        <button
-                            type="button"
-                            onClick={() => setPlaying(true)}
-                            aria-label={`Play video: ${video.title}`}
-                            className="group absolute inset-0 w-full h-full"
-                        >
-                            <img src={thumb(video.id)} alt="" loading="lazy" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
-                            <span className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
-                            <span className="absolute inset-0 flex items-center justify-center">
-                                <span className="flex items-center justify-center w-16 h-16 rounded-full bg-white/15 backdrop-blur-md border border-white/25 shadow-[0_10px_40px_rgba(0,0,0,0.5)] group-hover:scale-110 group-hover:bg-white/25 transition-all duration-300">
-                                    <Play className="w-6 h-6 text-white ml-0.5" fill="currentColor" />
-                                </span>
+                        <span className="absolute inset-0 bg-black/15 transition-colors group-hover:bg-black/5" />
+                        <span className="absolute inset-0 flex items-center justify-center">
+                            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-black/60 backdrop-blur-sm transition-transform duration-300 group-hover:scale-110">
+                                <Play className="ml-0.5 h-5 w-5 text-white" fill="currentColor" />
                             </span>
-                            <span className="absolute left-5 right-5 bottom-5 text-left">
-                                <span className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-sky-300/90 mb-1">Video {current + 1} of {VIDEOS.length}</span>
-                                <span className="block font-display text-lg md:text-xl font-bold text-white">{video.title}</span>
-                            </span>
-                        </button>
-                    )}
-                </div>
+                        </span>
+                    </button>
+                )}
             </div>
-
-            {/* List */}
-            <ol className="flex flex-col gap-2" aria-label="Walkthrough videos">
-                {VIDEOS.map((v, i) => {
-                    const active = i === current;
-                    return (
-                        <li key={v.id}>
-                            <button
-                                type="button"
-                                onClick={() => choose(i)}
-                                aria-current={active ? 'true' : undefined}
-                                className={`group w-full flex items-center gap-3 rounded-xl border p-2.5 text-left transition-colors ${active ? 'border-sky-400/30 bg-sky-400/[0.07]' : 'border-white/10 bg-white/[0.02] hover:bg-white/[0.05] hover:border-white/20'}`}
-                            >
-                                <span className="relative shrink-0 w-28 aspect-video rounded-lg overflow-hidden bg-black">
-                                    <img src={thumb(v.id)} alt="" loading="lazy" className="w-full h-full object-cover" />
-                                    <span className="absolute inset-0 flex items-center justify-center bg-black/30">
-                                        {active && playing ? (
-                                            <span className="flex items-end gap-[3px] h-4" aria-label="Now playing">
-                                                <span className="w-[3px] h-2 bg-white rounded-sm animate-pulse" />
-                                                <span className="w-[3px] h-4 bg-white rounded-sm animate-pulse [animation-delay:150ms]" />
-                                                <span className="w-[3px] h-3 bg-white rounded-sm animate-pulse [animation-delay:300ms]" />
-                                            </span>
-                                        ) : (
-                                            <Play className="w-4 h-4 text-white/90" fill="currentColor" />
-                                        )}
-                                    </span>
-                                </span>
-                                <span className="min-w-0">
-                                    <span className={`block text-[11px] font-semibold uppercase tracking-[0.12em] ${active ? 'text-sky-300' : 'text-white/35'}`}>{String(i + 1).padStart(2, '0')} · {v.mins}</span>
-                                    <span className="block text-sm font-semibold text-white leading-snug mt-0.5">{v.title}</span>
-                                    <span className="block text-xs text-white/45 leading-snug mt-0.5 line-clamp-1">{v.desc}</span>
-                                </span>
-                            </button>
-                        </li>
-                    );
-                })}
-            </ol>
-        </div>
+            <p className="mt-4 text-sm text-white/45">{v.mins}</p>
+            <h3 className="mt-1 text-lg font-medium leading-snug text-white">{v.title}</h3>
+        </li>
     );
 }
 
 export default function HowToUseSection() {
     const sectionRef = useSectionView<HTMLElement>('how_to_use');
+    const rowRef = useRef<HTMLUListElement>(null);
+    const [playing, setPlaying] = useState<string | null>(null);
+    const [edges, setEdges] = useState({ start: true, end: false });
+
+    // Show each arrow only when there's more to scroll that way.
+    useEffect(() => {
+        const row = rowRef.current;
+        if (!row) return;
+        const update = () =>
+            setEdges({
+                start: row.scrollLeft <= 4,
+                end: row.scrollLeft + row.clientWidth >= row.scrollWidth - 4,
+            });
+        update();
+        row.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('resize', update);
+        return () => {
+            row.removeEventListener('scroll', update);
+            window.removeEventListener('resize', update);
+        };
+    }, []);
+
+    const scrollBy = (dir: 1 | -1) => {
+        const row = rowRef.current;
+        const card = row?.firstElementChild as HTMLElement | null;
+        if (!row || !card) return;
+        row.scrollBy({ left: dir * (card.offsetWidth + 24), behavior: 'smooth' });
+    };
+
+    const play = (id: string, title: string) => {
+        setPlaying(id);
+        trackEvent('video_play', { section: 'how_to_use', video_id: id, video_title: title });
+    };
+
+    // Centred on the thumbnails (the row minus the caption under them).
+    const arrow =
+        'absolute top-[calc((100%-4.5rem)/2)] z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/70 text-white backdrop-blur-md hover:bg-black/90 md:flex';
 
     return (
         <section ref={sectionRef} className="relative text-white">
             <div className="container mx-auto px-6">
-                <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-10">
+                <div className="mb-8 flex items-end justify-between gap-6">
                     <div>
-                        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/40 mb-2">How to use</p>
-                        <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight">Prefer watching?</h2>
-                        <p className="mt-3 text-white/55 text-base md:text-lg">Four short videos. Pick one and the rest play after it.</p>
+                        <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight">Watch and learn</h2>
+                        <p className="mt-2 text-white/55 text-base md:text-lg">
+                            Get started with CoolDesk, explore its features, and see how it fits your day.
+                        </p>
                     </div>
+                    <a
+                        href={ALL_ON_YOUTUBE}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => trackEvent('video_view_all', { section: 'how_to_use' })}
+                        className="shrink-0 text-sm font-medium text-white/60 transition-colors hover:text-white"
+                    >
+                        View all
+                    </a>
                 </div>
 
-                <Playlist />
+                <div className="relative">
+                    <ul
+                        ref={rowRef}
+                        aria-label="Walkthrough videos"
+                        className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                    >
+                        {VIDEOS.map((v) => (
+                            <VideoCard key={v.id} v={v} playing={playing === v.id} onPlay={() => play(v.id, v.title)} />
+                        ))}
+                    </ul>
+
+                    {!edges.start && (
+                        <button type="button" onClick={() => scrollBy(-1)} aria-label="Previous videos" className={`${arrow} -left-5`}>
+                            <ChevronLeft className="h-5 w-5" />
+                        </button>
+                    )}
+                    {!edges.end && (
+                        <button type="button" onClick={() => scrollBy(1)} aria-label="More videos" className={`${arrow} -right-5`}>
+                            <ChevronRight className="h-5 w-5" />
+                        </button>
+                    )}
+                </div>
             </div>
         </section>
     );

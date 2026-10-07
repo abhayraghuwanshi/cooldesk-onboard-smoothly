@@ -35,7 +35,7 @@ Free — no plans, no sign-in.
 - [How to Use](https://cool-desk.com/#how-to-use)
 - [Widget Store](https://cool-desk.com/widgets) — free embeddable new-tab widgets: spotlight, project workspaces, session restore, daily focus, pomodoro, tasks, weather, habits, snippets, regex tester and more, plus support for adding your own custom widget
 - [Blog](https://cool-desk.com/blog)
-- [Library of Curated Tools](https://cool-desk.com/library)
+- [Under the hood](https://cool-desk.com/under-the-hood) — how CoolDesk works: the local WebSocket bridge between the extension and the Rust desktop app, search scoring and ranking, time tracking, file watching, sync and caching
 - [Contact](https://cool-desk.com/contact)
 
 ## Comparisons
