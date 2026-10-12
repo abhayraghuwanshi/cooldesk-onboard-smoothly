@@ -17,11 +17,13 @@ const BREW_COMMAND = [
   "brew trust --cask abhayraghuwanshi/cooldesk/cooldesk",
   "brew install --cask cooldesk",
 ].join("\n");
+// For DMG installs: the build isn't notarized, so macOS flags it as "damaged".
+const QUARANTINE_COMMAND = "xattr -dr com.apple.quarantine /Applications/CoolDesk.app";
 const DOWNLOADS_SECTION = "downloads_section";
 
 type Os = "windows" | "mac" | "linux";
 
-type DownloadTarget = "browser_extension" | "windows_installer" | "winget_command" | "macos_installer" | "brew_command" | "linux_installer";
+type DownloadTarget = "browser_extension" | "windows_installer" | "winget_command" | "macos_installer" | "brew_command" | "quarantine_command" | "linux_installer";
 
 type DownloadTrackingParams = {
   action: string;
@@ -228,18 +230,13 @@ function Downloads() {
                             <CommandBox command={BREW_COMMAND} copied={copied === BREW_COMMAND} onCopy={() => copy(BREW_COMMAND, "brew_command", "macos", "homebrew")} />
                             <p className="caption leading-relaxed mt-3">
                               <span className="text-amber-300/90 font-medium">Not notarized yet.</span> Using the DMG and macOS
-                              says the app is damaged? Open “① RUN THIS FIRST” inside the DMG.
+                              says the app is damaged? Run this in Terminal:
                             </p>
+                            <CommandBox command={QUARANTINE_COMMAND} copied={copied === QUARANTINE_COMMAND} onCopy={() => copy(QUARANTINE_COMMAND, "quarantine_command", "macos", "xattr")} />
                           </>
                         )}
                         {os === "linux" && (
-                          <p className="caption">
-                            Or get a package:{" "}
-                            <a href={release.deb} download onClick={() => trackDownloadClick({ download_target: "linux_installer", download_platform: "linux", download_version: version, download_method: "deb" })} className="text-white/80 underline decoration-white/30 underline-offset-2 hover:text-white">.deb</a>
-                            <span className="text-white/30"> (Debian, Ubuntu) · </span>
-                            <a href={release.rpm} download onClick={() => trackDownloadClick({ download_target: "linux_installer", download_platform: "linux", download_version: version, download_method: "rpm" })} className="text-white/80 underline decoration-white/30 underline-offset-2 hover:text-white">.rpm</a>
-                            <span className="text-white/30"> (Fedora, RHEL)</span>
-                          </p>
+                          <p className="caption">Make it executable (<code className="font-mono">chmod +x</code>) and run it.</p>
                         )}
                       </div>
                     </div>
