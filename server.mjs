@@ -228,6 +228,13 @@ async function handleApi(req, res, url) {
 createServer(async (req, res) => {
   try {
     const url = new URL(req.url, `http://${req.headers.host || 'cool-desk.com'}`);
+    // www.cool-desk.com is a domain alias only — send it to the apex so
+    // search engines see one site.
+    const host = String(req.headers['x-forwarded-host'] || url.hostname).split(',')[0].trim().replace(/:\d+$/, '');
+    if (host.startsWith('www.')) {
+      redirect(res, `https://${host.slice(4)}${url.pathname}${url.search}`, 301);
+      return;
+    }
     if (await handleApi(req, res, url)) return;
   } catch (err) {
     console.error('[server] api error', err);
