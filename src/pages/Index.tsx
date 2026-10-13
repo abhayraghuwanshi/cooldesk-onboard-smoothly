@@ -2,6 +2,7 @@ import Downloads from "@/components/new/Downloads";
 import WorkspaceShowcase from "@/components/new/WorkspaceShowcase";
 import SpotlightShowcase from "@/components/new/SpotlightShowcase";
 import NewTabShowcase from "@/components/new/NewTabShowcase";
+import AgentShowcase from "@/components/new/AgentShowcase";
 import FAQ from "@/components/new/FAQ";
 import Footer from "@/components/new/Footer";
 import Hero from "@/components/new/Hero";
@@ -12,7 +13,7 @@ import { site } from "@/config/site";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-// Hero, space, Spotlight, browser extension, download (with "which one do I
+// Hero, space, Spotlight, AI agent, browser extension, download (with "which one do I
 // need?"), FAQ, then the videos (Watch and learn).
 // /how-to-use redirects to #how-to-use here.
 const Index = () => {
@@ -52,6 +53,10 @@ const Index = () => {
 
         <section id="spotlight" className="relative z-10 py-16 md:py-24 scroll-mt-20">
           <SpotlightShowcase />
+        </section>
+
+        <section id="agent" className="relative z-10 py-16 md:py-24 scroll-mt-20">
+          <AgentShowcase />
         </section>
 
         <section id="new-tab" className="relative z-10 py-16 md:py-24 scroll-mt-20">
