@@ -27,8 +27,8 @@ const VIEWS: { key: string; label: string; title: string; intro: string; src: st
     {
         key: 'space',
         label: 'Space',
-        title: 'Everything for the project, together',
-        intro: 'The tabs, apps and folders a project needs, grouped in one place and one click away.',
+        title: 'Everything you need, together',
+        intro: 'The tabs, apps and folders you need, grouped in one place and one click away.',
         src: '/images/workspace.jpg',
         width: 1400,
         height: 777,
