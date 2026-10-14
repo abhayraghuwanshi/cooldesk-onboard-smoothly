@@ -1,0 +1,120 @@
+/* Hero backdrop (HeroBackdrop.tsx): a galaxy seen at an angle. */
+
+.hb-root {
+    --mx: 0;
+    --my: 0;
+}
+
+/* Parallax: each layer shifts by its own depth (--d, px) against the cursor. */
+.hb-layer {
+    position: absolute;
+    inset: 0;
+    transform: translate(calc(var(--mx) * var(--d) * -1px), calc(var(--my) * var(--d) * -0.7px));
+    transition: transform 900ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    will-change: transform;
+}
+
+.hb-star {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+    opacity: var(--o);
+    animation: hb-twinkle 5s ease-in-out infinite alternate;
+}
+@keyframes hb-twinkle {
+    to { opacity: calc(var(--o) * 0.2); }
+}
+
+/* The disk is 1800px square; scale it to the screen. */
+.hb-galaxy {
+    position: absolute;
+    left: 50%;
+    top: 80%;
+    width: 0;
+    height: 0;
+    perspective: 1400px;
+    scale: 0.55;
+}
+@media (min-width: 768px) { .hb-galaxy { scale: 0.8; } }
+@media (min-width: 1280px) { .hb-galaxy { scale: 1; } }
+
+.hb-disk {
+    position: absolute;
+    left: -900px;
+    top: -900px;
+    width: 1800px;
+    height: 1800px;
+    transform: rotateX(74deg) rotateZ(-14deg);
+    transform-style: preserve-3d;
+}
+.hb-disk > * { position: absolute; }
+
+.hb-spin { inset: 0; animation: hb-spin 300s linear infinite; }
+.hb-orbit { left: 50%; top: 50%; border-radius: 50%; animation: hb-spin 60s linear infinite; }
+.hb-orbit.b { animation-duration: 110s; animation-direction: reverse; }
+@keyframes hb-spin {
+    to { transform: rotate(360deg); }
+}
+
+.hb-puff,
+.hb-dot { position: absolute; border-radius: 50%; }
+/* Phones: half the gas clouds, the disk is small there anyway. */
+@media (max-width: 767px) { .hb-puff:nth-child(2n) { display: none; } }
+
+.hb-nebula { animation: hb-drift 40s ease-in-out infinite alternate; }
+@keyframes hb-drift {
+    to { transform: translate(50px, -30px) scale(1.1); }
+}
+
+/* Space cards: bob, a slow breathing glow, and tabs that fly in and settle. */
+.hb-space { animation: hb-bob 9s ease-in-out infinite; }
+@keyframes hb-bob {
+    50% { translate: 0 -8px; }
+}
+.hb-card { animation: hb-breathe 7s ease-in-out infinite; }
+@keyframes hb-breathe {
+    0%, 100% { box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.02), 0 24px 70px -28px rgba(0, 0, 0, 0.9), 0 0 70px -34px var(--g); }
+    50% { box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 24px 70px -28px rgba(0, 0, 0, 0.9), 0 0 110px -22px var(--g); }
+}
+.hb-chip {
+    position: relative;
+    height: 24px;
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    animation: hb-gather 11s cubic-bezier(0.22, 0.8, 0.24, 1) infinite both;
+}
+.hb-chip::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 50%;
+    width: 9px;
+    height: 9px;
+    margin-top: -4.5px;
+    border-radius: 3px;
+    background: var(--c);
+}
+.hb-chip::after {
+    content: '';
+    position: absolute;
+    left: 22px;
+    right: 8px;
+    top: 50%;
+    height: 3px;
+    margin-top: -1.5px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.22);
+}
+@keyframes hb-gather {
+    0% { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)); opacity: 0; }
+    12% { opacity: 0.9; }
+    46% { transform: none; opacity: 1; }
+    88% { transform: none; opacity: 1; }
+    100% { transform: none; opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hb-star, .hb-spin, .hb-orbit, .hb-nebula, .hb-space, .hb-card, .hb-chip { animation: none; }
+    .hb-layer { transition: none; transform: none; }
+}
