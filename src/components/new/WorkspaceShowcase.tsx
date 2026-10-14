@@ -108,7 +108,7 @@ export default function WorkspaceShowcase() {
                         A space for all your work
                     </h2>
                     <p className="mt-4 max-w-2xl text-white/55 text-base md:text-lg">
-                        Every project’s tabs, apps, files and notes, together and one click away.
+                        The tabs, apps, files and notes for everything you work on, together and one click away.
                     </p>
 
                     {/* Space | Notes | Files */}
