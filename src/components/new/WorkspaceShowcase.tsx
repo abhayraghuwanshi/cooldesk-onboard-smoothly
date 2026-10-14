@@ -51,8 +51,8 @@ const VIEWS: { key: string; label: string; title: string; intro: string; src: st
     {
         key: 'notes',
         label: 'Notes',
-        title: 'Notes that stay with the project',
-        intro: 'Your own notes and the project’s docs live inside the space, so the context is there when you come back.',
+        title: 'Notes that stay with the space',
+        intro: 'Your notes and docs live inside the space, so the context is there when you come back.',
         src: '/images/space-notes.jpg',
         width: 1400,
         height: 777,
@@ -63,8 +63,8 @@ const VIEWS: { key: string; label: string; title: string; intro: string; src: st
                 text: 'Jot down what you were doing and what’s next. They stay with the space, not in some other app.',
             },
             {
-                title: 'The project’s shared docs',
-                text: 'Read the project’s README and notes right inside the space, rendered and ready.',
+                title: 'Shared docs, right there',
+                text: 'Read READMEs and shared notes right inside the space, rendered and ready.',
             },
         ],
     },
