@@ -105,7 +105,7 @@ export default function WorkspaceShowcase() {
                 {/* Section header: title, then the tabs that drive everything below */}
                 <div className="flex flex-col items-center text-center">
                     <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight leading-[1.05]">
-                        A space for every project
+                        A space for all your work
                     </h2>
                     <p className="mt-4 max-w-2xl text-white/55 text-base md:text-lg">
                         Each project gets its own space: the tabs, apps, folders, notes and files it needs, grouped together
