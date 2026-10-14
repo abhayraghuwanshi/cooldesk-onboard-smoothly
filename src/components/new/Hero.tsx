@@ -61,7 +61,7 @@ function Hero() {
                     {/* Kept short on purpose: the full definition (platforms, free,
                         Alt+K) lives in the meta description, JSON-LD and llms.txt. */}
                     <p className="mt-6 text-base md:text-lg text-white/55 max-w-xl leading-relaxed">
-                        Your tabs, apps and files, grouped by project.
+                        Your tabs, apps and files, grouped into spaces.
                     </p>
 
                     <div className="mt-9 flex flex-col sm:flex-row items-center gap-3">
