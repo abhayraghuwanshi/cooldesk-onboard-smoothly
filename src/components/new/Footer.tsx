@@ -1,11 +1,16 @@
 import { GITHUB_REPO, site } from '@/config/site';
 import { useLatestRelease } from '@/hooks/useLatestRelease';
 import { Github } from 'lucide-react';
+import { StarDust } from './SectionBackdrop';
 
 export default function Footer() {
   const release = useLatestRelease();
   return (
-    <footer className="relative z-10 border-t border-white/10 bg-black/60 backdrop-blur-sm">
+    <footer className="relative isolate z-10 overflow-hidden border-t border-white/10 bg-black/60 backdrop-blur-sm">
+      {/* The page's last stretch of space: faint star dust. Decorative. */}
+      <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+        <StarDust />
+      </div>
       {/* Top section */}
       <div className="container mx-auto px-6 py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">

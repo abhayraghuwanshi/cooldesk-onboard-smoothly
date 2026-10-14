@@ -1,7 +1,9 @@
 import { trackEvent, useSectionView } from '@/lib/analytics';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import DockBar from './DockBar';
+import { CALLOUTS } from './dockCallouts';
 import { Keycap } from './Keycap';
+import SectionBackdrop from './SectionBackdrop';
 import SpotlightHero from './SpotlightHero';
 
 /**
@@ -16,6 +18,12 @@ import SpotlightHero from './SpotlightHero';
  * docked to the edge of a stand-in screen.
  * Dock: DockBar, the real bottom bar with callouts.
  * Ctrl+Shift+D cycles full window → side dock → bottom bar (useLayoutSwitch.js).
+ *
+ * A tour, like the space section's: while on screen it moves through the
+ * tabs (the active one fills as it goes), and on Dock lights each callout in
+ * turn. Hovering the demo pauses it; clicking a tab or using the demo (the
+ * Spotlight one takes typing) stops it for good. Never under
+ * prefers-reduced-motion. Behind it, SectionBackdrop.
  */
 
 const MODES = [
@@ -25,6 +33,13 @@ const MODES = [
 ] as const;
 
 type Mode = (typeof MODES)[number]['key'];
+
+/** The tour: the Spotlight demo types on its own, so it gets the longest turn. */
+const STEPS: { mode: Mode; callout: number | null; ms: number }[] = [
+    { mode: 'spotlight', callout: null, ms: 12000 },
+    { mode: 'sidebar', callout: null, ms: 7000 },
+    ...CALLOUTS.map((_, i) => ({ mode: 'dock' as Mode, callout: i, ms: 3000 })),
+];
 
 const SIDEBAR_ALT =
     'CoolDesk’s side dock: eight running apps (Claude, Code, ComputeMesh Worker, Developer, Image Playground, Safari, System Settings, Terminal), one local dev server, and open tabs grouped by domain.';
@@ -75,10 +90,61 @@ function SidebarScene() {
 
 export default function SpotlightShowcase() {
     const sectionRef = useSectionView<HTMLElement>('spotlight_showcase');
-    const [mode, setMode] = useState<Mode>('spotlight');
+    const [step, setStep] = useState(0);
+    const [manual, setManual] = useState<Mode | null>(null); // set once the visitor takes over
+    const [hovered, setHovered] = useState(false);
+    const [visible, setVisible] = useState(false);
+    const [calm, setCalm] = useState(true); // prerender: no tour until we know
+    const fillRef = useRef<HTMLSpanElement | null>(null);
+
+    const mode: Mode = manual ?? STEPS[step].mode;
+    const touring = manual === null && !calm;
+    const running = touring && visible && !hovered;
+
+    useEffect(() => {
+        setCalm(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    }, []);
+
+    useEffect(() => {
+        const el = sectionRef.current;
+        if (!el) return;
+        const io = new IntersectionObserver(([e]) => setVisible(e.isIntersecting), { threshold: 0.35 });
+        io.observe(el);
+        return () => io.disconnect();
+    }, [sectionRef]);
+
+    // The clock. The tab's fill covers all of that tab's steps (Dock has one per callout).
+    useEffect(() => {
+        const own = STEPS.filter((s) => s.mode === STEPS[step].mode);
+        const total = own.reduce((n, s) => n + s.ms, 0);
+        const before = own.slice(0, own.indexOf(STEPS[step])).reduce((n, s) => n + s.ms, 0);
+        const paint = (t: number) => {
+            if (fillRef.current) fillRef.current.style.width = `${((before + t * STEPS[step].ms) / total) * 100}%`;
+        };
+        if (!running) {
+            paint(0);
+            return;
+        }
+        let frame = 0;
+        const start = performance.now();
+        const tick = (now: number) => {
+            const t = Math.min(1, (now - start) / STEPS[step].ms);
+            paint(t);
+            if (t < 1) frame = requestAnimationFrame(tick);
+            else setStep((step + 1) % STEPS.length);
+        };
+        frame = requestAnimationFrame(tick);
+        return () => cancelAnimationFrame(frame);
+    }, [running, step]);
+
+    const takeOver = () => {
+        if (manual === null) setManual(mode);
+    };
 
     return (
-        <section ref={sectionRef} className="relative text-white">
+        <section ref={sectionRef} className="relative isolate text-white">
+            <SectionBackdrop glow="left-1/2 top-[330px] h-[420px] w-[1100px] -ml-[550px]" />
+
             <div className="container mx-auto px-6">
                 <div className="flex flex-col items-center text-center">
                     <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight leading-[1.05]">
@@ -98,12 +164,13 @@ export default function SpotlightShowcase() {
                                 role="tab"
                                 aria-selected={mode === m.key}
                                 onClick={() => {
-                                    setMode(m.key);
+                                    setManual(m.key);
                                     trackEvent('spotlight_showcase_view', { view: m.key });
                                 }}
-                                className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors duration-200 ${mode === m.key ? 'bg-white/[0.12] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]' : 'text-white/50 hover:text-white/80'}`}
+                                className={`relative overflow-hidden rounded-full px-4 py-1.5 text-sm font-medium transition-colors duration-200 ${mode === m.key ? 'bg-white/[0.12] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]' : 'text-white/50 hover:text-white/80'}`}
                             >
-                                {m.label}
+                                {touring && mode === m.key && <span ref={fillRef} className="absolute inset-y-0 left-0 bg-white/[0.07]" aria-hidden="true" />}
+                                <span className="relative">{m.label}</span>
                             </button>
                         ))}
                     </div>
@@ -126,10 +193,18 @@ export default function SpotlightShowcase() {
                         )}
                     </div>
 
-                    <div key={`${mode}-view`} className="w-full motion-safe:animate-in motion-safe:fade-in duration-300">
+                    <div
+                        key={`${mode}-view`}
+                        onMouseEnter={() => setHovered(true)}
+                        onMouseLeave={() => setHovered(false)}
+                        onPointerDown={takeOver}
+                        onKeyDown={takeOver}
+                        onWheel={takeOver}
+                        className="w-full motion-safe:animate-in motion-safe:fade-in duration-300"
+                    >
                         {mode === 'spotlight' && <SpotlightHero />}
                         {mode === 'sidebar' && <SidebarScene />}
-                        {mode === 'dock' && <DockBar />}
+                        {mode === 'dock' && <DockBar active={touring ? STEPS[step].callout : null} />}
                     </div>
                 </div>
             </div>

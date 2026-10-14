@@ -8,6 +8,7 @@ import Footer from "@/components/new/Footer";
 import Hero from "@/components/new/Hero";
 import HowToUseSection from "@/components/new/HowToUseSection";
 import Navbar from '@/components/new/Navbar';
+import SectionBackdrop from "@/components/new/SectionBackdrop";
 import SEO from "@/components/SEO";
 import { site } from "@/config/site";
 import { useEffect } from "react";
@@ -55,25 +56,30 @@ const Index = () => {
           <SpotlightShowcase />
         </section>
 
-        <section id="agent" className="relative z-10 py-16 md:py-24 scroll-mt-20">
+        <section id="agent" className="relative isolate z-10 py-16 md:py-24 scroll-mt-20">
+          <SectionBackdrop variant="constellation" />
           <AgentShowcase />
         </section>
 
-        <section id="new-tab" className="relative z-10 py-16 md:py-24 scroll-mt-20">
+        <section id="new-tab" className="relative isolate z-10 py-16 md:py-24 scroll-mt-20">
+          <SectionBackdrop glow="left-1/2 top-[620px] h-[700px] w-[1300px] -ml-[650px]" tint="rgba(56,189,248,0.12)" />
           <NewTabShowcase />
         </section>
 
-        <section id="downloads" className="relative z-10 scroll-mt-20">
+        <section id="downloads" className="relative isolate z-10 scroll-mt-20">
+          <SectionBackdrop glow="left-1/2 top-[260px] h-[560px] w-[1100px] -ml-[550px]" tint="rgba(253,186,116,0.10)" />
           <Downloads />
         </section>
 
-        <section className="relative z-10 pt-12 md:pt-20">
+        <section className="relative isolate z-10 pt-12 md:pt-20">
+          <SectionBackdrop variant="dust" />
           <div className="container mx-auto px-6 relative z-10">
             <FAQ />
           </div>
         </section>
 
-        <section id="how-to-use" className="relative z-10 py-16 md:py-24 scroll-mt-20">
+        <section id="how-to-use" className="relative isolate z-10 py-16 md:py-24 scroll-mt-20">
+          <SectionBackdrop variant="dust" />
           <HowToUseSection />
         </section>
 

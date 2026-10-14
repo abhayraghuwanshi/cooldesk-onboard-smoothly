@@ -1,0 +1,34 @@
+/* SectionBackdrop.tsx: twinkling star dust, and the constellation's pulse. */
+
+.sb-dust {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+    opacity: var(--o);
+    animation: sb-twinkle 5s ease-in-out infinite alternate;
+}
+@keyframes sb-twinkle {
+    to { opacity: calc(var(--o) * 0.25); }
+}
+
+.sb-link {
+    stroke: rgba(196, 181, 253, 0.22);
+    stroke-width: 1;
+    animation: sb-link 6s ease-in-out infinite alternate;
+}
+@keyframes sb-link {
+    to { stroke: rgba(196, 181, 253, 0.07); }
+}
+
+.sb-node {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: sb-node 4s ease-in-out infinite alternate;
+}
+@keyframes sb-node {
+    to { opacity: 0.45; transform: scale(0.8); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sb-dust, .sb-link, .sb-node { animation: none; }
+}

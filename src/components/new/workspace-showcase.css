@@ -1,0 +1,50 @@
+/* Spaces section (WorkspaceShowcase.tsx): the guided tour and its backdrop. */
+
+/* Screenshots stack; the active one comes into focus. */
+.ws-shot {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    opacity: 0;
+    transform: scale(0.975) translateY(10px);
+    filter: blur(8px);
+    pointer-events: none;
+    transition: opacity 650ms ease, transform 900ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 650ms ease;
+}
+.ws-shot.on {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    pointer-events: auto;
+}
+
+/* The spotlight: everything outside it dims, and it glides between points. */
+.ws-spot {
+    position: absolute;
+    border-radius: 10px;
+    border: 1.5px solid #7dd3fc;
+    box-shadow: 0 0 0 3000px rgba(3, 4, 10, 0.55), 0 0 28px -4px #7dd3fc;
+    transition: left 750ms cubic-bezier(0.2, 0.8, 0.2, 1), top 750ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        width 750ms cubic-bezier(0.2, 0.8, 0.2, 1), height 750ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 400ms ease;
+}
+
+/* Other places the same point means. */
+.ws-ring {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    margin: -11px 0 0 -11px;
+    border-radius: 50%;
+    border: 1.5px solid #7dd3fc;
+    animation: ws-ping 1.6s ease-out infinite;
+}
+@keyframes ws-ping {
+    from { transform: scale(0.6); opacity: 1; }
+    to { transform: scale(1.9); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ws-shot, .ws-spot { transition: none; }
+    .ws-ring { animation: none; }
+}
