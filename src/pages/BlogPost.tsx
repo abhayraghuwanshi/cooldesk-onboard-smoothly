@@ -1,19 +1,131 @@
-import * as LucideIcons from 'lucide-react';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown, { type Components } from 'react-markdown';
 import { Link, useParams } from 'react-router-dom';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import remarkGfm from 'remark-gfm';
 import Footer from '../components/new/Footer';
 import Navbar from '../components/new/Navbar';
+import SectionBackdrop from '../components/new/SectionBackdrop';
 import SEO from '../components/SEO';
-import { getBlogPostBySlug, getCategoryLabel, getLatestBlogs } from '../config/blogs';
+import { blogPosts, getBlogPostBySlug, getCategoryLabel } from '../config/blogs';
+import { parsePost, type Tool } from '../lib/parsePost';
+import { comparisons } from './Versus';
+
+/**
+ * The article page, comparison-first: the answer ("pick by what you want")
+ * comes before the reasoning, every tool gets the same card (what it's best
+ * at, where others beat it), and the FAQ folds. Posts stay plain markdown;
+ * lib/parsePost.ts finds the pieces, and a post that isn't a roundup simply
+ * renders as text between the same header and close.
+ */
+
+const md: Components = {
+    h2: ({ children }) => <h2 className="mt-12 mb-4 text-2xl font-bold tracking-tight">{children}</h2>,
+    h3: ({ children }) => <h3 className="mt-8 mb-3 text-xl font-semibold">{children}</h3>,
+    h4: ({ children }) => <h4 className="mt-6 mb-2 text-lg font-semibold">{children}</h4>,
+    p: ({ children }) => <p className="mb-5 text-[16.5px] leading-[1.75] text-white/75 last:mb-0">{children}</p>,
+    ul: ({ children }) => <ul className="mb-5 list-disc space-y-2 pl-6 text-[16.5px] leading-[1.7] text-white/75 marker:text-white/35">{children}</ul>,
+    ol: ({ children }) => <ol className="mb-5 list-decimal space-y-2 pl-6 text-[16.5px] leading-[1.7] text-white/75 marker:text-white/35">{children}</ol>,
+    li: ({ children }) => <li className="pl-1">{children}</li>,
+    strong: ({ children }) => <strong className="font-semibold text-white">{children}</strong>,
+    a: ({ href = '', children }) => {
+        const internal = href.startsWith('/');
+        return (
+            <a
+                href={href}
+                {...(internal ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
+                className="text-sky-300 underline decoration-sky-300/30 underline-offset-4 transition-colors hover:text-sky-200 hover:decoration-sky-200"
+            >
+                {children}
+            </a>
+        );
+    },
+    blockquote: ({ children }) => <blockquote className="my-6 border-l-2 border-white/20 pl-5 text-white/65">{children}</blockquote>,
+    code: ({ children }) => <code className="rounded border border-white/10 bg-white/[0.06] px-1.5 py-0.5 font-mono text-[0.9em] text-sky-200">{children}</code>,
+    pre: ({ children }) => <pre className="my-6 overflow-x-auto rounded-xl border border-white/10 bg-[#0b0b14] p-5 text-sm">{children}</pre>,
+    table: ({ children }) => (
+        <div className="my-6 overflow-x-auto rounded-xl border border-white/10">
+            <table className="w-full text-left text-[15px]">{children}</table>
+        </div>
+    ),
+    th: ({ children }) => <th className="border-b border-white/10 px-4 py-3 font-semibold">{children}</th>,
+    td: ({ children }) => <td className="border-b border-white/[0.06] px-4 py-3 text-white/70">{children}</td>,
+    img: ({ src, alt }) => (
+        <figure className="my-8">
+            <img src={src} alt={alt} className="w-full rounded-xl border border-white/10" />
+            {alt && <figcaption className="mt-3 text-center text-sm text-white/45">{alt}</figcaption>}
+        </figure>
+    ),
+    hr: () => <hr className="my-10 border-white/10" />,
+};
+
+const Md = ({ children }: { children: string }) => (
+    <ReactMarkdown remarkPlugins={[remarkGfm]} components={md}>
+        {children}
+    </ReactMarkdown>
+);
+
+/** Inline-only markdown (bold, links) inside a sentence we already wrap. */
+const InlineMd = ({ children }: { children: string }) => (
+    <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ ...md, p: ({ children: c }) => <>{c}</> }}>
+        {children}
+    </ReactMarkdown>
+);
+
+const Tag = ({ children, us = false }: { children: React.ReactNode; us?: boolean }) => (
+    <span className={`rounded-md border px-2 py-px font-mono text-[11.5px] leading-[1.7] ${us ? 'border-sky-300/40 text-sky-300' : 'border-white/15 text-white/65'}`}>{children}</span>
+);
+
+const initials = (name: string) =>
+    name
+        .split(/[ /]+/)
+        .map((w) => w[0])
+        .join('')
+        .slice(0, 2)
+        .toUpperCase();
+
+function ToolCard({ tool }: { tool: Tool }) {
+    const H = tool.level === 2 ? 'h2' : 'h3';
+    return (
+        <article id={tool.id} className={`mt-6 scroll-mt-28 rounded-[20px] border p-6 md:p-7 ${tool.us ? 'border-sky-300/35 bg-sky-400/[0.04]' : 'border-white/10 bg-white/[0.02]'}`}>
+            <div className="flex flex-wrap items-center gap-x-3.5 gap-y-2.5">
+                <span aria-hidden="true" className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/[0.06] font-mono text-[13px] font-semibold text-white/80">
+                    {initials(tool.name)}
+                </span>
+                <H className="text-2xl font-bold tracking-tight">{tool.name}</H>
+                {tool.price && <Tag>{tool.price}</Tag>}
+                {tool.style && <Tag>{tool.style}</Tag>}
+                {tool.us && <Tag us>that’s us</Tag>}
+            </div>
+            {tool.summary && (
+                <div className="mt-4">
+                    <Md>{tool.summary}</Md>
+                </div>
+            )}
+            <div className="mt-5 grid gap-3 md:grid-cols-2">
+                <div className="rounded-2xl border border-white/10 p-4 md:p-5">
+                    <p className="text-sm font-semibold text-emerald-300">Best at</p>
+                    <p className="mt-2 text-[15px] leading-relaxed text-white/80">
+                        <InlineMd>{tool.best}</InlineMd>
+                    </p>
+                </div>
+                <div className="rounded-2xl border border-white/10 p-4 md:p-5">
+                    <p className="text-sm font-semibold text-orange-300">Where others beat it</p>
+                    <p className="mt-2 text-[15px] leading-relaxed text-white/80">
+                        <InlineMd>{tool.beats}</InlineMd>
+                    </p>
+                </div>
+            </div>
+            {tool.after && (
+                <div className="mt-4 text-[15px]">
+                    <Md>{tool.after}</Md>
+                </div>
+            )}
+        </article>
+    );
+}
 
 export default function BlogPostPage() {
     const { slug } = useParams<{ slug: string }>();
-
     const post = slug ? getBlogPostBySlug(slug) : undefined;
-    const relatedPosts = getLatestBlogs(3);
 
     if (!post) {
         return (
@@ -29,243 +141,209 @@ export default function BlogPostPage() {
         );
     }
 
-    const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-    };
-
+    const p = parsePost(post.content);
+    const formatDate = (d: string) => new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
     const canonicalUrl = `https://cool-desk.com/blog/${post.slug}`;
+    const toolById = new Map(p.tools.map((t) => [t.id, t]));
+    const picked = p.picks.filter((k) => k.toolId);
+    const unpicked = p.picks.filter((k) => !k.toolId);
 
-    // Schema.org Structured Data
-    const jsonLd = {
-        "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        "headline": post.title,
-        "description": post.description,
-        "author": {
-            "@type": "Person",
-            "name": post.author
+    // Keep reading: the comparisons this post links to, then other posts.
+    const vsLinks = [...new Set([...post.content.matchAll(/\]\(\/vs\/([a-z0-9-]+)\)/g)].map((m) => m[1]))]
+        .filter((s) => comparisons[s])
+        .slice(0, 3);
+    const more = blogPosts.filter((b) => b.category !== 'comparisons' && b.id !== post.id).slice(0, 3);
+
+    const jsonLd = [
+        {
+            '@context': 'https://schema.org',
+            '@type': 'BlogPosting',
+            headline: post.title,
+            description: post.description,
+            author: { '@type': 'Person', name: post.author },
+            datePublished: post.date,
+            dateModified: post.updated ?? post.date,
+            url: canonicalUrl,
+            mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
+            publisher: { '@type': 'Organization', name: 'CoolDesk', logo: { '@type': 'ImageObject', url: 'https://cool-desk.com/favicon.ico' } },
         },
-        "datePublished": post.date,
-        "dateModified": post.updated ?? post.date,
-        "url": canonicalUrl,
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": canonicalUrl
-        },
-        "publisher": {
-            "@type": "Organization",
-            "name": "CoolDesk",
-            "logo": {
-                "@type": "ImageObject",
-                "url": "https://cool-desk.com/favicon.ico"
-            }
-        }
-    };
+        ...(p.faq.length
+            ? [
+                  {
+                      '@context': 'https://schema.org',
+                      '@type': 'FAQPage',
+                      mainEntity: p.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+                  },
+              ]
+            : []),
+    ];
 
     return (
-        <main className="min-h-screen text-white font-sans selection:bg-blue-500/30">
-            {/* Background Glow Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-600/10 pointer-events-none z-0" />
-            <SEO
-                title={post.title}
-                description={post.description}
-                canonical={canonicalUrl}
-                jsonLd={jsonLd}
-            />
-
+        <main className="min-h-screen text-white">
+            <SEO title={post.title} description={post.description} canonical={canonicalUrl} jsonLd={jsonLd} />
             <Navbar />
 
-            <article className="container mx-auto px-6 pt-32 pb-24 max-w-3xl">
-                {/* Back Link */}
-                <Link
-                    to="/resources"
-                    className="inline-flex items-center gap-2 text-txt-muted hover:text-white mb-12 transition-colors group text-sm font-medium"
-                >
-                    <LucideIcons.ArrowLeft className="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" />
-                    Back to resources
-                </Link>
+            <div className="relative isolate">
+                <SectionBackdrop variant="dust" />
+                <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-[-300px] -z-10 h-[680px] w-[1200px] -ml-[600px] rounded-full bg-[radial-gradient(closest-side,rgba(56,189,248,0.14),transparent)]" />
 
-                {/* Article Header */}
-                <header className="mb-12">
-                    <div className="flex items-center gap-3 text-sm font-medium text-blue-400 mb-6 uppercase tracking-wider">
-                        <span>{getCategoryLabel(post.category)}</span>
-                        <span className="text-zinc-600">•</span>
-                        <span className="text-zinc-400">
+                <article className="container mx-auto max-w-5xl px-6 pt-28 pb-24">
+                    {/* Title */}
+                    <header className="max-w-[820px] pt-6 pb-8">
+                        <nav aria-label="Breadcrumb" className="text-[13px] text-white/50">
+                            <Link to="/resources" className="text-white/60 transition-colors hover:text-white">Resources</Link>
+                            {' / '}
+                            <Link to="/blog" className="text-white/60 transition-colors hover:text-white">Blog</Link>
+                            {' / '}
+                            <span className="text-sky-300">{getCategoryLabel(post.category)}</span>
+                        </nav>
+                        <h1 className="mt-4 text-[34px] font-bold leading-[1.08] tracking-[-0.03em] md:text-5xl">{post.title}</h1>
+                        {p.lede && (
+                            <p className="mt-4 text-lg leading-relaxed text-white/65">
+                                <InlineMd>{p.lede}</InlineMd>
+                            </p>
+                        )}
+                        <p className="mt-4 font-mono text-[12.5px] text-white/50">
                             {post.updated ? `Updated ${formatDate(post.updated)}` : formatDate(post.date)}
-                        </span>
-                    </div>
+                            {p.tools.length > 1 && ` · ${p.tools.length} tools`}
+                        </p>
+                    </header>
 
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-8 leading-tight">
-                        {post.title}
-                    </h1>
-
-                    <div className="flex items-center justify-between border-y border-white/10 py-6">
-                        <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center">
-                                <LucideIcons.User className="w-5 h-5 text-zinc-400" />
+                    {/* The answer first */}
+                    {picked.length > 0 && (
+                        <section aria-labelledby="bp-pick" className="rounded-[22px] border border-white/10 bg-[#0b0b14] p-5 md:p-7">
+                            <div className="flex flex-wrap items-baseline justify-between gap-2">
+                                <h2 id="bp-pick" className="text-[22px] font-semibold">The short version: pick by what you want</h2>
+                                <span className="text-[13px] text-white/45">Read on only if you’re unsure</span>
                             </div>
-                            <div>
-                                <div className="text-sm font-semibold text-white">{post.author}</div>
-                                <div className="text-xs text-zinc-500">CoolDesk Team</div>
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-4 text-zinc-400 text-sm">
-                            <div className="flex items-center gap-1.5">
-                                <LucideIcons.Clock className="w-4 h-4" />
-                                <span>{post.readTime}</span>
-                            </div>
-                            {/* Optional Share Button could go here */}
-                        </div>
-                    </div>
-                </header>
-
-                {/* Article Content */}
-                <div className="mb-16 animate-fade-in-delay">
-                    <ReactMarkdown
-                        remarkPlugins={[remarkGfm]}
-                        components={{
-                            h1: ({ children }) => (
-                                <h1 className="text-3xl md:text-4xl font-bold text-white mt-12 mb-6 leading-tight">{children}</h1>
-                            ),
-                            h2: ({ children }) => (
-                                <h2 className="text-2xl md:text-3xl font-bold text-white mt-12 mb-6 leading-tight border-b border-white/10 pb-2">{children}</h2>
-                            ),
-                            h3: ({ children }) => (
-                                <h3 className="text-xl md:text-2xl font-bold text-white mt-8 mb-4 leading-snug">{children}</h3>
-                            ),
-                            h4: ({ children }) => (
-                                <h4 className="text-lg md:text-xl font-bold text-white mt-6 mb-3">{children}</h4>
-                            ),
-                            p: ({ children }) => (
-                                <p className="mb-6 text-lg text-zinc-300 leading-8 font-light">{children}</p>
-                            ),
-                            ul: ({ children }) => (
-                                <ul className="list-disc pl-6 mb-8 space-y-3 text-zinc-300 text-lg leading-relaxed marker:text-blue-500">{children}</ul>
-                            ),
-                            ol: ({ children }) => (
-                                <ol className="list-decimal pl-6 mb-8 space-y-3 text-zinc-300 text-lg leading-relaxed marker:text-blue-500">{children}</ol>
-                            ),
-                            li: ({ children }) => (
-                                <li className="pl-2">{children}</li>
-                            ),
-                            a: ({ href, children }) => (
-                                <a
-                                    href={href}
-                                    className="text-blue-400 hover:text-blue-300 underline underline-offset-4 decoration-blue-500/30 hover:decoration-blue-500 transition-all font-medium"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    {children}
-                                </a>
-                            ),
-                            strong: ({ children }) => (
-                                <strong className="text-white font-bold">{children}</strong>
-                            ),
-                            blockquote: ({ children }) => (
-                                <blockquote className="border-l-4 border-blue-500 pl-6 my-8 italic text-xl text-zinc-400 bg-zinc-900/30 py-4 pr-4 rounded-r-lg">
-                                    {children}
-                                </blockquote>
-                            ),
-                            code: ({ inline, className, children, ...props }: any) => {
-                                const match = /language-(\w+)/.exec(className || '');
-                                const language = match ? match[1] : '';
-
-                                return !inline && language ? (
-                                    <div className="my-8 rounded-lg overflow-hidden border border-white/10 shadow-2xl bg-[#09090b]">
-                                        <div className="bg-zinc-900/50 px-4 py-2 border-b border-white/5 flex items-center justify-between">
-                                            <span className="text-xs font-mono text-zinc-500 uppercase tracking-wider">
-                                                {language}
-                                            </span>
-                                        </div>
-                                        <SyntaxHighlighter
-                                            style={vscDarkPlus}
-                                            language={language}
-                                            PreTag="div"
-                                            className="!bg-zinc-950 !m-0 !p-6 text-sm overflow-x-auto"
-                                            customStyle={{
-                                                margin: 0,
-                                                background: '#09090b',
-                                            }}
-                                            {...props}
+                            <div className="mt-5 grid grid-cols-[repeat(auto-fill,minmax(190px,1fr))] gap-2.5">
+                                {picked.map((k) => {
+                                    const t = toolById.get(k.toolId!)!;
+                                    return (
+                                        <a
+                                            key={k.want}
+                                            href={`#${t.id}`}
+                                            className={`flex min-h-[150px] flex-col gap-2 rounded-2xl border p-4 transition-colors hover:border-white/25 ${t.us ? 'border-sky-300/40 bg-sky-400/[0.06]' : 'border-white/10 bg-white/[0.025]'}`}
                                         >
-                                            {String(children).replace(/\n$/, '')}
-                                        </SyntaxHighlighter>
-                                    </div>
-                                ) : (
-                                    <code className="bg-zinc-800 text-blue-300 px-1.5 py-0.5 rounded text-sm font-mono border border-white/5" {...props}>
-                                        {children}
-                                    </code>
-                                );
-                            },
-                            img: ({ src, alt }) => (
-                                <figure className="my-10">
-                                    <img
-                                        src={src}
-                                        alt={alt}
-                                        className="rounded-xl border border-white/10 shadow-2xl w-full"
-                                    />
-                                    {alt && <figcaption className="text-center text-sm text-zinc-500 mt-3 italic">{alt}</figcaption>}
-                                </figure>
-                            ),
-                            hr: () => (
-                                <hr className="my-12 border-white/10" />
-                            )
-                        }}
-                    >
-                        {post.content.replace(/^# .+(\r?\n|$)/, '').trim()}
-                    </ReactMarkdown>
-                </div>
-
-                {/* Tags */}
-                {post.tags && post.tags.length > 0 && (
-                    <div className="mb-20 pt-8 border-t border-white/10">
-                        <div className="flex flex-wrap gap-2">
-                            {post.tags.map((tag, index) => (
-                                <span
-                                    key={index}
-                                    className="px-3 py-1 bg-zinc-900 text-zinc-400 rounded-full text-sm font-medium hover:bg-zinc-800 hover:text-white transition-colors cursor-default"
-                                >
-                                    #{tag}
-                                </span>
+                                            <span className="text-[13px] leading-snug text-white/60">“{k.want}”</span>
+                                            <span className="mt-auto text-[17px] font-semibold leading-snug">{k.name}</span>
+                                            {k.note && <span className="text-xs leading-snug text-white/50">{k.note}</span>}
+                                            <span className="flex flex-wrap gap-1.5">
+                                                {t.price && <Tag>{t.price}</Tag>}
+                                                {t.us && <Tag us>that’s us</Tag>}
+                                            </span>
+                                        </a>
+                                    );
+                                })}
+                            </div>
+                            {unpicked.map((k) => (
+                                <p key={k.want} className="mt-4 text-[13.5px] text-white/55">
+                                    “{k.want}” → {k.name}
+                                    {k.note ? ` (${k.note})` : ''}
+                                </p>
                             ))}
-                        </div>
+                        </section>
+                    )}
+
+                    {p.disclosure && (
+                        <p className="mt-5 max-w-[820px] text-[13.5px] leading-relaxed text-white/50">
+                            <span className="font-semibold text-orange-300">Full disclosure:</span> <InlineMd>{p.disclosure}</InlineMd>
+                        </p>
+                    )}
+
+                    {/* Jump bar: one chip per tool */}
+                    {p.tools.length > 1 && (
+                        <nav aria-label="Jump to a tool" className="sticky top-[73px] z-20 -mx-6 mt-9 flex gap-2 overflow-x-auto border-y border-white/[0.08] bg-[#07070a]/85 px-6 py-2.5 backdrop-blur-md">
+                            {p.tools.map((t) => (
+                                <a key={t.id} href={`#${t.id}`} className={`inline-flex min-h-9 shrink-0 items-center rounded-full border px-3.5 text-[13.5px] font-medium ${t.us ? 'border-sky-300/45 text-sky-300' : 'border-white/[0.12] text-white/80 hover:text-white'}`}>
+                                    {t.name}
+                                </a>
+                            ))}
+                            {p.faq.length > 0 && (
+                                <a href="#bp-faq" className="inline-flex min-h-9 shrink-0 items-center rounded-full border border-white/[0.12] px-3.5 text-[13.5px] font-medium text-white/70 hover:text-white">
+                                    FAQ
+                                </a>
+                            )}
+                        </nav>
+                    )}
+
+                    {/* Body: intro, then sections and tool cards in the post's order */}
+                    <div className="max-w-[820px]">
+                        {p.intro && (
+                            <div className="mt-10">
+                                <Md>{p.intro}</Md>
+                            </div>
+                        )}
                     </div>
-                )}
+                    {p.blocks.map((b, i) =>
+                        b.kind === 'tool' ? (
+                            <ToolCard key={b.tool.id} tool={b.tool} />
+                        ) : (
+                            <div key={i} className="max-w-[820px]">
+                                {b.kind === 'group' && <h2 className="mt-14 mb-4 text-[26px] font-bold tracking-tight">{b.title}</h2>}
+                                {b.md && <Md>{b.md}</Md>}
+                            </div>
+                        ),
+                    )}
 
+                    {/* FAQ */}
+                    {p.faq.length > 0 && (
+                        <section id="bp-faq" aria-labelledby="bp-faq-h" className="mt-14 max-w-[800px] scroll-mt-28">
+                            <h2 id="bp-faq-h" className="mb-1.5 text-[26px] font-bold">FAQ</h2>
+                            {p.faq.map((f, i) => (
+                                <details key={f.q} open={i === 0} className="group border-b border-white/10">
+                                    <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-3.5 text-[16.5px] font-semibold [&::-webkit-details-marker]:hidden">
+                                        {f.q}
+                                        <span aria-hidden="true" className="shrink-0 text-[22px] font-light text-white/50 transition-transform group-open:rotate-45">+</span>
+                                    </summary>
+                                    <div className="pb-4 text-[15.5px]">
+                                        <Md>{f.a}</Md>
+                                    </div>
+                                </details>
+                            ))}
+                            {p.afterFaq && (
+                                <div className="mt-6">
+                                    <Md>{p.afterFaq}</Md>
+                                </div>
+                            )}
+                        </section>
+                    )}
 
-                {/* Related Posts */}
-                {relatedPosts.length > 0 && (
-                    <div className="border-t border-white/10 pt-16">
-                        <h2 className="text-2xl font-bold text-white mb-8">Read next</h2>
-                        <div className="grid md:grid-cols-2 gap-8">
-                            {relatedPosts.filter(p => p.id !== post.id).slice(0, 2).map((relatedPost) => (
-                                <Link
-                                    key={relatedPost.id}
-                                    to={relatedPost.href ?? `/blog/${relatedPost.slug}`}
-                                    className="group block space-y-4"
-                                >
-                                    <div className="aspect-[16/9] bg-zinc-900 rounded-lg border border-white/10 flex items-center justify-center overflow-hidden relative">
-                                        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 to-purple-900/10 group-hover:opacity-75 transition-opacity"></div>
-                                        {(() => {
-                                            const Icon = (LucideIcons as any)[relatedPost.icon || 'FileText'] || LucideIcons.FileText;
-                                            return <Icon className="w-12 h-12 text-white/20 group-hover:scale-110 transition-transform duration-500" />;
-                                        })()}
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors leading-tight">
-                                            {relatedPost.title}
-                                        </h3>
-                                        <div className="text-sm text-zinc-500">
-                                            {formatDate(relatedPost.date)} • {relatedPost.readTime}
-                                        </div>
-                                    </div>
+                    {/* Close: try it */}
+                    <section className="relative mt-14 overflow-hidden rounded-[22px] border border-sky-300/25 bg-[#0a0d16] px-6 py-9 md:px-8 md:py-10">
+                        <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-20 h-[300px] w-[300px] rounded-full bg-[radial-gradient(closest-side,rgba(56,189,248,0.3),transparent)]" />
+                        <h2 className="relative text-[26px] font-bold">Try CoolDesk free</h2>
+                        <p className="relative mt-2.5 max-w-[560px] text-[15.5px] leading-relaxed text-white/65">
+                            {p.cta ? <InlineMd>{p.cta}</InlineMd> : 'No account, and everything stays on your device.'}
+                        </p>
+                        <div className="relative mt-6 flex flex-wrap gap-3">
+                            <a href="/#downloads" className="inline-flex min-h-12 items-center rounded-xl bg-white px-5 text-[15px] font-semibold text-[#07070a]">
+                                Download free
+                            </a>
+                            <Link to="/resources" className="inline-flex min-h-12 items-center rounded-xl border border-white/20 px-5 text-[15px] font-medium">
+                                More resources →
+                            </Link>
+                        </div>
+                    </section>
+
+                    {/* Keep reading */}
+                    <section aria-labelledby="bp-more" className="mt-10">
+                        <h2 id="bp-more" className="mb-3 text-sm font-medium text-white/50">Keep reading</h2>
+                        <div className="flex flex-wrap gap-2">
+                            {more.map((b) => (
+                                <Link key={b.id} to={b.href ?? `/blog/${b.slug}`} className="inline-flex min-h-9 items-center rounded-full border border-sky-300/30 px-3.5 text-[13.5px] font-medium hover:bg-white/[0.04]">
+                                    {b.title.replace(/[:(].*$/, '').trim()}
+                                </Link>
+                            ))}
+                            {vsLinks.map((s) => (
+                                <Link key={s} to={`/vs/${s}`} className="inline-flex min-h-9 items-center rounded-full border border-orange-300/30 px-3.5 text-[13.5px] font-medium hover:bg-white/[0.04]">
+                                    CoolDesk vs {comparisons[s].name}
                                 </Link>
                             ))}
                         </div>
-                    </div>
-                )}
-            </article>
+                    </section>
+                </article>
+            </div>
 
             <Footer />
         </main>
