@@ -1,5 +1,6 @@
 import Footer from "@/components/new/Footer";
 import Navbar from "@/components/new/Navbar";
+import SectionBackdrop from "@/components/new/SectionBackdrop";
 import SEO from "@/components/SEO";
 import { relatedComparisons } from "@/config/comparisonGroups";
 import { Link, useParams } from "react-router-dom";
@@ -852,14 +853,51 @@ export const comparisons: Record<string, Comparison> = {
     },
 };
 
-/** Renders a table cell value; dims the "don't have it" dash. */
+/** A table cell; the "don't have it" dash is dimmed. */
 function CellValue({ value, us }: { value: string; us?: boolean }) {
     if (value === "—") {
-        return <span className="text-white/15 select-none">—</span>;
+        return <span className="text-white/30 select-none">—</span>;
     }
-    return <span className={us ? "text-white" : "text-gray-400"}>{value}</span>;
+    return <span className={us ? "font-medium text-white" : "text-white/75"}>{value}</span>;
 }
 
+/** One side of the decision: a heading and its numbered reasons. */
+function Choose({ name, items, tone }: { name: string; items: string[]; tone: "us" | "them" }) {
+    return (
+        <div>
+            <h2 className="mb-2.5 text-[28px] md:text-[32px] font-bold leading-tight tracking-tight">Choose {name} if</h2>
+            <ol>
+                {items.map((item, i) => (
+                    <li key={i} className="flex items-baseline gap-4 border-b border-white/10 py-4 text-[17px] md:text-lg font-medium leading-snug">
+                        <span aria-hidden="true" className={`w-7 shrink-0 font-mono text-sm ${tone === "us" ? "text-indigo-300" : "text-orange-300"}`}>
+                            {String(i + 1).padStart(2, "0")}
+                        </span>
+                        {item}
+                    </li>
+                ))}
+            </ol>
+        </div>
+    );
+}
+
+/** A folded section. Native <details>, so the text stays in the HTML for search and screen readers. */
+function Fold({ title, children }: { title: string; children: React.ReactNode }) {
+    return (
+        <details className="group border-b border-white/10">
+            <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 py-4 text-lg font-semibold [&::-webkit-details-marker]:hidden">
+                {title}
+                <span aria-hidden="true" className="shrink-0 text-2xl font-light text-white/50 transition-transform group-open:rotate-45">+</span>
+            </summary>
+            <div className="pb-6">{children}</div>
+        </details>
+    );
+}
+
+/**
+ * The decision-card layout: everything needed to choose on the first screen
+ * (both "choose X if" lists side by side, then the table and Download), and
+ * the longer material folded below.
+ */
 export default function VersusPage() {
     const { slug } = useParams<{ slug: string }>();
     const comparison = slug ? comparisons[slug] : undefined;
@@ -890,213 +928,117 @@ export default function VersusPage() {
     };
     const related = relatedComparisons(slug!);
 
-    const reveal = (i: number) => ({
-        animationDelay: `${0.08 * i}s`,
-        animationFillMode: "backwards" as const,
-    });
-
     return (
-        <main className="min-h-screen text-white scroll-smooth">
+        <main className="min-h-screen text-white">
             <SEO
                 title={comparison.title}
                 description={comparison.description}
                 canonical={canonical}
                 jsonLd={[faqJsonLd, breadcrumbJsonLd]}
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-600/10 pointer-events-none z-0" />
             <Navbar />
 
-            {/* ── Fight-card hero ─────────────────────────────────── */}
-            <header className="relative z-10 border-b border-white/10 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:44px_44px]">
-                <div className="container mx-auto px-6 pt-32 pb-14 max-w-4xl">
-                    <nav aria-label="Breadcrumb" className="font-mono text-[11px] tracking-[0.25em] text-white/35 uppercase mb-8 animate-slide-up" style={reveal(0)}>
-                        <Link to="/vs" className="hover:text-white/70 transition-colors">Compare</Link>
-                        <span aria-hidden="true" className="mx-2">/</span>
-                        Head-to-head
-                    </nav>
+            <div className="relative isolate">
+                <SectionBackdrop variant="dust" />
 
-                    <h1 className="animate-slide-up" style={reveal(1)}>
-                        <span className="block text-5xl md:text-7xl font-black leading-none tracking-tight">
-                            CoolDesk
-                        </span>
-                        <span className="flex items-center gap-5 my-3 md:my-4">
-                            <span
-                                aria-hidden="true"
-                                className="text-4xl md:text-6xl font-black leading-none text-transparent select-none"
-                                style={{ WebkitTextStroke: "1.5px rgba(255,255,255,0.3)" }}
-                            >
-                                VS
+                <div className="container mx-auto max-w-5xl px-6 pt-28 pb-24">
+                    {/* Back, then the two names */}
+                    <section className="flex flex-col items-start gap-5 pb-8">
+                        <Link to="/resources" className="inline-flex min-h-11 items-center text-sm text-white/60 transition-colors hover:text-white">
+                            ← Back to resources
+                        </Link>
+                        <h1 className="flex flex-wrap items-center gap-3.5 text-2xl font-bold leading-none tracking-tight">
+                            <span className="inline-flex items-center gap-3">
+                                <img src="/cooldesk.png" alt="" width={40} height={40} className="h-10 w-10" />
+                                CoolDesk
                             </span>
-                            <span aria-hidden="true" className="h-px flex-1 bg-white/15" />
-                        </span>
-                        <span className="block text-5xl md:text-7xl font-black leading-none tracking-tight text-white/40">
-                            {comparison.name}
-                        </span>
-                    </h1>
+                            <span className="text-lg font-normal text-white/45">vs</span>
+                            <span>{comparison.name}</span>
+                        </h1>
+                        <p className="max-w-2xl text-[17px] leading-relaxed text-white/65">{comparison.intro[0]}</p>
+                    </section>
 
-                    <p className="mt-10 text-lg md:text-xl text-white/70 leading-relaxed max-w-2xl animate-slide-up" style={reveal(2)}>
-                        {comparison.intro[0]}
-                    </p>
-                    {comparison.intro.slice(1).map((p, i) => (
-                        <p key={i} className="mt-4 text-sm md:text-base text-white/45 leading-relaxed max-w-2xl animate-slide-up" style={reveal(3 + i)}>
-                            {p}
-                        </p>
-                    ))}
-                </div>
-            </header>
+                    {/* The decision */}
+                    <section aria-label="Decision" className="flex flex-col gap-16">
+                        <div className="grid gap-x-14 gap-y-11 md:grid-cols-2">
+                            <Choose name="CoolDesk" items={comparison.chooseUs} tone="us" />
+                            <Choose name={comparison.name} items={comparison.chooseThem} tone="them" />
+                        </div>
 
-            <div className="relative z-10 container mx-auto px-6 pb-24 max-w-4xl">
-                {/* ── 01 · The short answer ───────────────────────── */}
-                <section className="mt-16">
-                    <p className="font-mono text-[11px] tracking-[0.25em] text-white/35 uppercase mb-3">01 · The short answer</p>
-                    <h2 className="text-2xl md:text-3xl font-bold mb-8">Skip the reading — which one is for you?</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-px rounded-xl overflow-hidden border border-white/10 bg-white/10">
-                        <div className="bg-[#0b0b0e] p-6 md:p-7">
-                            <h3 className="font-mono text-xs tracking-[0.2em] uppercase text-white/40 mb-5">
-                                Pick {comparison.name} if…
-                            </h3>
-                            <ul className="space-y-3.5">
-                                {comparison.chooseThem.map((item, i) => (
-                                    <li key={i} className="flex gap-3 text-sm text-gray-400 leading-relaxed">
-                                        <span aria-hidden="true" className="font-mono text-white/25 flex-shrink-0 pt-px">→</span>
-                                        {item}
-                                    </li>
+                        <div>
+                            <h2 className="mb-4 text-2xl font-bold tracking-tight">At a glance</h2>
+                            <div className="overflow-x-auto">
+                                <table className="w-full min-w-[560px] text-[15px] leading-snug">
+                                    <thead>
+                                        <tr className="border-b border-white/15 text-left text-[13px] font-semibold text-white/55">
+                                            <th scope="col" className="w-[38%] pb-3 pr-3 font-semibold">Feature</th>
+                                            <th scope="col" className="pb-3 pr-3 font-semibold text-orange-300">{comparison.name}</th>
+                                            <th scope="col" className="pb-3 font-semibold text-indigo-300">CoolDesk</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {comparison.table.map((row) => (
+                                            <tr key={row.feature} className="border-b border-white/[0.06]">
+                                                <th scope="row" className="py-3.5 pr-3 text-left font-normal text-white/70">{row.feature}</th>
+                                                <td className="py-3.5 pr-3"><CellValue value={row.them} /></td>
+                                                <td className="py-3.5"><CellValue value={row.us} us /></td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="flex flex-wrap items-center gap-x-4 gap-y-2.5 pt-6">
+                                <a href="/#downloads" className="inline-flex min-h-[46px] items-center rounded-xl bg-white px-5 text-[15px] font-semibold text-black transition-transform hover:-translate-y-px">
+                                    Download CoolDesk free
+                                </a>
+                                <span className="text-sm text-white/55">No account. Runs alongside {comparison.name}, nothing to migrate.</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* The longer material, folded */}
+                    <section aria-label="Details" className="mt-16 border-t border-white/10">
+                        <Fold title={`What ${comparison.name} is great at`}>
+                            <ul className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
+                                {comparison.greatAt.map((item, i) => (
+                                    <li key={i} className="text-[15px] leading-relaxed text-white/70">{item}</li>
                                 ))}
                             </ul>
-                        </div>
-                        <div className="bg-[#0b0b0e] p-6 md:p-7 md:border-l-2 md:border-l-blue-400/40">
-                            <h3 className="font-mono text-xs tracking-[0.2em] uppercase text-blue-300/80 mb-5">
-                                Pick CoolDesk if…
-                            </h3>
-                            <ul className="space-y-3.5">
-                                {comparison.chooseUs.map((item, i) => (
-                                    <li key={i} className="flex gap-3 text-sm text-gray-200 leading-relaxed">
-                                        <span aria-hidden="true" className="font-mono text-blue-300/70 flex-shrink-0 pt-px">→</span>
-                                        {item}
-                                    </li>
+                        </Fold>
+                        <Fold title="Where CoolDesk is different">
+                            {comparison.intro.slice(1).map((para, i) => (
+                                <p key={i} className="mb-4 max-w-3xl text-[15px] leading-relaxed text-white/65">{para}</p>
+                            ))}
+                            <div className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
+                                {comparison.differences.map((d) => (
+                                    <div key={d.title}>
+                                        <h3 className="text-base font-semibold">{d.title}</h3>
+                                        <p className="mt-1 text-[15px] leading-relaxed text-white/65">{d.desc}</p>
+                                    </div>
                                 ))}
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-
-                {/* ── 02 · Where CoolDesk is different ────────────── */}
-                <section className="mt-20">
-                    <p className="font-mono text-[11px] tracking-[0.25em] text-white/35 uppercase mb-3">02 · The difference</p>
-                    <h2 className="text-2xl md:text-3xl font-bold mb-8">Where CoolDesk pulls ahead</h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                        {comparison.differences.map((d, i) => (
-                            <div
-                                key={d.title}
-                                className="group relative rounded-xl border border-white/10 bg-white/[0.03] p-6 pt-5 transition-colors hover:border-blue-400/30 hover:bg-white/[0.05]"
-                            >
-                                <span
-                                    aria-hidden="true"
-                                    className="font-mono text-3xl font-bold text-white/[0.08] transition-colors group-hover:text-blue-400/25"
-                                >
-                                    {String(i + 1).padStart(2, "0")}
-                                </span>
-                                <h3 className="text-base font-bold mt-2 mb-2">{d.title}</h3>
-                                <p className="text-sm text-gray-400 leading-relaxed">{d.desc}</p>
                             </div>
-                        ))}
-                    </div>
-                </section>
-
-                {/* ── 03 · Scoreboard ─────────────────────────────── */}
-                <section className="mt-20">
-                    <p className="font-mono text-[11px] tracking-[0.25em] text-white/35 uppercase mb-3">03 · The scoreboard</p>
-                    <h2 className="text-2xl md:text-3xl font-bold mb-8">Side by side</h2>
-                    <div className="overflow-x-auto rounded-xl border border-white/10">
-                        <table className="w-full text-sm">
-                            <thead>
-                                <tr className="border-b border-white/10 text-left bg-white/[0.03]">
-                                    <th className="px-5 py-4 font-mono text-[11px] tracking-[0.2em] uppercase text-white/35 font-medium"></th>
-                                    <th className="px-5 py-4 font-bold text-white/50">{comparison.name}</th>
-                                    <th className="px-5 py-4 font-bold text-white border-l-2 border-l-blue-400/40 bg-blue-400/[0.06]">
-                                        CoolDesk
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {comparison.table.map((row) => (
-                                    <tr key={row.feature} className="border-b border-white/5 last:border-b-0 transition-colors hover:bg-white/[0.02]">
-                                        <td className="px-5 py-3.5 text-gray-500 whitespace-nowrap font-medium">{row.feature}</td>
-                                        <td className="px-5 py-3.5"><CellValue value={row.them} /></td>
-                                        <td className="px-5 py-3.5 border-l-2 border-l-blue-400/40 bg-blue-400/[0.06]">
-                                            <CellValue value={row.us} us />
-                                        </td>
-                                    </tr>
+                        </Fold>
+                        <Fold title="FAQ">
+                            <div className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
+                                {comparison.faq.map((item) => (
+                                    <div key={item.q}>
+                                        <h3 className="text-base font-semibold">{item.q}</h3>
+                                        <p className="mt-1 text-[15px] leading-relaxed text-white/65">{item.a}</p>
+                                    </div>
                                 ))}
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-
-                {/* ── 04 · Credit where it's due ──────────────────── */}
-                <section className="mt-20">
-                    <p className="font-mono text-[11px] tracking-[0.25em] text-white/35 uppercase mb-3">04 · Credit where it's due</p>
-                    <h2 className="text-2xl md:text-3xl font-bold mb-8">What {comparison.name} does brilliantly</h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3.5">
-                        {comparison.greatAt.map((item, i) => (
-                            <div key={i} className="flex gap-3 text-sm text-gray-400 leading-relaxed">
-                                <span aria-hidden="true" className="text-white/30 flex-shrink-0 pt-px">✓</span>
-                                {item}
                             </div>
-                        ))}
-                    </div>
-                    <p className="mt-6 text-sm text-gray-500 border-l-2 border-white/15 pl-4">
-                        No point pretending otherwise — if these are what you need, {comparison.name} is excellent at them.
-                    </p>
-                </section>
+                        </Fold>
+                    </section>
 
-                {/* ── 05 · FAQ ────────────────────────────────────── */}
-                <section className="mt-20">
-                    <p className="font-mono text-[11px] tracking-[0.25em] text-white/35 uppercase mb-3">05 · Common questions</p>
-                    <h2 className="text-2xl md:text-3xl font-bold mb-4">Still deciding?</h2>
-                    {comparison.faq.map((item) => (
-                        <div key={item.q} className="border-b border-white/10 py-6 last:border-b-0">
-                            <h3 className="text-base font-semibold mb-2">{item.q}</h3>
-                            <p className="text-sm text-gray-400 leading-relaxed max-w-2xl">{item.a}</p>
-                        </div>
-                    ))}
-                </section>
-
-                {/* ── More comparisons ────────────────────────────── */}
-                <section className="mt-20">
-                    <p className="font-mono text-[11px] tracking-[0.25em] text-white/35 uppercase mb-3">Keep comparing</p>
-                    <h2 className="text-2xl md:text-3xl font-bold mb-8">Other tools people compare</h2>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <p className="mt-8 text-[15px] text-white/55">
+                        Also compare:
                         {related.map((s) => (
-                            <Link
-                                key={s}
-                                to={`/vs/${s}`}
-                                className="group rounded-xl border border-white/10 bg-white/[0.03] px-5 py-4 text-sm font-semibold transition-colors hover:border-blue-400/30 hover:bg-white/[0.05]"
-                            >
-                                CoolDesk vs {comparisons[s].name}
-                                <span aria-hidden="true" className="ml-2 text-white/30 transition-colors group-hover:text-blue-300">→</span>
+                            <Link key={s} to={`/vs/${s}`} className="ml-2.5 text-white underline-offset-4 hover:underline">
+                                {comparisons[s].name}
                             </Link>
                         ))}
-                    </div>
-                    <Link to="/vs" className="mt-5 inline-block text-sm text-gray-500 hover:text-white transition-colors">
-                        See all comparisons →
-                    </Link>
-                </section>
-
-                {/* ── CTA ─────────────────────────────────────────── */}
-                <section className="mt-20 rounded-xl border border-white/10 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:32px_32px] p-10 text-center">
-                    <p className="font-mono text-[11px] tracking-[0.25em] text-white/35 uppercase mb-3">Round over</p>
-                    <h2 className="text-2xl md:text-3xl font-bold mb-3">Try it in two minutes</h2>
-                    <p className="text-sm text-gray-400 mb-7 max-w-md mx-auto leading-relaxed">
-                        CoolDesk is free, needs no sign-in, and runs alongside {comparison.name} — nothing to migrate, nothing to lose.
                     </p>
-                    <a
-                        href="/#downloads"
-                        className="inline-block rounded-full bg-white text-black font-semibold text-sm px-7 py-3 hover:bg-gray-200 transition-colors"
-                    >
-                        Get CoolDesk Free
-                    </a>
-                </section>
+                </div>
             </div>
 
             <Footer />
