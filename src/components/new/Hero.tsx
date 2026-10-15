@@ -51,10 +51,10 @@ function Hero() {
                         headings use on scroll. Pure CSS, so it runs on the
                         prerendered HTML without waiting for JS. */}
                     <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-[1.02] max-w-4xl">
-                        <RevealWords text="Don't open apps." />
+                        <RevealWords text="Give your work" />
                         <br />
                         <span className="text-white/55">
-                            <RevealWords text="Open spaces." offset={3} bright={['spaces.']} />
+                            <RevealWords text="some space." offset={3} bright={['space.']} />
                         </span>
                     </h1>
 

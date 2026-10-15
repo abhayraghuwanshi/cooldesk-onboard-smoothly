@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import './hero-backdrop.css';
 
 /**
- * Hero backdrop: "open spaces" taken literally. A spiral galaxy seen at an
+ * Hero backdrop: "some space" taken literally. A spiral galaxy seen at an
  * angle sits low like a horizon, with orbits in its plane, star fields at three
  * depths and nebulae in the corners. On wide screens four space cards float
  * either side of the headline, tabs flying in and settling into them.

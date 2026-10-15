@@ -1,6 +1,6 @@
 # CoolDesk
 
-> Don't open apps. Open spaces. Tabs, apps and files grouped into a space for each project. Free, open source, no sign-in.
+> Give your work some space. Tabs, apps and files grouped into a space for each project. Free, open source, no sign-in.
 
 CoolDesk is a free launcher for Windows, macOS and Linux, with a new-tab extension for Chrome, Edge and Brave. It keeps your browser tabs, desktop apps, files and notes in spaces, one for each project, and Alt+K jumps back into any of them.
 

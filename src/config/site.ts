@@ -72,8 +72,8 @@ const configs: Record<SiteId, SiteConfig> = {
     },
     hero: {
       badge: "Free & open source",
-      headlineLead: "Don't open apps.",
-      headlineAccent: "Open spaces.",
+      headlineLead: "Give your work",
+      headlineAccent: "some space.",
       sub: "CoolDesk is a free launcher for Windows, macOS and Linux, with a new-tab extension for Chrome, Edge and Brave. It keeps your browser tabs, desktop apps, files and notes in spaces, one for each project, and Alt+K jumps back into any of them.",
     },
     cta: {
