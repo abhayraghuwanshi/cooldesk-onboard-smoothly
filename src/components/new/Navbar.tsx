@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { GITHUB_REPO, site } from '@/config/site';
 import { trackEvent } from '@/lib/analytics';
 
@@ -18,6 +18,8 @@ function trackNavClick(label: string, href: string, source: 'desktop' | 'mobile'
 interface NavLink {
     href: string;
     label: string;
+    /** Other paths that count as this section, e.g. /vs and /blog under Resources. */
+    match?: string[];
 }
 
 const STARS_KEY = 'cd_github_stars';
@@ -111,20 +113,35 @@ export default function Navbar() {
     // Add Docs here once /docs ships.
     const links: NavLink[] = [
         { href: '/', label: 'Home' },
-        { href: '/resources', label: 'Resources' },
+        // The hub links out to these, so they read as part of Resources.
+        { href: '/resources', label: 'Resources', match: ['/vs', '/blog', '/releases', '/under-the-hood'] },
         { href: '/widgets', label: 'Widgets' },
     ];
 
-    const renderDesktopLink = (link: NavLink) => (
-        <Link
-            key={link.href}
-            to={link.href}
-            onClick={() => trackNavClick(link.label, link.href, 'desktop')}
-            className="text-txt-secondary hover:text-txt-primary transition-colors text-sm font-medium"
-        >
-            {link.label}
-        </Link>
-    );
+    const { pathname } = useLocation();
+    const isActive = (link: NavLink) =>
+        link.href === '/'
+            ? pathname === '/'
+            : [link.href, ...(link.match ?? [])].some((p) => pathname === p || pathname.startsWith(`${p}/`));
+
+    const renderDesktopLink = (link: NavLink) => {
+        const active = isActive(link);
+        return (
+            <Link
+                key={link.href}
+                to={link.href}
+                aria-current={active ? 'page' : undefined}
+                onClick={() => trackNavClick(link.label, link.href, 'desktop')}
+                className={`relative py-1 text-sm font-medium transition-colors ${active ? 'text-white' : 'text-txt-secondary hover:text-txt-primary'}`}
+            >
+                {link.label}
+                {/* The current section: a short glowing bar under the label */}
+                {active && (
+                    <span aria-hidden="true" className="absolute -bottom-1.5 left-1/2 h-0.5 w-5 -translate-x-1/2 rounded-full bg-sky-300 shadow-[0_0_8px_rgba(125,211,252,0.9)]" />
+                )}
+            </Link>
+        );
+    };
 
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-xl border-b border-white/10">
@@ -183,19 +200,24 @@ export default function Navbar() {
                 {/* Mobile Menu */}
                 {mobileMenuOpen && (
                     <div className="md:hidden mt-4 pb-4 space-y-3 border-t border-white/10 pt-4">
-                        {links.map((link) => (
-                            <Link
-                                key={link.href}
-                                to={link.href}
-                                onClick={() => {
-                                    trackNavClick(link.label, link.href, 'mobile');
-                                    setMobileMenuOpen(false);
-                                }}
-                                className="block text-txt-secondary hover:text-txt-primary transition-colors py-2"
-                            >
-                                {link.label}
-                            </Link>
-                        ))}
+                        {links.map((link) => {
+                            const active = isActive(link);
+                            return (
+                                <Link
+                                    key={link.href}
+                                    to={link.href}
+                                    aria-current={active ? 'page' : undefined}
+                                    onClick={() => {
+                                        trackNavClick(link.label, link.href, 'mobile');
+                                        setMobileMenuOpen(false);
+                                    }}
+                                    className={`flex items-center gap-2.5 py-2 transition-colors ${active ? 'text-white' : 'text-txt-secondary hover:text-txt-primary'}`}
+                                >
+                                    <span aria-hidden="true" className={`h-1.5 w-1.5 rounded-full ${active ? 'bg-sky-300' : 'bg-transparent'}`} />
+                                    {link.label}
+                                </Link>
+                            );
+                        })}
 
                         <a
                             href="/#downloads"
