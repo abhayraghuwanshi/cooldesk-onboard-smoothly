@@ -73,10 +73,14 @@ export default function Footer() {
             </p>
             <ul className="space-y-2.5">
               {[
+                { label: 'All resources', href: '/resources' },
+                { label: 'Blog', href: '/blog' },
+                { label: 'Release Notes', href: '/releases' },
+                { label: 'Under the Hood', href: '/under-the-hood' },
+                { label: 'Founder Story', href: '/founder' },
+                { label: 'Contact Us', href: '/contact' },
                 { label: 'Privacy Policy', href: '/privacy-details' },
                 { label: 'Terms of Service', href: '/terms' },
-                { label: 'Contact Us', href: '/contact' },
-                { label: 'Blog', href: '/blog' },
               ].map((link) => (
                 <li key={link.href}>
                   <a

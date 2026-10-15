@@ -12,6 +12,7 @@ import ReleasesPage from "./pages/Releases";
 import TermsPage from "./pages/terms";
 import UninstallPage from "./pages/Uninstall";
 import ComparePage from "./pages/Compare";
+import ResourcesPage from "./pages/Resources";
 import VersusPage from "./pages/Versus";
 import WidgetStorePage from "./pages/WidgetStore";
 import UnderTheHoodPage from "./pages/UnderTheHood";
@@ -32,8 +33,7 @@ export default function AppRoutes() {
             {/* How to Use now lives on the homepage (#how-to-use) */}
             <Route path="/how-to-use" element={<Navigate to="/#how-to-use" replace />} />
             <Route path="/pricing" element={<PricingPage />} />
-            {/* /resources retired — links now live in the navbar Resources dropdown */}
-            <Route path="/resources" element={<Navigate to="/#how-to-use" replace />} />
+            <Route path="/resources" element={<ResourcesPage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route
                 path="/blog/:slug"

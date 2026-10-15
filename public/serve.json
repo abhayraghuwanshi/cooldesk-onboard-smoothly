@@ -8,11 +8,6 @@
       "type": 301
     },
     {
-      "source": "/resources",
-      "destination": "/#how-to-use",
-      "type": 301
-    },
-    {
       "source": "/blog/the-untapped-power-of-new-tab",
       "destination": "/blog/best-new-tab-extensions",
       "type": 301
