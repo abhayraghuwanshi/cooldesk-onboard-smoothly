@@ -202,12 +202,8 @@ export default function ResourcesPage() {
                             </section>
 
                             <section aria-labelledby="rs-vs" className="mt-14">
-                                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                                    <h2 id="rs-vs" className="text-[22px] font-semibold">Coming from another tool?</h2>
-                                    <Link to="/vs" className="text-sm text-orange-300 hover:text-orange-200">
-                                        All {VS.length} comparisons →
-                                    </Link>
-                                </div>
+                                {/* Every comparison is a chip below, so no "see all" link */}
+                                <h2 id="rs-vs" className="text-[22px] font-semibold">Coming from another tool?</h2>
                                 <div className="mt-4 flex flex-wrap gap-2">
                                     {VS.map((c) => (
                                         <Link key={c.to} to={c.to} className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-white/10 py-1 pl-2 pr-4 text-[15px] font-medium transition-colors hover:bg-white/[0.04]">
