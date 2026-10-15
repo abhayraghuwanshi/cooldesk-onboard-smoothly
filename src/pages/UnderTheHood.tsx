@@ -17,6 +17,7 @@ import SEO from '@/components/SEO';
 import { GITHUB_REPO } from '@/config/site';
 import { ArrowUpRight } from 'lucide-react';
 import { useEffect, useState, type ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 
 /**
  * /under-the-hood — how CoolDesk works, for the curious, as a set of small
@@ -204,9 +205,12 @@ export default function UnderTheHoodPage() {
             />
             <Navbar />
 
-            <div className="container mx-auto max-w-6xl px-6 pt-32 pb-24 md:pt-40">
+            <div className="container mx-auto max-w-6xl px-6 pt-28 pb-24 md:pt-32">
                 <div className="max-w-4xl">
-                    <p className="font-mono text-xs uppercase tracking-[0.18em] text-white/40">For the curious</p>
+                    <Link to="/resources" className="inline-flex min-h-11 items-center text-sm text-white/60 transition-colors hover:text-white">
+                        ← Back to resources
+                    </Link>
+                    <p className="mt-4 font-mono text-xs uppercase tracking-[0.18em] text-white/40">For the curious</p>
                     <h1 className="mt-3 font-display text-5xl md:text-7xl font-bold tracking-tight">Under the hood</h1>
                     <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/60">
                         Don’t read about how CoolDesk works. Poke it. Every toy below runs the app’s real rules with its real numbers.
