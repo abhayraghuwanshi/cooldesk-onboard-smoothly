@@ -106,10 +106,11 @@ export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const stars = useGithubStars();
 
-    // Kept to two on purpose: /resources is the front door for getting
+    // Kept short on purpose: /resources is the front door for getting
     // started, comparisons and the blog; everything else is in the footer.
     // Add Docs here once /docs ships.
     const links: NavLink[] = [
+        { href: '/', label: 'Home' },
         { href: '/resources', label: 'Resources' },
         { href: '/widgets', label: 'Widgets' },
     ];
