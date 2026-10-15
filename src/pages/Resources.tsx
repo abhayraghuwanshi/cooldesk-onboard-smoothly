@@ -71,7 +71,10 @@ const DOORS = [
         title: "Read the guides",
         line: "How-tos and roundups for working in spaces.",
         cta: "Browse posts",
-        to: "/blog",
+        // The blog list lives on this page; open it in full and scroll there.
+        to: "#rs-blog",
+        anchor: true,
+        expand: true,
         accent: "#7dd3fc",
         glow: "rgba(56,189,248,0.32)",
         border: "border-sky-300/30",
@@ -93,9 +96,9 @@ const initials = (name: string) =>
         .toUpperCase();
 
 /** A link that's a plain anchor for homepage sections, a router Link otherwise. */
-function Go({ to, anchor, className, children }: { to: string; anchor?: boolean; className?: string; children: React.ReactNode }) {
+function Go({ to, anchor, className, onClick, children }: { to: string; anchor?: boolean; className?: string; onClick?: () => void; children: React.ReactNode }) {
     return anchor ? (
-        <a href={to} className={className}>
+        <a href={to} className={className} onClick={onClick}>
             {children}
         </a>
     ) : (
@@ -172,6 +175,7 @@ export default function ResourcesPage() {
                                         key={d.title}
                                         to={d.to}
                                         anchor={d.anchor}
+                                        onClick={"expand" in d ? () => setAllPosts(true) : undefined}
                                         className={`group relative flex min-h-[250px] flex-col gap-3 overflow-hidden rounded-[22px] border ${d.border} bg-[#0b0b14] p-7 transition-transform hover:-translate-y-1`}
                                     >
                                         <span aria-hidden="true" className="absolute -right-16 -top-16 h-60 w-60 rounded-full" style={{ background: `radial-gradient(closest-side, ${d.glow}, transparent)` }} />
@@ -216,9 +220,9 @@ export default function ResourcesPage() {
                                 </div>
                             </section>
 
-                            <section aria-labelledby="rs-blog" className="mt-14">
+                            <section id="rs-blog" aria-labelledby="rs-blog-h" className="mt-14 scroll-mt-28">
                                 <div className="flex flex-wrap items-baseline justify-between gap-2">
-                                    <h2 id="rs-blog" className="text-[22px] font-semibold">{allPosts ? "From the blog" : "Latest from the blog"}</h2>
+                                    <h2 id="rs-blog-h" className="text-[22px] font-semibold">{allPosts ? "From the blog" : "Latest from the blog"}</h2>
                                     {POSTS.length > 3 && (
                                         <button
                                             type="button"

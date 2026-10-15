@@ -69,37 +69,42 @@
     },
     {
       "source": "/blog/voice-navigation-hands-free-browsing",
-      "destination": "/blog",
+      "destination": "/resources",
       "type": 301
     },
     {
       "source": "/blog/browser-as-agentic-os-ai-integration",
-      "destination": "/blog",
+      "destination": "/resources",
       "type": 301
     },
     {
       "source": "/blog/chat-link-lifecycle",
-      "destination": "/blog",
+      "destination": "/resources",
       "type": 301
     },
     {
       "source": "/blog/productivity-tool-failure",
-      "destination": "/blog",
+      "destination": "/resources",
       "type": 301
     },
     {
       "source": "/blog/no-habit-change-productivity",
-      "destination": "/blog",
+      "destination": "/resources",
       "type": 301
     },
     {
       "source": "/blog/llm-ai-productivity",
-      "destination": "/blog",
+      "destination": "/resources",
       "type": 301
     },
     {
       "source": "/blog/p2p-collaboration-technical-deep-dive",
-      "destination": "/blog",
+      "destination": "/resources",
+      "type": 301
+    },
+    {
+      "source": "/blog",
+      "destination": "/resources",
       "type": 301
     },
     {
@@ -120,10 +125,6 @@
     },
     {
       "source": "/pricing",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/blog",
       "destination": "/index.html"
     },
     {

@@ -133,8 +133,8 @@ export default function BlogPostPage() {
                 <Navbar />
                 <div className="text-center">
                     <h1 className="text-4xl font-bold mb-4">Blog Post Not Found</h1>
-                    <Link to="/blog" className="text-blue-400 hover:text-blue-300">
-                        ← Back to Blog
+                    <Link to="/resources" className="text-blue-400 hover:text-blue-300">
+                        ← Back to resources
                     </Link>
                 </div>
             </main>
@@ -193,7 +193,7 @@ export default function BlogPostPage() {
                         <nav aria-label="Breadcrumb" className="text-[13px] text-white/50">
                             <Link to="/resources" className="text-white/60 transition-colors hover:text-white">Resources</Link>
                             {' / '}
-                            <Link to="/blog" className="text-white/60 transition-colors hover:text-white">Blog</Link>
+                            <a href="/resources#rs-blog" className="text-white/60 transition-colors hover:text-white">Blog</a>
                             {' / '}
                             <span className="text-sky-300">{getCategoryLabel(post.category)}</span>
                         </nav>

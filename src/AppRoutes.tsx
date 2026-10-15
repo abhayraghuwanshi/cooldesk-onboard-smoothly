@@ -1,7 +1,6 @@
 import { Suspense, lazy } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import PrivacyPolicyStatic from "./components/privacy/PrivacyPolicyStatic";
-import BlogPage from "./pages/Blog";
 import Contact from "./pages/Contact";
 import FounderPage from "./pages/Founder";
 import GalleryPage from "./pages/Gallery";
@@ -34,7 +33,6 @@ export default function AppRoutes() {
             <Route path="/how-to-use" element={<Navigate to="/#how-to-use" replace />} />
             <Route path="/pricing" element={<PricingPage />} />
             <Route path="/resources" element={<ResourcesPage />} />
-            <Route path="/blog" element={<BlogPage />} />
             <Route
                 path="/blog/:slug"
                 element={
@@ -44,6 +42,7 @@ export default function AppRoutes() {
                 }
             />
             {/* The tool library is hidden for now (src/pages/Library.tsx is kept). */}
+            <Route path="/blog" element={<Navigate to="/resources" replace />} />
             <Route path="/library" element={<Navigate to="/" replace />} />
             <Route path="/search" element={<Navigate to="/" replace />} />
             <Route path="/founder" element={<FounderPage />} />

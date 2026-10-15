@@ -40,7 +40,7 @@ export const resources: Resource[] = [
         id: 'blog',
         title: 'Blog',
         description: 'Tips, guides, and insights for maximizing productivity',
-        url: '/blog',
+        url: '/resources#rs-blog',
         category: 'docs',
         icon: <PenLine className="w-6 h-6" />
     },
