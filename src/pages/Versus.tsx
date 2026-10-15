@@ -3,7 +3,7 @@ import Navbar from "@/components/new/Navbar";
 import SectionBackdrop from "@/components/new/SectionBackdrop";
 import SEO from "@/components/SEO";
 import { relatedComparisons } from "@/config/comparisonGroups";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import NotFound from "./NotFound";
 
 interface ComparisonRow {
@@ -900,8 +900,6 @@ function Fold({ title, children }: { title: string; children: React.ReactNode })
  */
 export default function VersusPage() {
     const { slug } = useParams<{ slug: string }>();
-    // Comparison cards also sit in the blog list; send those readers back there.
-    const fromBlog = (useLocation().state as { from?: string } | null)?.from === "blog";
     const comparison = slug ? comparisons[slug] : undefined;
 
     if (!comparison) {
@@ -946,8 +944,8 @@ export default function VersusPage() {
                 <div className="container mx-auto max-w-5xl px-6 pt-28 pb-24">
                     {/* Back, then the two names */}
                     <section className="flex flex-col items-start gap-5 pb-8">
-                        <Link to={fromBlog ? "/blog" : "/resources"} className="inline-flex min-h-11 items-center text-sm text-white/60 transition-colors hover:text-white">
-                            ← Back to {fromBlog ? "blog" : "resources"}
+                        <Link to="/resources" className="inline-flex min-h-11 items-center text-sm text-white/60 transition-colors hover:text-white">
+                            ← Back to resources
                         </Link>
                         <h1 className="flex flex-wrap items-center gap-3.5 text-2xl font-bold leading-none tracking-tight">
                             <span className="inline-flex items-center gap-3">
