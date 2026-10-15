@@ -79,11 +79,11 @@ export default function BlogPostPage() {
             <article className="container mx-auto px-6 pt-32 pb-24 max-w-3xl">
                 {/* Back Link */}
                 <Link
-                    to="/blog"
+                    to="/resources"
                     className="inline-flex items-center gap-2 text-txt-muted hover:text-white mb-12 transition-colors group text-sm font-medium"
                 >
                     <LucideIcons.ArrowLeft className="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" />
-                    Back to Blog
+                    Back to resources
                 </Link>
 
                 {/* Article Header */}
