@@ -107,6 +107,7 @@ function Go({ to, anchor, className, children }: { to: string; anchor?: boolean;
 
 export default function ResourcesPage() {
     const [query, setQuery] = useState("");
+    const [allPosts, setAllPosts] = useState(false);
     const results = useMemo(() => {
         const q = query.trim().toLowerCase();
         if (!q) return [];
@@ -221,19 +222,27 @@ export default function ResourcesPage() {
 
                             <section aria-labelledby="rs-blog" className="mt-14">
                                 <div className="flex flex-wrap items-baseline justify-between gap-2">
-                                    <h2 id="rs-blog" className="text-[22px] font-semibold">Latest from the blog</h2>
-                                    <Link to="/blog" className="text-sm text-sky-300 hover:text-sky-200">
-                                        All posts →
-                                    </Link>
+                                    <h2 id="rs-blog" className="text-[22px] font-semibold">{allPosts ? "From the blog" : "Latest from the blog"}</h2>
+                                    {POSTS.length > 3 && (
+                                        <button
+                                            type="button"
+                                            onClick={() => setAllPosts(!allPosts)}
+                                            aria-expanded={allPosts}
+                                            aria-controls="rs-blog-list"
+                                            className="text-sm text-sky-300 hover:text-sky-200"
+                                        >
+                                            {allPosts ? "Show less" : `See all ${POSTS.length} posts`}
+                                        </button>
+                                    )}
                                 </div>
-                                <ul className="mt-4 overflow-hidden rounded-2xl border border-white/10">
-                                    {POSTS.slice(0, 3).map((p) => (
+                                <ul id="rs-blog-list" className="mt-4 overflow-hidden rounded-2xl border border-white/10">
+                                    {(allPosts ? POSTS : POSTS.slice(0, 3)).map((p) => (
                                         <li key={p.slug} className="border-b border-white/[0.07] last:border-0">
                                             <Link to={p.href ?? `/blog/${p.slug}`} className="flex flex-wrap items-center gap-x-4 gap-y-1.5 px-5 py-4 transition-colors hover:bg-white/[0.04]">
                                                 <span className="shrink-0 rounded-md border border-sky-300/35 px-2 py-0.5 font-mono text-[11px] text-sky-300">{getCategoryLabel(p.category)}</span>
                                                 <span className="min-w-0 flex-1 text-base font-semibold">{p.title}</span>
                                                 <span className="shrink-0 font-mono text-xs text-white/45">
-                                                    {new Date(p.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                                                    {new Date(p.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: allPosts ? "numeric" : undefined })}
                                                 </span>
                                             </Link>
                                         </li>
