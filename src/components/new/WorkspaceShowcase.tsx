@@ -196,10 +196,10 @@ export default function WorkspaceShowcase() {
                 {/* Section header: title, then the tabs that drive everything below */}
                 <div className="flex flex-col items-center text-center">
                     <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight leading-[1.05]">
-                        A space for all your work
+                        What’s in a space
                     </h2>
                     <p className="mt-4 max-w-2xl text-white/55 text-base md:text-lg">
-                        The tabs, apps, files and notes for everything you work on, together and one click away.
+                        The tabs, apps, files and notes for one thing you work on, one click away.
                     </p>
 
                     {/* Space | Notes | Files; the active one fills as the tour goes */}
