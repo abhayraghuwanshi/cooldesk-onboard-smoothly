@@ -49,7 +49,7 @@ const DOORS = [
     {
         eyebrow: "Get started",
         title: "Set it up",
-        line: "Five steps, from install to your first space.",
+        line: "Six steps, from install to your first space.",
         cta: "Start the guide",
         to: "/getting-started",
         accent: "#a5b4fc",

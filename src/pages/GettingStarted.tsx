@@ -4,16 +4,18 @@ import SectionBackdrop from "@/components/new/SectionBackdrop";
 import SEO from "@/components/SEO";
 import { BREW_COMMAND, QUARANTINE_COMMAND, WINGET_COMMAND } from "@/config/install";
 import { CHROME_STORE, GITHUB_REPO, REDDIT_URL } from "@/config/site";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 /**
- * /getting-started: the one setup page. Five steps from install to habit,
+ * /getting-started: the one setup page. Six steps from install to habit,
  * then shortcuts and fixes. Kept to what the app does today; check against
  * the app when a shortcut or setting moves:
  *   Alt+K           src-tauri/src/lib.rs (default, changeable in Settings)
  *   Ctrl/⌘+Shift+D  src/faces/shell/CoolDeskContainer.jsx (layouts, desktop app)
  *   Ctrl+1/2/3      src/faces/shell/WorkspaceShell.jsx (Collections, Tabs, Spaces)
+ *   Desktop Sync    extension Settings → General → Sync (on by default, port 4545;
+ *                   src/features/settings/SettingsModal.jsx, services/syncConfig.js)
  *   local AI        Settings → Local AI (Qwen2.5 7B, 4.7 GB)
  */
 
@@ -60,6 +62,8 @@ function Step({ n, id, title, children }: { n: number; id: string; title: string
     );
 }
 
+const link = "text-sky-300 underline decoration-sky-300/30 underline-offset-4 transition-colors hover:text-sky-200";
+
 const SHORTCUTS: [React.ReactNode, string][] = [
     [<Kbd key="k">Alt+K</Kbd>, "Open Spotlight from anywhere (change it in Settings)"],
     [<><Kbd>Ctrl+Shift+D</Kbd> <span className="text-white/45">/</span> <Kbd>⌘+Shift+D</Kbd></>, "Switch layout: full window, side dock, bottom bar"],
@@ -83,7 +87,7 @@ const FIXES = [
     },
     {
         q: "Spotlight doesn’t show my browser tabs",
-        a: <p>Make sure the desktop app is running and the extension is enabled in your browser; they connect on their own. If tabs still don’t show up, restart the browser.</p>,
+        a: <p>Make sure the desktop app is running, then check <a href="#sync" className={link}>Desktop Sync</a> in the extension’s Settings: it should be on and the status should say “App connected”. If it says the app wasn’t found, press Retry, or restart the browser.</p>,
     },
     {
         q: "Alt+K does nothing",
@@ -99,17 +103,74 @@ const FIXES = [
     },
 ];
 
-const link = "text-sky-300 underline decoration-sky-300/30 underline-offset-4 transition-colors hover:text-sky-200";
+const INDEX: { id: string; label: string; step?: number }[] = [
+    { id: "install", label: "Install the app", step: 1 },
+    { id: "extension", label: "Add the extension", step: 2 },
+    { id: "sync", label: "Turn on Desktop Sync", step: 3 },
+    { id: "space", label: "Your first space", step: 4 },
+    { id: "spotlight", label: "Find anything", step: 5 },
+    { id: "layouts", label: "Pick a layout", step: 6 },
+    { id: "shortcuts", label: "Shortcuts" },
+    { id: "ai", label: "AI (optional)" },
+    { id: "fixes", label: "If something’s off" },
+];
+
+/** The section nearest the top of the screen, for the side index. */
+function useActiveSection(ids: string[]) {
+    const [active, setActive] = useState(ids[0]);
+    useEffect(() => {
+        const els = ids.map((id) => document.getElementById(id)).filter((el): el is HTMLElement => !!el);
+        const io = new IntersectionObserver(
+            (entries) => {
+                const hit = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+                if (hit) setActive(hit.target.id);
+            },
+            { rootMargin: "-20% 0px -70% 0px" },
+        );
+        els.forEach((el) => io.observe(el));
+        return () => io.disconnect();
+    }, [ids]);
+    return active;
+}
+
+const INDEX_IDS = INDEX.map((i) => i.id);
+
+function SideIndex() {
+    const active = useActiveSection(INDEX_IDS);
+    return (
+        <nav aria-label="On this page" className="sticky top-28 hidden self-start lg:block">
+            <p className="mb-3 text-sm font-medium text-white/45">On this page</p>
+            <ul className="space-y-0.5 border-l border-white/10">
+                {INDEX.map((i) => {
+                    const on = i.id === active;
+                    return (
+                        <li key={i.id}>
+                            <a
+                                href={`#${i.id}`}
+                                aria-current={on ? "location" : undefined}
+                                className={`-ml-px flex min-h-9 items-center gap-2.5 border-l-2 py-1 pl-4 text-[14px] transition-colors ${on ? "border-indigo-300 text-white" : "border-transparent text-white/55 hover:text-white"}`}
+                            >
+                                {i.step && <span className={`font-mono text-[11.5px] ${on ? "text-indigo-300" : "text-white/35"}`}>{String(i.step).padStart(2, "0")}</span>}
+                                {i.label}
+                            </a>
+                        </li>
+                    );
+                })}
+            </ul>
+        </nav>
+    );
+}
 
 export default function GettingStartedPage() {
     const howTo = {
         "@context": "https://schema.org",
         "@type": "HowTo",
         name: "Get started with CoolDesk",
-        description: "Install CoolDesk, add the browser extension, make your first space and learn the two shortcuts.",
+        description: "Install CoolDesk, add the browser extension, turn on Desktop Sync, make your first space and learn the two shortcuts.",
         step: [
             { "@type": "HowToStep", name: "Install the desktop app", url: `${canonical}#install` },
             { "@type": "HowToStep", name: "Add the browser extension", url: `${canonical}#extension` },
+            { "@type": "HowToStep", name: "Turn on Desktop Sync", url: `${canonical}#sync` },
             { "@type": "HowToStep", name: "Make your first space", url: `${canonical}#space` },
             { "@type": "HowToStep", name: "Find anything with Alt+K", url: `${canonical}#spotlight` },
             { "@type": "HowToStep", name: "Pick a layout", url: `${canonical}#layouts` },
@@ -120,7 +181,7 @@ export default function GettingStartedPage() {
         <main className="min-h-screen text-white">
             <SEO
                 title="Getting Started with CoolDesk — Install, Spaces and Shortcuts"
-                description="Set up CoolDesk in five steps: install the app on Windows, macOS or Linux, add the browser extension, make your first space, and learn Alt+K and Ctrl+Shift+D."
+                description="Set up CoolDesk in six steps: install the app on Windows, macOS or Linux, add the browser extension, turn on Desktop Sync, make your first space, and learn Alt+K and Ctrl+Shift+D."
                 canonical={canonical}
                 jsonLd={howTo}
             />
@@ -129,27 +190,22 @@ export default function GettingStartedPage() {
             <div className="relative isolate">
                 <SectionBackdrop variant="dust" />
 
-                <div className="container mx-auto max-w-4xl px-6 pt-28 pb-24">
+                <div className="container mx-auto max-w-6xl px-6 pt-28 pb-24 lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-14">
+                    <SideIndex />
+                    <div className="min-w-0 max-w-3xl">
                     <header className="pb-10">
                         <Link to="/resources" className="inline-flex min-h-11 items-center text-sm text-white/60 transition-colors hover:text-white">
                             ← Back to resources
                         </Link>
                         <h1 className="mt-4 text-4xl font-bold tracking-tight md:text-6xl">Getting started</h1>
                         <p className="mt-4 max-w-2xl text-lg leading-relaxed text-white/65">
-                            Five steps, from install to habit. CoolDesk is free and needs no account.
+                            Six steps, from install to habit. CoolDesk is free and needs no account.
                         </p>
-                        <nav aria-label="Steps" className="mt-7 flex flex-wrap gap-2">
-                            {[
-                                ["install", "Install"],
-                                ["extension", "Extension"],
-                                ["space", "First space"],
-                                ["spotlight", "Alt+K"],
-                                ["layouts", "Layouts"],
-                                ["shortcuts", "Shortcuts"],
-                                ["fixes", "Fixes"],
-                            ].map(([id, label]) => (
-                                <a key={id} href={`#${id}`} className="inline-flex min-h-9 items-center rounded-full border border-white/[0.12] px-3.5 text-[13.5px] font-medium text-white/80 transition-colors hover:text-white">
-                                    {label}
+                        {/* Phones: the side index becomes a row of links */}
+                        <nav aria-label="On this page" className="mt-6 flex flex-wrap gap-2 lg:hidden">
+                            {INDEX.map((i) => (
+                                <a key={i.id} href={`#${i.id}`} className="inline-flex min-h-9 items-center rounded-full border border-white/[0.12] px-3.5 text-[13.5px] font-medium text-white/80">
+                                    {i.label}
                                 </a>
                             ))}
                         </nav>
@@ -180,11 +236,24 @@ export default function GettingStartedPage() {
                         <p>
                             Get it from the <a href={CHROME_STORE} target="_blank" rel="noopener noreferrer" className={link}>Chrome Web Store</a>. It works in Chrome, Edge, Brave and other Chromium browsers.
                         </p>
-                        <p>Your new tab becomes a dashboard, and the desktop app can now see your open tabs, history and bookmarks. The two connect on their own; there’s nothing to sign in to.</p>
+                        <p>Your new tab becomes a dashboard, and the desktop app can now see your open tabs, history and bookmarks. There’s nothing to sign in to.</p>
                         <p className="text-[15px] text-white/60">Only want the new tab? The extension works on its own. Spotlight, spaces and layouts need the desktop app.</p>
                     </Step>
 
-                    <Step n={3} id="space" title="Make your first space">
+                    <Step n={3} id="sync" title="Turn on Desktop Sync">
+                        <p>Desktop Sync connects the extension to the desktop app, so Spotlight can find your tabs and your spaces stay the same in both. It’s on by default; here’s how to check:</p>
+                        <ol className="list-decimal space-y-2 pl-6 marker:text-white/45">
+                            <li>Open a new tab and click the gear icon (<strong className="text-white">Settings</strong>).</li>
+                            <li>In <strong className="text-white">General</strong>, scroll to <strong className="text-white">Sync</strong>.</li>
+                            <li>Switch on <strong className="text-white">Desktop Sync</strong>.</li>
+                            <li>Check <strong className="text-white">Status</strong> shows a green dot and “App connected”. Press <strong className="text-white">Sync Now</strong> to sync straight away.</li>
+                        </ol>
+                        <p className="text-[15px] text-white/60">
+                            Status says “App not found — is it running?” Start the desktop app, then press <strong className="text-white/80">Retry</strong>. Sync runs on your own computer (localhost, port 4545); nothing goes to a server.
+                        </p>
+                    </Step>
+
+                    <Step n={4} id="space" title="Make your first space">
                         <p>A space holds everything for one thing you work on: tabs, links, apps, folders, files and notes. Name it after the work, like “Acme redesign” or “Thesis”.</p>
                         <ul className="list-disc space-y-2 pl-6 marker:text-white/35">
                             <li>Create one from the Spaces view (<Kbd>Ctrl+3</Kbd>).</li>
@@ -195,14 +264,14 @@ export default function GettingStartedPage() {
                         <p>Then close tabs freely. They’re saved in the space, one click away.</p>
                     </Step>
 
-                    <Step n={4} id="spotlight" title="Find anything with Alt+K">
+                    <Step n={5} id="spotlight" title="Find anything with Alt+K">
                         <p>
                             Press <Kbd>Alt+K</Kbd> from anywhere and type a word. Spotlight searches your open tabs, spaces, history, bookmarks, apps, files and notes together, and jumps to a tab that’s already open instead of opening a copy.
                         </p>
                         <p className="text-[15px] text-white/60">Alt+K taken by another app? Change it in Settings.</p>
                     </Step>
 
-                    <Step n={5} id="layouts" title="Pick a layout">
+                    <Step n={6} id="layouts" title="Pick a layout">
                         <p>
                             Press <Kbd>Ctrl+Shift+D</Kbd> (<Kbd>⌘+Shift+D</Kbd> on Mac) to cycle through three layouts:
                         </p>
@@ -226,7 +295,7 @@ export default function GettingStartedPage() {
                         </dl>
                     </section>
 
-                    <section aria-labelledby="ai-h" className="border-t border-white/10 py-10">
+                    <section id="ai" aria-labelledby="ai-h" className="scroll-mt-28 border-t border-white/10 py-10">
                         <h2 id="ai-h" className="text-2xl font-bold tracking-tight">Optional: AI</h2>
                         <div className="mt-4 space-y-3 text-[16.5px] leading-[1.7] text-white/75">
                             <p>AI is optional, and CoolDesk works fully without it. When you want it:</p>
@@ -271,6 +340,7 @@ export default function GettingStartedPage() {
                             </Link>
                         </div>
                     </section>
+                    </div>
                 </div>
             </div>
 
