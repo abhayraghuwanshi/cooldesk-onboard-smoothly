@@ -56,7 +56,7 @@ const PICK = /^- \*\*["“](.+?)["”]\*\*\s*→\s*(.+)$/;
 /** "CoolDesk (that's us)" → "CoolDesk"; keeps the heading otherwise. */
 const cleanName = (h: string) => h.replace(/\s*\((?:that['’]s us|the classics|built in|Microsoft)\)\s*$/i, '').trim();
 const firstWord = (s: string) => s.toLowerCase().replace(/[^a-z0-9 ]/g, ' ').trim().split(/\s+/)[0] ?? '';
-const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+export const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 /** "making a dock yours" → "Making a dock yours", once the label is gone. */
 const cap = (s: string) => s.replace(/^([*_]*)(\p{Ll})/u, (_, m, c) => m + c.toUpperCase());
 const stripLinks = (s: string) => s.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');

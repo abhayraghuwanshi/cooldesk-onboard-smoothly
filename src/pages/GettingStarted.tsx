@@ -1,10 +1,11 @@
 import Footer from "@/components/new/Footer";
 import Navbar from "@/components/new/Navbar";
+import PageIndex, { type IndexItem } from "@/components/new/PageIndex";
 import SectionBackdrop from "@/components/new/SectionBackdrop";
 import SEO from "@/components/SEO";
 import { BREW_COMMAND, QUARANTINE_COMMAND, WINGET_COMMAND } from "@/config/install";
 import { CHROME_STORE, GITHUB_REPO, REDDIT_URL } from "@/config/site";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 /**
@@ -103,7 +104,7 @@ const FIXES = [
     },
 ];
 
-const INDEX: { id: string; label: string; step?: number }[] = [
+const INDEX: IndexItem[] = [
     { id: "install", label: "Install the app", step: 1 },
     { id: "extension", label: "Add the extension", step: 2 },
     { id: "sync", label: "Turn on Desktop Sync", step: 3 },
@@ -114,52 +115,6 @@ const INDEX: { id: string; label: string; step?: number }[] = [
     { id: "ai", label: "AI (optional)" },
     { id: "fixes", label: "If something’s off" },
 ];
-
-/** The section nearest the top of the screen, for the side index. */
-function useActiveSection(ids: string[]) {
-    const [active, setActive] = useState(ids[0]);
-    useEffect(() => {
-        const els = ids.map((id) => document.getElementById(id)).filter((el): el is HTMLElement => !!el);
-        const io = new IntersectionObserver(
-            (entries) => {
-                const hit = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
-                if (hit) setActive(hit.target.id);
-            },
-            { rootMargin: "-20% 0px -70% 0px" },
-        );
-        els.forEach((el) => io.observe(el));
-        return () => io.disconnect();
-    }, [ids]);
-    return active;
-}
-
-const INDEX_IDS = INDEX.map((i) => i.id);
-
-function SideIndex() {
-    const active = useActiveSection(INDEX_IDS);
-    return (
-        <nav aria-label="On this page" className="sticky top-28 hidden self-start lg:block">
-            <p className="mb-3 text-sm font-medium text-white/45">On this page</p>
-            <ul className="space-y-0.5 border-l border-white/10">
-                {INDEX.map((i) => {
-                    const on = i.id === active;
-                    return (
-                        <li key={i.id}>
-                            <a
-                                href={`#${i.id}`}
-                                aria-current={on ? "location" : undefined}
-                                className={`-ml-px flex min-h-9 items-center gap-2.5 border-l-2 py-1 pl-4 text-[14px] transition-colors ${on ? "border-indigo-300 text-white" : "border-transparent text-white/55 hover:text-white"}`}
-                            >
-                                {i.step && <span className={`font-mono text-[11.5px] ${on ? "text-indigo-300" : "text-white/35"}`}>{String(i.step).padStart(2, "0")}</span>}
-                                {i.label}
-                            </a>
-                        </li>
-                    );
-                })}
-            </ul>
-        </nav>
-    );
-}
 
 export default function GettingStartedPage() {
     const howTo = {
@@ -191,7 +146,7 @@ export default function GettingStartedPage() {
                 <SectionBackdrop variant="dust" />
 
                 <div className="container mx-auto max-w-6xl px-6 pt-28 pb-24 lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-14">
-                    <SideIndex />
+                    <PageIndex items={INDEX} />
                     <div className="min-w-0 max-w-3xl">
                     <header className="pb-10">
                         <Link to="/resources" className="inline-flex min-h-11 items-center text-sm text-white/60 transition-colors hover:text-white">

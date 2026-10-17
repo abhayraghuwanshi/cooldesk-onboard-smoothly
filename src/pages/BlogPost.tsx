@@ -3,10 +3,11 @@ import { Link, useParams } from 'react-router-dom';
 import remarkGfm from 'remark-gfm';
 import Footer from '../components/new/Footer';
 import Navbar from '../components/new/Navbar';
+import PageIndex, { type IndexItem } from '../components/new/PageIndex';
 import SectionBackdrop from '../components/new/SectionBackdrop';
 import SEO from '../components/SEO';
 import { blogPosts, getBlogPostBySlug, getCategoryLabel } from '../config/blogs';
-import { parsePost, type Tool } from '../lib/parsePost';
+import { parsePost, slugify, type Tool } from '../lib/parsePost';
 import { comparisons } from './Versus';
 
 /**
@@ -148,6 +149,20 @@ export default function BlogPostPage() {
     const picked = p.picks.filter((k) => k.toolId);
     const unpicked = p.picks.filter((k) => !k.toolId);
 
+    // The side index: the answer, then each section and tool in order, then the FAQ.
+    const groupId = (title: string) => `s-${slugify(title)}`;
+    const index: IndexItem[] = [
+        ...(picked.length ? [{ id: 'bp-pick', label: 'The short version' }] : []),
+        ...p.blocks.flatMap((b): IndexItem[] =>
+            b.kind === 'tool'
+                ? [{ id: b.tool.id, label: b.tool.name, nested: b.tool.level === 3 }]
+                : b.kind === 'group'
+                  ? [{ id: groupId(b.title), label: b.title.replace(/[:?].*$/, '') }]
+                  : [],
+        ),
+        ...(p.faq.length ? [{ id: 'bp-faq', label: 'FAQ' }] : []),
+    ];
+
     // Keep reading: the comparisons this post links to, then other posts.
     const vsLinks = [...new Set([...post.content.matchAll(/\]\(\/vs\/([a-z0-9-]+)\)/g)].map((m) => m[1]))]
         .filter((s) => comparisons[s])
@@ -187,7 +202,9 @@ export default function BlogPostPage() {
                 <SectionBackdrop variant="dust" />
                 <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-[-300px] -z-10 h-[680px] w-[1200px] -ml-[600px] rounded-full bg-[radial-gradient(closest-side,rgba(56,189,248,0.14),transparent)]" />
 
-                <article className="container mx-auto max-w-5xl px-6 pt-28 pb-24">
+                <article className="container mx-auto max-w-6xl px-6 pt-28 pb-24 lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-14">
+                    <PageIndex items={index} accent="sky" />
+                    <div className="min-w-0">
                     {/* Title */}
                     <header className="max-w-[820px] pt-6 pb-8">
                         <nav aria-label="Breadcrumb" className="text-[13px] text-white/50">
@@ -211,9 +228,9 @@ export default function BlogPostPage() {
 
                     {/* The answer first */}
                     {picked.length > 0 && (
-                        <section aria-labelledby="bp-pick" className="rounded-[22px] border border-white/10 bg-[#0b0b14] p-5 md:p-7">
+                        <section id="bp-pick" aria-labelledby="bp-pick-h" className="scroll-mt-28 rounded-[22px] border border-white/10 bg-[#0b0b14] p-5 md:p-7">
                             <div className="flex flex-wrap items-baseline justify-between gap-2">
-                                <h2 id="bp-pick" className="text-[22px] font-semibold">The short version: pick by what you want</h2>
+                                <h2 id="bp-pick-h" className="text-[22px] font-semibold">The short version: pick by what you want</h2>
                                 <span className="text-[13px] text-white/45">Read on only if you’re unsure</span>
                             </div>
                             <div className="mt-5 grid grid-cols-[repeat(auto-fill,minmax(190px,1fr))] gap-2.5">
@@ -251,9 +268,9 @@ export default function BlogPostPage() {
                         </p>
                     )}
 
-                    {/* Jump bar: one chip per tool */}
+                    {/* Jump bar: one chip per tool (phones; desktops get the side index) */}
                     {p.tools.length > 1 && (
-                        <nav aria-label="Jump to a tool" className="sticky top-[73px] z-20 -mx-6 mt-9 flex gap-2 overflow-x-auto border-y border-white/[0.08] bg-[#07070a]/85 px-6 py-2.5 backdrop-blur-md">
+                        <nav aria-label="Jump to a tool" className="sticky top-[73px] z-20 -mx-6 mt-9 flex lg:hidden gap-2 overflow-x-auto border-y border-white/[0.08] bg-[#07070a]/85 px-6 py-2.5 backdrop-blur-md">
                             {p.tools.map((t) => (
                                 <a key={t.id} href={`#${t.id}`} className={`inline-flex min-h-9 shrink-0 items-center rounded-full border px-3.5 text-[13.5px] font-medium ${t.us ? 'border-sky-300/45 text-sky-300' : 'border-white/[0.12] text-white/80 hover:text-white'}`}>
                                     {t.name}
@@ -279,7 +296,7 @@ export default function BlogPostPage() {
                         b.kind === 'tool' ? (
                             <ToolCard key={b.tool.id} tool={b.tool} />
                         ) : (
-                            <div key={i} className="max-w-[820px]">
+                            <div key={i} id={b.kind === 'group' ? groupId(b.title) : undefined} className="max-w-[820px] scroll-mt-28">
                                 {b.kind === 'group' && <h2 className="mt-14 mb-4 text-[26px] font-bold tracking-tight">{b.title}</h2>}
                                 {b.md && <Md>{b.md}</Md>}
                             </div>
@@ -342,6 +359,7 @@ export default function BlogPostPage() {
                             ))}
                         </div>
                     </section>
+                    </div>
                 </article>
             </div>
 
