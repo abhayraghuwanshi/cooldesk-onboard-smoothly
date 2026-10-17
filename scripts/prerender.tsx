@@ -60,6 +60,7 @@ function replaceTag(html: string, pattern: RegExp, replacement: string) {
 const staticRoutes = [
     "/",
     "/pricing",
+    "/getting-started",
     "/founder",
     "/under-the-hood",
     "/gallery",

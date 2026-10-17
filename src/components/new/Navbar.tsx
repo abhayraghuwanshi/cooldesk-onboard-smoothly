@@ -114,7 +114,7 @@ export default function Navbar() {
     const links: NavLink[] = [
         { href: '/', label: 'Home' },
         // The hub links out to these, so they read as part of Resources.
-        { href: '/resources', label: 'Resources', match: ['/vs', '/blog', '/releases', '/under-the-hood'] },
+        { href: '/resources', label: 'Resources', match: ['/getting-started', '/vs', '/blog', '/releases', '/under-the-hood'] },
         { href: '/widgets', label: 'Widgets' },
     ];
 

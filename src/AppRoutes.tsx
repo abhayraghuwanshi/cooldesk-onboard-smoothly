@@ -11,6 +11,7 @@ import ReleasesPage from "./pages/Releases";
 import TermsPage from "./pages/terms";
 import UninstallPage from "./pages/Uninstall";
 import ComparePage from "./pages/Compare";
+import GettingStartedPage from "./pages/GettingStarted";
 import ResourcesPage from "./pages/Resources";
 import VersusPage from "./pages/Versus";
 import WidgetStorePage from "./pages/WidgetStore";
@@ -33,6 +34,7 @@ export default function AppRoutes() {
             <Route path="/how-to-use" element={<Navigate to="/#how-to-use" replace />} />
             <Route path="/pricing" element={<PricingPage />} />
             <Route path="/resources" element={<ResourcesPage />} />
+            <Route path="/getting-started" element={<GettingStartedPage />} />
             <Route
                 path="/blog/:slug"
                 element={

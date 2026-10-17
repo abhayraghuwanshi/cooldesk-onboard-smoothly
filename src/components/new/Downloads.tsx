@@ -1,4 +1,5 @@
-import { CHROME_STORE, GITHUB_REPO, site } from "@/config/site";
+import { BREW_COMMAND, QUARANTINE_COMMAND, WINGET_COMMAND } from "@/config/install";
+import { CHROME_STORE, site } from "@/config/site";
 import { useLatestRelease } from "@/hooks/useLatestRelease";
 import React from "react";
 import StatsSlideshow from "./StatsSlideshow";
@@ -7,18 +8,6 @@ import WhichOne from "./WhichOne";
 // Extension lives on the Chrome Web Store and auto-updates there, so no version is shown.
 const EXTENSION_LINK = CHROME_STORE;
 
-const WINGET_COMMAND = "winget install CoolDesk.CoolDesk";
-// Homebrew 6 requires trusting third-party taps (docs.brew.sh/Tap-Trust): tap,
-// trust just this cask, install. The tap needs its URL because the repo isn't
-// named homebrew-cooldesk. The cask's postflight clears macOS quarantine, since
-// the build isn't notarized yet (Casks/cooldesk.rb in cooldesk-extension).
-const BREW_COMMAND = [
-  `brew tap abhayraghuwanshi/cooldesk \\\n  ${GITHUB_REPO}`,
-  "brew trust --cask abhayraghuwanshi/cooldesk/cooldesk",
-  "brew install --cask cooldesk",
-].join("\n");
-// For DMG installs: the build isn't notarized, so macOS flags it as "damaged".
-const QUARANTINE_COMMAND = "xattr -dr com.apple.quarantine /Applications/CoolDesk.app";
 const DOWNLOADS_SECTION = "downloads_section";
 
 type Os = "windows" | "mac" | "linux";

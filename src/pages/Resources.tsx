@@ -19,7 +19,7 @@ import { comparisons } from "./Versus";
  * The destinations stay separate pages; this only routes people to them.
  *
  * "Get started" points at what exists today (walkthrough videos, download,
- * FAQ, release notes). Swap it for /docs once the step-by-step docs ship.
+ * FAQ, release notes) plus the /getting-started guide.
  */
 
 const canonical = "https://cool-desk.com/resources";
@@ -27,6 +27,7 @@ const canonical = "https://cool-desk.com/resources";
 type Entry = { title: string; to: string; kind: "Start" | "Compare" | "Blog"; anchor?: boolean };
 
 const START: Entry[] = [
+    { title: "Getting started", to: "/getting-started", kind: "Start" },
     { title: "Download CoolDesk", to: "/#downloads", kind: "Start", anchor: true },
     { title: "Walkthrough videos", to: "/#how-to-use", kind: "Start", anchor: true },
     { title: "FAQ", to: "/#faq", kind: "Start", anchor: true },
@@ -48,10 +49,9 @@ const DOORS = [
     {
         eyebrow: "Get started",
         title: "Set it up",
-        line: "Short walkthroughs of Spotlight, spaces and layouts.",
-        cta: "Watch the walkthroughs",
-        to: "/#how-to-use",
-        anchor: true,
+        line: "Five steps, from install to your first space.",
+        cta: "Start the guide",
+        to: "/getting-started",
         accent: "#a5b4fc",
         glow: "rgba(129,140,248,0.35)",
         border: "border-indigo-300/30",
