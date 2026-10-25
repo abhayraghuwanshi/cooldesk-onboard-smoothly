@@ -29,6 +29,7 @@ type Entry = { title: string; to: string; kind: "Start" | "Compare" | "Blog"; an
 const START: Entry[] = [
     { title: "Getting started", to: "/getting-started", kind: "Start" },
     { title: "Download CoolDesk", to: "/#downloads", kind: "Start", anchor: true },
+    { title: "The new tab extension", to: "/new-tab", kind: "Start" },
     { title: "Walkthrough videos", to: "/#how-to-use", kind: "Start", anchor: true },
     { title: "FAQ", to: "/#faq", kind: "Start", anchor: true },
     { title: "Release notes", to: "/releases", kind: "Start" },

@@ -1,12 +1,17 @@
 import { GITHUB_REPO, site } from '@/config/site';
 import { useLatestRelease } from '@/hooks/useLatestRelease';
+import { useSectionView } from '@/lib/analytics';
 import { Github } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 import { StarDust } from './SectionBackdrop';
 
 export default function Footer() {
   const release = useLatestRelease();
+  const { pathname } = useLocation();
+  // Did they read to the bottom? One footer view per page.
+  const ref = useSectionView<HTMLElement>('footer', { page_path: pathname });
   return (
-    <footer className="relative isolate z-10 overflow-hidden border-t border-white/10 bg-black/60 backdrop-blur-sm">
+    <footer ref={ref} className="relative isolate z-10 overflow-hidden border-t border-white/10 bg-black/60 backdrop-blur-sm">
       {/* The page's last stretch of space: faint star dust. Decorative. */}
       <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
         <StarDust />
@@ -39,6 +44,7 @@ export default function Footer() {
             <ul className="space-y-2.5">
               {[
                 { label: 'How to Use', href: '/#how-to-use' },
+                { label: 'New Tab Extension', href: '/new-tab' },
                 { label: 'FAQ', href: '/#faq' },
                 { label: 'CoolDesk vs Workona', href: '/vs/workona' },
                 { label: 'CoolDesk vs Toby', href: '/vs/toby' },

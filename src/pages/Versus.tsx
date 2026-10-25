@@ -3,6 +3,7 @@ import Navbar from "@/components/new/Navbar";
 import SectionBackdrop from "@/components/new/SectionBackdrop";
 import SEO from "@/components/SEO";
 import { relatedComparisons } from "@/config/comparisonGroups";
+import { useSectionView } from "@/lib/analytics";
 import { Link, useParams } from "react-router-dom";
 import NotFound from "./NotFound";
 
@@ -901,6 +902,7 @@ function Fold({ title, children }: { title: string; children: React.ReactNode })
 export default function VersusPage() {
     const { slug } = useParams<{ slug: string }>();
     const comparison = slug ? comparisons[slug] : undefined;
+    const ctaRef = useSectionView<HTMLDivElement>("vs_table_cta", { page_type: "vs", slug });
 
     if (!comparison) {
         return <NotFound />;
@@ -987,7 +989,7 @@ export default function VersusPage() {
                                     </tbody>
                                 </table>
                             </div>
-                            <div className="flex flex-wrap items-center gap-x-4 gap-y-2.5 pt-6">
+                            <div ref={ctaRef} data-track-area="cta" className="flex flex-wrap items-center gap-x-4 gap-y-2.5 pt-6">
                                 <a href="/#downloads" className="inline-flex min-h-[46px] items-center rounded-xl bg-white px-5 text-[15px] font-semibold text-black transition-transform hover:-translate-y-px">
                                     Download CoolDesk free
                                 </a>

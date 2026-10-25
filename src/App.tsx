@@ -6,12 +6,14 @@ import { useEffect } from "react";
 import { BrowserRouter, useLocation } from "react-router-dom";
 import AppRoutes from "./AppRoutes";
 import { usePageTracking } from "./hooks/usePageTracking";
+import { useLinkTracking } from "./lib/analytics";
 
 const queryClient = new QueryClient();
 
 // Component to track page views - must be inside BrowserRouter
 function PageTracker() {
   usePageTracking();
+  useLinkTracking();
   return null;
 }
 

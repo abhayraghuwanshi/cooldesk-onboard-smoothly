@@ -1,6 +1,8 @@
 import { CHROME_STORE } from '@/config/site';
 import { trackEvent, useSectionView } from '@/lib/analytics';
-import { ArrowRight, ArrowRightLeft, RefreshCw, Share2 } from 'lucide-react';
+import { CONNECTS } from './connects';
+import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 /**
  * The Chrome extension's new tab: a real screenshot
@@ -20,23 +22,6 @@ import { ArrowRight, ArrowRightLeft, RefreshCw, Share2 } from 'lucide-react';
  * services/syncConfig.js — the sync is to the app on localhost only.
  */
 
-const CONNECTS = [
-    {
-        Icon: Share2,
-        title: 'Shares your open tabs',
-        text: 'The desktop app sees what’s open in Chrome, Edge or Brave, so Spotlight and your spaces can find it.',
-    },
-    {
-        Icon: ArrowRightLeft,
-        title: 'Jump or close from the app',
-        text: 'Pick a tab in CoolDesk and it switches to it in the right browser window, instead of opening a copy.',
-    },
-    {
-        Icon: RefreshCw,
-        title: 'Keeps both in sync',
-        text: 'Spaces, notes and pins you change in one show up in the other. All on your computer, never a server.',
-    },
-];
 
 const ALT =
     'The CoolDesk new tab: clock and day-progress widgets, today’s activity timeline, favorite sites, and 27 Google services grouped under google.com, over a night-time earth wallpaper.';
@@ -45,7 +30,7 @@ export default function NewTabShowcase() {
     const sectionRef = useSectionView<HTMLElement>('new_tab_showcase');
 
     return (
-        <section ref={sectionRef} className="relative text-white">
+        <section ref={sectionRef} data-track-area="new_tab_showcase" className="relative text-white">
             <div className="container mx-auto px-6">
                 {/* Title and intro on the left, the install button on the right */}
                 <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
@@ -55,6 +40,13 @@ export default function NewTabShowcase() {
                             The free extension links Chrome, Edge or Brave to the desktop app, so CoolDesk knows your tabs. It
                             also turns every new tab into your dashboard.
                         </p>
+                        <Link
+                            to="/new-tab"
+                            className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-sky-300 transition-colors hover:text-sky-200"
+                        >
+                            See everything the new tab does
+                            <ArrowRight className="h-3.5 w-3.5" />
+                        </Link>
                     </div>
 
                     {/* The Chrome Web Store listing installs in Edge and Brave too. */}

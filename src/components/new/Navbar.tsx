@@ -115,6 +115,7 @@ export default function Navbar() {
         { href: '/', label: 'Home' },
         // The hub links out to these, so they read as part of Resources.
         { href: '/resources', label: 'Resources', match: ['/getting-started', '/vs', '/blog', '/releases', '/under-the-hood'] },
+        { href: '/new-tab', label: 'New Tab' },
         { href: '/widgets', label: 'Widgets' },
     ];
 

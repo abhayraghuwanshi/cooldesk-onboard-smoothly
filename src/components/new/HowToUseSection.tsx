@@ -2,15 +2,16 @@ import { trackEvent, useSectionView } from '@/lib/analytics';
 import { ChevronLeft, ChevronRight, Play } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { VIDEOS, thumb } from '@/config/videos';
+import YouTubePlayer from './YouTubePlayer';
 
 /**
  * Homepage "Watch and learn" (#how-to-use — the navbar/footer link and the
  * target of the old /how-to-use route): the walkthrough videos as a row of
  * cards that scrolls sideways. A card plays in place when clicked; "View all"
- * opens them all as one playlist on YouTube.
+ * opens them all as one playlist on YouTube. YouTubePlayer reports how much
+ * of each video is actually watched.
  */
 
-const embedUrl = (id: string) => `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
 const ALL_ON_YOUTUBE = `https://www.youtube.com/watch_videos?video_ids=${VIDEOS.map((v) => v.id).join(',')}`;
 
 function VideoCard({ v, playing, onPlay }: { v: (typeof VIDEOS)[number]; playing: boolean; onPlay: () => void }) {
@@ -18,13 +19,7 @@ function VideoCard({ v, playing, onPlay }: { v: (typeof VIDEOS)[number]; playing
         <li className="w-[85%] shrink-0 snap-start sm:w-[calc((100%-1.5rem)/2)] lg:w-[calc((100%-3rem)/3)]">
             <div className="relative aspect-video overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0c]">
                 {playing ? (
-                    <iframe
-                        className="absolute inset-0 h-full w-full"
-                        src={embedUrl(v.id)}
-                        title={v.title}
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                    />
+                    <YouTubePlayer id={v.id} title={v.title} section="how_to_use" />
                 ) : (
                     <button type="button" onClick={onPlay} aria-label={`Play video: ${v.title}`} className="group absolute inset-0 h-full w-full">
                         <img

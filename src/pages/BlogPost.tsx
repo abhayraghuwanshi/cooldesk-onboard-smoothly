@@ -6,6 +6,7 @@ import Navbar from '../components/new/Navbar';
 import PageIndex, { type IndexItem } from '../components/new/PageIndex';
 import SectionBackdrop from '../components/new/SectionBackdrop';
 import SEO from '../components/SEO';
+import { useSectionView } from '../lib/analytics';
 import { blogPosts, getBlogPostBySlug, getCategoryLabel } from '../config/blogs';
 import { parsePost, slugify, type Tool } from '../lib/parsePost';
 import { comparisons } from './Versus';
@@ -127,6 +128,7 @@ function ToolCard({ tool }: { tool: Tool }) {
 export default function BlogPostPage() {
     const { slug } = useParams<{ slug: string }>();
     const post = slug ? getBlogPostBySlug(slug) : undefined;
+    const ctaRef = useSectionView<HTMLElement>('article_close_cta', { page_type: 'blog', slug });
 
     if (!post) {
         return (
@@ -204,7 +206,7 @@ export default function BlogPostPage() {
 
                 <article className="container mx-auto max-w-6xl px-6 pt-28 pb-24 lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-14">
                     <PageIndex items={index} accent="sky" />
-                    <div className="min-w-0">
+                    <div className="min-w-0" data-track-area="article">
                     {/* Title */}
                     <header className="max-w-[820px] pt-6 pb-8">
                         <nav aria-label="Breadcrumb" className="text-[13px] text-white/50">
@@ -327,7 +329,7 @@ export default function BlogPostPage() {
                     )}
 
                     {/* Close: try it */}
-                    <section className="relative mt-14 overflow-hidden rounded-[22px] border border-sky-300/25 bg-[#0a0d16] px-6 py-9 md:px-8 md:py-10">
+                    <section ref={ctaRef} data-track-area="cta" className="relative mt-14 overflow-hidden rounded-[22px] border border-sky-300/25 bg-[#0a0d16] px-6 py-9 md:px-8 md:py-10">
                         <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-20 h-[300px] w-[300px] rounded-full bg-[radial-gradient(closest-side,rgba(56,189,248,0.3),transparent)]" />
                         <h2 className="relative text-[26px] font-bold">Try CoolDesk free</h2>
                         <p className="relative mt-2.5 max-w-[560px] text-[15.5px] leading-relaxed text-white/65">
@@ -344,7 +346,7 @@ export default function BlogPostPage() {
                     </section>
 
                     {/* Keep reading */}
-                    <section aria-labelledby="bp-more" className="mt-10">
+                    <section aria-labelledby="bp-more" data-track-area="related" className="mt-10">
                         <h2 id="bp-more" className="mb-3 text-sm font-medium text-white/50">Keep reading</h2>
                         <div className="flex flex-wrap gap-2">
                             {more.map((b) => (

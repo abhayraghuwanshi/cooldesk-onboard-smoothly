@@ -1,5 +1,6 @@
 import { BREW_COMMAND, QUARANTINE_COMMAND, WINGET_COMMAND } from "@/config/install";
 import { CHROME_STORE, site } from "@/config/site";
+import { getSourcePage } from "@/lib/analytics";
 import { useLatestRelease } from "@/hooks/useLatestRelease";
 import React from "react";
 import StatsSlideshow from "./StatsSlideshow";
@@ -20,12 +21,15 @@ type DownloadTrackingParams = {
   download_platform?: string;
   download_version?: string;
   download_method?: string;
+  source_page?: string;
 };
 
 function trackDownloadEvent(eventName: string, params: DownloadTrackingParams) {
   const payload = {
     event_category: "engagement",
     section: DOWNLOADS_SECTION,
+    // The article/comparison that sent them here this session, if any.
+    source_page: getSourcePage(),
     ...params,
   };
 

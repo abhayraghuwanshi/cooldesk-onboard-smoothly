@@ -1,7 +1,8 @@
 import Footer from "@/components/new/Footer";
 import Navbar from "@/components/new/Navbar";
 import SEO from "@/components/SEO";
-import { useState } from "react";
+import { trackEvent, useSectionView } from "@/lib/analytics";
+import { useRef, useState } from "react";
 
 interface Widget {
     id: string;
@@ -78,6 +79,7 @@ function WidgetCard({ widget, theme }: { widget: Widget; theme: "dark" | "light"
     const [copied, setCopied] = useState(false);
 
     const copy = () => {
+        trackEvent("widget_copy_url", { widget_id: widget.id, widget_category: widget.category, theme });
         navigator.clipboard.writeText(widgetUrl(widget.id, theme)).then(() => {
             setCopied(true);
             setTimeout(() => setCopied(false), 1500);
@@ -113,6 +115,8 @@ function WidgetCard({ widget, theme }: { widget: Widget; theme: "dark" | "light"
                         href={widgetPath(widget.id, theme)}
                         target="_blank"
                         rel="noopener noreferrer"
+                        data-track-skip
+                        onClick={() => trackEvent("widget_open", { widget_id: widget.id, widget_category: widget.category, theme })}
                         className="font-mono text-[10px] tracking-[0.14em] uppercase text-white/40 hover:text-white transition-colors px-1 py-1.5"
                     >
                         Open ↗
@@ -124,15 +128,24 @@ function WidgetCard({ widget, theme }: { widget: Widget; theme: "dark" | "light"
 }
 
 function CategoryRow({ category, widgets, theme }: { category: WidgetCategory; widgets: Widget[]; theme: "dark" | "light" }) {
+    const ref = useSectionView<HTMLElement>("widget_category", { widget_category: category });
+    // First sideways scroll per row: they're browsing past the first few cards.
+    const scrolled = useRef(false);
     return (
-        <section className="mb-12">
+        <section ref={ref} className="mb-12">
             <div className="flex items-baseline justify-between mb-4">
                 <h2 className="text-lg font-bold">{category}</h2>
                 <span className="font-mono text-[10px] tracking-[0.18em] uppercase text-white/30 whitespace-nowrap">
                     {widgets.length} widgets · scroll →
                 </span>
             </div>
-            <div className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-3 -mx-6 px-6 [scrollbar-width:thin]">
+            <div
+                onScroll={() => {
+                    if (scrolled.current) return;
+                    scrolled.current = true;
+                    trackEvent("widget_row_scroll", { widget_category: category });
+                }}
+                className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-3 -mx-6 px-6 [scrollbar-width:thin]">
                 {widgets.map((w) => (
                     <WidgetCard key={w.id} widget={w} theme={theme} />
                 ))}
@@ -143,6 +156,7 @@ function CategoryRow({ category, widgets, theme }: { category: WidgetCategory; w
 
 export default function WidgetStorePage() {
     const [theme, setTheme] = useState<"dark" | "light">("dark");
+    const ctaRef = useSectionView<HTMLElement>("widgets_close_cta", { page_type: "widgets" });
 
     const jsonLd = {
         "@context": "https://schema.org",
@@ -235,7 +249,11 @@ export default function WidgetStorePage() {
                 <div className="flex items-center justify-between mt-10 mb-8">
                     <p className="font-mono text-[11px] tracking-[0.25em] text-white/35 uppercase">Browse by category</p>
                     <button
-                        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                        onClick={() => {
+                            const next = theme === "dark" ? "light" : "dark";
+                            setTheme(next);
+                            trackEvent("widget_theme_toggle", { theme: next });
+                        }}
                         className="font-mono text-[11px] tracking-[0.18em] uppercase rounded-full border border-white/15 px-4 py-2 text-white/50 hover:text-white hover:border-white/40 transition-colors"
                     >
                         Preview: {theme}
@@ -291,7 +309,7 @@ export default function WidgetStorePage() {
                 </section>
 
                 {/* CTA */}
-                <section className="mt-20 rounded-xl border border-white/10 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:32px_32px] p-10 text-center">
+                <section ref={ctaRef} data-track-area="cta" className="mt-20 rounded-xl border border-white/10 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:32px_32px] p-10 text-center">
                     <p className="font-mono text-[11px] tracking-[0.25em] text-white/35 uppercase mb-3">Native home</p>
                     <h2 className="text-2xl md:text-3xl font-bold mb-3">These widgets live best in CoolDesk</h2>
                     <p className="text-sm text-gray-400 mb-7 max-w-md mx-auto leading-relaxed">

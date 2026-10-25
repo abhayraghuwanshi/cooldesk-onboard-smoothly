@@ -2,9 +2,11 @@ import Footer from "@/components/new/Footer";
 import Navbar from "@/components/new/Navbar";
 import PageIndex, { type IndexItem } from "@/components/new/PageIndex";
 import SectionBackdrop from "@/components/new/SectionBackdrop";
+import SyncSettingsPanel from "@/components/new/SyncSettingsPanel";
 import SEO from "@/components/SEO";
 import { BREW_COMMAND, QUARANTINE_COMMAND, WINGET_COMMAND } from "@/config/install";
 import { CHROME_STORE, GITHUB_REPO, REDDIT_URL } from "@/config/site";
+import { trackEvent, useSectionView } from "@/lib/analytics";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -22,6 +24,13 @@ import { Link } from "react-router-dom";
 
 const canonical = "https://cool-desk.com/getting-started";
 
+// Copying an install command is as good as a download click, so it's tracked the same way.
+const COMMAND_NAMES: Record<string, string> = {
+    [WINGET_COMMAND]: "winget_command",
+    [BREW_COMMAND]: "brew_command",
+    [QUARANTINE_COMMAND]: "quarantine_command",
+};
+
 function Command({ command }: { command: string }) {
     const [copied, setCopied] = useState(false);
     return (
@@ -30,6 +39,7 @@ function Command({ command }: { command: string }) {
             <button
                 type="button"
                 onClick={() => {
+                    trackEvent("download_command_copy", { action: "copy", section: "getting_started", download_target: COMMAND_NAMES[command] });
                     navigator.clipboard?.writeText(command).then(() => {
                         setCopied(true);
                         setTimeout(() => setCopied(false), 1500);
@@ -117,6 +127,7 @@ const INDEX: IndexItem[] = [
 ];
 
 export default function GettingStartedPage() {
+    const ctaRef = useSectionView<HTMLElement>("guide_close_cta", { page_type: "guide" });
     const howTo = {
         "@context": "https://schema.org",
         "@type": "HowTo",
@@ -203,6 +214,7 @@ export default function GettingStartedPage() {
                             <li>Switch on <strong className="text-white">Desktop Sync</strong>.</li>
                             <li>Check <strong className="text-white">Status</strong> shows a green dot and “App connected”. Press <strong className="text-white">Sync Now</strong> to sync straight away.</li>
                         </ol>
+                        <SyncSettingsPanel />
                         <p className="text-[15px] text-white/60">
                             Status says “App not found — is it running?” Start the desktop app, then press <strong className="text-white/80">Retry</strong>. Sync runs on your own computer (localhost, port 4545); nothing goes to a server.
                         </p>
@@ -280,7 +292,7 @@ export default function GettingStartedPage() {
                         </p>
                     </section>
 
-                    <section className="relative mt-4 overflow-hidden rounded-[22px] border border-indigo-300/25 bg-[#0a0b16] px-6 py-9 md:px-8">
+                    <section ref={ctaRef} data-track-area="cta" className="relative mt-4 overflow-hidden rounded-[22px] border border-indigo-300/25 bg-[#0a0b16] px-6 py-9 md:px-8">
                         <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-20 h-[300px] w-[300px] rounded-full bg-[radial-gradient(closest-side,rgba(129,140,248,0.3),transparent)]" />
                         <h2 className="relative text-[26px] font-bold">Your data stays on your device</h2>
                         <p className="relative mt-2.5 max-w-[560px] text-[15.5px] leading-relaxed text-white/65">
