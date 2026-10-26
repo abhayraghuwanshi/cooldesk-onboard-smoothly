@@ -92,6 +92,6 @@ Yes. CoolDesk's side dock slides in from the screen edge with your workspaces, t
 **Will a dock app slow down my PC?**
 Modern docks are light, but stacking several shell tweaks at once is where problems start. Pick one dock and one widget tool at most.
 
-Looking for a launcher instead? See [Raycast Alternatives for Windows](/blog/raycast-alternatives-windows).
+On a Mac, or want a sidebar rather than a dock? See [The Best Sidebar Apps for Mac and Windows](/blog/best-sidebar-apps-mac-windows). Looking for a launcher instead? See [Raycast Alternatives for Windows](/blog/raycast-alternatives-windows).
 
 Tags: dock for windows, macos dock windows 11, windows sidebar, taskbar alternative, productivity

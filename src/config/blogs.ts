@@ -27,9 +27,11 @@ export type BlogCategory =
 // Import blog posts from markdown files.
 // Removed posts are 301-redirected in public/serve.json — add a redirect there when retiring one.
 import bestDockAppsContent from './blog-posts/best-dock-apps-windows.md?raw';
+import bestSidebarAppsContent from './blog-posts/best-sidebar-apps-mac-windows.md?raw';
+import launchpadAlternativesContent from './blog-posts/launchpad-alternatives-mac.md?raw';
+import bestDockAppsMacContent from './blog-posts/best-dock-apps-mac.md?raw';
+import arcAlternativesContent from './blog-posts/arc-browser-alternatives.md?raw';
 import developerContextSwitchingContent from './blog-posts/developer-context-switching-setup.md?raw';
-import organizeTabsByProjectContent from './blog-posts/organize-browser-tabs-by-project.md?raw';
-import searchTabsAndAppsContent from './blog-posts/search-tabs-and-apps-one-shortcut.md?raw';
 import bestNewTabExtensionsContent from './blog-posts/best-new-tab-extensions.md?raw';
 import raycastAlternativesContent from './blog-posts/raycast-alternatives-windows.md?raw';
 
@@ -107,9 +109,11 @@ function comparisonCard(slug: string, title: string, description: string, date: 
 
 export const blogPosts: BlogPost[] = [
     parseBlogPost(raycastAlternativesContent, 'raycast-alternatives-windows', 'guides', 'Search', '2026-07-06', '2026-10-04'),
-    parseBlogPost(searchTabsAndAppsContent, 'search-tabs-and-apps-one-shortcut', 'tips', 'SearchCode', '2026-10-05'),
-    parseBlogPost(organizeTabsByProjectContent, 'organize-browser-tabs-by-project', 'tips', 'FolderKanban', '2026-10-05'),
     parseBlogPost(developerContextSwitchingContent, 'developer-context-switching-setup', 'guides', 'Code', '2026-10-05'),
+    parseBlogPost(arcAlternativesContent, 'arc-browser-alternatives', 'guides', 'Globe', '2026-10-26'),
+    parseBlogPost(launchpadAlternativesContent, 'launchpad-alternatives-mac', 'guides', 'LayoutGrid', '2026-10-26'),
+    parseBlogPost(bestDockAppsMacContent, 'best-dock-apps-mac', 'guides', 'PanelBottom', '2026-10-26'),
+    parseBlogPost(bestSidebarAppsContent, 'best-sidebar-apps-mac-windows', 'guides', 'PanelRight', '2026-10-26'),
     parseBlogPost(bestDockAppsContent, 'best-dock-apps-windows', 'guides', 'PanelBottom', '2026-10-04'),
     comparisonCard(
         'arc',

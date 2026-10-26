@@ -13,6 +13,7 @@ import UninstallPage from "./pages/Uninstall";
 import ComparePage from "./pages/Compare";
 import GettingStartedPage from "./pages/GettingStarted";
 import NewTabPage from "./pages/NewTab";
+import BrowserPage from "./pages/Browser";
 import ResourcesPage from "./pages/Resources";
 import VersusPage from "./pages/Versus";
 import WidgetStorePage from "./pages/WidgetStore";
@@ -58,6 +59,8 @@ export default function AppRoutes() {
             <Route path="/vs" element={<ComparePage />} />
             <Route path="/vs/:slug" element={<VersusPage />} />
             <Route path="/new-tab" element={<NewTabPage />} />
+            {/* Unreleased feature: noindex and unlinked until the in-app browser ships. */}
+            <Route path="/browser" element={<BrowserPage />} />
             <Route path="/widgets" element={<WidgetStorePage />} />
             {/* Chrome opens this when the extension is removed
                 (setUninstallURL in the extension's background script). */}

@@ -586,7 +586,7 @@ export const comparisons: Record<string, Comparison> = {
         intro: [
             "Arc changed how many people think about a browser. Spaces, a vertical sidebar and profiles made it natural to keep work, side projects and personal browsing apart.",
             "CoolDesk takes the same idea — one space per project — and removes two limits. You don't have to switch browsers: it works with Chrome, Edge and Brave. And a project isn't only tabs: CoolDesk also holds the apps, files and notes that go with it.",
-            "If you loved Arc's Spaces but want them outside Arc — or are looking for an Arc alternative now that The Browser Company has shifted its focus to Dia — here's the honest comparison.",
+            "Arc stops working on December 22, 2026 — The Browser Company is shutting it down to focus on Dia. If you loved Arc's Spaces and want them in a browser you already use, here's the honest comparison.",
         ],
         greatAt: [
             "Beautiful design and a genuinely new take on the browser",
@@ -608,8 +608,8 @@ export const comparisons: Record<string, Comparison> = {
                 desc: "Press Alt+K from any app to search tabs, history, bookmarks, running apps, files and notes together — not only what's open in one browser window.",
             },
             {
-                title: "Actively developed",
-                desc: "The Browser Company has said its focus is now its new browser, Dia. CoolDesk ships regular releases — see the release notes.",
+                title: "Not tied to one browser",
+                desc: "Arc shuts down on December 22, 2026. CoolDesk's workspaces live on your device, on top of whichever browser you use — switch browsers and your projects come with you.",
             },
         ],
         table: [
@@ -638,8 +638,12 @@ export const comparisons: Record<string, Comparison> = {
                 a: "If what you miss is Spaces — separate, organised contexts per project — yes. CoolDesk gives you project workspaces in the browser you already use. It isn't a browser itself, so it doesn't replace Arc's sidebar or split view.",
             },
             {
+                q: "When does Arc shut down?",
+                a: "The Browser Company announced on October 22, 2026 that Arc for Mac and Windows stops working on December 22, 2026, and accounts are deactivated. Export your Spaces and tabs from Arc's settings (Advanced) before then.",
+            },
+            {
                 q: "Can I move my Arc Spaces into CoolDesk?",
-                a: "Open a Space's tabs in Chrome, Edge or Brave and ask CoolDesk to group them — its AI sorts open tabs into projects for you, so you don't have to rebuild each one by hand.",
+                a: "Export your Spaces as links from Arc's settings, open a Space's tabs in Chrome, Edge or Brave and ask CoolDesk to group them — its AI sorts open tabs into projects for you, so you don't have to rebuild each one by hand.",
             },
             {
                 q: "Does CoolDesk need an account?",

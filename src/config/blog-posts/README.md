@@ -25,3 +25,6 @@ Each `.md` file here is registered in `src/config/blogs.ts` with its real publis
 
 18 thin essay posts plus the P2P deep dive were removed on 2026-10-04 (no search demand, low engagement).
 Their URLs 301-redirect to the closest live page — see `redirects` in `public/serve.json`.
+
+On 2026-10-26 the two how-to "tips" posts (`search-tabs-and-apps-one-shortcut`, `organize-browser-tabs-by-project`)
+were removed for bringing no traffic — how-to tips don't rank for us; "best X" / alternatives lists do.

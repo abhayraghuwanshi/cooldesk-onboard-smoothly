@@ -40,7 +40,7 @@ Turn on the **bottom bar** or the **side dock** (Ctrl+Shift+D cycles the layouts
 
 ### 5. Jump with the keyboard
 
-Press **Alt+K** and type: "billing pr", "staging", "openapi". One search covers open tabs, history, bookmarks, apps, running windows and your workspaces — and jumps to the tab or window that's already open instead of opening a copy. See [how to search tabs and apps from one shortcut](/blog/search-tabs-and-apps-one-shortcut).
+Press **Alt+K** and type: "billing pr", "staging", "openapi". One search covers open tabs, history, bookmarks, apps, running windows and your workspaces — and jumps to the tab or window that's already open instead of opening a copy. See [Raycast alternatives for Windows](/blog/raycast-alternatives-windows) for how it compares to other launchers.
 
 ### 6. Leave a note when you switch away
 

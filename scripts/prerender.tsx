@@ -70,6 +70,7 @@ const staticRoutes = [
     "/releases",
     "/widgets",
     "/new-tab",
+    "/browser",
     "/uninstall",
     "/vs",
     "/resources",
